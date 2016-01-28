@@ -11,17 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.AnticipateOvershootInterpolator;
-import android.view.animation.LinearInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -42,23 +38,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_CONTO;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_DATA;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_DESCRIZIONE;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_FAVORITE;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_ID;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_IMPORTO;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_IMPORTO_VALPRIN;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_RIPETIZIONE_ID;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_TAG;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_VALUTA;
 
 /**
  * Questa Activity contiene una lista delle transazioni preferite impostate dall'utente.
  * Premendo su uno dei preferiti viene lanciata l'Activity per l'inserimento della spesa o
  * entrata con i parametri impostati, ma la data è quella attuale.
  */
-public class Preferiti extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
+public class Preferiti extends AppCompatActivity {
 
     // Variabili.
     private final ArrayList<SpesaEntrata> lstPreferitiSpese = new ArrayList<>();
@@ -154,43 +140,6 @@ public class Preferiti extends AppCompatActivity implements PopupMenu.OnMenuItem
         }
     }
 
-    /*
-    Dato un oggetto SpesaEntrata che rappresenta un preferito, si lancia l'apposita Activity per
-    aggiungere una spesa o una entrata.
-     */
-    private void aggiungiPreferito(SpesaEntrata spesaEntrata) {
-        Intent aggiungiPreferito;
-        if(spesaEntrata.getTipoVoce() == SpesaEntrata.VOCE_SPESA) {
-            aggiungiPreferito = new Intent(Preferiti.this, SpeseAggiungi.class);
-        }
-        else {
-            aggiungiPreferito = new Intent(Preferiti.this, EntrateAggiungi.class);
-        }
-
-        aggiungiPreferito.putExtra(VOCE_ID, spesaEntrata.getId());
-        aggiungiPreferito.putExtra(VOCE_TAG, spesaEntrata.getVoce());
-        aggiungiPreferito.putExtra(VOCE_IMPORTO, spesaEntrata.getImporto());
-        aggiungiPreferito.putExtra(VOCE_VALUTA, spesaEntrata.getValuta());
-        aggiungiPreferito.putExtra(VOCE_IMPORTO_VALPRIN, spesaEntrata.getImportoValprin());
-        aggiungiPreferito.putExtra(VOCE_DATA, spesaEntrata.getData());
-        aggiungiPreferito.putExtra(VOCE_DESCRIZIONE, spesaEntrata.getDescrizione());
-        aggiungiPreferito.putExtra(VOCE_RIPETIZIONE_ID, spesaEntrata.getRipetizioneId());
-        aggiungiPreferito.putExtra(VOCE_CONTO, spesaEntrata.getConto());
-        aggiungiPreferito.putExtra(VOCE_FAVORITE, -1); // flag di comodo per indicare all'Activity ricevente che l'operazione richiesta è aggiungere un preferito
-
-        startActivityForResult(aggiungiPreferito, 0);
-    }
-
-    // Ritorno dall'Activity di aggiunta spese/entrate.
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(resultCode == Activity.RESULT_OK) {
-            setResult(Activity.RESULT_OK);
-            finish();
-        }
-    }
 
     /*
         Gestione RecyclerView. Adapter utilizzato dalla RecyclerView con relativo
@@ -229,8 +178,7 @@ public class Preferiti extends AppCompatActivity implements PopupMenu.OnMenuItem
 
             if (spesaEntrata.getTipoVoce() == SpesaEntrata.VOCE_SPESA) {
                 iconeVeloci.loadBitmap(hmIconeSpese.get(spesaEntrata.getVoce()), holder.ivIcona, mPlaceHolderBitmapSpese, 80, 80);
-            }
-            else {
+            } else {
                 iconeVeloci.loadBitmap(hmIconeEntrate.get(spesaEntrata.getVoce()), holder.ivIcona, mPlaceHolderBitmapEntrate, 80, 80);
             }
 
@@ -246,30 +194,7 @@ public class Preferiti extends AppCompatActivity implements PopupMenu.OnMenuItem
         }
 
         // ViewHolder.
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            // Click on the 3 dots for displaying the pop-up menu per deleting the favorite.
-            public OnClickListener overflowButtonListener = new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    prefDaEliminare = (SpesaEntrata) ((RelativeLayout) v.getParent()).getTag();
-                    showPopup(v);
-                }
-            };
-
-            /*
-             Clicco su una qualsiasi altra view della card view. Lancio l'Activity per inserire
-            il preferito
-            */
-            public OnClickListener tuttoIlRestoListener = new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    View parent = v instanceof RelativeLayout ? v : (View) v.getParent();
-                    SpesaEntrata spesaEntrata = (SpesaEntrata) parent.getTag();
-                    aggiungiPreferito(spesaEntrata);
-                }
-            };
-
-
+        public class ViewHolder extends RecyclerView.ViewHolder implements PopupMenu.OnMenuItemClickListener {
             protected RelativeLayout rlParent;
             protected ImageView ivIcona;
             protected TextView tvVoce;
@@ -303,6 +228,49 @@ public class Preferiti extends AppCompatActivity implements PopupMenu.OnMenuItem
                 tvConto.setOnClickListener(tuttoIlRestoListener);
                 //tvConto.setOnTouchListener(rippleForegroundListener);
                 ibOverflow.setOnClickListener(overflowButtonListener);
+            }
+
+            /*
+             Clicco su una qualsiasi altra view della card view. Lancio l'Activity per inserire
+            il preferito
+            */
+            public OnClickListener tuttoIlRestoListener = new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    View parent = v instanceof RelativeLayout ? v : (View) v.getParent();
+                    SpesaEntrata spesaEntrata = (SpesaEntrata) parent.getTag();
+                    aggiungiPreferito(spesaEntrata);
+                }
+            };
+
+            // Clicco sui 3 puntini e visualizzo un popup per eliminare il preferito.
+            public OnClickListener overflowButtonListener = new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    prefDaEliminare = (SpesaEntrata) ((RelativeLayout) v.getParent()).getTag();
+                    showPopup(v);
+                }
+            };
+
+            // Menu popup per il singolo preferito nelle Recycler View.
+            public void showPopup(View v) {
+                PopupMenu popup = new PopupMenu(Preferiti.this, v);
+                popup.setOnMenuItemClickListener(this);
+                popup.inflate(R.menu.menu_preferiti_singolo_preferito);
+                popup.show();
+            }
+
+            // Operazioni associate al menu popup di ogni preferito (eliminazione, ecc.).
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.elimina:
+                        new EliminaPreferitoAsyncTask().execute(prefDaEliminare);
+
+                        return true;
+                    default:
+                        return false;
+                }
             }
 
             /*
@@ -351,6 +319,141 @@ public class Preferiti extends AppCompatActivity implements PopupMenu.OnMenuItem
             */
         }
     }
+
+
+    // Gestione RecyclerView. Recupero delle entrate e spese preferiti in un thread separato.
+    private class RecuperaPreferiti extends AsyncTask<Object, Object, Object> {
+        final DBCSpeseSostenute dbcSpeseSostenute = new DBCSpeseSostenute(Preferiti.this);
+        final DBCEntrateIncassate dbcEntrateIncassate = new DBCEntrateIncassate(Preferiti.this);
+        Cursor curSpesePreferite;
+        Cursor curEntratePreferite;
+
+        protected Object doInBackground(Object... params) {
+            // Definisco gli indici delle colonne del Cursor per migliorare le prestazioni.
+            final int colId = 0;
+            final int colData = 1;
+            final int colVoce = 2;
+            final int colImporto = 3;
+            final int colValuta = 4;
+            final int colValprin = 5;
+            final int colDescrizione = 6;
+            final int colRipetizioneId = 7;
+            final int colConto = 8;
+
+            // Spese preferite.
+            dbcSpeseSostenute.openLettura();
+            curSpesePreferite = dbcSpeseSostenute.getSpeseSostenutePreferite();
+            lstPreferitiSpese.clear();
+            for (int i = 1; curSpesePreferite.moveToNext(); i++) {
+                lstPreferitiSpese.add(new SpesaEntrata(SpesaEntrata.VOCE_SPESA, curSpesePreferite.getLong(colId), curSpesePreferite.getLong(colData), curSpesePreferite.getString(colVoce), curSpesePreferite.getDouble(colImporto), curSpesePreferite.getString(colValuta), curSpesePreferite.getDouble(colValprin), curSpesePreferite.getString(colDescrizione), curSpesePreferite.getLong(colRipetizioneId), curSpesePreferite.getString(colConto)));
+            }
+
+            // Entrate preferite.
+            dbcEntrateIncassate.openLettura();
+            curEntratePreferite = dbcEntrateIncassate.getEntrateIncassatePreferite();
+            lstPreferitiEntrate.clear();
+
+            for (int i = 1; curEntratePreferite.moveToNext(); i++) {
+                lstPreferitiEntrate.add(new SpesaEntrata(SpesaEntrata.VOCE_ENTRATA, curEntratePreferite.getLong(colId), curEntratePreferite.getLong(colData), curEntratePreferite.getString(colVoce), curEntratePreferite.getDouble(colImporto), curEntratePreferite.getString(colValuta), curEntratePreferite.getDouble(colValprin), curEntratePreferite.getString(colDescrizione), curEntratePreferite.getLong(colRipetizioneId), curEntratePreferite.getString(colConto)));
+            }
+
+            return null;
+        }
+
+        protected void onPostExecute(Object result) {
+            curSpesePreferite.close();
+            curEntratePreferite.close();
+            dbcSpeseSostenute.close();
+            dbcEntrateIncassate.close();
+
+            if (lstPreferitiSpese.size() > 0 || lstPreferitiEntrate.size() > 0) {
+                findViewById(R.id.llIstruzioni).setVisibility(View.GONE);
+
+                if (lstPreferitiSpese.size() > 0) {
+                    findViewById(R.id.tvPreferitiSpese).setVisibility(View.VISIBLE);
+                    findViewById(R.id.rvPreferitiSpese).setVisibility(View.VISIBLE);
+                    prefAdapterSpese.notifyDataSetChanged();
+                }
+
+                if (lstPreferitiEntrate.size() > 0) {
+                    findViewById(R.id.tvPreferitiEntrate).setVisibility(View.VISIBLE);
+                    findViewById(R.id.rvPreferitiEntrate).setVisibility(View.VISIBLE);
+                    prefAdapterEntrate.notifyDataSetChanged();
+                }
+            } else {
+                findViewById(R.id.llIstruzioni).setVisibility(View.VISIBLE);
+                findViewById(R.id.tvPreferitiSpese).setVisibility(View.GONE);
+                findViewById(R.id.rvPreferitiSpese).setVisibility(View.GONE);
+                findViewById(R.id.tvPreferitiEntrate).setVisibility(View.GONE);
+                findViewById(R.id.rvPreferitiEntrate).setVisibility(View.GONE);
+            }
+        }
+    }
+
+
+    /*
+    Dato un oggetto SpesaEntrata che rappresenta un preferito, si lancia l'apposita Activity per
+    aggiungere una spesa o una entrata.
+     */
+    private void aggiungiPreferito(SpesaEntrata spesaEntrata) {
+        Intent addFavoriteIntent;
+
+        if (spesaEntrata.getTipoVoce() == SpesaEntrata.VOCE_SPESA) {
+            addFavoriteIntent = SpeseAggiungi.makeIntent(Preferiti.this, spesaEntrata.getId(), spesaEntrata.getVoce(), spesaEntrata.getImporto(), spesaEntrata.getValuta(), spesaEntrata.getImportoValprin(), spesaEntrata.getData(), spesaEntrata.getDescrizione(), spesaEntrata.getRipetizioneId(), spesaEntrata.getConto(), -1);
+        } else {
+            addFavoriteIntent = EntrateAggiungi.makeIntent(Preferiti.this, spesaEntrata.getId(), spesaEntrata.getVoce(), spesaEntrata.getImporto(), spesaEntrata.getValuta(), spesaEntrata.getImportoValprin(), spesaEntrata.getData(), spesaEntrata.getDescrizione(), spesaEntrata.getRipetizioneId(), spesaEntrata.getConto(), -1);
+        }
+
+        startActivityForResult(addFavoriteIntent, 0);
+    }
+
+
+    // Ritorno dall'Activity di aggiunta spese/entrate.
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            setResult(Activity.RESULT_OK);
+            finish();
+        }
+    }
+
+
+    /*
+        Elimino il preferito in un thread separato. Il preferito ? rimosso unicamente dalla lista
+        dei preferiti (impostando il flag preferito su false). Si tratta in realt? di un update.
+     */
+    private class EliminaPreferitoAsyncTask extends AsyncTask<Object, Void, Void> {
+        @Override
+        protected Void doInBackground(Object... params) {
+            SpesaEntrata spesaEntrata = (SpesaEntrata) params[0];
+
+            if (spesaEntrata.getTipoVoce() == SpesaEntrata.VOCE_SPESA) {
+                DBCSpeseSostenute dbcSpeseSostenute = new DBCSpeseSostenute(Preferiti.this);
+                dbcSpeseSostenute.openModifica();
+                dbcSpeseSostenute.aggiornaSpesaSostenuta(spesaEntrata.getId(), spesaEntrata.getData(), spesaEntrata.getVoce(), spesaEntrata.getImporto(), spesaEntrata.getValuta(), spesaEntrata.getImportoValprin(), spesaEntrata.getDescrizione(), spesaEntrata.getRipetizioneId(), spesaEntrata.getConto(), 0);
+                dbcSpeseSostenute.close();
+            } else {
+                DBCEntrateIncassate dbcEntrateIncassate = new DBCEntrateIncassate(Preferiti.this);
+                dbcEntrateIncassate.openModifica();
+                dbcEntrateIncassate.aggiornaEntrataIncassata(spesaEntrata.getId(), spesaEntrata.getData(), spesaEntrata.getVoce(), spesaEntrata.getImporto(), spesaEntrata.getValuta(), spesaEntrata.getImportoValprin(), spesaEntrata.getDescrizione(), spesaEntrata.getRipetizioneId(), spesaEntrata.getConto(), 0);
+                dbcEntrateIncassate.close();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            lstPreferitiSpese.clear();
+            lstPreferitiEntrate.clear();
+            new RecuperaPreferiti().execute((Object[]) null);
+        }
+    }
+
 
     /*
         Caricamento Bitmap efficiente. Creo una HashMap con voce e icona (spese) in un thread
@@ -406,135 +509,6 @@ public class Preferiti extends AppCompatActivity implements PopupMenu.OnMenuItem
             mPlaceHolderBitmapSpese = ListViewIconeVeloce.decodeSampledBitmapFromResource(getResources(), params[0], 80, 80);
             mPlaceHolderBitmapEntrate = ListViewIconeVeloce.decodeSampledBitmapFromResource(getResources(), params[1], 80, 80);
             return null;
-        }
-    }
-
-    // Gestione RecyclerView. Recupero delle entrate e spese preferiti in un thread separato.
-    private class RecuperaPreferiti extends AsyncTask<Object, Object, Object> {
-        final DBCSpeseSostenute dbcSpeseSostenute = new DBCSpeseSostenute(Preferiti.this);
-        final DBCEntrateIncassate dbcEntrateIncassate = new DBCEntrateIncassate(Preferiti.this);
-        Cursor curSpesePreferite;
-        Cursor curEntratePreferite;
-
-        protected Object doInBackground(Object... params) {
-            // Definisco gli indici delle colonne del Cursor per migliorare le prestazioni.
-            final int colId = 0;
-            final int colData = 1;
-            final int colVoce = 2;
-            final int colImporto = 3;
-            final int colValuta = 4;
-            final int colValprin = 5;
-            final int colDescrizione = 6;
-            final int colRipetizioneId = 7;
-            final int colConto = 8;
-
-            // Spese preferite.
-            dbcSpeseSostenute.openLettura();
-            curSpesePreferite = dbcSpeseSostenute.getSpeseSostenutePreferite();
-            lstPreferitiSpese.clear();
-            for (int i=1; curSpesePreferite.moveToNext(); i++) {
-                lstPreferitiSpese.add(new SpesaEntrata(SpesaEntrata.VOCE_SPESA, curSpesePreferite.getLong(colId), curSpesePreferite.getLong(colData), curSpesePreferite.getString(colVoce), curSpesePreferite.getDouble(colImporto), curSpesePreferite.getString(colValuta), curSpesePreferite.getDouble(colValprin), curSpesePreferite.getString(colDescrizione), curSpesePreferite.getLong(colRipetizioneId), curSpesePreferite.getString(colConto)));
-            }
-
-            // Entrate preferite.
-            dbcEntrateIncassate.openLettura();
-            curEntratePreferite = dbcEntrateIncassate.getEntrateIncassatePreferite();
-            lstPreferitiEntrate.clear();
-
-            for (int i=1; curEntratePreferite.moveToNext(); i++) {
-                lstPreferitiEntrate.add(new SpesaEntrata(SpesaEntrata.VOCE_ENTRATA, curEntratePreferite.getLong(colId), curEntratePreferite.getLong(colData), curEntratePreferite.getString(colVoce), curEntratePreferite.getDouble(colImporto), curEntratePreferite.getString(colValuta), curEntratePreferite.getDouble(colValprin), curEntratePreferite.getString(colDescrizione), curEntratePreferite.getLong(colRipetizioneId), curEntratePreferite.getString(colConto)));
-            }
-
-            return null;
-        }
-
-        protected void onPostExecute(Object result) {
-            curSpesePreferite.close();
-            curEntratePreferite.close();
-            dbcSpeseSostenute.close();
-            dbcEntrateIncassate.close();
-
-            if(lstPreferitiSpese.size() > 0 || lstPreferitiEntrate.size() > 0) {
-                findViewById(R.id.llIstruzioni).setVisibility(View.GONE);
-
-                if(lstPreferitiSpese.size() > 0) {
-                    findViewById(R.id.tvPreferitiSpese).setVisibility(View.VISIBLE);
-                    findViewById(R.id.rvPreferitiSpese).setVisibility(View.VISIBLE);
-                    prefAdapterSpese.notifyDataSetChanged();
-                }
-
-                if(lstPreferitiEntrate.size() > 0) {
-                    findViewById(R.id.tvPreferitiEntrate).setVisibility(View.VISIBLE);
-                    findViewById(R.id.rvPreferitiEntrate).setVisibility(View.VISIBLE);
-                    prefAdapterEntrate.notifyDataSetChanged();
-                }
-            }
-            else {
-                findViewById(R.id.llIstruzioni).setVisibility(View.VISIBLE);
-                findViewById(R.id.tvPreferitiSpese).setVisibility(View.GONE);
-                findViewById(R.id.rvPreferitiSpese).setVisibility(View.GONE);
-                findViewById(R.id.tvPreferitiEntrate).setVisibility(View.GONE);
-                findViewById(R.id.rvPreferitiEntrate).setVisibility(View.GONE);
-            }
-        }
-    }
-
-
-
-
-    // Menu popup per il singolo preferito nelle Recycler View.
-    public void showPopup(View v) {
-        PopupMenu popup = new PopupMenu(this, v);
-        popup.setOnMenuItemClickListener(this);
-        popup.inflate(R.menu.menu_preferiti_singolo_preferito);
-        popup.show();
-    }
-
-    // Operazioni associate al menu popup di ogni preferito (eliminazione, ecc.).
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.elimina:
-                new EliminaPreferitoAsyncTask().execute(prefDaEliminare);
-
-                return true;
-            default:
-                return false;
-        }
-    }
-
-    /*
-        Elimino il preferito in un thread separato. Il preferito ? rimosso unicamente dalla lista
-        dei preferiti (impostando il flag preferito su false). Si tratta in realt? di un update.
-     */
-    private class EliminaPreferitoAsyncTask extends AsyncTask<Object, Void, Void> {
-        @Override
-        protected Void doInBackground(Object... params) {
-            SpesaEntrata spesaEntrata = (SpesaEntrata) params[0];
-
-            if(spesaEntrata.getTipoVoce() == SpesaEntrata.VOCE_SPESA) {
-                DBCSpeseSostenute dbcSpeseSostenute = new DBCSpeseSostenute(Preferiti.this);
-                dbcSpeseSostenute.openModifica();
-                    dbcSpeseSostenute.aggiornaSpesaSostenuta(spesaEntrata.getId(), spesaEntrata.getData(), spesaEntrata.getVoce(), spesaEntrata.getImporto(), spesaEntrata.getValuta(), spesaEntrata.getImportoValprin(), spesaEntrata.getDescrizione(), spesaEntrata.getRipetizioneId(), spesaEntrata.getConto(), 0);
-                dbcSpeseSostenute.close();
-            }
-            else {
-                DBCEntrateIncassate dbcEntrateIncassate = new DBCEntrateIncassate(Preferiti.this);
-                dbcEntrateIncassate.openModifica();
-                dbcEntrateIncassate.aggiornaEntrataIncassata(spesaEntrata.getId(), spesaEntrata.getData(), spesaEntrata.getVoce(), spesaEntrata.getImporto(), spesaEntrata.getValuta(), spesaEntrata.getImportoValprin(), spesaEntrata.getDescrizione(), spesaEntrata.getRipetizioneId(), spesaEntrata.getConto(), 0);
-                dbcEntrateIncassate.close();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
-            lstPreferitiSpese.clear();
-            lstPreferitiEntrate.clear();
-            new RecuperaPreferiti().execute((Object[]) null);
         }
     }
 }

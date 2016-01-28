@@ -91,6 +91,27 @@ public class SpeseAggiungi extends ActionBarActivity implements DatePickerFragme
 	private static final int TIPO_OPERAZIONE_PREFERITO = 2;
 
 
+	/*
+	Create an Intent to start this Activity with the main variables set.
+	 */
+	public static Intent makeIntent(Context context, long id, String tag, double amount, String currency, double amountMainCurrency, long date, String description, long repetitionId, String account, int favorite) {
+		Intent intent = new Intent(context, SpeseAggiungi.class);
+
+		intent.putExtra(VOCE_ID, id);
+		intent.putExtra(VOCE_TAG, tag);
+		intent.putExtra(VOCE_IMPORTO, amount);
+		intent.putExtra(VOCE_VALUTA, currency);
+		intent.putExtra(VOCE_IMPORTO_VALPRIN, amountMainCurrency);
+		intent.putExtra(VOCE_DATA, date);
+		intent.putExtra(VOCE_DESCRIZIONE, description);
+		intent.putExtra(VOCE_RIPETIZIONE_ID, repetitionId);
+		intent.putExtra(VOCE_CONTO, account);
+		intent.putExtra(VOCE_FAVORITE, favorite);
+
+		return intent;
+	}
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
