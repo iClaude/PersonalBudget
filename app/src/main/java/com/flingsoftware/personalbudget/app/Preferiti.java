@@ -1,5 +1,7 @@
 package com.flingsoftware.personalbudget.app;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
@@ -18,6 +20,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.AnticipateOvershootInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -369,25 +372,44 @@ public class Preferiti extends AppCompatActivity {
             if (lstPreferitiSpese.size() > 0 || lstPreferitiEntrate.size() > 0) {
                 findViewById(R.id.llIstruzioni).setVisibility(View.GONE);
 
-                if (lstPreferitiSpese.size() > 0) {
-                    findViewById(R.id.tvPreferitiSpese).setVisibility(View.VISIBLE);
-                    findViewById(R.id.rvPreferitiSpese).setVisibility(View.VISIBLE);
-                    prefAdapterSpese.notifyDataSetChanged();
+                if (lstPreferitiSpese.size() > 0 && lstPreferitiEntrate.size() <= 0) {
+                    findViewById(R.id.llPreferitiEntrate).setVisibility(View.GONE);
+                    animaEntrata(findViewById(R.id.llPreferitiSpese));
+                }
+                else if (lstPreferitiSpese.size() <= 0 && lstPreferitiEntrate.size() > 0) {
+                    findViewById(R.id.llPreferitiSpese).setVisibility(View.GONE);
+                    animaEntrata(findViewById(R.id.llPreferitiEntrate));
+                }
+                else {
+                    animaEntrata(findViewById(R.id.llPreferitiSpese), findViewById(R.id.llPreferitiEntrate));
                 }
 
-                if (lstPreferitiEntrate.size() > 0) {
-                    findViewById(R.id.tvPreferitiEntrate).setVisibility(View.VISIBLE);
-                    findViewById(R.id.rvPreferitiEntrate).setVisibility(View.VISIBLE);
-                    prefAdapterEntrate.notifyDataSetChanged();
-                }
+                prefAdapterSpese.notifyDataSetChanged();
+                prefAdapterEntrate.notifyDataSetChanged();
             } else {
                 findViewById(R.id.llIstruzioni).setVisibility(View.VISIBLE);
-                findViewById(R.id.tvPreferitiSpese).setVisibility(View.GONE);
-                findViewById(R.id.rvPreferitiSpese).setVisibility(View.GONE);
-                findViewById(R.id.tvPreferitiEntrate).setVisibility(View.GONE);
-                findViewById(R.id.rvPreferitiEntrate).setVisibility(View.GONE);
+                findViewById(R.id.llPreferitiSpese).setVisibility(View.GONE);
+                findViewById(R.id.llPreferitiEntrate).setVisibility(View.GONE);
             }
         }
+    }
+
+
+    private void animaEntrata(View... viewDaVisualizzare) {
+        ObjectAnimator arrAnimator[] = new ObjectAnimator[viewDaVisualizzare.length];
+
+        arrAnimator[0] = ObjectAnimator.ofFloat(viewDaVisualizzare[0], "alpha", 0.0f, 1.0f);
+        viewDaVisualizzare[0].setVisibility(View.VISIBLE);
+        if(viewDaVisualizzare.length > 1) {
+            arrAnimator[1] = ObjectAnimator.ofFloat(viewDaVisualizzare[1], "alpha", 0.0f, 1.0f);
+            viewDaVisualizzare[1].setVisibility(View.VISIBLE);
+        }
+
+        AnimatorSet animSet = new AnimatorSet();
+        animSet.playTogether(arrAnimator);
+        animSet.setDuration(1000);
+        animSet.setInterpolator(new LinearInterpolator());
+        animSet.start();
     }
 
 
@@ -448,8 +470,6 @@ public class Preferiti extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            lstPreferitiSpese.clear();
-            lstPreferitiEntrate.clear();
             new RecuperaPreferiti().execute((Object[]) null);
         }
     }

@@ -67,39 +67,61 @@
                     android:enabled="false" />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/preferiti_spese"
-                android:id="@+id/tvPreferitiSpese"
-                android:textSize="22sp"
+                android:id="@+id/llPreferitiSpese"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
                 android:layout_marginTop="8dp"
-                android:textColor="@android:color/black"
-                android:layout_marginLeft="4dp" />
+                android:visibility="gone">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvPreferitiSpese"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/preferiti_spese"
+                    android:id="@+id/tvPreferitiSpese"
+                    android:textSize="22sp"
+                    android:textColor="@android:color/black"
+                    android:layout_marginLeft="4dp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvPreferitiSpese"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:scrollbars="horizontal"
+                    android:layout_marginTop="8dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:scrollbars="horizontal"
-                android:layout_marginTop="8dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/preferiti_entrate"
-                android:id="@+id/tvPreferitiEntrate"
+                android:id="@+id/llPreferitiEntrate"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
                 android:layout_marginTop="16dp"
-                android:textSize="22sp"
-                android:textColor="@android:color/black"
-                android:layout_marginLeft="4dp" />
+                android:visibility="gone">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvPreferitiEntrate"
-                android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:scrollbars="horizontal"
-                android:layout_marginTop="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/preferiti_entrate"
+                    android:id="@+id/tvPreferitiEntrate"
+                    android:textSize="22sp"
+                    android:textColor="@android:color/black"
+                    android:layout_marginLeft="4dp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvPreferitiEntrate"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:scrollbars="horizontal"
+                    android:layout_marginTop="8dp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
