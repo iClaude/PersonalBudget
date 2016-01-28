@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_speseEntrateDettaglioVoce_duplica"
+        android:title="@string/budget_dettaglio_duplica"
+        android:icon="@drawable/ic_action_copy"
+        app:showAsAction="ifRoom|withText"/>
+
+    <item 
+        android:id="@+id/menu_speseEntrateDettaglioVoce_cancella"
+        android:title="@string/budget_dettaglio_elimina"
+        android:icon="@drawable/ic_content_discard"
+        app:showAsAction="ifRoom|withText"/>
+    
+    <item 
+        android:id="@+id/menu_speseEntrateDettaglioVoce_modifica"
+        android:title="@string/budget_dettaglio_modifica"
+        android:icon="@drawable/ic_content_edit"
+        app:showAsAction="ifRoom|withText"/>
+        
+</menu>

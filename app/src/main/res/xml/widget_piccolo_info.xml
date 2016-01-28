@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:minWidth="250dp" android:minHeight="110dp"
+    android:initialLayout="@layout/widget_piccolo"
+    android:updatePeriodMillis="10800000"
+    android:previewImage="@drawable/img_widget_piccolo_preview"
+    android:widgetCategory="home_screen"/>

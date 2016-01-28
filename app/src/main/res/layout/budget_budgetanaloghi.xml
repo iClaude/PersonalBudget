@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/preferenze_voci_listview_item_rlPadre"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/primary"
+        android:layout_alignParentTop="true"
+        android:elevation="6dp"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <TextView
+        android:id="@+id/budget_budgetanaloghi_tvTitolo"
+        android:layout_below="@id/toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:text="@string/budget_budgetanaloghi_riepilogobudget"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="14sp" />
+    
+    <FrameLayout
+        android:layout_width="1600dp"
+        android:layout_below="@id/toolbar"
+        android:layout_height="1dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="18dp"
+        android:layout_toLeftOf="@id/budget_budgetanaloghi_tvTitolo"
+        android:background="@android:color/darker_gray" />
+    
+   	<FrameLayout
+        android:layout_width="1600dp"
+        android:layout_below="@id/toolbar"
+        android:layout_height="1dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="18dp"
+        android:layout_toRightOf="@id/budget_budgetanaloghi_tvTitolo"
+        android:background="@android:color/darker_gray" />
+
+    <ListView
+        android:id="@+id/budget_budgetanaloghi_lvBudget"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/budget_budgetanaloghi_tvTitolo"
+        android:divider="#00000000"
+        android:dividerHeight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:drawSelectorOnTop="true">
+
+    </ListView>
+
+</RelativeLayout>

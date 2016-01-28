@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@drawable/selector_navdrawer_item" >
+
+    <ImageView
+        android:id="@+id/dli_ivIcona"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="@string/provv_contenutoImmagini"
+        android:src="@drawable/ic_action_news" />
+
+    <TextView
+        android:id="@+id/dli_tvConto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_toRightOf="@id/dli_ivIcona"
+        android:layout_toEndOf="@id/dli_ivIcona"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:text="@string/provv_lorem_ipsum"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <FrameLayout
+        android:id="@+id/dli_flLinea"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/nav_drawer_linea" >
+
+    </FrameLayout>
+
+</RelativeLayout>

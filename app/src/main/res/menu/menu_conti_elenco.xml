@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item 
+        android:id="@+id/menu_conti_elenco_aggiungi"
+        android:orderInCategory="2"
+        android:title="@string/menu_aggiungi"
+        android:icon="@drawable/ic_content_new"
+        app:showAsAction="ifRoom|withText"/>
+    
+    <item 
+        android:id="@+id/menu_conti_elenco_trasferimenti"
+        android:orderInCategory="1"
+        android:title="@string/menu_contielenco_trasferimento"
+        android:icon="@drawable/ic_content_import_export"
+        app:showAsAction="ifRoom|withText"/>
+</menu>

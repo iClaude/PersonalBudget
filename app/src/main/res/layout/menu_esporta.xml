@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/primary"
+        android:layout_alignParentTop="true"
+        android:elevation="6dp"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_below="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp" >
+
+            <TextView
+               android:id="@+id/menu_backuprestore_tvTitolo"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignParentTop="true"
+               android:layout_centerHorizontal="true"
+               android:layout_marginTop="4dp"
+               android:text="@string/menu_esporta"
+               android:textAppearance="?android:attr/textAppearanceMedium"
+               android:textStyle="bold"
+                android:textColor="@color/text_primary" />
+
+            <LinearLayout
+               android:id="@+id/menu_esporta_llSceltaTabella"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_alignParentLeft="true"
+               android:layout_below="@+id/menu_backuprestore_tvTitolo"
+               android:layout_marginTop="16dp"
+               android:gravity="center"
+               android:orientation="horizontal" >
+
+               <CheckBox
+                   android:id="@+id/menu_esporta_cbSpese"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:onClick="onCheckboxClicked"
+                   android:text="@string/tab_spese"
+                   android:textColor="@color/text_primary" />
+
+               <CheckBox
+                   android:id="@+id/menu_esporta_cbEntrate"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="10dp"
+                   android:onClick="onCheckboxClicked"
+                   android:text="@string/menu_esporta_guadagni"
+                   android:textColor="@color/text_primary" />
+            </LinearLayout>
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view_formato"
+                android:layout_below="@id/menu_esporta_llSceltaTabella"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="4dp"
+                android:layout_marginTop="8dp">
+
+                <LinearLayout
+                    android:id="@+id/menu_esporta_llFormatoExport"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="4dp">
+
+                    <TextView
+                       android:id="@+id/menu_esporta_tvFormato"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                        android:text="@string/menu_esporta_formato"
+                       android:textAppearance="?android:attr/textAppearanceMedium"
+                       android:textStyle="bold"
+                        android:textColor="@color/text_primary"
+                        android:layout_marginTop="4dp" />
+
+                   <RadioGroup
+                       android:id="@+id/menu_esporta_rgFormatoExport"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical" >
+
+                       <RadioButton
+                           android:id="@+id/menu_esporta_rbTesto"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_marginTop="4dp"
+                           android:onClick="onRadioButtonClicked"
+                           android:text="@string/menu_esporta_testo"
+                           android:textColor="@color/text_secondary" />
+
+                       <RadioButton
+                           android:id="@+id/menu_esporta_rbExcel"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:checked="true"
+                           android:onClick="onRadioButtonClicked"
+                           android:text="@string/menu_esporta_excel"
+                           android:textColor="@color/text_secondary" />
+
+                       <RadioButton
+                           android:id="@+id/menu_esporta_rbPdf"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:checked="true"
+                           android:onClick="onRadioButtonClicked"
+                           android:text="@string/menu_esporta_acrobat"
+                           android:textColor="@color/text_secondary" />
+                   </RadioGroup>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view_mail"
+            android:layout_below="@id/card_view_formato"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardCornerRadius="4dp"
+            android:layout_marginTop="16dp">
+
+            <LinearLayout
+               android:id="@+id/menu_esporta_llMail"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_below="@id/card_view_formato"
+               android:orientation="vertical"
+                android:padding="4dp">
+
+                <TextView
+                    android:id="@+id/menu_esporta_tvSendToEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/menu_esporta_mail"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary" />
+
+                <EditText
+                    android:id="@+id/menu_esporta_etEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:ems="10"
+                    android:hint="@string/menu_esporta_entermail"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/text_secondary">
+
+                </EditText>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+           <ImageView
+               android:id="@+id/menu_esporta_ivFormato"
+               android:contentDescription="@string/provv_contenutoImmagini"
+               android:layout_width="110dp"
+               android:layout_height="110dp"
+               android:layout_below="@id/card_view_mail"
+               android:layout_centerHorizontal="true"
+               android:layout_marginTop="24dp"
+               android:src="@drawable/img_formato_pdf" />
+
+
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

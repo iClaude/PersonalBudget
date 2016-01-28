@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/primary"
+        android:layout_alignParentTop="true"
+        android:elevation="6dp"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_below="@id/toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:padding="8dp">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="4dp" >
+
+
+		    <RelativeLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content" >
+		
+		    <ImageView
+		        android:id="@+id/menu_info_ivLogo"
+		        android:layout_width="75dp"
+		        android:layout_height="75dp"
+		        android:layout_marginTop="4dp"
+		        android:contentDescription="@string/provv_contenutoImmagini"
+		        android:src="@drawable/img_wallet" />
+		
+		    <TextView
+		        android:id="@+id/menu_info_tvSviluppatore"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignBottom="@id/menu_info_ivLogo"
+		        android:layout_marginLeft="8dp"
+		        android:layout_marginStart="8dp"
+		        android:layout_toEndOf="@id/menu_info_ivLogo"
+		        android:layout_toRightOf="@id/menu_info_ivLogo"
+		        android:text="@string/menu_info_sviluppatore"
+		        android:textAppearance="?android:attr/textAppearanceMedium"
+		        android:textSize="14sp"
+                android:textColor="@color/text_secondary" />
+		    
+		    <TextView
+		        android:id="@+id/menu_info_tvSocieta"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_above="@id/menu_info_tvSviluppatore"
+		        android:layout_marginLeft="8dp"
+		        android:layout_marginStart="8dp"
+		        android:layout_toEndOf="@id/menu_info_ivLogo"
+		        android:layout_toRightOf="@id/menu_info_ivLogo"
+		        android:text="@string/menu_info_societa"
+		        android:textAppearance="?android:attr/textAppearanceMedium"
+		        android:textSize="14sp"
+                android:textColor="@color/text_secondary" />
+		    	    
+		    <TextView
+		        android:id="@+id/menu_info_tvNomeApp"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_above="@id/menu_info_tvSocieta"
+		        android:layout_marginBottom="2dp"
+		        android:layout_marginLeft="8dp"
+		        android:layout_marginStart="8dp"
+		        android:layout_toEndOf="@id/menu_info_ivLogo"
+		        android:layout_toRightOf="@id/menu_info_ivLogo"
+		        android:text="@string/menu_info_nomeApp"
+		        android:textAppearance="?android:attr/textAppearanceLarge"
+		        android:textSize="18sp"
+		        android:textStyle="bold"
+                android:textColor="@color/text_primary" />
+		
+		</RelativeLayout>
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="4dp"
+                android:layout_marginTop="16dp">
+
+		        <TableLayout
+                android:id="@+id/tableLayout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:stretchColumns="1"
+                    android:padding="4dp">
+
+                <TableRow
+                    android:id="@+id/tableRow3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <ImageButton
+                        android:id="@+id/menu_info_ibFacebook"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:background="@drawable/selector_schede"
+                        android:contentDescription="@string/provv_contenutoImmagini"
+                        android:onClick="goFacebook"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/img_facebook" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/menu_info_facebook"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/text_primary" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/aggiungi_voce_tlImporto_tableRowTitolo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <ImageButton
+                        android:id="@+id/menu_info_ibGooglePlay"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:background="@drawable/selector_schede"
+                        android:contentDescription="@string/provv_contenutoImmagini"
+                        android:onClick="goGooglePlay"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/img_google_play" />
+
+                    <TextView
+                        android:id="@+id/budget_aggiungi_tvImportoLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/menu_info_googlePlay"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/text_primary" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableRow2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <ImageButton
+                        android:id="@+id/menu_info_ibVersioni"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:background="@drawable/selector_schede"
+                        android:contentDescription="@string/provv_contenutoImmagini"
+                        android:onClick="goVersioni"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/img_info" />
+
+                    <TextView
+                        android:id="@+id/widget_grande_tvNoData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/menu_info_versioni"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/text_primary" />
+                </TableRow>
+
+		    </TableLayout>
+
+            </android.support.v7.widget.CardView>
+
+		    <TextView
+                android:id="@+id/menu_info_tvCitazione"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="@string/menu_info_citazione"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="italic" />
+
+        </LinearLayout>
+	
+     </ScrollView>
+
+</RelativeLayout>

@@ -1,0 +1,46 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
+    compileOptions.encoding = 'windows-1251'
+    defaultConfig {
+        applicationId "com.flingsoftware.personalbudget"
+        minSdkVersion 15
+        targetSdkVersion 23
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+    productFlavors {
+    }
+}
+
+dependencies {
+    compile ('com.android.support:cardview-v7:23.1.0') {
+        exclude module: 'support-v4' }
+    compile ('com.android.support:recyclerview-v7:23.1.0') {
+        exclude module: 'support-v4' }
+    compile ('com.android.support:design:23.1.0') {
+        exclude module: 'support-v4' }
+    compile ('com.android.support:support-v4:23.1.0')
+
+    compile files('libs/achartengine-1.1.0.jar')
+    compile files('libs/bcprov-jdk16-146.jar')
+    compile files('libs/commons-logging-1.1.1.jar')
+    compile files('libs/dropbox-android-sdk-1.6.1.jar')
+    compile files('libs/httpclient-4.0.3.jar')
+    compile files('libs/httpcore-4.0.1.jar')
+    compile files('libs/httpmime-4.0.3.jar')
+    compile files('libs/json_simple-1.1.jar')
+    compile files('libs/poi-3.10-beta2-20130904.jar')
+}

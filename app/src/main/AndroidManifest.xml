@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.flingsoftware.personalbudget"
+    android:versionCode="14"
+    android:versionName="1.6" >
+    
+    <uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="23" />
+
+    <application
+        android:icon="@drawable/img_wallet"
+        android:label="@string/app_name"
+        android:description="@string/manifest_descrizione"
+        android:theme="@style/AppTheme"
+        android:uiOptions="splitActionBarWhenNarrow"  
+        android:allowBackup="true"
+        android:backupAgent="com.flingsoftware.personalbudget.backup.MyBackupAgent"
+        android:fullBackupOnly="true">
+        
+        <meta-data android:name="com.google.android.backup.api_key" android:value="AEdPqrEAAAAIKGqUTqLZmrV16tE-CLZ15SMfbH-5a9DvsRg19A"/>
+        
+        <activity android:name="com.flingsoftware.personalbudget.app.Password"
+            android:theme="@android:style/Theme.Holo.Dialog"
+            android:label="@string/app_name">
+            
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <!-- Activity principale -->
+        <activity
+            android:name="com.flingsoftware.personalbudget.app.MainPersonalBudget"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:label="@string/app_name">
+        </activity>
+        
+        
+        <!-- Menu applicazione -->
+        <activity android:name="com.flingsoftware.personalbudget.app.MenuPeriodo"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateAlwaysHidden">
+        </activity>
+        <activity android:name="com.flingsoftware.personalbudget.app.Preferiti"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateAlwaysHidden">
+        </activity>
+        <activity android:name="com.flingsoftware.personalbudget.preferenze.PreferenzeActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="stateHidden"
+            android:label="@string/app_name"
+            android:theme="@style/PreferenceActivityTheme">
+        </activity>
+        <activity android:name="com.flingsoftware.personalbudget.preferenze.PreferenzeVoci"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:label="@string/app_name">
+        </activity>
+        <activity android:name="com.flingsoftware.personalbudget.preferenze.ModificaVoce"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:label="@string/app_name">
+        </activity>
+        <activity android:name="com.flingsoftware.personalbudget.preferenze.AggiungiVoce"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:label="@string/app_name">
+        </activity>
+        <activity android:name="com.flingsoftware.personalbudget.app.MenuEsporta"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateAlwaysHidden">
+        </activity>
+        <activity android:name="com.flingsoftware.personalbudget.backup.MenuBackupRestore"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateAlwaysHidden">
+        </activity>
+        <!-- Abilitazione x Dropbox -->
+        <activity
+			android:name="com.dropbox.client2.android.AuthActivity"
+			android:launchMode="singleTask"
+			android:configChanges="orientation|keyboard">
+		  	<intent-filter>
+		    	<!-- Change this to be db- followed by your app key -->
+		    	<data android:scheme="db-pfctpedx23u7xho" />
+		    	<action android:name="android.intent.action.VIEW" />
+		    	<category android:name="android.intent.category.BROWSABLE"/>
+		    	<category android:name="android.intent.category.DEFAULT" />
+		    </intent-filter>
+		</activity>
+        <activity android:name="com.flingsoftware.personalbudget.app.MenuInfo"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateAlwaysHidden">
+        </activity>
+        <activity android:name="com.flingsoftware.personalbudget.app.MenuInfoVersioni"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateAlwaysHidden">
+        </activity>
+        
+        <!-- Gestione spese -->
+        <activity android:name="com.flingsoftware.personalbudget.app.SpeseDettaglioVoce"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name">
+        </activity>
+        <activity android:name="com.flingsoftware.personalbudget.app.SpeseAggiungi"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name">
+        </activity>
+        
+        
+        <!-- Gestione entrate -->
+        <activity android:name="com.flingsoftware.personalbudget.app.EntrateAggiungi"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name">
+        </activity>
+        <activity android:name="com.flingsoftware.personalbudget.app.EntrateDettaglioVoce"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name">
+        </activity>
+        
+        <!-- Riconoscimento vocale -->
+        <activity android:name="com.flingsoftware.personalbudget.ricvoc.RiconoscimentoVocale"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name">
+        </activity>
+        
+        <!-- Gestione budget -->
+        <activity android:name="com.flingsoftware.personalbudget.app.BudgetDettaglio"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name">
+        </activity>
+         <activity android:name="com.flingsoftware.personalbudget.app.BudgetSpeseIncluse"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name">
+         </activity>
+         <activity android:name="com.flingsoftware.personalbudget.app.BudgetBudgetAnaloghi"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name">
+         </activity>
+         <activity android:name="com.flingsoftware.personalbudget.app.BudgetAggiungi"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name">
+         </activity>
+         <activity android:name="com.flingsoftware.personalbudget.app.BudgetModifica"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name">
+         </activity>
+         
+         <!-- Gestione conti -->
+	     <activity android:name="com.flingsoftware.personalbudget.app.ContiElenco"
+	     	android:configChanges="keyboardHidden|orientation|screenSize"
+	        android:label="@string/app_name">
+	     </activity>
+	     <activity android:name="com.flingsoftware.personalbudget.app.ContiInserimento"
+	     	android:configChanges="keyboardHidden|orientation|screenSize"
+	        android:label="@string/app_name">
+	     </activity>
+	     <activity android:name="com.flingsoftware.personalbudget.app.ContiTrasferimento"
+	     	android:configChanges="keyboardHidden|orientation|screenSize"
+	        android:label="@string/app_name">
+	     </activity>
+	     <activity android:name="com.flingsoftware.personalbudget.app.ContiVisualizza"
+	     	android:configChanges="keyboardHidden|orientation|screenSize"
+	        android:label="@string/app_name">
+	     </activity>
+	     <activity android:name="com.flingsoftware.personalbudget.app.ContiModifica"
+	     	android:configChanges="keyboardHidden|orientation|screenSize"
+	        android:label="@string/app_name">
+	     </activity>
+         
+         <!-- Grafici e statistiche -->
+         <activity android:name="com.flingsoftware.personalbudget.app.Statistiche"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name">
+         </activity>  
+         <activity android:name="com.flingsoftware.personalbudget.app.StatisticheGrafico"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name">
+         </activity>
+         
+         
+         <!-- Gestione valute -->
+         <activity android:name="com.flingsoftware.personalbudget.valute.ElencoValute"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="stateHidden"
+            android:label="@string/app_name"></activity>
+         <activity android:name="com.flingsoftware.personalbudget.valute.DettaglioValuta"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="stateHidden"
+            android:label="@string/app_name">
+         </activity>
+
+         <!-- Selezione icone -->
+         <activity android:name="com.flingsoftware.personalbudget.preferenze.IconeSelezione"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="stateHidden"
+            android:label="@string/app_name"></activity>
+         
+         <!-- Service usati dall'app -->
+         <service 
+         	android:name="com.flingsoftware.personalbudget.database.AggiornamentoDatabaseIntentService"
+         	android:exported="false">
+            <intent-filter>
+                <action android:name="com.flingsoftware.personalbudget.UPDATE_DATABASE"></action>
+            </intent-filter>
+         </service>
+
+        <service
+            android:name="com.flingsoftware.personalbudget.database.InserimentoMultiploIntentService"
+            android:exported="false">
+        </service>
+
+         <service 
+         	android:name="com.flingsoftware.personalbudget.preferenze.BudgetStatusService"
+         	android:exported="false">
+         </service>
+         
+         <service 
+         	android:name="com.flingsoftware.personalbudget.preferenze.ReminderService"
+         	android:exported="false">
+         </service>
+         
+         <service 
+         	android:name="com.flingsoftware.personalbudget.valute.RecuperaCambioIntentService"
+         	android:exported="false">
+            <intent-filter>
+                <action android:name="com.flingsoftware.personalbudget.RECUPERA_CAMBIO"></action>
+            </intent-filter>
+         </service>
+         
+         <service 
+         	android:name=".esporta.MenuEsportaIntentService"
+         	android:exported="false">
+            <intent-filter>
+                <action android:name="com.flingsoftware.personalbudget.CSV"></action>
+                <action android:name="com.flingsoftware.personalbudget.TXT"></action>
+                <action android:name="com.flingsoftware.personalbudget.PDF"></action>
+                <action android:name="com.flingsoftware.personalbudget.XLS"></action>
+            </intent-filter>
+         </service>
+           
+         <service 
+         	android:name="com.flingsoftware.personalbudget.backup.BackupRestoreIntentService"
+         	android:exported="false">
+            <intent-filter>
+                <action android:name="com.flingsoftware.personalbudget.BACKUP"></action>
+                <action android:name="com.flingsoftware.personalbudget.RESTORE"></action>
+                <action android:name="com.flingsoftware.personalbudget.BACKUP_AUTO"></action>
+                <action android:name="com.flingsoftware.personalbudget.RESTORE_AUTO"></action>
+                <action android:name="com.flingsoftware.personalbudget.BACKUP_DROPBOX"></action>
+                <action android:name="com.flingsoftware.personalbudget.RESTORE_DROPBOX"></action>
+            </intent-filter>
+         </service>
+         
+         <!-- BroadcastReceiver usati dall'app -->
+         <receiver android:enabled="false" android:name="com.flingsoftware.personalbudget.preferenze.BootUpReceiver"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+
+            <intent-filter>
+               <action android:name="android.intent.action.BOOT_COMPLETED" />
+               <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+         </receiver>
+         
+         <!-- Widget grande -->
+         <receiver android:name="com.flingsoftware.personalbudget.widget.WidgetGrande">
+             <meta-data android:name="android.appwidget.provider"
+                 android:resource="@xml/widget_grande_info" />
+             <intent-filter>
+                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+             </intent-filter>
+             <intent-filter>
+                 <action android:name="com.flingsoftware.personalbudget.UPDATE_WIDGET" />
+             </intent-filter>  
+         </receiver>
+         
+         <service
+	        android:name="com.flingsoftware.personalbudget.widget.WidgetGrandeService"
+	        android:exported="false"
+	        android:permission="android.permission.BIND_REMOTEVIEWS" />
+         
+         <!-- Widget piccolo -->
+         <receiver android:name="com.flingsoftware.personalbudget.widget.WidgetPiccolo">
+             <meta-data android:name="android.appwidget.provider"
+                 android:resource="@xml/widget_piccolo_info" />
+             <intent-filter>
+                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+             </intent-filter>
+             <intent-filter>
+                 <action android:name="com.flingsoftware.personalbudget.UPDATE_WIDGET" />
+             </intent-filter>
+             <intent-filter>
+                 <action android:name="com.flingsoftware.personalbudget.UPDATE_WIDGET_PICCOLO" />
+             </intent-filter>    
+         </receiver>
+         
+    </application>
+
+</manifest>

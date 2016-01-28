@@ -1,0 +1,673 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/primary"
+        android:layout_alignParentTop="true"
+        android:elevation="6dp"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <ScrollView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_below="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <RelativeLayout
+            android:id="@+id/preferenze_voci_listview_item_rlPadre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/budget_aggiungi_tvTitolo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:text="@string/budget_aggiungi_aggiungibudget"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary" />
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view_importo"
+                android:layout_below="@id/budget_aggiungi_tvTitolo"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="4dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:elevation="16dp"
+                android:layout_centerHorizontal="true">
+
+                <TableLayout
+                    android:id="@+id/budget_aggiungi_tlImporto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/budget_aggiungi_tvTitolo"
+                    android:shrinkColumns="0"
+                    android:stretchColumns="1" >
+
+                    <TableRow
+                        android:id="@+id/budget_aggiungi_tlImporto_tableRowTitolo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:paddingLeft="6dp"
+                        android:paddingRight="6dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp">
+
+                        <ImageView
+                            android:id="@+id/budget_aggiungi_tlImporto_ivImmagine"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center_vertical"
+                            android:contentDescription="@string/provv_contenutoImmagini"
+                            android:src="@drawable/img_spese" />
+
+                        <TextView
+                            android:id="@+id/budget_aggiungi_tvImportoLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center|left"
+                            android:layout_marginLeft="8dp"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="@string/budget_aggiungi_importo"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textStyle="bold"
+                            android:textColor="@color/text_primary" />
+
+                        <ImageView
+                            android:id="@+id/budget_aggiungi_ivFrecciaImporto"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right|center_vertical"
+                            android:contentDescription="@string/provv_contenutoImmagini"
+                            android:src="@drawable/ic_navigation_expand"
+                            android:alpha="0.54"
+                            android:rotation="180" />
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/budget_aggiungi_tlImporto_tableRowBordo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_span="4"
+                            android:background="#b7ccdd" />
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/budget_aggiungi_tlImporto_tableRow0"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:visibility="visible" >
+
+                        <EditText
+                            android:id="@+id/budget_aggiungi_etImportoBudget"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_span="2"
+                            android:ems="10"
+                            android:gravity="center"
+                            android:hint="@string/provv_importoNoValutaZero"
+                            android:inputType="numberDecimal"
+                            android:textSize="22sp" >
+
+                            <requestFocus />
+                        </EditText>
+
+                        <ImageButton
+                            android:id="@+id/budget_aggiungi_ibCalc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4dp"
+                            android:onClick="lanciaCalcolatrice"
+                            android:src="@drawable/ic_action_dial_pad" />
+
+                        <Button
+                            android:id="@+id/budget_aggiungi_bValuta"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4dp"
+                            android:onClick="scegliValuta"
+                            android:text="@string/provv_simboloEuro" />
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/budget_aggiungi_tlImporto_tableRow1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible" >
+
+                        <RelativeLayout
+                            android:id="@+id/budget_aggiungi_rlCambio"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="8dp"
+                            android:layout_span="3"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp">
+
+                            <TextView
+                                android:id="@+id/budget_aggiungi_tvCambio"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/budget_aggiungi_cambio"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:textColor="@color/text_primary" />
+
+                            <TextView
+                                android:id="@+id/budget_aggiungi_tvConnessioneYahoo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/budget_aggiungi_tvCambio"
+                                android:layout_centerHorizontal="false"
+                                android:text="@string/budget_aggiungi_connessioneYahoo"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:textSize="14sp"
+                                android:textColor="@color/text_secondary" />
+
+                            <TextView
+                                android:id="@+id/budget_aggiungi_tvConversione"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/budget_aggiungi_tvCambio"
+                                android:textAppearance="?android:attr/textAppearanceMedium" />
+                        </RelativeLayout>
+
+                        <ProgressBar
+                            android:id="@+id/budget_aggiungi_pbAggiornamento"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </TableRow>
+                </TableLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view_tags"
+                android:layout_below="@id/card_view_importo"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="4dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:elevation="6dp"
+                android:layout_centerHorizontal="true">
+
+                <LinearLayout
+                    android:id="@+id/budget_aggiungi_llTags"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+
+                    <TableLayout
+                        android:id="@+id/budget_aggiungi_tlTags"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:stretchColumns="1" >
+
+                        <TableRow
+                            android:id="@+id/budget_aggiungi_tlTags_tableRowTitolo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="6dp"
+                            android:paddingRight="6dp"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp">
+
+                            <ImageView
+                                android:id="@+id/budget_aggiungi_tlTags_ivImmagine"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center_vertical"
+                                android:contentDescription="@string/provv_contenutoImmagini"
+                                android:src="@drawable/img_tags_voce" />
+
+                            <TextView
+                                android:id="@+id/budget_aggiungi_tvTagsLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="8dp"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:text="@string/budget_aggiungi_tags"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:textStyle="bold"
+                                android:textColor="@color/text_primary" />
+
+                            <ImageView
+                                android:id="@+id/budget_aggiungi_ivFrecciaTags"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right|center_vertical"
+                                android:contentDescription="@string/provv_contenutoImmagini"
+                                android:src="@drawable/ic_navigation_expand"
+                                android:alpha="0.54" />
+                        </TableRow>
+
+                        <TableRow
+                            android:id="@+id/budget_aggiungi_tlTags_tableRowBordo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone" >
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_span="3"
+                                android:background="#b7ccdd" />
+                        </TableRow>
+
+                        <TableRow
+                            android:id="@+id/budget_aggiungi_tlTags_tableRow0"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:visibility="gone" >
+
+                            <AutoCompleteTextView
+                                android:id="@+id/budget_aggiungi_etTag"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:layout_span="3"
+                                android:ems="6"
+                                android:hint="@string/aggiungi_spese_inserisci_tag"
+                                android:inputType="textMultiLine" />
+
+                        </TableRow>
+                    </TableLayout>
+
+                    <LinearLayout
+                        android:id="@+id/budget_aggiungi_llTagsBottoni"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:orientation="horizontal"
+                        android:visibility="gone" >
+
+                        <Button
+                            android:id="@+id/budget_aggiungi_bTagsSpecifici"
+                            style="?android:attr/selectableItemBackground"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/budget_aggiungi_selezionatag"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        <Button
+                            android:id="@+id/budget_aggiungi_bAllTagsExcept"
+                            style="?android:attr/selectableItemBackground"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/budget_aggiungi_tuttitageccetto" />
+
+                        <Button
+                            android:id="@+id/budget_aggiungi_bAllTags"
+                            style="?android:attr/selectableItemBackground"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/budget_aggiungi_tuttitag" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view_ripetizione"
+                android:layout_below="@id/card_view_tags"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="4dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:elevation="6dp"
+                android:layout_centerHorizontal="true">
+
+                <LinearLayout
+                    android:id="@+id/budget_aggiungi_llRipetizione"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TableLayout
+                        android:id="@+id/budget_aggiungi_tlRipetizione"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:shrinkColumns="0"
+                        android:stretchColumns="1" >
+
+                        <TableRow
+                            android:id="@+id/budget_aggiungi_tlRipetizione_tableRowTitolo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:paddingLeft="6dp"
+                            android:paddingRight="6dp"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp">
+
+                            <ImageView
+                                android:id="@+id/budget_aggiungi_tlRipetizione_ivImmagine"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center_vertical"
+                                android:contentDescription="@string/provv_contenutoImmagini"
+                                android:src="@drawable/img_ripetizione_voce" />
+
+                            <TextView
+                                android:id="@+id/budget_aggiungi_tvRipetizioneLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="8dp"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:text="@string/budget_aggiungi_ripetizione"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:textStyle="bold"
+                                android:textColor="@color/text_primary" />
+
+                            <ImageView
+                                android:id="@+id/budget_aggiungi_ivFrecciaRipetizione"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right|center_vertical"
+                                android:contentDescription="@string/provv_contenutoImmagini"
+                                android:src="@drawable/ic_navigation_expand"
+                                android:alpha="0.54" />
+                        </TableRow>
+
+                        <TableRow
+                            android:id="@+id/budget_aggiungi_tlRipetizione_tableRowBordo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone" >
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_span="3"
+                                android:background="#b7ccdd" />
+                        </TableRow>
+
+                    </TableLayout>
+
+                    <com.flingsoftware.personalbudget.customviews.SpinnerReselect
+                        android:id="@+id/budget_aggiungi_spRipetizione"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginBottom="4dp"
+                        style="@android:style/Widget.Holo.Light.Spinner"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view_periodo"
+                android:layout_below="@id/card_view_ripetizione"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="4dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:elevation="6dp"
+                android:layout_centerHorizontal="true">
+
+                <TableLayout
+                    android:id="@+id/budget_aggiungi_tlPeriodo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TableRow
+                        android:id="@+id/budget_aggiungi_tlPeriodo_tableRowTitolo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:paddingLeft="6dp"
+                        android:paddingRight="6dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp">
+
+                        <ImageView
+                            android:id="@+id/budget_aggiungi_tlData_ivImmagine"
+                            android:contentDescription="@string/provv_contenutoImmagini"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/img_data_voce" />
+
+                        <TextView
+                            android:id="@+id/budget_aggiungi_tvPeriodoLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="8dp"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="@string/budget_aggiungi_periodo"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textStyle="bold"
+                            android:textColor="@color/text_primary" />
+
+                        <ImageView
+                            android:id="@+id/budget_aggiungi_ivFrecciaData"
+                            android:contentDescription="@string/provv_contenutoImmagini"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right|center_vertical"
+                            android:src="@drawable/ic_navigation_expand"
+                            android:alpha="0.54" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/budget_aggiungi_tlPeriodo_tableRowBordo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" >
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_span="3"
+                            android:layout_weight="1"
+                            android:background="#b7ccdd" />
+
+                    </TableRow>
+
+                    <EditText
+                        android:id="@+id/budget_aggiungi_etDataInizio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/selector_edittext_background"
+                        android:ems="10"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:hint="@string/menu_inizia_da"
+                        android:inputType="date"
+                        android:visibility="gone" />
+
+                    <EditText
+                        android:id="@+id/budget_aggiungi_etDataFine"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:background="@drawable/selector_edittext_background"
+                        android:ems="10"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:hint="@string/menu_termina_a"
+                        android:inputType="date"
+                        android:visibility="gone" />
+
+                </TableLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view_risparmi"
+                android:layout_below="@id/card_view_periodo"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="4dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:elevation="6dp"
+                android:layout_centerHorizontal="true">
+
+                <LinearLayout
+                    android:id="@+id/budget_aggiungi_llRisparmi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <TableLayout
+                       android:id="@+id/budget_aggiungi_tlRisparmi"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:stretchColumns="1" >
+
+                       <TableRow
+                           android:id="@+id/budget_aggiungi_tlRisparmi_tableRowTitolo"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:background="?android:attr/selectableItemBackground"
+                           android:clickable="true"
+                           android:gravity="center_vertical"
+                           android:paddingLeft="6dp"
+                           android:paddingRight="6dp"
+                           android:paddingTop="8dp"
+                           android:paddingBottom="8dp">
+
+                           <ImageView
+                               android:id="@+id/budget_aggiungi_tlRisparmi_ivImmagine"
+                               android:layout_width="40dp"
+                               android:layout_height="40dp"
+                               android:layout_gravity="center_vertical"
+                               android:contentDescription="@string/provv_contenutoImmagini"
+                               android:src="@drawable/img_risparmi" />
+
+                           <TextView
+                               android:id="@+id/budget_aggiungi_tvRisparmiLabel"
+                               android:layout_width="wrap_content"
+                               android:layout_height="match_parent"
+                               android:layout_gravity="center_vertical"
+                               android:layout_marginLeft="8dp"
+                               android:layout_weight="1"
+                               android:gravity="center_vertical"
+                               android:text="@string/budget_aggiungi_risparmi"
+                               android:textAppearance="?android:attr/textAppearanceMedium"
+                               android:textStyle="bold"
+                               android:textColor="@color/text_primary" />
+
+                           <ImageView
+                               android:id="@+id/budget_aggiungi_ivFrecciaRisparmi"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_gravity="right|center_vertical"
+                               android:contentDescription="@string/provv_contenutoImmagini"
+                               android:src="@drawable/ic_navigation_expand"
+                               android:alpha="0.54" />
+                       </TableRow>
+
+                       <TableRow
+                           android:id="@+id/budget_aggiungi_tlRisparmi_tableRowBordo"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:visibility="gone" >
+
+                           <FrameLayout
+                               android:layout_width="match_parent"
+                               android:layout_height="1dp"
+                               android:layout_span="3"
+                               android:background="#b7ccdd" />
+                       </TableRow>
+
+                    </TableLayout>
+
+                    <TextView
+                        android:id="@+id/budget_aggiungi_tvRimanenza"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/budget_aggiungi_aggiungirimanenza"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:visibility="gone"
+                        android:textColor="@color/text_primary"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp" />
+
+                    <ToggleButton
+                        android:id="@+id/budget_aggiungi_tbRimanenza"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onToggleClicked"
+                        android:textOff="@string/budget_aggiungi_nonaggiungere"
+                        android:textOn="@string/budget_aggiungi_aggiungi"
+                        android:visibility="gone"
+                        android:layout_marginRight="4dp"
+                        android:layout_marginBottom="4dp"/>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

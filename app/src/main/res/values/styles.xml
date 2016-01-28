@@ -1,0 +1,58 @@
+<resources>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="android:actionModeBackground">@color/action_mode_bar</item>
+    </style>
+
+    <!-- Tema della Activity delle preferenze per visualizzare la action bar -->
+    <style name="PreferenceActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+    </style>
+    
+    <!-- ProgressBar personalizzata più spessa. -->
+    <style name="tallerBarStyle" parent="@android:style/Widget.ProgressBar">
+    	<item name="android:indeterminateOnly">false</item>
+    	<item name="android:progressDrawable">@drawable/progressbar_standard</item>
+    	<item name="android:indeterminateDrawable">@android:drawable/progress_horizontal</item>
+    	<item name="android:minHeight">4dip</item>
+   	 	<item name="android:maxHeight">20dip</item>
+	</style>
+
+    <!-- Testo del PagerTabStrip. -->
+    <style name="pagerTabStripText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+</resources>

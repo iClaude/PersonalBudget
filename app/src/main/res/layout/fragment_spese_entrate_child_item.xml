@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlListViewElemento"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:background="@drawable/selector_explistview_child" >
+
+    <ImageView
+        android:id="@+id/menu_esporta_ivFormato"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="30dp"
+        android:contentDescription="@string/provv_contenutoImmagini"
+        android:scaleType="centerInside"
+        android:src="@drawable/img_spese"
+        android:transitionName="icona"/>
+    
+    <TextView
+        android:id="@+id/tvImportoChild"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/provv_importoValutaZero"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="italic"
+        android:textColor="@color/text_secondary" />
+        
+    <TextView
+        android:id="@+id/tvVoceChild"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@id/menu_esporta_ivFormato"
+        android:scrollHorizontally="true"
+        android:text="@string/provv_lorem_ipsum"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="italic"
+        android:textColor="@color/text_secondary"
+        android:ellipsize="end" />
+
+    <TextView
+        android:id="@+id/fragment_spese_entrate_child_item_tvRipetizione"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_toRightOf="@id/tvVoceChild"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:visibility="invisible"
+        android:layout_toLeftOf="@+id/tvImportoChild" />
+
+    <ImageView
+        android:id="@+id/fragment_spese_entrate_child_item_ivRipetizione"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="4dp"
+        android:layout_toRightOf="@id/tvVoceChild"
+        android:contentDescription="@string/provv_contenutoImmagini"
+        android:src="@drawable/img_ripetizione"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/fragment_spese_entrate_child_item_tvVoce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:visibility="gone" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/tvDataComodo"
+        android:visibility="gone" />
+
+</RelativeLayout>

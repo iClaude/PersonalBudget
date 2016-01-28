@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/valute_elenco_elementolistview_tvNomeValuta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/provv_lorem_ipsum"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary" />
+
+    <LinearLayout
+        android:id="@+id/LinearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/valute_elenco_elementolistview_tvCodiceValutaLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/valute_elencoValute_Codice"
+            android:textColor="@color/text_secondary" />
+
+        <TextView
+            android:id="@+id/valute_elenco_elementolistview_tvCodiceValuta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:text="@string/provv_mese_APR"
+            android:textColor="@color/text_secondary" />
+
+        <TextView
+            android:id="@+id/valute_elenco_elementolistview_tvSimboloValutaLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/valute_elencoValute_simbolo"
+            android:textColor="@color/text_secondary" />
+
+        <TextView
+            android:id="@+id/valute_elenco_elementoListView_tvSimboloValuta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:text="@string/provv_simboloEuro"
+            android:textColor="@color/text_secondary" />
+
+    </LinearLayout>
+
+</LinearLayout>

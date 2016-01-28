@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="4dp"
+    android:elevation="4dp"
+    android:background="?android:attr/selectableItemBackground">
+
+    <RelativeLayout
+        android:id="@+id/fragment_budget_listview_item_rlPadre"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants"
+        android:padding="4dp">
+
+        <ImageView
+            android:id="@+id/menu_esporta_ivFormato"
+            android:contentDescription="@string/provv_contenutoImmagini"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/img_budget"/>
+
+        <TextView
+            android:id="@+id/fragment_budget_listview_item_tvComodoSpesaSost"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/menu_esporta_ivFormato"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/darker_gray"
+            android:gravity="center"
+            android:text="@string/provv_percentuale_zero"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/fragment_budget_listview_item_tvTipoBudget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@id/menu_esporta_ivFormato"
+            android:layout_toEndOf="@id/menu_esporta_ivFormato"
+            android:text="@string/provv_lorem_ipsum"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp"
+            android:ellipsize="end"
+            android:layout_toLeftOf="@+id/fragment_budget_listview_item_tvImportoBudget" />
+
+        <TextView
+            android:id="@+id/fragment_budget_listview_item_tvImportoBudget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="4dp"
+            android:gravity="right"
+            android:text="@string/provv_importoValutaZero"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/text_primary"
+            android:textSize="16sp"
+            android:layout_marginLeft="8dp" />
+
+        <TextView
+            android:id="@+id/fragment_budget_listview_item_tvComodoDataFine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/fragment_budget_listview_item_tvValuta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/fragment_budget_listview_item_tvImportoBudget"
+            android:layout_marginLeft="8dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/fragment_budget_listview_item_tvVoci"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fragment_budget_listview_item_tvTipoBudget"
+            android:layout_marginLeft="8dp"
+            android:layout_toLeftOf="@id/fragment_budget_listview_item_tvValuta"
+            android:layout_toRightOf="@id/menu_esporta_ivFormato"
+            android:ellipsize="marquee"
+            android:scrollHorizontally="true"
+            android:text="@string/provv_lorem_ipsum_2"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/text_secondary"
+            android:textSize="16sp" />
+
+        <ProgressBar
+            android:id="@+id/fragment_budget_listview_item_pbProgresso"
+            style="@style/tallerBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:layout_marginTop="8dp"
+            android:max="100"
+            android:minHeight="8dp"
+            android:progress="70"
+            android:layout_below="@+id/menu_esporta_ivFormato"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp" />
+
+        <ProgressBar
+            android:id="@+id/fragment_budget_listview_item_pbProgressoFull"
+            style="@style/tallerBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:layout_marginTop="8dp"
+            android:max="100"
+            android:minHeight="8dp"
+            android:progress="100"
+            android:layout_below="@+id/menu_esporta_ivFormato"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:progressDrawable="@drawable/progressbar_accent"
+            android:visibility="invisible" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_grande_rlBudgets"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#CCFFFFFF">
+
+    <RelativeLayout
+        android:id="@+id/widget_grande_rlTitolo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="4dp" >
+
+        <ImageView
+            android:id="@+id/widget_grande_ivLogo"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/provv_contenutoImmagini"
+            android:src="@drawable/img_wallet" />
+
+        <TextView
+            android:id="@+id/edittag_tvVecchiaVoceLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@id/widget_grande_ivLogo"
+            android:text="@string/app_name"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivPreferiti"
+            android:src="@drawable/ic_action_important"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="4dp"
+            android:layout_centerVertical="true" />
+
+        <ImageView
+            android:id="@+id/widget_grande_ivAggiungiSpesa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="false"
+            android:background="@drawable/selector_immagine_cliccabile"
+            android:contentDescription="@string/provv_contenutoImmagini"
+            android:src="@drawable/ic_action_bad"
+            android:layout_toLeftOf="@+id/ivPreferiti"
+            android:layout_centerVertical="true" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/widget_grande_tvPeriodo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/widget_grande_rlTitolo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="2dp"
+        android:gravity="center_horizontal"
+        android:text="@string/fragment_budget_budgets"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="14sp" />
+
+    <FrameLayout
+        android:layout_width="1600dp"
+        android:layout_height="1dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/widget_grande_rlTitolo"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="10dp"
+        android:layout_toLeftOf="@id/widget_grande_tvPeriodo"
+        android:background="@android:color/darker_gray" />
+
+    <FrameLayout
+        android:layout_width="1600dp"
+        android:layout_height="1dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/widget_grande_rlTitolo"
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/widget_grande_tvPeriodo"
+        android:background="@android:color/darker_gray" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/widget_grande_tvPeriodo" >
+
+        <ListView
+            android:id="@+id/widget_grande_lvBudget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="#CCFFFFFF"
+            android:dividerHeight="1dp"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:visibility="invisible" >
+        </ListView>
+
+        <TextView
+            android:id="@+id/widget_grande_tvNoData"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/widget_grande_loadingData"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/black" />
+
+    </FrameLayout>
+
+</RelativeLayout>

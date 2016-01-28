@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/primary"
+        android:layout_alignParentTop="true"
+        android:elevation="6dp"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/scrollView1"
+        android:layout_below="@id/toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <RelativeLayout
+        android:id="@+id/preferenze_voci_listview_item_rlPadre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp" >
+
+        <ImageView
+            android:id="@+id/spese_entrate_dettaglio_voce_ivIcona"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
+            android:contentDescription="@string/provv_contenutoImmagini"
+            android:scaleType="centerInside"
+            android:src="@drawable/tag_0"
+            android:transitionName="icona"/>
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/ivPreferito"
+                android:src="@drawable/img_favorite"
+                android:layout_toLeftOf="@+id/tvVoce"
+                android:layout_alignTop="@+id/tvVoce"
+                android:layout_marginRight="8dp"
+                android:visibility="invisible" />
+
+            <TextView
+            android:id="@+id/tvImporto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/spese_entrate_dettaglio_voce_ivIcona"
+            android:layout_marginRight="4dp"
+            android:gravity="center_vertical"
+            android:text="@string/provv_importoValutaZero"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/text_primary"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvVoce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tvImporto"
+            android:layout_marginRight="4dp"
+            android:gravity="center"
+            android:text="@string/provv_lorem_ipsum"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/accent" />
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view_importo"
+            android:layout_below="@id/tvVoce"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardCornerRadius="4dp"
+            android:layout_marginTop="16dp"
+            android:elevation="2dp">
+
+            <RelativeLayout
+                android:id="@+id/spese_entrate_dettaglio_voce_rlImporto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="4dp">
+
+                <LinearLayout
+                    android:id="@+id/spese_entrate_dettaglio_voce_rlImportoLabels"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_toRightOf="@+id/sedv_tvA"
+                    android:layout_marginLeft="16dp">
+
+                    <TextView
+                        android:id="@+id/spese_entrate_dettaglio_voce_tvImportoOrigLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dettaglio_voce_importoOriginale"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_primary"
+                        android:layout_marginTop="4dp" />
+
+                    <TextView
+                        android:id="@+id/tvImportoOriginale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="@string/generici_trattino"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/text_secondary" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="@string/dettaglio_voce_tassoCambio"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_primary" />
+
+                    <TextView
+                        android:id="@+id/tvTassoCambio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="@string/generici_trattino"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/text_secondary" />
+
+                 </LinearLayout>
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:text="A"
+                    android:id="@+id/sedv_tvA"
+                    android:textColor="@android:color/white"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:textSize="40sp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/background_tondo_primary"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view_info"
+            android:layout_below="@id/card_view_importo"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardCornerRadius="4dp"
+            android:layout_marginTop="12dp"
+            android:elevation="2dp">
+
+            <RelativeLayout
+                android:id="@+id/spese_entrate_dettaglio_voce_rlInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="4dp">
+
+                <TextView
+                    android:text="B"
+                    android:id="@+id/sedv_tvB"
+                    android:textColor="@android:color/white"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:textSize="40sp"
+                    android:layout_width="60dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/background_tondo_primary"
+                    android:layout_height="60dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/sedv_tvContoTitolo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="false"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/dettagli_voce_conto"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:layout_toRightOf="@+id/sedv_tvB"
+                    android:layout_marginLeft="16dp" />
+
+                <TextView
+                    android:id="@+id/sedv_tvConto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="false"
+                    android:layout_below="@+id/sedv_tvContoTitolo"
+                    android:layout_marginRight="5dp"
+                    android:text="@string/provv_lorem_ipsum"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/text_secondary"
+                    android:layout_toRightOf="@+id/sedv_tvB"
+                    android:layout_marginLeft="16dp"
+                    android:ellipsize="end" />
+
+                <TextView
+                    android:id="@+id/tvDataTitolo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="false"
+                    android:layout_below="@+id/sedv_tvConto"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/dettagli_voce_data"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:layout_toRightOf="@+id/sedv_tvB"
+                    android:layout_marginLeft="16dp" />
+
+                <TextView
+                    android:id="@+id/tvData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="false"
+                    android:layout_below="@+id/tvDataTitolo"
+                    android:layout_marginRight="5dp"
+                    android:text="@string/provv_lorem_ipsum"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/text_secondary"
+                    android:layout_toRightOf="@+id/sedv_tvB"
+                    android:layout_marginLeft="16dp"
+                    android:ellipsize="end" />
+
+                <TextView
+                    android:id="@+id/tvDescrizioneTitolo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="false"
+                    android:layout_below="@+id/tvData"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/dettagli_voce_descrizione"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:layout_toRightOf="@+id/sedv_tvB"
+                    android:layout_marginLeft="16dp" />
+
+                <TextView
+                    android:id="@+id/tvDescrizione"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="false"
+                    android:layout_below="@+id/tvDescrizioneTitolo"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginRight="5dp"
+                    android:text="@string/provv_lorem_ipsum"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/text_secondary"
+                    android:layout_toRightOf="@+id/sedv_tvB"
+                    android:layout_marginLeft="16dp"
+                    android:ellipsize="end" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view_ripetizione"
+            android:layout_below="@id/card_view_info"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardCornerRadius="4dp"
+            android:layout_marginTop="12dp"
+            android:elevation="2dp">
+
+            <RelativeLayout
+                android:id="@+id/spese_entrate_dettaglio_voce_rlRipetizione"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="4dp">
+
+                <LinearLayout
+                    android:id="@+id/spese_entrate_dettaglio_voce_llRipetizioneInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical"
+                    android:layout_toRightOf="@+id/sedv_tvC"
+                    android:layout_marginLeft="16dp">
+
+                    <TextView
+                        android:id="@+id/tvRipetizione"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/dettagli_voce_ripetizione"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_primary" />
+
+                    <TextView
+                        android:id="@+id/dettagli_voce_tvRipetizione"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/generici_trattino"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/text_secondary"
+                        android:ellipsize="end" />
+
+                    <TextView
+                        android:id="@+id/menu_esporta_tvGoogleDocs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/dettagli_voce_fine_ripetizione"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_primary" />
+
+                    <TextView
+                        android:id="@+id/dettagli_voce_tvFineRipetizione"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="@string/generici_trattino"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/text_secondary"
+                        android:ellipsize="end" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="C"
+                    android:id="@+id/sedv_tvC"
+                    android:textColor="@android:color/white"
+                    android:textSize="40sp"
+                    android:background="@drawable/background_tondo_primary"
+                    android:gravity="center"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

@@ -1,0 +1,552 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Menu info last version -->
+    <string name="miv_last_version_title">Versione 1.6</string>
+    <string name="miv_mod1_title">MARSHMALLOW</string>
+    <string name="miv_mod1_text">Supporto ad Android 6 Marshmallow: nuova gestione permessi, backup automatico delle preferenze e del database.</string>
+
+    <!-- Generici -->
+    <string name="elimina">Elimina</string>
+
+    <!-- Not yet classified -->
+    <string name="app_name">Personal Budget</string>
+    <string name="action_settings">Impostazioni</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="tab_spese">Spese</string>
+    <string name="tab_entrate">Entrate</string>
+    <string name="tab_saldo">Saldo</string>
+    <string name="tab_budget">Budget</string>
+    <string name="menu_intervallo">Periodo</string>
+    <string name="menu_inizia_da">Da:</string>
+    <string name="menu_termina_a">A:</string>
+    <string name="seleziona">Seleziona</string>
+    <string name="cancella">Annulla</string>
+    <string name="ok">OK</string>
+    <string name="periodo_errore">Data finale precedente alla data iniziale!</string>
+    <string name="menu_periodo_ultimi_30_gg">Ultimi 30 giorni</string>
+    <string name="menu_periodo_prossimi_30_gg">Prossimi 30 giorni</string>
+    <string name="menu_periodo_mese_corrente">Mese corrente</string>
+    <string name="menu_periodo_sempre">Sempre</string>
+    <string name="menu_periodo_nessuna">Nessuna</string>
+    <string name="menu_periodo_scelte_rapide">Scelta rapida:</string>
+    <string name="dettagli_voce_dettagli_spesa">Dettaglio spesa</string>
+    <string name="dettagli_voce_dettagli_entrata">Dettaglio entrata</string>
+    <string name="dettagli_voce_tag">Tag:</string>
+    <string name="dettagli_voce_data">Data:</string>
+    <string name="dettagli_voce_descrizione">Descrizione:</string>
+    <string name="dettagli_voce_elimina">Elimina</string>
+    <string name="dettagli_voce_modifica">Modifica</string>
+    <string name="dettagli_voce_prezzo">Importo:</string>
+    <string name="dettagli_voce_conferma_elimina_titolo">Conferma eliminazione?</string>
+    <string name="dettagli_voce_conferma_elimina_msg">Vuoi davvero eliminare la voce selezionata?</string>
+    <string name="aggiungi_spese_aggiungi_spesa">Aggiungi spesa</string>
+    <string name="aggiungi_spese_inserisci_tag">Inserisci nuovi tag qui&#8230;</string>
+    <string name="aggiungi_spese_aggiungi">Aggiungi</string>
+    <string name="aggiungi_spese_data">Data&#8230;</string>
+    <string name="aggiungi_spese_selezionaData">Seleziona data&#8230;</string>
+    <string name="aggiungi_spese_oggi">Oggi</string>
+    <string name="aggiungi_spese_ieri">Ieri</string>
+    <string name="aggiungi_spese_descrizione">Inserisci la descrizione qui&#8230;</string>
+    <string-array name="aggiungi_voce_tipo_ripetizione">
+        <item >Inserimento graduale</item>
+        <item >Inserimento multiplo</item>
+    </string-array>
+    <string-array name="ripetizioni">
+        <item >Nessuna</item>
+        <item >Giornaliero</item>
+        <item >Settimanale</item>
+        <item >Bi-Settimanale</item>
+        <item >Mensile</item>
+        <item >Annuale</item>
+        <item >Giorni lavorativi</item>
+        <item >Weekend</item>
+    </string-array>
+        <string-array name="ripetizioni_budget">
+        <item >Una tantum</item>
+        <item >Giornaliero</item>
+        <item >Settimanale</item>
+        <item >Bi-Settimanale</item>
+        <item >Mensile</item>
+        <item >Annuale</item>
+    </string-array>
+    <string name="aggiungi_spese_errore">Errore! Inserire almeno 1 tag!</string>
+    <string name="aggiungi_spese_fine_ripetizione">Ripeti spesa fino:</string>
+    <string name="aggiungi_spese_mai">Mai</string>
+    <string name="aggiungi_spese_fino_alla_data">Fino alla data:</string>
+    <string name="aggiungi_spese_numero_ripetizioni">Per x volte:</string>
+    <string name="dettagli_voce_ripetizione">Ripetizione:</string>
+    <string name="dettagli_voce_fine_ripetizione">Fine ripetizione:</string>
+    <string name="dettagli_voce_elimina_ripetute_titolo">Questa è una voce ripetuta. Quali voci vuoi eliminare?</string>
+    <string-array name="dettagli_voce_elimina_ripetute_scelte">
+        <item >Solo questa voce</item>
+        <item >Tutte le occorrenze di questa voce</item>
+        <item >Occorrenze da oggi</item>
+    </string-array>
+    <plurals name="dettagli_voce_x_voci_eliminate">
+        <item quantity="one">1 voce eliminata!</item>
+        <item quantity="other">%1$d voci eliminate!</item>
+    </plurals>
+    <string name="aggiungi_spese_altro_giorno">Altro</string>
+    <string name="aggiungi_spese_modifica_spesa">Modifica spesa</string>
+    <string name="toast_spesa_aggiunta">1 spesa aggiunta!</string>
+    <string name="toast_spesa_modificata">1 spesa modificata!</string>
+    <string name="toast_errore_inserimento">Errore di inserimento!</string>
+    <string name="menu_aggiorna_database">Aggiorna database</string>
+    <string name="aggiungi_entrate_aggiungi_entrata">Aggiungi entrata</string>
+    <string name="aggiungi_entrate_modifica_entrata">Modifica entrata</string>
+    <string name="toast_entrata_aggiunta">1 entrata aggiunta!</string>
+    <string name="toast_entrata_modificata">1 entrata modificata!</string>
+    <string name="budget_dettaglio_titolo">Dettaglio budget</string>
+    <string name="budget_dettaglio_scadenza">Scadenza:</string>
+    <string name="budget_dettaglio_speseincluse">Elenco spese</string>
+    <string name="budget_dettaglio_riepilogobudget">Storico budget</string>
+    <string name="budget_dettaglio_modifica">Modifica</string>
+    <string name="budget_dettaglio_utilizzato">ut.</string>
+    <string name="budget_dettaglio_rimanente">rim.</string>
+    <string name="budget_budgetanaloghi_riepilogobudget">Storico budget</string>
+    <string name="budget_budgetanaloghi_risparmiato">risparmiato</string>
+    <string name="budget_budgetanaloghi_ecceduto">in eccesso</string>
+    <string name="budget_aggiungi_aggiungibudget">Aggiungi budget</string>
+    <string name="budget_aggiungi_ripetizione">Ripetizione&#8230;</string>
+    <string name="budget_aggiungi_selezionatag">Tag&#8230;</string>
+    <string name="budget_aggiungi_inseriscinuovitag">Inserisci nuovi tag qui</string>
+    <string name="budget_aggiungi_tuttitageccetto">Tutti tranne&#8230;</string>
+    <string name="budget_aggiungi_tuttitag">Tutti</string>
+    <string name="budget_aggiungi_dalladata">Da</string>
+    <string name="budget_aggiungi_alladata">A</string>
+    <string name="budget_aggiungi_aggiungirimanenza">Aggiungere risparmi ai prossimi budget?</string>
+    <string name="budget_aggiungi_aggiungi">Aggiungi</string>
+    <string name="budget_aggiungi_nonaggiungere">Non aggiungere</string>
+    <string name="budget_aggiungi_selezionavocispecifichetitolo">Budget per i tag&#8230;</string>
+    <string name="budget_aggiungi_selezionavocispecificheok">OK</string>
+    <string name="budget_aggiungi_modifica">Modifica budget</string>
+    <string name="toast_budget_aggiunto">1 budget aggiunto!</string>
+    <string name="toast_budget_modificato">1 budget modificato!</string>
+    <string name="budget_aggiungi_cambiain">Cambia in:</string>
+    <string name="budget_dettaglio_elimina">Elimina</string>
+    <string name="toast_budget_eliminato">%d budget eliminati!</string>
+    <string name="menu_esporta">Esporta database</string>
+    <string name="menu_esporta_mail">Invia a e-mail (opzionale):</string>
+    <string name="menu_esporta_entermail">Inserisci la tua e-mail qui&#8230;</string>
+    <string name="menu_esporta_testo">Testo (*.csv)</string>
+    <string name="menu_esporta_excel">Excel (*.xls)</string>
+    <string name="menu_esporta_acrobat">Acrobat (*.pdf)</string>
+    <string name="menu_esporta_invia">Esporta/Invia</string>
+    <string name="menu_esporta_ON">ON</string>
+    <string name="menu_esporta_OFF">OFF</string>
+    <string name="menu_esporta_oggettomail">Personal Budget Database</string>
+    <string name="menu_esporta_testoemail">Personal Budget ha esportato con successo il tuo database. Controlla il file allegato&#8230;</string>
+    <string name="menu_esporta_sceltaclientemail">Invia e-mail con&#8230;</string>
+    <string name="menu_esporta_databasetitolicolonne">DATA,TAG,CONTO,IMPORTO,VALUTA,IMPORTO CONVERTITO,DESCRIZIONE</string>
+    <string name="toast_menuesporta_errore">Errore nell\'esportazione del database!</string>
+    <string name="toast_menuesporta_successo">Database esportato nella cartella Download!</string>
+    <string name="toast_menuesporta_clientmailmancante">Nessun client e-mail trovato sul dispositivo!</string>
+    <string name="menu_esporta_tabellaspese">TABELLA SPESE</string>
+    <string name="menu_esporta_tabellaentrate">TABELLA ENTRATE</string>
+    <string name="menu_esporta_formato">Esporta nel formato:</string>
+    <string name="toast_menuesporta_nessunatabellaselezionata">Seleziona una tabella!</string>
+    <string name="menu_esporta_tabellapdf_tabellaSpese">TABELLA SPESE</string>
+    <string name="menu_esporta_tabellaPdf_colonnaData">DATA</string>
+    <string name="menu_esporta_tabellaPdf_colonnaVoce">TAG</string>
+    <string name="menu_esporta_tabellaPdf_colonnaImporto">IMPORTO</string>
+    <string name="menu_esporta_tabellaPdf_colonnaValuta">VALUTA</string>
+    <string name="menu_esporta_tabellaPdf_colonnaImportoConv">IMPORTO CONV.</string>
+    <string name="menu_esporta_tabellaPdf_colonnaDescrizione">DESCRIZIONE</string>
+    <string name="menu_esporta_tabellaPdf_numPag">Pag. %1$d di %2$d</string>
+    <string name="menu_esporta_tabellaPdf_tabellaEntrate">TABELLA ENTRATE</string>
+    <string name="menu_esporta_tabellaPdf_fondoPaginaSpese">Spese</string>
+    <string name="menu_esporta_tabellaPdf_fondoPaginaEntrate">Entrate</string>
+    <string name="menu_esporta_XLS_nomeFoglioSpese">Spese</string>
+    <string name="menu_esporta_XLS_nomeFoglioEntrate">Entrate</string>
+    <string name="generale_citazione">&quot;Take care of the pence, and the pounds will take care of themselves&quot;</string>
+    <string name="generale_citazioneAutore">(William Lowndes, 1750)</string>
+    <string name="menu_esporta_tabellaPdf_periodo">PERIODO:</string>
+    <string name="menu_esporta_tabellaPdf_totale">TOTALE</string>
+    <string name="toast_budgetAggiungi_noTag">Inserisci almeno 1 tag per il budget!</string>
+    <string-array name="budget_dettaglio_eliminaOpzioni">
+        <item >Solo in budget corrente</item>
+        <item >Tutti i budget dello stesso tipo</item>
+    </string-array>
+    <string name="budget_dettaglio_eliminaTitolo">Seleziona il/i budget da eliminare&#8230;</string>
+    <string name="toast_errore_aggiornamento_database_entrate">Errore di aggiornamento  database (entrate ripetute)!</string>
+    <string name="budget_dettaglio_aggiungereRimanenza">Aggiungere risparmi?</string>
+    <string name="budget_BudgetDettaglioVoce_eliminaRipetuti_msg">Questo eliminerà tutti i budget dello stesso tipo&#8230;</string>
+    <string name="toast_aggiornamentoDatabase_errore">Errore di aggiornamento database!</string>
+    <string name="intro_updatingDatabase">aggiornamento database&#8230;</string>
+    <string name="valute_elencoValute_digitaTestoDaCercare">Inserisci il testo da cercare&#8230;</string>
+    <string name="valute_elencoValute_Codice">Codice valuta:</string>
+    <string name="valute_elencoValute_simbolo">Simbolo:</string>
+    <string name="valute_dettagliovaluta_nomeValuta">Valuta selezionata:</string>
+    <string name="valute_dettagliovaluta_ultimoCambioNoto">Ultimo cambio noto:</string>
+    <string name="valute_dettagliovaluta_cambioPersonalizzato">Cambio personalizzato:</string>
+    <string name="valute_dettagliovaluta_esempioConversione">Esempio conversione:</string>
+    <string name="valute_dettagliovaluta_OK">OK</string>
+    <string name="toast_valute_dettaglioValuta_erroreRecuperoCambio">Errore recupero cambio da Yahoo Finance!</string>
+    <string name="valute_dettaglioValuta_aggiornamentoCambio">recupero tasso di cambio&#8230;</string>
+    <string name="valute_dettagliovaluta_tassoDiCambio">Tasso di cambio</string>
+    <string name="preferenze_generale">Generali</string>
+    <string name="preferenze_generale_valuta_titolo">Valuta principale</string>
+    <string name="preferenze_generale_valuta_descrizione">Cambia la valuta principale&#8230;</string>
+    <string name="menu_preferenze">Preferenze</string>
+    <string name="aggiungi_spese_connessioneYahoo">connessione a Yahoo&#8230;</string>
+    <string name="preferenze_sicurezza_password_ON">ON</string>
+    <string name="preferenze_sicurezza_password_OFF">OFF</string>
+    <string name="preferenze_sicurezza_password_proteggiAppConPassword">Proteggi l\'app con password</string>
+    <string name="preferenze_sicurezza_password_password">Password</string>
+    <string name="preferenze_sicurezza_password_scriviPassword">Inserisci la password qui&#8230;</string>
+    <string name="preferenze_sicurezza_password_OK">OK</string>
+    <string name="preferenze_sicurezza_password_annulla">Annulla</string>
+    <string name="preferenze_sicurezza">Sicurezza</string>
+    <string name="password_OK">OK</string>
+    <string name="password_annulla">Annulla</string>
+    <string name="password_hintScriviPassword">Inserisci la password qui&#8230;</string>
+    <string name="password_xTentativiRimasti">%d tentativi rimasti&#8230;</string>
+    <string name="preferenze_altro">Altro</string>
+    <string name="preferenze_altro_suoni_ON">ON</string>
+    <string name="preferenze_altro_suoni_OFF">OFF</string>
+    <string name="preferenze_altro_suoni_abilitaSuoni">Abilita suoni app</string>
+    <string name="notifica_aggiornamentoDatabase_titolo">Personal Budget</string>
+    <string name="notifica_aggiornamentoDatabase_testo">Aggiornamento database&#8230;</string>
+    <string name="notifica_esportaDatabase_titolo">Personal Budget</string>
+    <string name="notifica_esportaDatabase_testo">Sto esportando il database&#8230;</string>
+    <string name="notifica_esportaDatabaseCompletato_titolo">Personal Budget</string>
+    <string name="notifica_esportaDatabaseCompletato_testo">Database correttamente esportato. Tocca per aprire&#8230;</string>
+    <string name="preferenze_generale_reminder_ON">ON</string>
+    <string name="preferenze_generale_reminder_OFF">OFF</string>
+    <string name="preferenze_generale_reminder_descrizione">Ricordami di registrare le spese e lo status dei budget</string>
+    <string name="preferenze_generale_reminder_titolo">Notifiche</string>
+    <string name="preferenze_altro_suoni_titolo">Suoni app</string>
+    <string name="notifica_reminder_titolo">Personal Budget</string>
+    <string name="notifica_reminder_testo">Hai registrato le spese di oggi?</string>
+    <string name="notifica_budgetEsauriti_titolo">Personal Budget</string>
+    <string name="notifica_budgetEsauriti_testo">Alcuni budget sono quasi esauriti!</string>
+    <string name="menu_ricerca">Ricerca</string>
+    <string name="preferenze_generale_tags_titolo">Modifica tag</string>
+    <string name="preferenze_generale_tags_descrizione">Modifica i tag per le spese e le entrate</string>
+    <string name="preferenze_voci_cerca">Ricerca</string>
+    <string name="generici_OK">OK</string>
+    <string name="menu_contestuale_cancella">Elimina</string>
+    <string name="fragment_budget_budgets">Budget aperti</string>
+    <string name="menu_visualizzaPerVoce">Per tag</string>
+    <string name="menu_aggiungi">Aggiungi</string>
+    <string name="generale_oggi">Oggi</string>
+    <string name="generale_ieri">Ieri</string>
+    <string name="menu_esporta_guadagni">Entrate</string>
+    <string name="menu_periodo_meseIniziaDa">Giorno inizio mese:</string>
+    <string name="menu_periodo_timeline">Timeline:</string>
+    <string name="fragment_saldo_bilancio">Saldo periodo</string>
+    <string name="fragment_saldo_entrateFuture">Entrate future</string>
+    <string name="fragment_saldo_speseFuture">Spese future</string>
+    <string name="fragment_saldo_saldoPrevisto">Saldo previsto</string>
+    <string-array name="fragment_saldo_piechartNomeFette">
+        <item >Entrate</item>
+        <item >Spese</item>
+    </string-array>
+        <string name="menu_visualizzaStats">Grafici</string>
+        <string name="budget_dettaglio_tipoBudget">Tipo budget:</string>
+        <string name="budget_dettaglio_importo">Importo:</string>
+        <string name="budget_dettaglio_voci">Tag:</string>
+        <string name="aggiungi_voce_cambio">Anteprima cambio:</string>
+        <string name="aggiungi_voce_tags">Tag&#8230;</string>
+        <string name="aggiungi_voce_descrizione_opzionale">Descrizione&#8230;</string>
+        <string name="aggiungi_voce_importo">Importo&#8230;</string>
+        <string name="aggiungi_voce_ripetizione">Ripetizione&#8230;</string>
+        <string name="preferenze_sicurezza_password_noPasswordSet">Nessuna password impostata</string>
+        <string name="menu_info_nomeApp">PERSONAL BUDGET 1.6</string>
+        <string name="menu_info_citazione">\&quot;Take care of the pence and the pounds will take care of themselves\&quot; (W.Lowndes, 1750)</string>
+        <string name="menu_info_societa">Fling© software 2014&#8211;2020</string>
+        <string name="menu_info_diritti">All rights reserved</string>
+        <string name="menu_info_sviluppatore">(by Claudio iClaude Agostini)</string>
+        <string name="menu_info_googlePlay">Google Play</string>
+        <string name="menu_info_versioni">Versioni</string>
+        <string name="menu_info_facebook">Pagina Facebook</string>
+        <string name="menu_info">Info</string>
+        <string name="budget_aggiungi_importo">Importo&#8230;</string>
+        <string name="budget_aggiungi_voci">Tag</string>
+        <string name="budget_aggiungi_periodo">Periodo&#8230;</string>
+        <string name="budget_aggiungi_risparmi">Risparmi&#8230;</string>
+        <string name="budget_aggiungi_erroreImportoZero">L\'importo del budget non può essere zero!</string>
+        <string name="budget_aggiungi_selezionatuttitagseccettotitolo">Tutti tranne&#8230;</string>
+        <string name="budget_aggiungi_errore_budgetScaduto">Il budget è già scaduto! Controlla il periodo!</string>
+        <string name="fragment_spese_toccaPiu">Tocca + per aggiungere nuove spese!</string>
+        <string name="fragment_entrate_toccaPiu">Tocca + per aggiungere nuove entrate!</string>
+        <string name="fragment_budget_toccaPiu">Tocca + per aggiungere nuovi budget</string>
+        <string name="statistiche_analisiFinanziaria">Analisi Economica</string>
+        <string name="statistiche_iniziaDa">Inizio:</string>
+        <string name="statistiche_terminaA">Fine:</string>
+        <string name="statistiche_periodo">Periodo:</string>
+        <string name="statistiche_selezionaGrafico">Seleziona il grafico:</string>
+        <string-array name="statistiche_grafici">
+            <item >Distribuzione - a torta</item>
+            <item>Distribuzione - a barre</item><item>Temporale - generale</item><item>Temporale - per tag</item>
+            <item >Dial chart (min, max, med) - per tag</item>
+            <item >Intervalli barre (min, max) - generale</item>
+            <item >Distribuzione - a ciambella</item>
+            
+            
+        </string-array>
+        <string name="statistiche_errore_noElementi">Nessuna voce per il periodo selezionato!</string>
+        <string name="statistiche_composizioneSpese">Distribuzione spese</string>
+        <string name="statistiche_caricamento">caricamento dati&#8230;</string>
+        <string name="statistiche_noElementi">Nessuna voce trovata!</string>
+        <string name="statistiche_voce">tag</string>
+        <string name="statistiche_importo">importo</string>
+        <string name="statistiche_percentuale">perc.</string>
+        <string name="statistiche_spese">Spese</string>
+        <string name="statistiche_entrate">Entrate</string>
+        <string name="statistiche_tempo">tempo</string>
+        <string name="statistiche_indicazioni">NB: tocca, zoomma o scorri per mostrare contenuto&#8230;</string>
+        <string name="statistiche_ambito">Ambito:</string>
+        <string name="statistiche_dialchart">Dial chart</string>
+        <string name="statistiche_dialchart_min">Minimo</string>
+        <string name="statistiche_dialchart_max">Massimo</string>
+        <string name="statistiche_dialchart_avg">Media</string>
+        <string name="statistiche_periodoSbagliato">Periodo errato!</string>
+        <string name="statistiche_min">min</string>
+        <string name="statistiche_max">max</string>
+        <string name="statistiche_rangebarchart">grafico a barre</string>
+        <string name="statistiche_esterno">Esterno</string>
+        <string name="statistiche_interno">Interno</string>
+        <string name="menu_backuprestore_titolo">Backup/restore database</string>
+        <string name="menu_backuprestore_backup">backup</string>
+        <string name="menu_backuprestore_restore">restore</string>
+        <string name="menu_backuprestore_istruzioniBackup">Il database sarà salvato nella cartella Download!</string>
+        <string name="menu_backuprestore_istruzioniRestore">Inserire il database nella cartella Download!</string>
+        <string name="menu_backuprestore_inviaAMail">Invia a e-mail (opzionale):</string>
+        <string name="menu_backuprestore_inserisciEmailQua">Inserisci la tua e-mail qui&#8230;</string>
+        <string name="menu_backuprestore">Backup/restore database</string>
+        <string name="notifica_backupDatabase_titolo">Personal Budget</string>
+        <string name="notifica_backupDatabase_testo">Backup/restore del database in corso&#8230;</string>
+        <string name="notifica_backupDatabaseCompletato_testo">Database backup/restore completato!</string>
+        <string name="notifica_backupDatabaseCompletato_testoErrore">Errore backup/restore: operazione non completata!</string>
+        <string name="provv_intervalloDate">01/giu/2014 &#8211; 30/giu/2014</string>
+        <string name="provv_importoValutaZero">€ 0,00</string>
+        <string name="provv_contenutoImmagini">descrizione immagine</string>
+        <string name="generici_primoElemSpinner">- quick choice -</string>
+        <string-array name="ripetizioni_fine">
+            <item >Ripeti fino a: mai</item>
+            <item >Ripeti fino a: data&#8230;</item>
+            <item >Ripeti fino a: x volte&#8230;</item>
+        </string-array>
+        <string name="manifest_descrizione">Gestisce facilmente con Personal Budget le tue spese personali, entrate e budget! \n Caratteristiche principali: multi-valuta, spese ed entrate ripetute, controllo budget con multi-tag, esportazione database, grafici e analisi finanziaria, ricerca, sicurezza.</string>
+        <string name="budget_aggiungi_cambio">Anteprima cambio:</string>
+        <string name="budget_aggiungi_connessioneYahoo">connessione a Yahoo&#8230;</string>
+        <string name="provv_simboloEuro">€</string>
+        <string name="budget_aggiungi_tags">Tag&#8230;</string>
+        <string name="provv_importoNoValutaZero">0.00</string>
+        <string name="budget_aggiungi_provv_mensile">Mensile</string>
+        <string name="provv_data">1/1/2014</string>
+        <string name="budget_aggiungi_provv_tags">cibo, auto</string>
+        <string name="provv_percentuale_zero">0%</string>
+        <string name="budget_aggiungi_provv_usato">€ 0,00 used</string>
+        <string name="budget_aggiungi_provv_rimasto">€ 0,00 left</string>
+        <string name="provv_lorem_ipsum_2">lorem ipsum lorem ipsum</string>
+        <string name="generici_trattino">-</string>
+        <string name="provv_lorem_ipsum">lorem ipsum</string>
+        <string name="provv_numero_10">10</string>
+        <string name="provv_mese_APR">APR</string>
+        <string name="preferenze_voci_editTag">Modifica tag</string>
+        <string name="dettaglio_voce_importoOriginale">Importo originale:</string>
+        <string name="dettaglio_voce_tassoCambio">Tasso cambio:</string>
+        <string name="widget_grande_noBudgets">Nessun budget aperto!</string>
+        <string name="widget_grande_loadingData">caricamento dati&#8230;</string>
+        <string name="preferenze_voci_conferma_elimina_titolo">Conferma eliminazione?</string>
+        <string name="preferenze_voci_conferma_elimina_messaggio">Attenzione! Questo eliminerà tutte le voci con questo tag!</string>
+        <string name="preferenze_voci_EXP">SPE</string>
+        <string name="preferenze_voci_EAR">ENT</string>
+        <string name="edittag_scriviNuovoTag">Inserisci il nuovo tag qui&#8230;</string>
+        <string name="generici_annulla">Annulla</string>
+        <string name="edittag_titolo">Modifica tag</string>
+        <string name="edittag_vecchia_voce">Tag:</string>
+        <string name="edittag_categoria">Categoria:</string>
+        <string name="edittag_spese">Spese</string>
+        <string name="edittag_entrate">Entrate</string>
+        <string name="edittag_conferma">OK</string>
+        <string name="edittag_elimina">Elimina</string>
+        <string name="splashscreen_back_citazione">\&quot;Take care of the pence, and the pounds will take care of themselves\&quot;</string>
+        <string name="splashscreen_front_azienda">FLING SOFTWARE©</string>
+        <string name="splashscreen_front_nomeapp">PERSONAL BUDGET</string>
+        <string name="menu_backuprestore_backup_restore">Backup/Restore</string>
+        <string-array name="mesi">
+            <item >GENNAIO</item>
+            <item >FEBBRAIO</item>
+            <item >MARZO</item>
+            <item >APRILE</item>
+            <item >MAGGIO</item>
+            <item >GIUGNO</item>
+            <item >LUGLIO</item>
+            <item >AGOSTO</item>
+            <item >SETTEMBRE</item>
+            <item >OTTOBRE</item>
+            <item >NOVEMBRE</item>
+            <item >DICEMBRE</item>
+        </string-array>
+            <string name="lowndes_tips_titolo">Lowndes tips&#8230;</string>
+            <string name="lowndes_tips_spesa_1">Ben fatto! Hai appena inserito la tua prima spesa. Continua così!</string>
+            <string name="lowndes_tips_budget_1">Ben fatto! Usare i budget è il modo migliore per tenere sotto controllo le tue spese.</string>
+            <string-array name="lowndes_tips_suggerimenti">
+                <item >Ricordati di registrare tutte le spese per meglio controllare la tua situazione finanziaria.</item>
+                <item >Usa i widget per la home e lock screen per tenere sempre sotto controllo le tue finanze.</item>
+                <item >Visita la nostra pagina Facebook per suggerimenti e video tutorial.</item>
+                <item >Puoi usare i grafici di Personal Budget per capire in che modo stai spendendo i tuoi soldi.</item>
+                <item >Puoi esportare le tabelle spese ed entrate in pdf, xls e xsv. Controlla le opzioni nel menu!</item>
+                <item >Se stai pensando di andare all\'estero, Personal Budget offre il supporto alle diverse valute con tassi di cambio aggiornati.</item>
+                <item >Puoi modificare o eliminare i tuoi tag nel menu preferenze.</item>
+                <item >Con la funzione spese ripetute, Personal Budget aggiunge le tue spese più frequenti automaticamente.</item>
+                <item >Continua a registrare le tue spese ed entrate e la tua situazione finanziaria migliorerà a vista d\'occhio!</item>
+                <item >Vuoi aggiungere nuove funzioni alla app? Diccelo sulla nostra pagina Facebook!</item>
+                <item >Puoi aggiungere velocemente nuove spese usando l’apposita icona sui widget senza dover avviare l\’app.</item>
+                <item >Spese ed entrate possono essere visualizzate per data o per voce: tocca l’icona in basso a destra.</item>
+                <item >Usa il grafico a ciambella per confrontare le tue spese in periodi diversi.</item>
+                <item >Per la tua privacy puoi limitare l’accesso alla app con una password: controlla il menu impostazioni.</item>
+                <item >Per proteggere i tuoi dati puoi fare periodicametne il backup e restore dell\'intero database: controlla il menu impostazioni.</item>
+                <item >Usa la funzione ricerca per trovare rapidamente una spesa o entrata: prima di fare questo imposta correttamente il periodo.</item>
+                <item >Puoi aggiungere nuovi tag quando inserisci una nuova spesa, entrata o budget utilizzando il riquadro dei tag.</item>
+                <item >Nella finestra di dettaglio dei budget puoi visualizzare lo storico dei budget e le spese incluse.</item>
+                <item >Con la funzione \&quot;Aggiungere risparmi\&quot; dei budget puoi aggiungere automaticamente i risparmi ai budget successivi.</item>
+                <item >Puoi inserire budget per uno o più tag nel riquadro dei tag.</item>
+            </string-array>
+          <string name="lowndes_tips_disabilita_suggerimenti">disabilita i Lowndes tips</string>
+		                  <string name="preferenze_altro_lowndestips_titolo">Lowndes tips&#8230;</string>
+                <string name="preferenze_altro_lowndestips_ON">ON</string>
+                <string name="preferenze_altro_lowndestips_OFF">OFF</string>
+                <string name="preferenze_altro_lowndestips_abilitaTips">Abilita i suggerimenti di William Lowndes</string>
+                <string name="database_varie">varie</string>
+    <string name="fragment_selezionati">selezionato/i</string>
+    <string name="fragment_eliminazione_voci_selezionate_conferma_msg">Vuoi davvero eliminare le voci selezionate?</string>
+                <string-array name="menu_backuprestore_spinnerOptions">
+                    <item >Memoria interna app</item>
+                    <item >Cartella Download</item>
+                    <item >Dropbox</item>
+                </string-array>
+      <string name="menu_backuprestore_ultimi10Backup">Ultimi 10 backup</string>
+      <string name="menu_backuprestore_alertDialogTitolo">Conferma restore?</string>
+      <string name="menu_backuprestore_alertDialogTesto">Vuoi ripristinare il database selezionato? Questa operazione non può essere annullata!</string>
+      <string name="toast_menubackuprestore_seleziona1Backup">Selezionare uno dei backup automatici!</string>
+      <string name="edittag_icona">Icona:</string>
+      <string name="edittag_cambia">tocca x cambiare…</string>
+      <string name="icone_selezione_scegliIcona">Seleziona l\'icona&#8230;</string>
+      <string name="edittag_nuovoTag">Nuovo tag:</string>
+      <string-array name="database_arrVociSpese">
+          <item >abbigliamento</item>
+          <item >auto</item>
+          <item >cibo</item>
+          <item >divertimento</item>
+          <item >personali</item>
+          <item >tecnologia</item>
+          <item >viaggi</item>
+          <item >giroconto</item>
+      </string-array>
+      <string-array name="database_arrVociEntrate">
+          <item >stipendio</item>
+          <item >vincite</item>
+          <item >giroconto</item>
+      </string-array>
+      <string name="preferenze_aggiungivoce_aggiungiNuovaVoce">Aggiungi voce</string>
+      <string name="toast_preferenze_aggiungivoce_inserireUnTag">Inserire 1 voce!</string>
+      <string name="toast_preferenze_aggiungivoce_voceGiaPresente">Voce già esistente! Scegline un\'altra&#8230;</string>
+	  <string name="versioni_alertdialog_messaggio_2">1) 55 nuove icone per le tue voci (menu - preferenze - modifica tag) \n\n2) backup automatici e più opzioni di restore (menu - backup/restore database)</string>
+      <string name="versioni_alertdialog_titolo">Novità ver. 1.1</string>
+      <string name="aggiungi_voce_appCalcolatriceNonTrovata">Nessuna calcolatrice installata sul dispositivo!</string>
+	<string name="ricvoc_spesa_o_entrata">cosa…</string>
+	<string name="ricvoc_tag">voce…</string>
+	<string name="ricvoc_importo">importo…</string>
+	<string name="ricvoc_riconoscimento_vocale">Riconoscimento vocale</string>
+	<string name="ricvoc_lingua_non_disponibile">Lingua non disponibile. Installare il file della lingua sul dispositivo!</string>
+	<string-array name="ricvoc_domande">
+		<item >Vuoi aggiungere una spesa o entrata?</item>
+		<item >Qual\'è la voce?</item>
+		<item >Qual\'è l\'importo?</item>
+		<item >Pronuncia OK per confermare annulla per annullare</item>
+	</string-array>
+	<string name="ricvoc_sr_non_presente">Il Riconoscimento Vocale non è installato sul dispositivo!</string>
+	<string name="ricvoc_non_ho_capito">Non ho capito. Prova di nuovo!</string>
+	<string name="ricvoc_si_o_no">OK o Annulla?</string>
+	<string name="ricvoc_operazione_completata">Operazione completata!</string>
+	<string name="ricvoc_ok">Ok</string>
+	<string name="ricvoc_annulla">annulla</string>
+	<string-array name="ricvoc_arrSpesa">
+		<item >spesa</item>
+		<item >sposa</item>
+		<item >spasa</item>
+		<item >spisa</item>
+		<item >spusa</item>
+		<item >espesa</item>
+		<item >espasa</item>
+	</string-array>
+	<string-array name="ricvoc_arrEntrata">
+		<item >entrata</item>
+		<item >antrata</item>
+		<item >entreta</item>
+		<item >entrada</item>
+		<item >entra</item>
+		<item >antrada</item>
+		<item >trata</item>
+		<item >trada</item>
+	</string-array>
+
+
+    <string name="aggiungi_voce_conto">Conto&#8230;</string>
+	<string name="dettagli_voce_conto">Conto:</string>
+	<string name="menu_esporta_tabellaPdf_colonnaConto">CONTO</string>
+	<string name="menu_conti">Conti</string>
+	<string name="conti_gestioneConti">Gestione conti</string>
+	<string name="conti_totaleGenerale">Totale generale:</string>
+	<string name="menu_contielenco_trasferimento">Trasferimento</string>
+	<string name="conti_inserimento_aggiungiConto">Aggiungi conto</string>
+	<string name="conti_inserimento_nome">Nome&#8230;</string>
+	<string name="conti_inserimento_saldo">Saldo&#8230;</string>
+	<string name="conti_inserimento_dataSaldo">Data saldo&#8230;</string>
+	<string name="conti_inserimento_nomeContoMancante">Nome conto mancante!</string>
+	<string name="conti_inserimento_contoAggiunto">Nuovo conto aggiunto!</string>
+	<string name="conti_trasferimento_da">Da:</string>
+	<string name="conti_trasferimento_a">A:</string>
+	<string name="conti_trasferimento_importo">Importo:</string>
+	<string name="conti_trasferimento_trasferimentoCompletato">Trasferimento completato!</string>
+	<string name="conti_trasferimento_importoZero">Inserire un importo positivo!</string>
+	<string name="conti_trasferimento_contiUguali">Selezionare due conti diversi!</string>
+	<string name="conti_visualizza_dettagliConto">Dettagli conto</string>
+	<string name="conti_visualizza_saldoFinale">Saldo finale:</string>
+	<string name="conti_visualizza_saldo">Saldo:</string>
+	<string name="conti_visualizza_dataSaldo">Data saldo:</string>
+	<string name="conti_visualizza_modifica">Modifica</string>
+	<string name="conti_visualizza_elimina">Elimina</string>
+	<string name="conti_visualizza_eliminaTitolo">Conferma eliminazione?</string>
+	<string name="conti_visualizza_eliminaTesto">Spese ed entrate di questo conto saranno incluse nel conto di default.</string>
+	<string name="conti_visualizza_contoEliminato">Conto eliminato!</string>
+	<string name="conti_modifica_contoModificato">Conto modificato!</string>
+	<string name="drawer_contiMinuscolo">Conti</string>
+	<string name="conti_tutti">tutti</string>
+	<string name="main_conto">C/</string>
+	<string name="drawer_gestioneConti">Gestione conti</string>
+	<string name="fragment_saldo_saldoFinale">Saldo</string>
+	<string name="voce_giroconto">giroconto</string>
+	<string name="preferenze_voci_modificaNonPermessa">Questa voce non può essere modificata!</string>
+    <string name="provv_ora">14:55:56</string>
+    <string name="drawer_open">open drawer</string>
+    <string name="drawer_close">close drawer</string>
+    <string name="menu_backuprestore_backupAutomatico">Auto backup</string>
+    <string name="conti_contoDefault">conto di default</string>
+    <string name="widget_piccolo_stimato">EST</string>
+    <string name="aggiungi_voce_favoriti">Aggiungi ai preferiti</string>
+    <string name="menu_favoriti">Preferiti</string>
+    <string name="aggiungi_voce_preferiti">Preferiti...</string>
+    <string name="preferiti_preferiti">Preferiti</string>
+    <string name="preferiti_istruzioni">Clicca su Aggiungi ai preferiti quando inserisci una voce.</string>
+    <string name="budget_dettaglio_duplica">Duplica</string>
+    <string name="dettagli_voce_spesa_duplicata">La spesa è stata duplicata.</string>
+    <string name="dettagli_voce_entrata_duplicata">L\'entrata è stata duplicata</string>
+    <string name="dettagli_voce_conferma_duplica_titolo">Conferma duplicazione?</string>
+    <string name="dettagli_voce_conferma_duplica_msg">La voce selezionata sarà duplicata.</string>
+    <string name="preferiti_conferma_elimina_titolo">Conferma eliminazione?</string>
+    <string name="preferiti_conferma_elimina_msg">Le transazioni selezionate saranno cancellate dai preferiti. Le transazioni in sé non saranno eliminate.</string>
+    <string name="nfc_error">Errore NFC: l\'operazione non può essere completata!</string>
+    <string name="installa_database">Installa database</string>
+    <string name="prego_aspettare">Prego attendere...</string>
+    <string name="nfc_indicazioni">Una copia di sicurezza del vecchio database è salvata nella memoria interna dell\'app. Fate il restore se necessario.</string>
+    <string name="nfc_errore_file">Errore! Il file ricevuto non è un database Personal Budget valido.</string>
+    <string name="permessi_negati_titolo">Operazione non completata</string>
+    <string name="permessi_negati_descrizione">L\'operazione richiede i permessi richiesti. Riprova, oppure apri la scheda info - permessi.</string>
+    <string name="preferiti_spese">Preferiti spese</string>
+    <string name="preferiti_entrate">Preferiti entrate</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+	<!--  premuto -->
+    <item android:state_pressed="true" android:drawable="@drawable/listview_gradient_bg_hover" />
+
+</selector>

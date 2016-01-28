@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory
+        android:title="@string/preferenze_generale"
+        android:key="pref_generale">
+        
+		<com.flingsoftware.personalbudget.preferenze.PreferenzeValute
+		    android:key="pref_generale_valuta_principale"
+		    android:title="@string/preferenze_generale_valuta_titolo"
+		    android:summary="@string/preferenze_generale_valuta_descrizione"/>
+		
+		<SwitchPreference
+		    android:key="pref_generale_reminder"
+		    android:defaultValue="true"
+		    android:title="@string/preferenze_generale_reminder_titolo"
+		    android:switchTextOn="@string/preferenze_generale_reminder_ON"
+		    android:switchTextOff="@string/preferenze_generale_reminder_OFF"
+		    android:summaryOn="@string/preferenze_generale_reminder_descrizione"
+		    android:summaryOff="@string/preferenze_generale_reminder_descrizione"/>
+		
+		<Preference 
+		    android:key="pref_generale_tags"
+		    android:title="@string/preferenze_generale_tags_titolo"
+		    android:summary="@string/preferenze_generale_tags_descrizione"/>
+		
+	</PreferenceCategory>
+	
+    <PreferenceCategory
+        android:title="@string/preferenze_sicurezza"
+        android:key="pref_sicurezza">
+		
+		<SwitchPreference
+		    android:key="pref_sicurezza_password_attivata"
+		    android:switchTextOn="@string/preferenze_sicurezza_password_ON"
+		    android:switchTextOff="@string/preferenze_sicurezza_password_OFF"
+		    android:summaryOn="@string/preferenze_sicurezza_password_proteggiAppConPassword"
+		    android:summaryOff="@string/preferenze_sicurezza_password_proteggiAppConPassword"/>
+		
+		<EditTextPreference
+		    android:key="pref_sicurezza_password"
+		    android:dependency="pref_sicurezza_password_attivata"
+		    android:inputType="textPassword"
+		    android:title="@string/preferenze_sicurezza_password_password"
+		    android:summary="@string/preferenze_sicurezza_password_noPasswordSet"
+		    android:dialogTitle="@string/preferenze_sicurezza_password_password"
+		    android:dialogMessage="@string/preferenze_sicurezza_password_scriviPassword"
+		    android:positiveButtonText="@string/preferenze_sicurezza_password_OK"
+		    android:negativeButtonText="@string/preferenze_sicurezza_password_annulla"/>
+        
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:title="@string/preferenze_altro"
+        android:key="pref_altro">
+		
+        <SwitchPreference
+		    android:key="pref_altro_suoni"
+		    android:defaultValue="true"
+		    android:title="@string/preferenze_altro_suoni_titolo"
+		    android:switchTextOn="@string/preferenze_altro_suoni_ON"
+		    android:switchTextOff="@string/preferenze_altro_suoni_OFF"
+		    android:summaryOn="@string/preferenze_altro_suoni_abilitaSuoni"
+		    android:summaryOff="@string/preferenze_altro_suoni_abilitaSuoni"/>
+        
+        <SwitchPreference
+		    android:key="pref_altro_lowndes_tips_abilitati"
+		    android:defaultValue="true"
+		    android:title="@string/preferenze_altro_lowndestips_titolo"
+		    android:switchTextOn="@string/preferenze_altro_lowndestips_ON"
+		    android:switchTextOff="@string/preferenze_altro_lowndestips_OFF"
+		    android:summaryOn="@string/preferenze_altro_lowndestips_abilitaTips"
+		    android:summaryOff="@string/preferenze_altro_lowndestips_abilitaTips"/>
+		
+    </PreferenceCategory>
+
+</PreferenceScreen>

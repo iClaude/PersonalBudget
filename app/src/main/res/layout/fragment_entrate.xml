@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/preferenze_voci_listview_item_rlPadre"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="4dp" >
+
+    <FrameLayout
+        android:layout_width="1600dp"
+        android:layout_height="1dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="12dp"
+        android:layout_toLeftOf="@id/fs_tvPeriodo"
+        android:background="@android:color/darker_gray" />
+    
+    <TextView
+        android:id="@+id/fs_tvPeriodo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center_horizontal"
+        android:text="@string/provv_intervalloDate"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="14sp" />
+    
+    <FrameLayout
+        android:layout_width="1600dp"
+        android:layout_height="1dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="12dp"
+        android:layout_toRightOf="@id/fs_tvPeriodo"
+        android:background="@android:color/darker_gray" />
+
+    <ExpandableListView
+        android:id="@+id/elvEntrate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/fs_tvPeriodo"
+        android:layout_marginTop="4dp"
+        android:childDivider="#00000000"
+        android:divider="?android:attr/listDivider"
+        android:dividerHeight="1dp">
+
+    </ExpandableListView>
+
+    <ImageView
+        android:id="@+id/fragment_entrate_ivWallet"
+        android:contentDescription="@string/provv_contenutoImmagini"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/img_wallet"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/fragment_entrate_tvToccaPiu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fragment_entrate_ivWallet"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:text="@string/fragment_entrate_toccaPiu"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:visibility="invisible" />
+
+</RelativeLayout>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/primary"
+        android:layout_alignParentTop="true"
+        android:elevation="6dp"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <RelativeLayout
+        android:id="@+id/menu_backuprestore_rlParent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp" >
+
+
+
+   	    <TextView
+   	    android:id="@+id/menu_backuprestore_tvTitolo"
+   	    android:layout_width="wrap_content"
+   	    android:layout_height="wrap_content"
+   	    android:layout_alignParentTop="true"
+   	    android:layout_centerHorizontal="true"
+   	    android:layout_marginLeft="8dp"
+   	    android:layout_marginStart="8dp"
+   	    android:layout_marginTop="8dp"
+   	    android:text="@string/menu_backuprestore_titolo"
+   	    android:textAppearance="?android:attr/textAppearanceMedium"
+   	    android:textStyle="bold"
+            android:textColor="@color/text_primary" />
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_below="@id/menu_backuprestore_tvTitolo"
+            android:id="@+id/card_view"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardCornerRadius="4dp"
+            android:layout_marginTop="8dp">
+
+            <RelativeLayout
+                android:id="@+id/menu_backuprestore_rlOpzioni"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="4dp">
+
+                <RadioGroup
+                    android:id="@+id/menu_backuprestore_rgOperazione"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:orientation="horizontal" >
+
+                    <RadioButton
+                        android:id="@+id/menu_backuprestore_rbBackup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:onClick="onRadioButtonClicked"
+                        android:text="@string/menu_backuprestore_backup"
+                        android:textColor="@color/text_primary" />
+
+                    <RadioButton
+                        android:id="@+id/menu_backuprestore_rbRestore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onRadioButtonClicked"
+                        android:text="@string/menu_backuprestore_restore"
+                        android:textColor="@color/text_primary" />
+
+                </RadioGroup>
+
+                <Spinner
+                    android:id="@+id/menu_backuprestore_spRestore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/menu_backuprestore_rgOperazione"
+                    android:visibility="visible"
+                    android:layout_marginTop="8dp" />
+
+                <TextView
+                    android:id="@+id/edittag_tvIcona"
+                    android:layout_width="wrap_content"
+                    android:layout_height="6dp"
+                    android:layout_below="@id/menu_backuprestore_spRestore"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+	  		
+   	    <TextView
+   	    android:id="@+id/menu_backuprestore_tvTitoloLista"
+   	    android:layout_width="wrap_content"
+   	    android:layout_height="wrap_content"
+   	    android:layout_below="@id/card_view"
+   	    android:layout_centerHorizontal="true"
+   	    android:layout_marginLeft="4dp"
+   	    android:layout_marginRight="4dp"
+   	    android:layout_marginTop="12dp"
+   	    android:gravity="center_horizontal"
+   	    android:text="@string/menu_backuprestore_ultimi10Backup"
+   	    android:textAppearance="?android:attr/textAppearanceLarge"
+   	    android:textColor="@android:color/darker_gray"
+   	    android:textSize="14sp"
+   	    android:visibility="gone" />
+   	
+   	    <FrameLayout
+   	    android:id="@+id/menu_backuprestore_flSx"
+   	    android:layout_width="1600dp"
+   	    android:layout_height="1dp"
+   	    android:layout_alignParentLeft="true"
+   	    android:layout_alignParentStart="true"
+   	    android:layout_below="@id/card_view"
+   	    android:layout_marginLeft="4dp"
+   	    android:layout_marginStart="4dp"
+   	    android:layout_marginTop="20dp"
+   	    android:layout_toLeftOf="@id/menu_backuprestore_tvTitoloLista"
+   	    android:layout_toStartOf="@id/menu_backuprestore_tvTitoloLista"
+   	    android:background="@android:color/darker_gray"
+   	    android:visibility="gone" />
+           
+        <FrameLayout
+            android:id="@+id/menu_backuprestore_flDx"
+            android:layout_width="1600dp"
+            android:layout_height="1dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/card_view"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@id/menu_backuprestore_tvTitoloLista"
+            android:layout_toRightOf="@id/menu_backuprestore_tvTitoloLista"
+            android:background="@android:color/darker_gray"
+            android:visibility="gone" />
+
+        <ListView
+            android:id="@+id/menu_backuprestore_lvBackups"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/menu_backuprestore_tvTitoloLista"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:visibility="gone" >
+
+        </ListView>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/menu_backuprestore_tvIndicazioni"
+            android:layout_alignParentBottom="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/menu_backuprestore_istruzioniBackup"
+            android:gravity="center" android:textSize="14sp"
+            android:textColor="@color/accent"/>
+
+</RelativeLayout>
+
+</LinearLayout>
+

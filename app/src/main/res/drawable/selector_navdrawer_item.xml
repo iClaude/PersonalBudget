@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <!--  default -->
+    <item android:state_pressed="false">
+		<color android:color="@color/nav_drawer_sfondo"></color>
+    </item>
+    
+    <!--  altro -->
+    <item android:state_pressed="true">
+		<color android:color="@color/colore_blu"></color>
+    </item>
+</selector>

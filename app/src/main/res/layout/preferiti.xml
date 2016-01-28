@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/primary"
+        android:layout_alignParentTop="true"
+        android:elevation="6dp"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_below="@+id/toolbar">
+
+        <LinearLayout
+            android:id="@+id/preferiti_llPadre"
+            android:layout_below="@id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="4dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/llIstruzioni"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/preferiti_preferiti"
+                    android:id="@+id/tvTitolo"
+                    android:textStyle="bold"
+                    android:gravity="center_horizontal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/preferiti_istruzioni"
+                    android:id="@+id/tvIstruzioni"
+                    android:gravity="center"
+                    android:layout_marginTop="16dp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/aggiungi_voce_favoriti"
+                    android:id="@+id/cbIstruzion"
+                    android:layout_gravity="center_horizontal"
+                    android:checked="true"
+                    android:enabled="false" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/preferiti_spese"
+                android:id="@+id/tvPreferitiSpese"
+                android:textSize="22sp"
+                android:layout_marginTop="8dp"
+                android:textColor="@android:color/black"
+                android:layout_marginLeft="4dp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvPreferitiSpese"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:scrollbars="horizontal"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/preferiti_entrate"
+                android:id="@+id/tvPreferitiEntrate"
+                android:layout_marginTop="16dp"
+                android:textSize="22sp"
+                android:textColor="@android:color/black"
+                android:layout_marginLeft="4dp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvPreferitiEntrate"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:scrollbars="horizontal"
+                android:layout_marginTop="8dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

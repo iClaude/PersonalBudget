@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#2196F3</color>
+    <color name="primary_dark">#1976D2</color>
+    <color name="accent">#E91E63</color>
+    <color name="accent_dark">#C2185B</color>
+    <color name="accent_intermedio">#D81B60</color>
+    <color name="text_primary">#D9000000</color>
+    <color name="text_secondary">#D9424242</color>
+    <color name="cardview_background">#2196f3</color>
+    <color name="colore_blu">#99CBFF</color>
+    <color name="colore_blu_scuro">#0033FF</color>
+    <color name="rosso">#FF0000</color>
+    <color name="colore_giallo">#ffe181</color>
+    <color name="action_mode_bar">#808080</color>
+    <color name="status_bar_elementi_selezionati">#5F5F5F</color>
+    <color name="nav_drawer_titolo">#646464</color>
+    <color name="nav_drawer_voce">#000000</color>
+    <color name="nav_drawer_linea">#646464</color>
+    <color name="nav_drawer_itemSelezionato">#dddddd</color>
+    <color name="nav_drawer_sfondo">#f3f3f3</color>
+    <color name="label_giorni_futuri">#969696</color>
+    <color name="listview_sfondo_grigio">#dddddd</color>
+</resources>

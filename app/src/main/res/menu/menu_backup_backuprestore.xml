@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item 
+        android:id="@+id/menu_menubackuprestore_OK"
+        android:title="@string/menu_backuprestore_backup_restore"
+        android:icon="@drawable/ic_content_import_export"
+        app:showAsAction="ifRoom|withText"/>
+        
+</menu>

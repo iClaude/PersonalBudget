@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item 
+        android:id="@+id/menu_modifica_voce_elimina"
+        android:title="@string/edittag_elimina"
+        android:icon="@drawable/ic_content_discard"
+        app:showAsAction="ifRoom|withText"/>
+    
+    <item 
+        android:id="@+id/menu_modifica_voce_conferma"
+        android:title="@string/edittag_conferma"
+        android:icon="@drawable/ic_navigation_accept"
+        app:showAsAction="ifRoom|withText"/>
+        
+</menu>

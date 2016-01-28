@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/primary"
+        android:layout_alignParentTop="true"
+        android:elevation="6dp"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <TextView
+        android:id="@+id/statistiche_grafico_tvPeriodo"
+        android:layout_below="@id/toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:text="@string/provv_intervalloDate"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="14sp" />
+
+    <FrameLayout
+        android:layout_width="1600dp"
+        android:layout_below="@id/toolbar"
+        android:layout_height="1dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_toLeftOf="@id/statistiche_grafico_tvPeriodo"
+        android:background="@android:color/darker_gray" />
+
+    <FrameLayout
+        android:layout_width="1600dp"
+        android:layout_below="@id/toolbar"
+        android:layout_height="1dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_toRightOf="@id/statistiche_grafico_tvPeriodo"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/statistiche_grafico_tvIndicazioni"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/statistiche_indicazioni"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/accent"
+        android:textSize="14sp"
+        android:visibility="visible"
+        android:padding="4dp"
+        android:gravity="center" />
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view_grafico"
+        android:layout_above="@id/statistiche_grafico_tvIndicazioni"
+        android:layout_below="@id/statistiche_grafico_tvPeriodo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        card_view:cardCornerRadius="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp">
+
+        <RelativeLayout
+            android:id="@+id/statistiche_grafico_llGrafico"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <LinearLayout
+                android:id="@+id/statistiche_grafico_llContenitoreGrafico"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:padding="4dp">
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/statistiche_grafico_tvG"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_below="@+id/statistiche_grafico_llContenitoreGrafico"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                android:text="NO"
+                android:background="@drawable/background_tondo_primary"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="60sp" />
+
+            <TextView
+                android:id="@+id/statistiche_grafico_tvNoVoci"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/statistiche_grafico_tvG"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:text="@string/statistiche_noElementi"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:visibility="gone"
+                android:textColor="@color/text_primary" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>
