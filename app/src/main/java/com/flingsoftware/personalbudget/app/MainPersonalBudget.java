@@ -546,7 +546,6 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 		}
 		
 		protected void onPostExecute(Cursor curResult) {
-			alContiComodo.add(getString(R.string.drawer_contiMinuscolo));
 			alContiComodo.add(getString(R.string.conti_tutti));
 			while(curResult.moveToNext()) {
 				alContiComodo.add(curResult.getString(curResult.getColumnIndex("conto")));
@@ -569,7 +568,6 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 	private static class ViewHolder {
 		ImageView ivIcona;
 		TextView tvVoce;
-		FrameLayout flLinea;
 	}
 	
 	
@@ -594,7 +592,6 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 				viewHolder = new ViewHolder();
 				viewHolder.ivIcona = (ImageView) convertView.findViewById(R.id.dli_ivIcona);
 				viewHolder.tvVoce = (TextView) convertView.findViewById(R.id.dli_tvConto);
-				viewHolder.flLinea = (FrameLayout) convertView.findViewById(R.id.dli_flLinea);
 				convertView.setTag(viewHolder);
 			}
 			else {
@@ -603,28 +600,20 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 			
 			String voce = lstVoci.get(position);
             viewHolder.tvVoce.setTextColor(getResources().getColor(R.color.text_primary));
-			if(voce.equals(getString(R.string.drawer_contiMinuscolo))) {
-				viewHolder.ivIcona.setVisibility(View.GONE);
-				viewHolder.flLinea.setVisibility(View.VISIBLE);
-                viewHolder.tvVoce.setTypeface(null, Typeface.BOLD);
+
+			String contoComodo = conto.equals("%") ? getResources().getString(R.string.conti_tutti) : conto;
+			if(voce.equals(contoComodo)) {
+				convertView.setBackgroundColor(getResources().getColor(R.color.nav_drawer_itemSelezionato));
+				viewHolder.ivIcona.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_news_blue));
+				viewHolder.tvVoce.setTextColor(getResources().getColor(R.color.primary_dark));
+			}
+			else if(voce.equals(getResources().getString(R.string.drawer_gestioneConti))) {
+				viewHolder.ivIcona.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_settings));
 			}
 			else {
-				viewHolder.ivIcona.setVisibility(View.VISIBLE);
-				viewHolder.flLinea.setVisibility(View.GONE);
-				String contoComodo = conto.equals("%") ? getResources().getString(R.string.conti_tutti) : conto;
-				if(voce.equals(contoComodo)) {
-					convertView.setBackgroundColor(getResources().getColor(R.color.nav_drawer_itemSelezionato));
-					viewHolder.ivIcona.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_news_blue));
-				    viewHolder.tvVoce.setTextColor(getResources().getColor(R.color.primary_dark));
-                }
-				else if(voce.equals(getResources().getString(R.string.drawer_gestioneConti))) {
-					viewHolder.ivIcona.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_settings));
-                }
-				else {
-					viewHolder.ivIcona.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_news));
-				}
-                viewHolder.tvVoce.setTypeface(null, Typeface.NORMAL);
+				viewHolder.ivIcona.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_news));
 			}
+
 			viewHolder.tvVoce.setText(voce);
 			
 			return convertView;
@@ -637,15 +626,12 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 		
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			if(position == 0) { // titolo della lista: no azione
-				return;
-			}
-			else if(position == alConti.size() - 1) {
+			if(position == alConti.size() - 1) {
 				Intent intent = new Intent(MainPersonalBudget.this, ContiElenco.class);
 				startActivityForResult(intent, CostantiActivity.ACTIVITY_CONTIELENCO);
 			}
 			else {
-				if(position == 1) {
+				if(position == 0) {
 					conto = "%";
 				}
 				else {

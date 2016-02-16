@@ -6,5 +6,7 @@
             @transition/change_image_transform</item>
         <item name="android:windowSharedElementExitTransition">
             @transition/change_image_transform</item>
+
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 </resources>

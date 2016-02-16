@@ -545,4 +545,5 @@
     <string name="permessi_negati_descrizione">The operation requires the requested permission. Try again or go to the app\'s infos - permissions.</string>
     <string name="preferiti_spese">Favorite expenses</string>
     <string name="preferiti_entrate">Favorite earnings</string>
+    <string name="seleziona_conto">select the account...</string>
 </resources>

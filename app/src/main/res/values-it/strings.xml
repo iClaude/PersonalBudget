@@ -549,4 +549,5 @@
     <string name="permessi_negati_descrizione">L\'operazione richiede i permessi richiesti. Riprova, oppure apri la scheda info - permessi.</string>
     <string name="preferiti_spese">Preferiti spese</string>
     <string name="preferiti_entrate">Preferiti entrate</string>
+    <string name="seleziona_conto">seleziona il conto...</string>
 </resources>

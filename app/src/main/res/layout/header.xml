@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="190dp"
+    android:background="@drawable/material_background">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/seleziona_conto"
+        android:id="@+id/textView4"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentLeft="false"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/notifica_budgetEsauriti_titolo"
+        android:id="@+id/textView5"
+        android:layout_above="@+id/textView4"
+        android:layout_marginLeft="8dp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/img_wallet"
+        android:layout_above="@+id/textView5"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp" />
+</RelativeLayout>
