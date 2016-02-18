@@ -113,6 +113,7 @@
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
+            app:fabSize="normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_action_important"
@@ -125,6 +126,7 @@
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabMic"
+            app:fabSize="normal"
             android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -139,6 +141,7 @@
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabFav"
+            app:fabSize="normal"
             android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

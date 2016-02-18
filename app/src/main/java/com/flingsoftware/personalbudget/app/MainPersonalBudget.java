@@ -62,6 +62,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.BounceInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
@@ -968,79 +969,59 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 
 		float scale = getResources().getDisplayMetrics().density;
 
-		ObjectAnimator animFab = ObjectAnimator.ofFloat(fab, "alpha", 1.0f, 0.5f);
-		animFab.setDuration(500);
+		ObjectAnimator animFabAlpha = ObjectAnimator.ofFloat(fab, "alpha", 1.0f, 0.5f);
+		ObjectAnimator animFabRot = ObjectAnimator.ofFloat(fab, "rotation", 0.0f, 360.0f);
+		AnimatorSet animSetFab = new AnimatorSet();
+		animSetFab.setDuration(500);
+		animSetFab.playTogether(animFabAlpha, animFabRot);
+
 
 		ObjectAnimator animMicAlpha = ObjectAnimator.ofFloat(fabMic, "alpha", 0.0f, 1.0f);
-		animMicAlpha.setDuration(500);
-		ObjectAnimator animMicX = ObjectAnimator.ofFloat(fabMic, "translationX", 0.0f * scale, -100.0f * scale);
-		animMicX.setInterpolator(new BounceInterpolator());
-		ObjectAnimator animMicY = ObjectAnimator.ofFloat(fabMic, "translationY", 0.0f * scale, -40.0f * scale);
+		ObjectAnimator animMicY = ObjectAnimator.ofFloat(fabMic, "translationY", 0.0f * scale, -80.0f * scale);
 		animMicY.setInterpolator(new BounceInterpolator());
-		ObjectAnimator animMicScaleX = ObjectAnimator.ofFloat(fabMic, "scaleX", 1.0f, 1.3f);
-		animMicScaleX.setInterpolator(new AccelerateDecelerateInterpolator());
-		ObjectAnimator animMicScaleY = ObjectAnimator.ofFloat(fabMic, "scaleY", 1.0f, 1.3f);
-		animMicScaleY.setInterpolator(new AccelerateDecelerateInterpolator());
 		AnimatorSet animSetMic = new AnimatorSet();
 		animSetMic.setDuration(500);
-		animSetMic.playTogether(animMicAlpha, animMicX, animMicY, animMicScaleX, animMicScaleY);
+		animSetMic.playTogether(animMicAlpha, animMicY);
 
 
 		ObjectAnimator animFavAlpha = ObjectAnimator.ofFloat(fabFav, "alpha", 0.0f, 1.0f);
-		animFavAlpha.setDuration(500);
-		ObjectAnimator animFavX = ObjectAnimator.ofFloat(fabFav, "translationX", 0.0f * scale, -15.0f * scale);
-		animFavX.setInterpolator(new BounceInterpolator());
-		ObjectAnimator animFavY = ObjectAnimator.ofFloat(fabFav, "translationY", 0.0f * scale, -110.0f * scale);
+		ObjectAnimator animFavY = ObjectAnimator.ofFloat(fabFav, "translationY", 0.0f * scale, -160.0f * scale);
 		animFavY.setInterpolator(new BounceInterpolator());
-		ObjectAnimator animFavScaleX = ObjectAnimator.ofFloat(fabFav, "scaleX", 1.0f, 1.3f);
-		animMicScaleX.setInterpolator(new AccelerateDecelerateInterpolator());
-		ObjectAnimator animFavScaleY = ObjectAnimator.ofFloat(fabFav, "scaleY", 1.0f, 1.3f);
-		animMicScaleY.setInterpolator(new AccelerateDecelerateInterpolator());
 		AnimatorSet animSetFav = new AnimatorSet();
 		animSetFav.setDuration(500);
-		animSetFav.playTogether(animFavAlpha, animFavX, animFavY, animFavScaleX, animFavScaleY);
+		animSetFav.playTogether(animFavAlpha, animFavY);
 
-		animFab.start();
+		animSetFab.start();
 		animSetMic.start();
 		animSetFav.start();
 	}
 
 	private void compressFab() {
-		ObjectAnimator animFab = ObjectAnimator.ofFloat(fab, "alpha", 0.5f, 1.0f);
-		animFab.setDuration(500);
-
 		float scale = getResources().getDisplayMetrics().density;
 
+		ObjectAnimator animFabAlpha = ObjectAnimator.ofFloat(fab, "alpha", 0.5f, 1.0f);
+		ObjectAnimator animFabRot = ObjectAnimator.ofFloat(fab, "rotation", 360.0f, 0.0f);
+		AnimatorSet animSetFab = new AnimatorSet();
+		animSetFab.setDuration(500);
+		animSetFab.playTogether(animFabAlpha, animFabRot);
+
+
 		ObjectAnimator animMicAlpha = ObjectAnimator.ofFloat(fabMic, "alpha", 1.0f, 0.0f);
-		animMicAlpha.setDuration(500);
-		ObjectAnimator animMicX = ObjectAnimator.ofFloat(fabMic, "translationX", -100.0f * scale, 0.0f * scale);
-		animMicX.setInterpolator(new AccelerateDecelerateInterpolator());
-		ObjectAnimator animMicY = ObjectAnimator.ofFloat(fabMic, "translationY", -40.0f * scale, 0.0f * scale);
-		animMicY.setInterpolator(new AccelerateDecelerateInterpolator());
-		ObjectAnimator animMicScaleX = ObjectAnimator.ofFloat(fabMic, "scaleX", 1.3f, 1.0f);
-		animMicScaleX.setInterpolator(new AccelerateDecelerateInterpolator());
-		ObjectAnimator animMicScaleY = ObjectAnimator.ofFloat(fabMic, "scaleY", 1.3f, 1.0f);
-		animMicScaleY.setInterpolator(new AccelerateDecelerateInterpolator());
+		ObjectAnimator animMicY = ObjectAnimator.ofFloat(fabMic, "translationY", -80.0f * scale, 0.0f * scale);
+		animMicY.setInterpolator(new LinearInterpolator());
 		AnimatorSet animSetMic = new AnimatorSet();
 		animSetMic.setDuration(500);
-		animSetMic.playTogether(animMicAlpha, animMicX, animMicY, animMicScaleX, animMicScaleY);
+		animSetMic.playTogether(animMicAlpha, animMicY);
 
 
 		ObjectAnimator animFavAlpha = ObjectAnimator.ofFloat(fabFav, "alpha", 1.0f, 0.0f);
-		animFavAlpha.setDuration(500);
-		ObjectAnimator animFavX = ObjectAnimator.ofFloat(fabFav, "translationX", -15.0f * scale, 0.0f * scale);
-		animFavX.setInterpolator(new AccelerateDecelerateInterpolator());
-		ObjectAnimator animFavY = ObjectAnimator.ofFloat(fabFav, "translationY", -110.0f * scale, 0.0f * scale);
-		animFavY.setInterpolator(new AccelerateDecelerateInterpolator());
-		ObjectAnimator animFavScaleX = ObjectAnimator.ofFloat(fabFav, "scaleX", 1.3f, 1.0f);
-		animMicScaleX.setInterpolator(new AccelerateDecelerateInterpolator());
-		ObjectAnimator animFavScaleY = ObjectAnimator.ofFloat(fabFav, "scaleY", 1.3f, 1.0f);
-		animMicScaleY.setInterpolator(new AccelerateDecelerateInterpolator());
+		ObjectAnimator animFavY = ObjectAnimator.ofFloat(fabFav, "translationY", -160.0f * scale, 0.0f * scale);
+		animFavY.setInterpolator(new LinearInterpolator());
 		AnimatorSet animSetFav = new AnimatorSet();
 		animSetFav.setDuration(500);
-		animSetFav.playTogether(animFavAlpha, animFavX, animFavY, animFavScaleX, animFavScaleY);
+		animSetFav.playTogether(animFavAlpha, animFavY);
 
-		animFab.start();
+		animSetFab.start();
 		animSetMic.start();
 		animSetFav.start();
 		animSetFav.addListener(animatorListener);
