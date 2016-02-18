@@ -12,7 +12,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="false"
         android:layout_alignParentLeft="false"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginLeft="8dp"
         android:textColor="@android:color/white" />
 
@@ -24,8 +24,7 @@
         android:id="@+id/textView5"
         android:layout_above="@+id/textView4"
         android:layout_marginLeft="8dp"
-        android:textColor="@android:color/white"
-        android:textStyle="bold" />
+        android:textColor="@android:color/white" />
 
     <ImageView
         android:layout_width="50dp"
