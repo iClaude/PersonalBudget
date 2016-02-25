@@ -32,6 +32,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseIntArray;
@@ -100,12 +101,16 @@ public class SpeseDettaglioVoce extends ActionBarActivity implements SpeseEntrat
 		preferito = extras.getInt(CostantiPubbliche.VOCE_FAVORITE);
 		
 		//visualizzo i valori recuperati nel layout
+		CollapsingToolbarLayout collapsingToolbar =
+				(CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+		collapsingToolbar.setTitle(tag);
+
 		new CaricaIconaTask().execute(tag);
 		tvTag.setText(R.string.dettagli_voce_dettagli_spesa);
 
-		if(preferito == 1) {
+		/*if(preferito == 1) {
 			findViewById(R.id.ivPreferito).setVisibility(View.VISIBLE);
-		}
+		}*/
 		
 		//ricavo la valuta di default
 		ricavaValuta();

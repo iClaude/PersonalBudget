@@ -100,9 +100,9 @@ public class EntrateDettaglioVoce extends ActionBarActivity implements SpeseEntr
 		//visualizzo i valori recuperati nel layout
 		new CaricaIconaTask().execute(tag);
 
-		if(preferito == 1) {
+		/*if(preferito == 1) {
 			findViewById(R.id.ivPreferito).setVisibility(View.VISIBLE);
-		}
+		}*/
 
 		//ricavo la valuta di default
 		ricavaValuta();
