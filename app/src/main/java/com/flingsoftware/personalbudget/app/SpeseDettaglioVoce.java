@@ -34,6 +34,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseIntArray;
 import android.view.Menu;
@@ -106,7 +107,7 @@ public class SpeseDettaglioVoce extends ActionBarActivity implements SpeseEntrat
 		collapsingToolbar.setTitle(tag);
 
 		new CaricaIconaTask().execute(tag);
-		tvTag.setText(R.string.dettagli_voce_dettagli_spesa);
+		//tvTag.setText(R.string.dettagli_voce_dettagli_spesa);
 
 		/*if(preferito == 1) {
 			findViewById(R.id.ivPreferito).setVisibility(View.VISIBLE);
@@ -118,8 +119,8 @@ public class SpeseDettaglioVoce extends ActionBarActivity implements SpeseEntrat
 		NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
 		nf.setCurrency(currValuta);
 		String importoFormattato = nf.format(importoValprin);
-		tvImporto.setText(importoFormattato);
-		tvTag.setText(tag);
+		//tvImporto.setText(importoFormattato);
+		//tvTag.setText(tag);
 		tvConto.setText(conto);
 		DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, miaLocale);
         if(data > System.currentTimeMillis()) {
@@ -408,12 +409,13 @@ public class SpeseDettaglioVoce extends ActionBarActivity implements SpeseEntrat
 			curVoci.close();
 			dbcSpeseVoci.close();
 
-            return ListViewIconeVeloce.decodeSampledBitmapFromResource(getResources(), iconaId, 60, 60);
+            return ListViewIconeVeloce.decodeSampledBitmapFromResource(getResources(), iconaId, 80, 80);
 		}
 		
 		@Override
 		protected void onPostExecute(Bitmap miaBitmap) {
-			((ImageView) findViewById(R.id.spese_entrate_dettaglio_voce_ivIcona)).setImageBitmap(miaBitmap);
+			final ImageView ivIcona = (ImageView) findViewById(R.id.spese_entrate_dettaglio_voce_ivIcona);
+			ivIcona.setImageBitmap(miaBitmap);
 		}
 	}
 
