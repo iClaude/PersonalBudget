@@ -13,11 +13,5 @@
         android:title="@string/budget_dettaglio_elimina"
         android:icon="@drawable/ic_content_discard"
         app:showAsAction="ifRoom|withText"/>
-    
-    <item 
-        android:id="@+id/menu_speseEntrateDettaglioVoce_modifica"
-        android:title="@string/budget_dettaglio_modifica"
-        android:icon="@drawable/ic_content_edit"
-        app:showAsAction="ifRoom|withText"/>
-        
+
 </menu>

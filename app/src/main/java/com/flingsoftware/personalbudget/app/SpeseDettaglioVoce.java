@@ -188,10 +188,6 @@ public class SpeseDettaglioVoce extends ActionBarActivity implements SpeseEntrat
 			eliminaVoce();
 
 			return true;	
-		case R.id.menu_speseEntrateDettaglioVoce_modifica:
-			modificaVoce();
-			
-			return true;
 		case R.id.menu_speseEntrateDettaglioVoce_duplica:
 			duplicaVoce(); // duplicazione voce
 
@@ -277,6 +273,11 @@ public class SpeseDettaglioVoce extends ActionBarActivity implements SpeseEntrat
 		}
 	}
 
+
+	// Azione associata alla pressione del FAB.
+	public void fabPremuto(View v) {
+		modificaVoce();
+	}
 	
 	// modifica questa voce
 	private void modificaVoce() {

@@ -37,6 +37,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseIntArray;
@@ -96,6 +97,11 @@ public class EntrateDettaglioVoce extends ActionBarActivity implements SpeseEntr
 		valuta = extras.getString(CostantiPubbliche.VOCE_VALUTA);
 		conto = extras.getString(CostantiPubbliche.VOCE_CONTO);
 		preferito = extras.getInt(CostantiPubbliche.VOCE_FAVORITE);
+
+		//visualizzo i valori recuperati nel layout
+		CollapsingToolbarLayout collapsingToolbar =
+				(CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+		collapsingToolbar.setTitle(tag);
 		
 		//visualizzo i valori recuperati nel layout
 		new CaricaIconaTask().execute(tag);
@@ -110,8 +116,8 @@ public class EntrateDettaglioVoce extends ActionBarActivity implements SpeseEntr
 		NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
 		nf.setCurrency(currValuta);
 		String importoFormattato = nf.format(importoValprin);
-		tvImporto.setText(importoFormattato);
-		tvTag.setText(tag);
+		//tvImporto.setText(importoFormattato);
+		//tvTag.setText(tag);
 		tvConto.setText(conto);
 		DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, miaLocale);
         if(data > System.currentTimeMillis()) {
@@ -179,10 +185,6 @@ public class EntrateDettaglioVoce extends ActionBarActivity implements SpeseEntr
 			eliminaVoce();
 
 			return true;	
-		case R.id.menu_speseEntrateDettaglioVoce_modifica:
-			modificaVoce();
-			
-			return true;
 		case R.id.menu_speseEntrateDettaglioVoce_duplica:
 			duplicaVoce(); // duplicazione voce
 
@@ -264,7 +266,11 @@ public class EntrateDettaglioVoce extends ActionBarActivity implements SpeseEntr
 		}
 	}
 
-	
+	// Azione associata alla pressione del FAB.
+	public void fabPremuto(View v) {
+		modificaVoce();
+	}
+
 	//modifica questa voce
 	private void modificaVoce() {
 		Intent modificaEntrata = new Intent(EntrateDettaglioVoce.this, EntrateAggiungi.class);
