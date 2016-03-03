@@ -119,7 +119,7 @@ public class SpeseDettaglioVoce extends ActionBarActivity implements SpeseEntrat
 		NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
 		nf.setCurrency(currValuta);
 		String importoFormattato = nf.format(importoValprin);
-		//tvImporto.setText(importoFormattato);
+		tvImporto.setText(importoFormattato);
 		//tvTag.setText(tag);
 		tvConto.setText(conto);
 		DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, miaLocale);
@@ -410,7 +410,7 @@ public class SpeseDettaglioVoce extends ActionBarActivity implements SpeseEntrat
 			curVoci.close();
 			dbcSpeseVoci.close();
 
-            return ListViewIconeVeloce.decodeSampledBitmapFromResource(getResources(), iconaId, 80, 80);
+            return ListViewIconeVeloce.decodeSampledBitmapFromResource(getResources(), iconaId, 70, 70);
 		}
 		
 		@Override

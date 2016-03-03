@@ -11,7 +11,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="190dp"
+        android:layout_height="210dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:fitsSystemWindows="true">
 
@@ -26,24 +26,56 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             android:elevation="4dp">
 
-            <ImageView
-                android:src="@drawable/header_spese"
-                app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fitsSystemWindows="true"
-                android:scaleType="centerCrop"
-                app:layout_collapseMode="parallax"
-                android:id="@+id/ivToolbar" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/gradiente_immagine" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="68dp"
+                android:layout_marginLeft="48dp">
+
+                <ImageView
+                    android:id="@+id/spese_entrate_dettaglio_voce_ivIcona"
+                    android:contentDescription="@string/provv_contenutoImmagini"
+                    android:src="@drawable/tag_17"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="centerInside"
+                    android:padding="12dp"
+                    android:transitionName="icona"
+                    app:layout_collapseMode="parallax"
+                    android:background="@drawable/background_tondo" />
+
+                <ImageView
+                    android:id="@+id/ivFreccia"
+                    android:contentDescription="@string/provv_contenutoImmagini"
+                    android:src="@drawable/ic_freccia_dx"
+                    android:layout_marginLeft="4dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:layout_collapseMode="parallax" />
+
+                <TextView
+                    android:id="@+id/tvImporto"
+                    android:layout_marginLeft="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="@string/provv_importoValutaZero"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    app:layout_collapseMode="parallax"/>
+
+            </LinearLayout>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:layout_collapseMode="pin"/>
 
@@ -159,22 +191,7 @@
                         android:background="@drawable/background_tondo_primary"
                         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-                    <ImageView
-                        android:id="@+id/spese_entrate_dettaglio_voce_ivIcona"
-                        android:contentDescription="@string/provv_contenutoImmagini"
-                        android:src="@drawable/tag_17"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_gravity="right"
-                        android:transitionName="icona"
-                        android:scaleType="centerInside"
 
-
-                        android:padding="4dp"
-                        android:background="@drawable/background_tondo"
-                        android:layout_alignBottom="@+id/sedv_tvA"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true" />
 
 
                 </RelativeLayout>
@@ -387,20 +404,6 @@
                 </RelativeLayout>
 
             </android.support.v7.widget.CardView>
-
-            <TextView
-                android:id="@+id/tvImporto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="@string/provv_importoValutaZero"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@android:color/white"
-                android:textSize="26sp"
-                android:textStyle="bold"
-                android:layout_alignParentTop="true"
-                android:layout_alignRight="@+id/card_view_importo"
-                android:layout_alignEnd="@+id/card_view_importo" />
 
         </RelativeLayout>
 
