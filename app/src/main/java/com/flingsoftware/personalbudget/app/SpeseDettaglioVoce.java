@@ -26,6 +26,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.PorterDuff;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.AsyncTask;
@@ -84,10 +85,7 @@ public class SpeseDettaglioVoce extends ActionBarActivity implements SpeseEntrat
 		tvDescrizione = (TextView) findViewById(R.id.tvDescrizione);
 		tvRipetizione = (TextView) findViewById(R.id.dettagli_voce_tvRipetizione);
 		tvFineRipetizione = (TextView) findViewById(R.id.dettagli_voce_tvFineRipetizione);
-        TextView tvLabelA = (TextView) findViewById(R.id.sedv_tvA);
-        TextView tvLabelB = (TextView) findViewById(R.id.sedv_tvB);
-        TextView tvLabelC = (TextView) findViewById(R.id.sedv_tvC);
-		
+
 		//recupero i dettagli della voce passati dall'Activity chiamante
 		Bundle extras = getIntent().getExtras();
 		id = extras.getLong(CostantiPubbliche.VOCE_ID);
@@ -100,7 +98,7 @@ public class SpeseDettaglioVoce extends ActionBarActivity implements SpeseEntrat
 		valuta = extras.getString(CostantiPubbliche.VOCE_VALUTA);
 		conto = extras.getString(CostantiPubbliche.VOCE_CONTO);
 		preferito = extras.getInt(CostantiPubbliche.VOCE_FAVORITE);
-		
+
 		//visualizzo i valori recuperati nel layout
 		CollapsingToolbarLayout collapsingToolbar =
 				(CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
@@ -142,18 +140,6 @@ public class SpeseDettaglioVoce extends ActionBarActivity implements SpeseEntrat
 			((TextView) findViewById(R.id.tvImportoOriginale)).setText(nfValuta.format(importo) + " " + Currency.getInstance(valuta).getSymbol());
 			((TextView) findViewById(R.id.tvTassoCambio)).setText(nfCambio.format(cambio));
 		}
-
-        // Label grige per date future
-        if(data > System.currentTimeMillis()) {
-            tvLabelA.setBackgroundResource(R.drawable.background_tondo_grigio);
-            tvLabelB.setBackgroundResource(R.drawable.background_tondo_grigio);
-            tvLabelB.setBackgroundResource(R.drawable.background_tondo_grigio);
-        }
-        else {
-            tvLabelA.setBackgroundResource(R.drawable.background_tondo_primary);
-            tvLabelB.setBackgroundResource(R.drawable.background_tondo_primary);
-            tvLabelB.setBackgroundResource(R.drawable.background_tondo_primary);
-        }
 
 		//recupero i dettagli delle spese ripetute in un thread separato
 		dbcSpeseSostenute = new DBCSpeseSostenute(SpeseDettaglioVoce.this);

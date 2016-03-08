@@ -81,10 +81,7 @@ public class EntrateDettaglioVoce extends ActionBarActivity implements SpeseEntr
 		tvDescrizione = (TextView) findViewById(R.id.tvDescrizione);
 		tvRipetizione = (TextView) findViewById(R.id.dettagli_voce_tvRipetizione);
 		tvFineRipetizione = (TextView) findViewById(R.id.dettagli_voce_tvFineRipetizione);
-        TextView tvLabelA = (TextView) findViewById(R.id.sedv_tvA);
-        TextView tvLabelB = (TextView) findViewById(R.id.sedv_tvB);
-        TextView tvLabelC = (TextView) findViewById(R.id.sedv_tvC);
-		
+
 		//recupero i dettagli della voce passati dall'Activity chiamante
 		Bundle extras = getIntent().getExtras();
 		id = extras.getLong(VOCE_ID);
@@ -139,18 +136,6 @@ public class EntrateDettaglioVoce extends ActionBarActivity implements SpeseEntr
 			((TextView) findViewById(R.id.tvImportoOriginale)).setText(nfValuta.format(importo) + " " + Currency.getInstance(valuta).getSymbol());
 			((TextView) findViewById(R.id.tvTassoCambio)).setText(nfCambio.format(cambio));
 		}
-
-        // Label grige per date future
-        if(data > System.currentTimeMillis()) {
-            tvLabelA.setBackgroundResource(R.drawable.background_tondo_grigio);
-            tvLabelB.setBackgroundResource(R.drawable.background_tondo_grigio);
-            tvLabelB.setBackgroundResource(R.drawable.background_tondo_grigio);
-        }
-        else {
-            tvLabelA.setBackgroundResource(R.drawable.background_tondo_primary);
-            tvLabelB.setBackgroundResource(R.drawable.background_tondo_primary);
-            tvLabelB.setBackgroundResource(R.drawable.background_tondo_primary);
-        }
 
 		//recupero i dettagli delle entrate ripetute in un thread separato
 		dbcEntrateIncassate = new DBCEntrateIncassate(EntrateDettaglioVoce.this);

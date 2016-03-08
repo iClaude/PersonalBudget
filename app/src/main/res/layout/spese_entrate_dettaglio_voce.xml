@@ -135,7 +135,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
-                        android:layout_toRightOf="@+id/sedv_tvA"
+                        android:layout_toRightOf="@+id/ivValuta"
                         android:layout_marginLeft="16dp">
 
                         <TextView
@@ -178,18 +178,18 @@
 
                      </LinearLayout>
 
-                    <TextView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:text="A"
-                        android:id="@+id/sedv_tvA"
+                        android:id="@+id/ivValuta"
                         android:textColor="@android:color/white"
                         android:gravity="center"
                         android:layout_marginTop="8dp"
                         android:textSize="40sp"
                         android:layout_marginLeft="8dp"
-                        android:background="@drawable/background_tondo_primary"
-                        android:textAppearance="?android:attr/textAppearanceLarge" />
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:src="@drawable/ic_social_public" />
 
 
 
@@ -216,18 +216,18 @@
                     android:layout_gravity="center_vertical"
                     android:padding="4dp">
 
-                    <TextView
+                    <ImageView
                         android:text="B"
                         android:id="@+id/sedv_tvB"
                         android:textColor="@android:color/white"
                         android:gravity="center"
                         android:layout_marginTop="8dp"
                         android:textSize="40sp"
-                        android:layout_width="60dp"
+                        android:layout_width="50dp"
                         android:layout_marginLeft="8dp"
-                        android:background="@drawable/background_tondo_primary"
-                        android:layout_height="60dp"
-                        android:textAppearance="?android:attr/textAppearanceLarge" />
+                        android:layout_height="50dp"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:src="@drawable/ic_action_description" />
 
                     <TextView
                         android:id="@+id/sedv_tvContoTitolo"
@@ -388,18 +388,18 @@
 
                     </LinearLayout>
 
-                    <TextView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="C"
                         android:id="@+id/sedv_tvC"
                         android:textColor="@android:color/white"
                         android:textSize="40sp"
-                        android:background="@drawable/background_tondo_primary"
                         android:gravity="center"
                         android:layout_marginLeft="8dp"
-                        android:layout_marginTop="8dp" />
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/ic_action_autorenew" />
 
                 </RelativeLayout>
 
