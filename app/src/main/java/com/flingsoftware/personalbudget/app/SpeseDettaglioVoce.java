@@ -66,7 +66,6 @@ public class SpeseDettaglioVoce extends ActionBarActivity implements SpeseEntrat
 		String VOCE_FAVORITE = "favorite";
 	}
 
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
@@ -139,6 +138,9 @@ public class SpeseDettaglioVoce extends ActionBarActivity implements SpeseEntrat
 			float cambio = (float) (importoValprin / importo);
 			((TextView) findViewById(R.id.tvImportoOriginale)).setText(nfValuta.format(importo) + " " + Currency.getInstance(valuta).getSymbol());
 			((TextView) findViewById(R.id.tvTassoCambio)).setText(nfCambio.format(cambio));
+		}
+		else {
+			((View) findViewById(R.id.card_view_importo)).setVisibility(View.GONE);
 		}
 
 		//recupero i dettagli delle spese ripetute in un thread separato

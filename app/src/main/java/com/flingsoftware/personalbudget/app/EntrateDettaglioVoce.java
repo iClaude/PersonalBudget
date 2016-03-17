@@ -136,6 +136,9 @@ public class EntrateDettaglioVoce extends ActionBarActivity implements SpeseEntr
 			((TextView) findViewById(R.id.tvImportoOriginale)).setText(nfValuta.format(importo) + " " + Currency.getInstance(valuta).getSymbol());
 			((TextView) findViewById(R.id.tvTassoCambio)).setText(nfCambio.format(cambio));
 		}
+		else {
+			((View) findViewById(R.id.card_view_importo)).setVisibility(View.GONE);
+		}
 
 		//recupero i dettagli delle entrate ripetute in un thread separato
 		dbcEntrateIncassate = new DBCEntrateIncassate(EntrateDettaglioVoce.this);
