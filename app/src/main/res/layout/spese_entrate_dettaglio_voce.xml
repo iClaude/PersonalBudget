@@ -53,8 +53,8 @@
                     android:src="@drawable/ic_freccia_dx"
                     android:layout_marginLeft="4dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     app:layout_collapseMode="parallax" />
 
                 <TextView
@@ -147,7 +147,9 @@
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textStyle="bold"
                             android:textColor="@color/text_primary"
-                            android:layout_marginTop="4dp" />
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="sans-serif-light"
+                            android:textSize="18sp" />
 
                         <TextView
                             android:id="@+id/tvImportoOriginale"
@@ -155,7 +157,8 @@
                             android:layout_height="wrap_content"
                             android:text="@string/generici_trattino"
                             android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@color/text_secondary" />
+                            android:textColor="@color/text_primary"
+                            android:fontFamily="sans-serif-light" />
 
                         <TextView
                             android:id="@+id/textView3"
@@ -165,7 +168,9 @@
                             android:text="@string/dettaglio_voce_tassoCambio"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textStyle="bold"
-                            android:textColor="@color/text_primary" />
+                            android:textColor="@color/text_primary"
+                            android:fontFamily="sans-serif-light"
+                            android:textSize="18sp" />
 
                         <TextView
                             android:id="@+id/tvTassoCambio"
@@ -173,7 +178,8 @@
                             android:layout_height="wrap_content"
                             android:text="@string/generici_trattino"
                             android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@color/text_secondary" />
+                            android:textColor="@color/text_primary"
+                            android:fontFamily="sans-serif-light" />
 
                      </LinearLayout>
 
@@ -235,7 +241,9 @@
                         android:textStyle="bold"
                         android:textColor="@color/text_primary"
                         android:layout_toRightOf="@+id/sedv_tvB"
-                        android:layout_marginLeft="16dp" />
+                        android:layout_marginLeft="16dp"
+                        android:fontFamily="sans-serif-light"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/sedv_tvConto"
@@ -246,10 +254,11 @@
                         android:layout_marginRight="5dp"
                         android:text="@string/provv_lorem_ipsum"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/text_secondary"
+                        android:textColor="@color/text_primary"
                         android:layout_toRightOf="@+id/sedv_tvB"
                         android:layout_marginLeft="16dp"
-                        android:ellipsize="end" />
+                        android:ellipsize="end"
+                        android:fontFamily="sans-serif-light" />
 
                     <TextView
                         android:id="@+id/tvDataTitolo"
@@ -258,13 +267,15 @@
                         android:layout_alignParentLeft="false"
                         android:layout_below="@+id/sedv_tvConto"
                         android:layout_marginRight="5dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="8dp"
                         android:text="@string/dettagli_voce_data"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textStyle="bold"
                         android:textColor="@color/text_primary"
                         android:layout_toRightOf="@+id/sedv_tvB"
-                        android:layout_marginLeft="16dp" />
+                        android:layout_marginLeft="16dp"
+                        android:fontFamily="sans-serif-light"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/tvData"
@@ -275,10 +286,11 @@
                         android:layout_marginRight="5dp"
                         android:text="@string/provv_lorem_ipsum"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/text_secondary"
+                        android:textColor="@color/text_primary"
                         android:layout_toRightOf="@+id/sedv_tvB"
                         android:layout_marginLeft="16dp"
-                        android:ellipsize="end" />
+                        android:ellipsize="end"
+                        android:fontFamily="sans-serif-light" />
 
                     <TextView
                         android:id="@+id/tvDescrizioneTitolo"
@@ -287,13 +299,15 @@
                         android:layout_alignParentLeft="false"
                         android:layout_below="@+id/tvData"
                         android:layout_marginRight="5dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="8dp"
                         android:text="@string/dettagli_voce_descrizione"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textStyle="bold"
                         android:textColor="@color/text_primary"
                         android:layout_toRightOf="@+id/sedv_tvB"
-                        android:layout_marginLeft="16dp" />
+                        android:layout_marginLeft="16dp"
+                        android:fontFamily="sans-serif-light"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/tvDescrizione"
@@ -305,10 +319,11 @@
                         android:layout_marginRight="5dp"
                         android:text="@string/provv_lorem_ipsum"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/text_secondary"
+                        android:textColor="@color/text_primary"
                         android:layout_toRightOf="@+id/sedv_tvB"
                         android:layout_marginLeft="16dp"
-                        android:ellipsize="end" />
+                        android:ellipsize="end"
+                        android:fontFamily="sans-serif-light" />
 
                 </RelativeLayout>
 
@@ -348,7 +363,9 @@
                             android:text="@string/dettagli_voce_ripetizione"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textStyle="bold"
-                            android:textColor="@color/text_primary" />
+                            android:textColor="@color/text_primary"
+                            android:fontFamily="sans-serif-light"
+                            android:textSize="18sp" />
 
                         <TextView
                             android:id="@+id/dettagli_voce_tvRipetizione"
@@ -356,18 +373,21 @@
                             android:layout_height="wrap_content"
                             android:text="@string/generici_trattino"
                             android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@color/text_secondary"
-                            android:ellipsize="end" />
+                            android:textColor="@color/text_primary"
+                            android:ellipsize="end"
+                            android:fontFamily="sans-serif-light" />
 
                         <TextView
                             android:id="@+id/menu_esporta_tvGoogleDocs"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="8dp"
                             android:text="@string/dettagli_voce_fine_ripetizione"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textStyle="bold"
-                            android:textColor="@color/text_primary" />
+                            android:textColor="@color/text_primary"
+                            android:fontFamily="sans-serif-light"
+                            android:textSize="18sp" />
 
                         <TextView
                             android:id="@+id/dettagli_voce_tvFineRipetizione"
@@ -376,8 +396,9 @@
                             android:layout_marginBottom="4dp"
                             android:text="@string/generici_trattino"
                             android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@color/text_secondary"
-                            android:ellipsize="end" />
+                            android:textColor="@color/text_primary"
+                            android:ellipsize="end"
+                            android:fontFamily="sans-serif-light" />
 
                     </LinearLayout>
 

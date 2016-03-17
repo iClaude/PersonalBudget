@@ -117,15 +117,13 @@ public class EntrateDettaglioVoce extends ActionBarActivity implements SpeseEntr
 		//tvTag.setText(tag);
 		tvConto.setText(conto);
 		DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, miaLocale);
-        if(data > System.currentTimeMillis()) {
-            tvData.setTextColor(getResources().getColor(R.color.accent));
-        }
 		tvData.setText(df.format(new Date(data)));
 		if(descrizione.length() > 0) {
 			tvDescrizione.setText(descrizione);
 		}
 		else {
-			tvDescrizione.setText("-");
+			tvDescrizione.setVisibility(View.GONE);
+			((View) findViewById(R.id.tvDescrizioneTitolo)).setVisibility(View.GONE);
 		}
 		if(!valuta.equals(currValuta.getCurrencyCode())) {
 			NumberFormat nfValuta = NumberFormat.getInstance(Locale.getDefault());
