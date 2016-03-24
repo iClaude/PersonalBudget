@@ -30,7 +30,7 @@ dependencies {
         exclude module: 'support-v4' }
     compile ('com.android.support:recyclerview-v7:23.2.0') {
         exclude module: 'support-v4' }
-    compile ('com.android.support:design:23.2.0') {
+    compile ('com.android.support:design:23.1.0') {
         exclude module: 'support-v4' }
     compile ('com.android.support:support-v4:23.2.0')
     compile 'com.android.support:palette-v7:23.2.0'

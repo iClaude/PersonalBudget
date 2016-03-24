@@ -37,7 +37,9 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseIntArray;
@@ -72,6 +74,10 @@ public class EntrateDettaglioVoce extends ActionBarActivity implements SpeseEntr
         // Toolbar per menu opzioni
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+		// Listener per Toolbar espansa o collassata: serve per visualizzare o nascondere il fab in basso
+		AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+		appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener());
 		
 		//ottengo i reference ai vari componenti
 		tvTag = (TextView) findViewById(R.id.tvVoce);
@@ -81,6 +87,7 @@ public class EntrateDettaglioVoce extends ActionBarActivity implements SpeseEntr
 		tvDescrizione = (TextView) findViewById(R.id.tvDescrizione);
 		tvRipetizione = (TextView) findViewById(R.id.dettagli_voce_tvRipetizione);
 		tvFineRipetizione = (TextView) findViewById(R.id.dettagli_voce_tvFineRipetizione);
+		fabBasso = (FloatingActionButton) findViewById(R.id.fabBasso);
 
 		//recupero i dettagli della voce passati dall'Activity chiamante
 		Bundle extras = getIntent().getExtras();
@@ -199,6 +206,42 @@ public class EntrateDettaglioVoce extends ActionBarActivity implements SpeseEntr
 		}
 		else if(suoniAbilitati && confermaDuplica) {
 			soundPool.play(mappaSuoni.get(CostantiSuoni.SUONO_AGGIUNGI_SPESA_ENTRATA), 1, 1, 1, 0, 1f);
+		}
+	}
+
+	/*
+	Classe per intercettare quando la Toolbar è collassata o espansa, in modo tale da visualizzare
+	il fab per la modifica della voce in basso a destra.
+	 */
+	private class AppBarStateChangeListener implements AppBarLayout.OnOffsetChangedListener {
+		private final static int ESPANSO = 0;
+		private final static int COLLASSATO = 1;
+		private final static int INTERMEDIO = 2;
+		private int statoCorrente = INTERMEDIO;
+		private boolean fabVisibile = false;
+
+		@Override
+		public final void onOffsetChanged(AppBarLayout appBarLayout, int i) {
+			if (i == 0) {
+				if (statoCorrente != ESPANSO) {
+					// non fare nulla
+				}
+				statoCorrente = ESPANSO;
+			} else if (Math.abs(i) >= appBarLayout.getTotalScrollRange()) {
+				if (statoCorrente != COLLASSATO) {
+					fabBasso.show();
+					fabVisibile = true;
+				}
+				statoCorrente = COLLASSATO;
+			} else {
+				if (statoCorrente != INTERMEDIO) {
+					if(fabVisibile) {
+						fabBasso.hide();
+					}
+					fabVisibile = false;
+				}
+				statoCorrente = INTERMEDIO;
+			}
 		}
 	}
 
@@ -543,6 +586,7 @@ public class EntrateDettaglioVoce extends ActionBarActivity implements SpeseEntr
 	private TextView tvDescrizione;
 	private TextView tvRipetizione;
 	private TextView tvFineRipetizione;
+	private FloatingActionButton fabBasso;
 	private long id;
 	private long ripetizione_id;
 	private double importo;

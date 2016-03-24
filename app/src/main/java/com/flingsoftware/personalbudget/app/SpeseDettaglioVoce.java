@@ -33,7 +33,9 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
@@ -75,6 +77,10 @@ public class SpeseDettaglioVoce extends ActionBarActivity implements SpeseEntrat
         // Toolbar per menu opzioni
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+		// Listener per Toolbar espansa o collassata: serve per visualizzare o nascondere il fab in basso
+		AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+		appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener());
 		
 		//ottengo i reference ai vari componenti
 		tvTag = (TextView) findViewById(R.id.tvVoce);
@@ -84,6 +90,7 @@ public class SpeseDettaglioVoce extends ActionBarActivity implements SpeseEntrat
 		tvDescrizione = (TextView) findViewById(R.id.tvDescrizione);
 		tvRipetizione = (TextView) findViewById(R.id.dettagli_voce_tvRipetizione);
 		tvFineRipetizione = (TextView) findViewById(R.id.dettagli_voce_tvFineRipetizione);
+		fabBasso = (FloatingActionButton) findViewById(R.id.fabBasso);
 
 		//recupero i dettagli della voce passati dall'Activity chiamante
 		Bundle extras = getIntent().getExtras();
@@ -126,7 +133,7 @@ public class SpeseDettaglioVoce extends ActionBarActivity implements SpeseEntrat
 		}
 		else {
 			tvDescrizione.setVisibility(View.GONE);
-			((View) findViewById(R.id.tvDescrizioneTitolo)).setVisibility(View.GONE);
+			findViewById(R.id.tvDescrizioneTitolo).setVisibility(View.GONE);
 		}
 		if(!valuta.equals(currValuta.getCurrencyCode())) {
 			NumberFormat nfValuta = NumberFormat.getInstance(Locale.getDefault());
@@ -138,7 +145,7 @@ public class SpeseDettaglioVoce extends ActionBarActivity implements SpeseEntrat
 			((TextView) findViewById(R.id.tvTassoCambio)).setText(nfCambio.format(cambio));
 		}
 		else {
-			((View) findViewById(R.id.card_view_importo)).setVisibility(View.GONE);
+			findViewById(R.id.card_view_importo).setVisibility(View.GONE);
 		}
 
 		//recupero i dettagli delle spese ripetute in un thread separato
@@ -205,6 +212,41 @@ public class SpeseDettaglioVoce extends ActionBarActivity implements SpeseEntrat
 		}
 	}
 
+	/*
+	Classe per intercettare quando la Toolbar è collassata o espansa, in modo tale da visualizzare
+	il fab per la modifica della voce in basso a destra.
+	 */
+	private class AppBarStateChangeListener implements AppBarLayout.OnOffsetChangedListener {
+		private final static int ESPANSO = 0;
+		private final static int COLLASSATO = 1;
+		private final static int INTERMEDIO = 2;
+		private int statoCorrente = INTERMEDIO;
+		private boolean fabVisibile = false;
+
+		@Override
+		public final void onOffsetChanged(AppBarLayout appBarLayout, int i) {
+			if (i == 0) {
+				if (statoCorrente != ESPANSO) {
+					// non fare nulla
+				}
+				statoCorrente = ESPANSO;
+			} else if (Math.abs(i) >= appBarLayout.getTotalScrollRange()) {
+				if (statoCorrente != COLLASSATO) {
+					fabBasso.show();
+					fabVisibile = true;
+				}
+				statoCorrente = COLLASSATO;
+			} else {
+				if (statoCorrente != INTERMEDIO) {
+					if(fabVisibile) {
+						fabBasso.hide();
+					}
+					fabVisibile = false;
+				}
+				statoCorrente = INTERMEDIO;
+			}
+		}
+	}
 
 	/*
 	 * Ricavo la valuta principale salvata nelle preferenze.
@@ -332,6 +374,8 @@ public class SpeseDettaglioVoce extends ActionBarActivity implements SpeseEntrat
 			dbcSpeseRipetute.close();
 		}
 	}
+
+
 	
 	//implementazione di EliminaVociRipetute.EliminaVociRipetuteListener: serve per specificare, per le voci ripetute, se eliminarne una o pi� di una
 	@Override
@@ -574,6 +618,7 @@ public class SpeseDettaglioVoce extends ActionBarActivity implements SpeseEntrat
 	private TextView tvDescrizione;
 	private TextView tvRipetizione;
 	private TextView tvFineRipetizione;
+	private FloatingActionButton fabBasso;
 	private long id;
 	private long ripetizione_id;
 	private double importo;

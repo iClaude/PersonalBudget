@@ -419,6 +419,20 @@
 
         </LinearLayout>
 
-    </android.support.v4.widget.NestedScrollView>>
+    </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabBasso"
+        android:src="@drawable/ic_content_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabSize="normal"
+        android:layout_margin="16dp"
+        app:layout_anchor="@id/main_content"
+        app:layout_anchorGravity="bottom|right|end"
+        android:elevation="6dp"
+        app:pressedTranslationZ="6dp"
+        android:onClick="fabPremuto"
+        android:visibility="gone" />
 
 </android.support.design.widget.CoordinatorLayout>

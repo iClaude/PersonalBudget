@@ -32,11 +32,11 @@
     <string name="dettagli_voce_dettagli_spesa">Expense details</string>
     <string name="dettagli_voce_dettagli_entrata">Earning details</string>
     <string name="dettagli_voce_tag">Tag:</string>
-    <string name="dettagli_voce_data">Date:</string>
-    <string name="dettagli_voce_descrizione">Description:</string>
+    <string name="dettagli_voce_data">Date</string>
+    <string name="dettagli_voce_descrizione">Description</string>
     <string name="dettagli_voce_elimina">Delete</string>
     <string name="dettagli_voce_modifica">Edit</string>
-    <string name="dettagli_voce_prezzo">Amount:</string>
+    <string name="dettagli_voce_prezzo">Amount</string>
     <string name="dettagli_voce_conferma_elimina_titolo">Confirm delete?</string>
     <string name="dettagli_voce_conferma_elimina_msg">Are you sure to delete the selected item?</string>
     <string name="aggiungi_spese_aggiungi_spesa">Add expense</string>
@@ -74,8 +74,8 @@
     <string name="aggiungi_spese_mai">Never</string>
     <string name="aggiungi_spese_fino_alla_data">Until date:</string>
     <string name="aggiungi_spese_numero_ripetizioni">For x times:</string>
-    <string name="dettagli_voce_ripetizione">Repetition:</string>
-    <string name="dettagli_voce_fine_ripetizione">End of repetition:</string>
+    <string name="dettagli_voce_ripetizione">Repetition</string>
+    <string name="dettagli_voce_fine_ripetizione">End of repetition</string>
     <string name="dettagli_voce_elimina_ripetute_titolo">This is a repeated item. Which item do you want to delete?</string>
     <string-array name="dettagli_voce_elimina_ripetute_scelte">
         <item >Only this item</item>
@@ -343,8 +343,8 @@
         <string name="provv_numero_10">10</string>
         <string name="provv_mese_APR">APR</string>
         <string name="preferenze_voci_editTag">Edit tag</string>
-        <string name="dettaglio_voce_importoOriginale">Original amount:</string>
-        <string name="dettaglio_voce_tassoCambio">Exchange rate:</string>
+        <string name="dettaglio_voce_importoOriginale">Original amount</string>
+        <string name="dettaglio_voce_tassoCambio">Exchange rate</string>
         <string name="widget_grande_noBudgets">No open budgets yet!</string>
         <string name="widget_grande_loadingData">loading data&#8230;</string>
         <string name="preferenze_voci_conferma_elimina_titolo">Confirm delete?</string>
@@ -478,7 +478,7 @@
 						<item >arning</item>
 					</string-array>
 					<string name="aggiungi_voce_conto">Account&#8230;</string>
-					<string name="dettagli_voce_conto">Account:</string>
+					<string name="dettagli_voce_conto">Account</string>
 					<string name="menu_esporta_tabellaPdf_colonnaConto">ACCOUNT</string>
 					<string name="menu_conti">Accounts</string>
 					<string name="fragment_saldo_saldoFinale">Balance</string>
