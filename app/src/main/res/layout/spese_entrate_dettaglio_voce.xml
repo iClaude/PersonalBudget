@@ -30,7 +30,7 @@
             <ImageView
                 android:id="@+id/ivSfondo"
                 android:contentDescription="@string/provv_contenutoImmagini"
-                android:src="@drawable/sfondo_spese"
+                android:src="@drawable/header_voce"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
