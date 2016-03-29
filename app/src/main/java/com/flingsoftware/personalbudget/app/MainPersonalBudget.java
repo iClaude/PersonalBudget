@@ -36,6 +36,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -225,8 +226,6 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 		setContentView(R.layout.main_personal_budget);
 
         // Toolbar per menu opzioni
-        ibAzione = (ImageButton) findViewById(R.id.ib_Azione);
-        ibAzione.setOnClickListener(ibAzioneListener);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -379,6 +378,9 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 		myViewPager = (ViewPager) findViewById(R.id.pager);
 		myViewPager.setOffscreenPageLimit(4); //forzo il caricamento di 4 fragment. In caso contrario i fragment verrebbero caricati volta per volta in caso di bisogno (valore di default � 1)
 		myViewPager.setAdapter(myCustomPagerAdapter);
+		// Collego il TabLayout al ViewPager.
+		TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+		tabLayout.setupWithViewPager(myViewPager);
 		
 		myViewPager.setVisibility(View.VISIBLE);
 		findViewById(R.id.main_rlUpdatingDatabase).setVisibility(View.GONE);
