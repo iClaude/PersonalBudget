@@ -83,7 +83,6 @@ public class SpeseDettaglioVoce extends ActionBarActivity implements SpeseEntrat
 		appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener());
 		
 		//ottengo i reference ai vari componenti
-		tvTag = (TextView) findViewById(R.id.tvVoce);
 		tvImporto = (TextView) findViewById(R.id.tvImporto);
 		tvConto = (TextView) findViewById(R.id.sedv_tvConto);
 		tvData = (TextView) findViewById(R.id.tvData);
@@ -109,14 +108,8 @@ public class SpeseDettaglioVoce extends ActionBarActivity implements SpeseEntrat
 		CollapsingToolbarLayout collapsingToolbar =
 				(CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
 		collapsingToolbar.setTitle(tag);
-
 		new CaricaIconaTask().execute(tag);
-		//tvTag.setText(R.string.dettagli_voce_dettagli_spesa);
 
-		/*if(preferito == 1) {
-			findViewById(R.id.ivPreferito).setVisibility(View.VISIBLE);
-		}*/
-		
 		//ricavo la valuta di default
 		ricavaValuta();
 		
@@ -124,7 +117,6 @@ public class SpeseDettaglioVoce extends ActionBarActivity implements SpeseEntrat
 		nf.setCurrency(currValuta);
 		String importoFormattato = nf.format(importoValprin);
 		tvImporto.setText(importoFormattato);
-		//tvTag.setText(tag);
 		tvConto.setText(conto);
 		DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, miaLocale);
 		tvData.setText(df.format(new Date(data)));
@@ -611,7 +603,6 @@ public class SpeseDettaglioVoce extends ActionBarActivity implements SpeseEntrat
 
 
 	//variabili di istanza
-	private TextView tvTag;
 	private TextView tvImporto;
 	private TextView tvConto;
 	private TextView tvData;

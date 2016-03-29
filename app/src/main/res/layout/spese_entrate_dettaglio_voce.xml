@@ -27,6 +27,16 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             android:elevation="4dp">
 
+            <ImageView
+                android:id="@+id/ivSfondo"
+                android:contentDescription="@string/provv_contenutoImmagini"
+                android:src="@drawable/sfondo_spese"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:fitsSystemWindows="true"
+                app:layout_collapseMode="parallax" />
+
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
