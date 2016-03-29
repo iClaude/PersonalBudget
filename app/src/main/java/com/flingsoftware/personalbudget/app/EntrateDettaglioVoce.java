@@ -41,6 +41,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseIntArray;
 import android.view.Menu;
@@ -54,7 +55,7 @@ import android.widget.Toast;
 import android.support.v7.app.ActionBarActivity;
 
 
-public class EntrateDettaglioVoce extends ActionBarActivity implements SpeseEntrateEliminaVociRipetute.EliminaVociRipetuteListener {
+public class EntrateDettaglioVoce extends AppCompatActivity implements SpeseEntrateEliminaVociRipetute.EliminaVociRipetuteListener {
 	
 	//costanti 
 	public static final String VOCE_ID = "id";
