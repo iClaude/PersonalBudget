@@ -916,15 +916,25 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 
 
 	/*
-	Expand/compress floating action button with animation to show 2 buttons for favorites and vocal
-	recognition.
+	L'azione dipende dal Fragment selezionato. Fragment spese ed entrate: espande o comprime il
+	bottone mostrando altre opzioni. Fragment saldo: lancia l'Activity per visualizzare i conti.
+	Fragment budget: lancia l'Activity per aggiungere un nuovo budget.
 	 */
 	public void animateFab(View v) {
-		if(fabMic.getVisibility() == View.VISIBLE) {
-			compressFab();
-		}
-		else {
-			expandFab();
+		switch (fragSel) {
+			case 2:
+				Intent intent = new Intent(MainPersonalBudget.this, ContiElenco.class);
+				startActivityForResult(intent, CostantiActivity.ACTIVITY_CONTIELENCO);
+				break;
+			case 3:
+				((FragmentBudget) budgetFragment).aggiungi();
+				break;
+			default:
+				if (fabMic.getVisibility() == View.VISIBLE) {
+					compressFab();
+				} else {
+					expandFab();
+				}
 		}
 	}
 
@@ -1492,14 +1502,18 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 	@Override
 	public void onDeletedExpense() {
 		aggiornaCursor(new int[] {1,0,1,1});
-		soundPool.play(mappaSuoni.get(CostantiSuoni.SUONO_CANCELLAZIONE), 1, 1, 1, 0, 1f);
+		if(suoniAbilitati) {
+			soundPool.play(mappaSuoni.get(CostantiSuoni.SUONO_CANCELLAZIONE), 1, 1, 1, 0, 1f);
+		}
 	}
 	
 	
 	@Override
 	public void onDeletedEarning() {
 		aggiornaCursor(new int[] {0,1,1,0});
-		soundPool.play(mappaSuoni.get(CostantiSuoni.SUONO_CANCELLAZIONE), 1, 1, 1, 0, 1f);
+		if (suoniAbilitati) {
+			soundPool.play(mappaSuoni.get(CostantiSuoni.SUONO_CANCELLAZIONE), 1, 1, 1, 0, 1f);
+		}
 	}
 	
 	
