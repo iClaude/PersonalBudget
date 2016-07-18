@@ -399,15 +399,16 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
             public void onPageScrollStateChanged (int state)
             {
                 if (state == ViewPager.SCROLL_STATE_IDLE) {
+					fab.setVisibility(View.VISIBLE);
+					fab.setAlpha(1.0f);
 					fabMic.setVisibility(View.GONE);
 					fabFav.setVisibility(View.GONE);
 					fabAgg.setVisibility(View.GONE);
-                    if(fragSel == TAB_SPESE || fragSel == TAB_ENTRATE) {
-                        fab.setVisibility(View.VISIBLE);
-						fab.setAlpha(1.0f);
+                    if(fragSel == TAB_SPESE || fragSel == TAB_ENTRATE || fragSel == TAB_BUDGET) {
+						fab.setImageResource(R.drawable.ic_content_new);
                     }
-                    else {
-                        fab.setVisibility(View.GONE);
+                    else if(fragSel == TAB_SALDO) {
+                        fab.setImageResource(R.drawable.ic_action_copy);
                     }
                 }
             }
@@ -935,33 +936,29 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 		float scale = getResources().getDisplayMetrics().density;
 
 		ObjectAnimator animFabAlpha = ObjectAnimator.ofFloat(fab, "alpha", 1.0f, 0.5f);
-		ObjectAnimator animFabRot = ObjectAnimator.ofFloat(fab, "rotation", 0.0f, 180.0f);
+		ObjectAnimator animFabRot = ObjectAnimator.ofFloat(fab, "rotation", 0.0f, 360.0f);
 		AnimatorSet animSetFab = new AnimatorSet();
 		animSetFab.setDuration(500);
 		animSetFab.playTogether(animFabAlpha, animFabRot);
 
-		ObjectAnimator animFavAlpha = ObjectAnimator.ofFloat(fabFav, "alpha", 0.0f, 1.0f);
-		//ObjectAnimator animFavX = ObjectAnimator.ofFloat(fabFav, "translationX", 0.0f * scale, -40.0f * scale);
-		ObjectAnimator animFavY = ObjectAnimator.ofFloat(fabFav, "translationY", 0.0f * scale, -80.0f * scale);
-		//animFavX.setInterpolator(new BounceInterpolator());
-		animFavY.setInterpolator(new BounceInterpolator());
-		AnimatorSet animSetFav = new AnimatorSet();
-		animSetFav.setDuration(500);
-		animSetFav.playTogether(animFavAlpha, animFavY);
 
 		ObjectAnimator animMicAlpha = ObjectAnimator.ofFloat(fabMic, "alpha", 0.0f, 1.0f);
-		//ObjectAnimator animMicX = ObjectAnimator.ofFloat(fabMic, "translationX", 0.0f * scale, -60.0f * scale);
-		ObjectAnimator animMicY = ObjectAnimator.ofFloat(fabMic, "translationY", 0.0f * scale, -60.0f * scale);
-		//animMicX.setInterpolator(new BounceInterpolator());
+		ObjectAnimator animMicY = ObjectAnimator.ofFloat(fabMic, "translationY", 0.0f * scale, -70.0f * scale);
 		animMicY.setInterpolator(new BounceInterpolator());
 		AnimatorSet animSetMic = new AnimatorSet();
 		animSetMic.setDuration(500);
 		animSetMic.playTogether(animMicAlpha, animMicY);
 
+
+		ObjectAnimator animFavAlpha = ObjectAnimator.ofFloat(fabFav, "alpha", 0.0f, 1.0f);
+		ObjectAnimator animFavY = ObjectAnimator.ofFloat(fabFav, "translationY", 0.0f * scale, -140.0f * scale);
+		animFavY.setInterpolator(new BounceInterpolator());
+		AnimatorSet animSetFav = new AnimatorSet();
+		animSetFav.setDuration(500);
+		animSetFav.playTogether(animFavAlpha, animFavY);
+
 		ObjectAnimator animAggAlpha = ObjectAnimator.ofFloat(fabAgg, "alpha", 0.0f, 1.0f);
-		//ObjectAnimator animAggX = ObjectAnimator.ofFloat(fabAgg, "translationX", 0.0f * scale, -80.0f * scale);
-		ObjectAnimator animAggY = ObjectAnimator.ofFloat(fabAgg, "translationY", 0.0f * scale, -40.0f * scale);
-		//animAggX.setInterpolator(new BounceInterpolator());
+		ObjectAnimator animAggY = ObjectAnimator.ofFloat(fabAgg, "translationY", 0.0f * scale, -210.0f * scale);
 		animAggY.setInterpolator(new BounceInterpolator());
 		AnimatorSet animSetAgg = new AnimatorSet();
 		animSetAgg.setDuration(500);
@@ -977,37 +974,31 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 		float scale = getResources().getDisplayMetrics().density;
 
 		ObjectAnimator animFabAlpha = ObjectAnimator.ofFloat(fab, "alpha", 0.5f, 1.0f);
-		ObjectAnimator animFabRot = ObjectAnimator.ofFloat(fab, "rotation", 180.0f, 0.0f);
+		ObjectAnimator animFabRot = ObjectAnimator.ofFloat(fab, "rotation", 360.0f, 0.0f);
 		AnimatorSet animSetFab = new AnimatorSet();
 		animSetFab.setDuration(500);
 		animSetFab.playTogether(animFabAlpha, animFabRot);
 
-		ObjectAnimator animFavAlpha = ObjectAnimator.ofFloat(fabFav, "alpha", 1.0f, 0.0f);
-		ObjectAnimator animFavX = ObjectAnimator.ofFloat(fabFav, "translationX", -40.0f * scale, 0.0f * scale);
-		ObjectAnimator animFavY = ObjectAnimator.ofFloat(fabFav, "translationY", -80.0f * scale, 0.0f * scale);
-		animFavX.setInterpolator(new LinearInterpolator());
-		animFavY.setInterpolator(new LinearInterpolator());
-		AnimatorSet animSetFav = new AnimatorSet();
-		animSetFav.setDuration(500);
-		animSetFav.playTogether(animFavAlpha, animFavX, animFavY);
-
 		ObjectAnimator animMicAlpha = ObjectAnimator.ofFloat(fabMic, "alpha", 1.0f, 0.0f);
-		ObjectAnimator animMicX = ObjectAnimator.ofFloat(fabMic, "translationX", -60.0f * scale, 0.0f * scale);
-		ObjectAnimator animMicY = ObjectAnimator.ofFloat(fabMic, "translationY", -60.0f * scale, 0.0f * scale);
-		animMicX.setInterpolator(new LinearInterpolator());
+		ObjectAnimator animMicY = ObjectAnimator.ofFloat(fabMic, "translationY", -70.0f * scale, 0.0f * scale);
 		animMicY.setInterpolator(new LinearInterpolator());
 		AnimatorSet animSetMic = new AnimatorSet();
 		animSetMic.setDuration(500);
-		animSetMic.playTogether(animMicAlpha, animMicX, animMicY);
+		animSetMic.playTogether(animMicAlpha, animMicY);
+
+		ObjectAnimator animFavAlpha = ObjectAnimator.ofFloat(fabFav, "alpha", 1.0f, 0.0f);
+		ObjectAnimator animFavY = ObjectAnimator.ofFloat(fabFav, "translationY", -140.0f * scale, 0.0f * scale);
+		animFavY.setInterpolator(new LinearInterpolator());
+		AnimatorSet animSetFav = new AnimatorSet();
+		animSetFav.setDuration(500);
+		animSetFav.playTogether(animFavAlpha, animFavY);
 
 		ObjectAnimator animAggAlpha = ObjectAnimator.ofFloat(fabAgg, "alpha", 1.0f, 0.0f);
-		ObjectAnimator animAggX = ObjectAnimator.ofFloat(fabAgg, "translationX", -80.0f * scale, 0.0f * scale);
-		ObjectAnimator animAggY = ObjectAnimator.ofFloat(fabAgg, "translationY", -40.0f * scale, 0.0f * scale);
-		animAggX.setInterpolator(new LinearInterpolator());
+		ObjectAnimator animAggY = ObjectAnimator.ofFloat(fabAgg, "translationY", -210.0f * scale, 0.0f * scale);
 		animAggY.setInterpolator(new LinearInterpolator());
 		AnimatorSet animSetAgg = new AnimatorSet();
 		animSetAgg.setDuration(500);
-		animSetAgg.playTogether(animAggAlpha, animAggX, animAggY);
+		animSetAgg.playTogether(animAggAlpha, animAggY);
 
 		animSetFab.start();
 		animSetMic.start();
@@ -1051,6 +1042,7 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 		fab.setAlpha(1.0f);
 		fabMic.setVisibility(View.GONE);
 		fabFav.setVisibility(View.GONE);
+		fabAgg.setVisibility(View.GONE);
 	}
 
 	// Launch Activity to add from favorites.
@@ -1060,6 +1052,7 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 		fab.setAlpha(1.0f);
 		fabMic.setVisibility(View.GONE);
 		fabFav.setVisibility(View.GONE);
+		fabAgg.setVisibility(View.GONE);
 	}
 
 	// Aggiungi nuova spesa, entrata o budget.

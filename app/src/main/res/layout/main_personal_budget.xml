@@ -99,7 +99,7 @@
             app:pressedTranslationZ="6dp"
             app:backgroundTint="@color/primary"
             android:layout_margin="16dp"
-            android:onClick="launchVocRec"
+            android:onClick="launchFav"
             android:alpha="0" />
 
         <android.support.design.widget.FloatingActionButton
@@ -114,7 +114,7 @@
             app:pressedTranslationZ="6dp"
             app:backgroundTint="@color/primary"
             android:layout_margin="16dp"
-            android:onClick="launchFav"
+            android:onClick="launchVocRec"
             android:alpha="0" />
 
         <android.support.design.widget.FloatingActionButton
