@@ -1218,7 +1218,7 @@ public class SpeseAggiungi extends ActionBarActivity implements DatePickerFragme
 				if(importoEspanso) {
 					findViewById(R.id.aggiungi_voce_tlImporto_tableRow0).setVisibility(View.GONE);
 					findViewById(R.id.aggiungi_voce_tlImporto_tableRow1).setVisibility(View.GONE);
-					animazioni.ruotaFreccia((ImageView) findViewById(R.id.aggiungi_voce_ivFrecciaImporto), importoEspanso);
+					animazioni.ruotaFreccia(findViewById(R.id.aggiungi_voce_ivFrecciaImporto), importoEspanso);
 					findViewById(R.id.aggiungi_voce_tlImporto_tableRowBordo).setVisibility(View.GONE);
 					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 						findViewById(R.id.card_view_importo).setElevation(6);
@@ -1228,7 +1228,7 @@ public class SpeseAggiungi extends ActionBarActivity implements DatePickerFragme
 				else {
 					findViewById(R.id.aggiungi_voce_tlImporto_tableRow0).setVisibility(View.VISIBLE);
 					findViewById(R.id.aggiungi_voce_tlImporto_tableRow1).setVisibility(View.VISIBLE);
-					animazioni.ruotaFreccia((ImageView) findViewById(R.id.aggiungi_voce_ivFrecciaImporto), importoEspanso);
+					animazioni.ruotaFreccia(findViewById(R.id.aggiungi_voce_ivFrecciaImporto), importoEspanso);
 					findViewById(R.id.aggiungi_voce_tlImporto_tableRowBordo).setVisibility(View.VISIBLE);
 					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 						findViewById(R.id.card_view_importo).setElevation(16);
@@ -1242,7 +1242,7 @@ public class SpeseAggiungi extends ActionBarActivity implements DatePickerFragme
 				if(contoEspanso) {
 					findViewById(R.id.aggiungi_voce_tlConto_tableRowBordo).setVisibility(View.GONE);
 					findViewById(R.id.aggiungi_voce_spConto).setVisibility(View.GONE);
-					animazioni.ruotaFreccia((ImageView) findViewById(R.id.aggiungi_voce_ivFrecciaConto), contoEspanso);
+					animazioni.ruotaFreccia(findViewById(R.id.aggiungi_voce_ivFrecciaConto), contoEspanso);
 					findViewById(R.id.aggiungi_voce_llContoControlli).setVisibility(View.GONE);
 					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 						findViewById(R.id.card_view_conto).setElevation(6);
@@ -1252,7 +1252,7 @@ public class SpeseAggiungi extends ActionBarActivity implements DatePickerFragme
 				else {
 					findViewById(R.id.aggiungi_voce_tlConto_tableRowBordo).setVisibility(View.VISIBLE);
 					findViewById(R.id.aggiungi_voce_spConto).setVisibility(View.VISIBLE);
-					animazioni.ruotaFreccia((ImageView) findViewById(R.id.aggiungi_voce_ivFrecciaConto), contoEspanso);
+					animazioni.ruotaFreccia(findViewById(R.id.aggiungi_voce_ivFrecciaConto), contoEspanso);
 					findViewById(R.id.aggiungi_voce_llContoControlli).setVisibility(View.VISIBLE);
 					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 						findViewById(R.id.card_view_conto).setElevation(16);
@@ -1267,7 +1267,7 @@ public class SpeseAggiungi extends ActionBarActivity implements DatePickerFragme
 					findViewById(R.id.aggiungi_voce_tlTags_tableRowBordo).setVisibility(View.GONE);
 					findViewById(R.id.aggiungi_voce_spTag).setVisibility(View.GONE);
 					findViewById(R.id.aggiungi_voce_etTag).setVisibility(View.GONE);
-					animazioni.ruotaFreccia((ImageView) findViewById(R.id.aggiungi_voce_ivFrecciaTags), tagsEspanso);
+					animazioni.ruotaFreccia(findViewById(R.id.aggiungi_voce_ivFrecciaTags), tagsEspanso);
 					findViewById(R.id.aggiungi_voce_tlTags_tableRowBordo).setVisibility(View.GONE);
 					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 						findViewById(R.id.card_view_tags).setElevation(6);
@@ -1278,7 +1278,7 @@ public class SpeseAggiungi extends ActionBarActivity implements DatePickerFragme
 					findViewById(R.id.aggiungi_voce_tlTags_tableRowBordo).setVisibility(View.VISIBLE);
 					findViewById(R.id.aggiungi_voce_spTag).setVisibility(View.VISIBLE);
 					findViewById(R.id.aggiungi_voce_etTag).setVisibility(View.VISIBLE);
-					animazioni.ruotaFreccia((ImageView) findViewById(R.id.aggiungi_voce_ivFrecciaTags), tagsEspanso);
+					animazioni.ruotaFreccia(findViewById(R.id.aggiungi_voce_ivFrecciaTags), tagsEspanso);
 					findViewById(R.id.aggiungi_voce_tlTags_tableRowBordo).setVisibility(View.VISIBLE);
 					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 						findViewById(R.id.card_view_tags).setElevation(16);
@@ -1292,7 +1292,7 @@ public class SpeseAggiungi extends ActionBarActivity implements DatePickerFragme
 				if(dataEspanso) {
 					findViewById(R.id.aggiungi_voce_tlData_tableRowBordo).setVisibility(View.GONE);
 					findViewById(R.id.aggiungi_voce_etData).setVisibility(View.GONE);
-					animazioni.ruotaFreccia((ImageView) findViewById(R.id.aggiungi_voce_ivFrecciaData), dataEspanso);
+					animazioni.ruotaFreccia(findViewById(R.id.aggiungi_voce_ivFrecciaData), dataEspanso);
 					findViewById(R.id.aggiungi_voce_tlData_tableRowBordo).setVisibility(View.GONE);
 					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 						findViewById(R.id.card_view_data).setElevation(6);
@@ -1302,7 +1302,7 @@ public class SpeseAggiungi extends ActionBarActivity implements DatePickerFragme
 				else {
 					findViewById(R.id.aggiungi_voce_tlData_tableRowBordo).setVisibility(View.VISIBLE);
 					findViewById(R.id.aggiungi_voce_etData).setVisibility(View.VISIBLE);
-					animazioni.ruotaFreccia((ImageView) findViewById(R.id.aggiungi_voce_ivFrecciaData), dataEspanso);
+					animazioni.ruotaFreccia(findViewById(R.id.aggiungi_voce_ivFrecciaData), dataEspanso);
 					findViewById(R.id.aggiungi_voce_tlData_tableRowBordo).setVisibility(View.VISIBLE);
 					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 						findViewById(R.id.card_view_data).setElevation(16);
@@ -1315,7 +1315,7 @@ public class SpeseAggiungi extends ActionBarActivity implements DatePickerFragme
 			case R.id.aggiungi_voce_tlDescrizione_tableRowTitolo:
 				if(descrizioneEspanso) {
 					findViewById(R.id.aggiungi_voce_tlDescrizione_tableRow0).setVisibility(View.GONE);
-					animazioni.ruotaFreccia((ImageView) findViewById(R.id.aggiungi_voce_ivFrecciaDescrizione), descrizioneEspanso);
+					animazioni.ruotaFreccia(findViewById(R.id.aggiungi_voce_ivFrecciaDescrizione), descrizioneEspanso);
 					findViewById(R.id.aggiungi_voce_tlDescrizione_tableRowBordo).setVisibility(View.GONE);
 					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 						findViewById(R.id.card_view_descrizione).setElevation(6);
@@ -1324,7 +1324,7 @@ public class SpeseAggiungi extends ActionBarActivity implements DatePickerFragme
 				}
 				else {
 					findViewById(R.id.aggiungi_voce_tlDescrizione_tableRow0).setVisibility(View.VISIBLE);
-					animazioni.ruotaFreccia((ImageView) findViewById(R.id.aggiungi_voce_ivFrecciaDescrizione), descrizioneEspanso);
+					animazioni.ruotaFreccia(findViewById(R.id.aggiungi_voce_ivFrecciaDescrizione), descrizioneEspanso);
 					findViewById(R.id.aggiungi_voce_tlDescrizione_tableRowBordo).setVisibility(View.VISIBLE);
 					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 						findViewById(R.id.card_view_descrizione).setElevation(16);
@@ -1338,7 +1338,7 @@ public class SpeseAggiungi extends ActionBarActivity implements DatePickerFragme
 				if(ripetizioneEspanso) {
 					findViewById(R.id.aggiungi_voce_tlRipetizione_tableRowBordo).setVisibility(View.GONE);
 					findViewById(R.id.aggiungi_voce_llRipetizioneControlli).setVisibility(View.GONE);
-					animazioni.ruotaFreccia((ImageView) findViewById(R.id.aggiungi_voce_ivFrecciaRipetizione), ripetizioneEspanso);
+					animazioni.ruotaFreccia(findViewById(R.id.aggiungi_voce_ivFrecciaRipetizione), ripetizioneEspanso);
 					findViewById(R.id.aggiungi_voce_tlRipetizione_tableRowBordo).setVisibility(View.GONE);
 					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 						findViewById(R.id.card_view_ripetizione).setElevation(6);
@@ -1348,7 +1348,7 @@ public class SpeseAggiungi extends ActionBarActivity implements DatePickerFragme
 				else {
 					findViewById(R.id.aggiungi_voce_tlRipetizione_tableRowBordo).setVisibility(View.VISIBLE);
 					findViewById(R.id.aggiungi_voce_llRipetizioneControlli).setVisibility(View.VISIBLE);
-					animazioni.ruotaFreccia((ImageView) findViewById(R.id.aggiungi_voce_ivFrecciaRipetizione), ripetizioneEspanso);
+					animazioni.ruotaFreccia(findViewById(R.id.aggiungi_voce_ivFrecciaRipetizione), ripetizioneEspanso);
 					findViewById(R.id.aggiungi_voce_tlRipetizione_tableRowBordo).setVisibility(View.VISIBLE);
 					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 						findViewById(R.id.card_view_ripetizione).setElevation(16);
@@ -1361,7 +1361,7 @@ public class SpeseAggiungi extends ActionBarActivity implements DatePickerFragme
 				case R.id.aggiungi_voce_tlPreferiti_tableRowTitolo:
 					if(preferitiEspanso) {
 						findViewById(R.id.aggiungi_voce_tlPreferiti_tableRowBordo).setVisibility(View.GONE);
-						animazioni.ruotaFreccia((ImageView) findViewById(R.id.aggiungi_voce_ivFrecciaPreferiti), preferitiEspanso);
+						animazioni.ruotaFreccia(findViewById(R.id.aggiungi_voce_ivFrecciaPreferiti), preferitiEspanso);
 						findViewById(R.id.aggiungi_voce_llPreferitiControlli).setVisibility(View.GONE);
 						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 							findViewById(R.id.card_view_preferiti).setElevation(6);
@@ -1370,7 +1370,7 @@ public class SpeseAggiungi extends ActionBarActivity implements DatePickerFragme
 					}
 					else {
 						findViewById(R.id.aggiungi_voce_tlPreferiti_tableRowBordo).setVisibility(View.VISIBLE);
-						animazioni.ruotaFreccia((ImageView) findViewById(R.id.aggiungi_voce_ivFrecciaPreferiti), preferitiEspanso);
+						animazioni.ruotaFreccia(findViewById(R.id.aggiungi_voce_ivFrecciaPreferiti), preferitiEspanso);
 						findViewById(R.id.aggiungi_voce_llPreferitiControlli).setVisibility(View.VISIBLE);
 						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 							findViewById(R.id.card_view_preferiti).setElevation(16);

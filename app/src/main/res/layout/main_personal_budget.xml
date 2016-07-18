@@ -80,27 +80,12 @@
             app:fabSize="normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_important"
+            android:src="@drawable/ic_content_new"
             android:layout_gravity="bottom|end"
             app:elevation="6dp"
             app:pressedTranslationZ="6dp"
             android:layout_margin="16dp"
             android:onClick="animateFab"/>
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabMic"
-            app:fabSize="normal"
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_mic"
-            android:layout_gravity="bottom|end"
-            app:elevation="6dp"
-            app:pressedTranslationZ="6dp"
-            app:backgroundTint="@color/primary"
-            android:layout_margin="16dp"
-            android:onClick="launchVocRec"
-            android:alpha="0" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabFav"
@@ -114,7 +99,37 @@
             app:pressedTranslationZ="6dp"
             app:backgroundTint="@color/primary"
             android:layout_margin="16dp"
+            android:onClick="launchVocRec"
+            android:alpha="0" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabMic"
+            app:fabSize="normal"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_mic"
+            android:layout_gravity="bottom|end"
+            app:elevation="6dp"
+            app:pressedTranslationZ="6dp"
+            app:backgroundTint="@color/primary"
+            android:layout_margin="16dp"
             android:onClick="launchFav"
+            android:alpha="0" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabAgg"
+            app:fabSize="normal"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_content_new"
+            android:layout_gravity="bottom|end"
+            app:elevation="6dp"
+            app:pressedTranslationZ="6dp"
+            app:backgroundTint="@color/primary"
+            android:layout_margin="16dp"
+            android:onClick="aggiungi"
             android:alpha="0" />
 
     </android.support.design.widget.CoordinatorLayout>

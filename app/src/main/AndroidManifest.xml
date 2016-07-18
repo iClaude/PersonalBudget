@@ -306,7 +306,7 @@
                  <action android:name="com.flingsoftware.personalbudget.UPDATE_WIDGET_PICCOLO" />
              </intent-filter>    
          </receiver>
-         
+
     </application>
 
 </manifest>

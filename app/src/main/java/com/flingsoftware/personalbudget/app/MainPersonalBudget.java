@@ -233,6 +233,7 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 		fab = (FloatingActionButton) findViewById(R.id.fab);
 		fabMic = (FloatingActionButton) findViewById(R.id.fabMic);
 		fabFav = (FloatingActionButton) findViewById(R.id.fabFav);
+		fabAgg = (FloatingActionButton) findViewById(R.id.fabAgg);
 
         //registrazione listener per cambio preferenze (qua serve per la password)
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -398,21 +399,9 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
             public void onPageScrollStateChanged (int state)
             {
                 if (state == ViewPager.SCROLL_STATE_IDLE) {
-                    switch (fragSel) {
-                        case 0:
-                        case 1:
-                        case 3:
-                            //ibAzione.setImageDrawable(getDrawable(R.drawable.ic_content_new));
-                            ibAzione.setImageResource(R.drawable.ic_content_new);
-                            break;
-                        case 2:
-                            //ibAzione.setImageDrawable(getDrawable(R.drawable.ic_action_copy));
-                            ibAzione.setImageResource(R.drawable.ic_action_copy);
-                            break;
-                    }
-
 					fabMic.setVisibility(View.GONE);
 					fabFav.setVisibility(View.GONE);
+					fabAgg.setVisibility(View.GONE);
                     if(fragSel == TAB_SPESE || fragSel == TAB_ENTRATE) {
                         fab.setVisibility(View.VISIBLE);
 						fab.setAlpha(1.0f);
@@ -925,33 +914,6 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 	}
 
 
-	// Listener per il bottone di azione nella Toolbar inferiore.
-    private OnClickListener ibAzioneListener = new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch(fragSel) {
-                case 0:
-                    attivaLocalBroadcastReceiverUpdateDatabaseInserimentoVoci();
-                    ((FragmentSpese) speseFragment).aggiungi();
-                    break;
-                case 1:
-                    attivaLocalBroadcastReceiverUpdateDatabaseInserimentoVoci();
-                    ((FragmentEntrate) entrateFragment).aggiungi();
-                    break;
-                case 2:
-                    Intent intent = new Intent(MainPersonalBudget.this, ContiElenco.class);
-                    startActivityForResult(intent, CostantiActivity.ACTIVITY_CONTIELENCO);
-                    break;
-                case 3:
-                    ((FragmentBudget) budgetFragment).aggiungi();
-                    break;
-                default:
-                    //
-            }
-        }
-    };
-
-
 	/*
 	Expand/compress floating action button with animation to show 2 buttons for favorites and vocal
 	recognition.
@@ -968,64 +930,89 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 	private void expandFab() {
 		fabMic.setVisibility(View.VISIBLE);
 		fabFav.setVisibility(View.VISIBLE);
+		fabAgg.setVisibility(View.VISIBLE);
 
 		float scale = getResources().getDisplayMetrics().density;
 
 		ObjectAnimator animFabAlpha = ObjectAnimator.ofFloat(fab, "alpha", 1.0f, 0.5f);
-		ObjectAnimator animFabRot = ObjectAnimator.ofFloat(fab, "rotation", 0.0f, 360.0f);
+		ObjectAnimator animFabRot = ObjectAnimator.ofFloat(fab, "rotation", 0.0f, 180.0f);
 		AnimatorSet animSetFab = new AnimatorSet();
 		animSetFab.setDuration(500);
 		animSetFab.playTogether(animFabAlpha, animFabRot);
 
-
-		ObjectAnimator animMicAlpha = ObjectAnimator.ofFloat(fabMic, "alpha", 0.0f, 1.0f);
-		ObjectAnimator animMicY = ObjectAnimator.ofFloat(fabMic, "translationY", 0.0f * scale, -80.0f * scale);
-		animMicY.setInterpolator(new BounceInterpolator());
-		AnimatorSet animSetMic = new AnimatorSet();
-		animSetMic.setDuration(500);
-		animSetMic.playTogether(animMicAlpha, animMicY);
-
-
 		ObjectAnimator animFavAlpha = ObjectAnimator.ofFloat(fabFav, "alpha", 0.0f, 1.0f);
-		ObjectAnimator animFavY = ObjectAnimator.ofFloat(fabFav, "translationY", 0.0f * scale, -160.0f * scale);
+		//ObjectAnimator animFavX = ObjectAnimator.ofFloat(fabFav, "translationX", 0.0f * scale, -40.0f * scale);
+		ObjectAnimator animFavY = ObjectAnimator.ofFloat(fabFav, "translationY", 0.0f * scale, -80.0f * scale);
+		//animFavX.setInterpolator(new BounceInterpolator());
 		animFavY.setInterpolator(new BounceInterpolator());
 		AnimatorSet animSetFav = new AnimatorSet();
 		animSetFav.setDuration(500);
 		animSetFav.playTogether(animFavAlpha, animFavY);
 
+		ObjectAnimator animMicAlpha = ObjectAnimator.ofFloat(fabMic, "alpha", 0.0f, 1.0f);
+		//ObjectAnimator animMicX = ObjectAnimator.ofFloat(fabMic, "translationX", 0.0f * scale, -60.0f * scale);
+		ObjectAnimator animMicY = ObjectAnimator.ofFloat(fabMic, "translationY", 0.0f * scale, -60.0f * scale);
+		//animMicX.setInterpolator(new BounceInterpolator());
+		animMicY.setInterpolator(new BounceInterpolator());
+		AnimatorSet animSetMic = new AnimatorSet();
+		animSetMic.setDuration(500);
+		animSetMic.playTogether(animMicAlpha, animMicY);
+
+		ObjectAnimator animAggAlpha = ObjectAnimator.ofFloat(fabAgg, "alpha", 0.0f, 1.0f);
+		//ObjectAnimator animAggX = ObjectAnimator.ofFloat(fabAgg, "translationX", 0.0f * scale, -80.0f * scale);
+		ObjectAnimator animAggY = ObjectAnimator.ofFloat(fabAgg, "translationY", 0.0f * scale, -40.0f * scale);
+		//animAggX.setInterpolator(new BounceInterpolator());
+		animAggY.setInterpolator(new BounceInterpolator());
+		AnimatorSet animSetAgg = new AnimatorSet();
+		animSetAgg.setDuration(500);
+		animSetAgg.playTogether(animAggAlpha, animAggY);
+
 		animSetFab.start();
 		animSetMic.start();
 		animSetFav.start();
+		animSetAgg.start();
 	}
 
 	private void compressFab() {
 		float scale = getResources().getDisplayMetrics().density;
 
 		ObjectAnimator animFabAlpha = ObjectAnimator.ofFloat(fab, "alpha", 0.5f, 1.0f);
-		ObjectAnimator animFabRot = ObjectAnimator.ofFloat(fab, "rotation", 360.0f, 0.0f);
+		ObjectAnimator animFabRot = ObjectAnimator.ofFloat(fab, "rotation", 180.0f, 0.0f);
 		AnimatorSet animSetFab = new AnimatorSet();
 		animSetFab.setDuration(500);
 		animSetFab.playTogether(animFabAlpha, animFabRot);
 
-
-		ObjectAnimator animMicAlpha = ObjectAnimator.ofFloat(fabMic, "alpha", 1.0f, 0.0f);
-		ObjectAnimator animMicY = ObjectAnimator.ofFloat(fabMic, "translationY", -80.0f * scale, 0.0f * scale);
-		animMicY.setInterpolator(new LinearInterpolator());
-		AnimatorSet animSetMic = new AnimatorSet();
-		animSetMic.setDuration(500);
-		animSetMic.playTogether(animMicAlpha, animMicY);
-
-
 		ObjectAnimator animFavAlpha = ObjectAnimator.ofFloat(fabFav, "alpha", 1.0f, 0.0f);
-		ObjectAnimator animFavY = ObjectAnimator.ofFloat(fabFav, "translationY", -160.0f * scale, 0.0f * scale);
+		ObjectAnimator animFavX = ObjectAnimator.ofFloat(fabFav, "translationX", -40.0f * scale, 0.0f * scale);
+		ObjectAnimator animFavY = ObjectAnimator.ofFloat(fabFav, "translationY", -80.0f * scale, 0.0f * scale);
+		animFavX.setInterpolator(new LinearInterpolator());
 		animFavY.setInterpolator(new LinearInterpolator());
 		AnimatorSet animSetFav = new AnimatorSet();
 		animSetFav.setDuration(500);
-		animSetFav.playTogether(animFavAlpha, animFavY);
+		animSetFav.playTogether(animFavAlpha, animFavX, animFavY);
+
+		ObjectAnimator animMicAlpha = ObjectAnimator.ofFloat(fabMic, "alpha", 1.0f, 0.0f);
+		ObjectAnimator animMicX = ObjectAnimator.ofFloat(fabMic, "translationX", -60.0f * scale, 0.0f * scale);
+		ObjectAnimator animMicY = ObjectAnimator.ofFloat(fabMic, "translationY", -60.0f * scale, 0.0f * scale);
+		animMicX.setInterpolator(new LinearInterpolator());
+		animMicY.setInterpolator(new LinearInterpolator());
+		AnimatorSet animSetMic = new AnimatorSet();
+		animSetMic.setDuration(500);
+		animSetMic.playTogether(animMicAlpha, animMicX, animMicY);
+
+		ObjectAnimator animAggAlpha = ObjectAnimator.ofFloat(fabAgg, "alpha", 1.0f, 0.0f);
+		ObjectAnimator animAggX = ObjectAnimator.ofFloat(fabAgg, "translationX", -80.0f * scale, 0.0f * scale);
+		ObjectAnimator animAggY = ObjectAnimator.ofFloat(fabAgg, "translationY", -40.0f * scale, 0.0f * scale);
+		animAggX.setInterpolator(new LinearInterpolator());
+		animAggY.setInterpolator(new LinearInterpolator());
+		AnimatorSet animSetAgg = new AnimatorSet();
+		animSetAgg.setDuration(500);
+		animSetAgg.playTogether(animAggAlpha, animAggX, animAggY);
 
 		animSetFab.start();
 		animSetMic.start();
 		animSetFav.start();
+		animSetAgg.start();
 		animSetFav.addListener(animatorListener);
 	}
 
@@ -1038,6 +1025,7 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 		public void onAnimationEnd(Animator animation) {
 			fabMic.setVisibility(View.GONE);
 			fabFav.setVisibility(View.GONE);
+			fabAgg.setVisibility(View.GONE);
 		}
 
 		@Override
@@ -1072,6 +1060,34 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 		fab.setAlpha(1.0f);
 		fabMic.setVisibility(View.GONE);
 		fabFav.setVisibility(View.GONE);
+	}
+
+	// Aggiungi nuova spesa, entrata o budget.
+	public void aggiungi(View v) {
+		switch(fragSel) {
+			case 0:
+				attivaLocalBroadcastReceiverUpdateDatabaseInserimentoVoci();
+				((FragmentSpese) speseFragment).aggiungi();
+				break;
+			case 1:
+				attivaLocalBroadcastReceiverUpdateDatabaseInserimentoVoci();
+				((FragmentEntrate) entrateFragment).aggiungi();
+				break;
+			case 2:
+				Intent intent = new Intent(MainPersonalBudget.this, ContiElenco.class);
+				startActivityForResult(intent, CostantiActivity.ACTIVITY_CONTIELENCO);
+				break;
+			case 3:
+				((FragmentBudget) budgetFragment).aggiungi();
+				break;
+			default:
+				//
+		}
+
+		fab.setAlpha(1.0f);
+		fabMic.setVisibility(View.GONE);
+		fabFav.setVisibility(View.GONE);
+		fabAgg.setVisibility(View.GONE);
 	}
 
 
@@ -1516,7 +1532,6 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 	private BroadcastReceiver mLocalReceiverUpdateDatabaseInserimentoVoci;
 	private boolean menuVisualizzato;
     private SearchView searchView;
-    private ImageButton ibAzione;
 
 	//gestione suoni
 	private SoundPool soundPool;
@@ -1545,4 +1560,5 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 	FloatingActionButton fab;
 	FloatingActionButton fabMic;
 	FloatingActionButton fabFav;
+	FloatingActionButton fabAgg;
 }

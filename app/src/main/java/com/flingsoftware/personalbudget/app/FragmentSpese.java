@@ -39,6 +39,7 @@ import android.text.TextUtils;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -62,7 +63,7 @@ import android.view.MenuInflater;
 
 
 public class FragmentSpese extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener {
-	
+
 	//comunicazione all'activity per eliminazione spese: l'Activity poi richiede l'aggiornamento degli altri Fragment
 	public interface ExpensesDeletedListener {
 		void onDeletedExpense();
@@ -514,7 +515,7 @@ public class FragmentSpese extends Fragment implements SharedPreferences.OnShare
 		        return false;
 		    }
 		});
-		
+
 		return rootView;
 	}
 

@@ -1,32 +1,11 @@
 package com.flingsoftware.personalbudget.app;
-import com.flingsoftware.personalbudget.R;
-import com.flingsoftware.personalbudget.database.*;
-import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
-import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze;
-import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiSuoni;
-import com.flingsoftware.personalbudget.customviews.MioToast;
-import com.flingsoftware.personalbudget.utilita.UtilitaVarie;
-
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.WIDGET_AGGIORNA;
-import static com.flingsoftware.personalbudget.app.SpeseEntrateEliminaVociRipetute.*;
-import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA;
-import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_BUDGET_PER_ELIMINAZIONE_SPESE_RIPETUTE;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiDettaglioVoce.*;
-
-import java.text.DateFormat;
-import java.text.NumberFormat;
-import java.util.Currency;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
 
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.PorterDuff;
+import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.AsyncTask;
@@ -38,23 +17,50 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ImageView;
-import android.graphics.Bitmap;
-import android.support.v7.app.ActionBarActivity;
-import android.view.Window;
+
+import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze;
+import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiSuoni;
+import com.flingsoftware.personalbudget.customviews.MioToast;
+import com.flingsoftware.personalbudget.database.DBCSpeseRipetute;
+import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
+import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
+import com.flingsoftware.personalbudget.database.FunzioniAggiornamento;
+import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
+import com.flingsoftware.personalbudget.utilita.UtilitaVarie;
+
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.util.Currency;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiDettaglioVoce.OPERAZIONE_ELIMINAZIONE;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiDettaglioVoce.OPERAZIONE_MODIFICA;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiDettaglioVoce.TIPO_OPERAZIONE;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.WIDGET_AGGIORNA;
+import static com.flingsoftware.personalbudget.app.SpeseEntrateEliminaVociRipetute.ELIMINA_DA_OGGI;
+import static com.flingsoftware.personalbudget.app.SpeseEntrateEliminaVociRipetute.ELIMINA_SOLO_QUESTA;
+import static com.flingsoftware.personalbudget.app.SpeseEntrateEliminaVociRipetute.ELIMINA_TUTTE;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_BUDGET_PER_ELIMINAZIONE_SPESE_RIPETUTE;
 
 
 public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrateEliminaVociRipetute.EliminaVociRipetuteListener {
-	
+
 	//costanti pubbliche
 	public interface CostantiPubbliche {
 		String VOCE_ID = "id";
@@ -71,18 +77,18 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+		getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.spese_entrate_dettaglio_voce);
 
-        // Toolbar per menu opzioni
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+		// Toolbar per menu opzioni
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
 
 		// Listener per Toolbar espansa o collassata: serve per visualizzare o nascondere il fab in basso
 		AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
 		appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener());
-		
+
 		//ottengo i reference ai vari componenti
 		tvImporto = (TextView) findViewById(R.id.tvImporto);
 		tvConto = (TextView) findViewById(R.id.sedv_tvConto);
@@ -113,7 +119,7 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 
 		//ricavo la valuta di default
 		ricavaValuta();
-		
+
 		NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
 		nf.setCurrency(currValuta);
 		String importoFormattato = nf.format(importoValprin);
@@ -121,86 +127,90 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		tvConto.setText(conto);
 		DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, miaLocale);
 		tvData.setText(df.format(new Date(data)));
-		if(descrizione.length() > 0) {
+		if (descrizione.length() > 0) {
 			tvDescrizione.setText(descrizione);
-		}
-		else {
+		} else {
 			tvDescrizione.setVisibility(View.GONE);
 			findViewById(R.id.tvDescrizioneTitolo).setVisibility(View.GONE);
 		}
-		if(!valuta.equals(currValuta.getCurrencyCode())) {
+		if (!valuta.equals(currValuta.getCurrencyCode())) {
 			NumberFormat nfValuta = NumberFormat.getInstance(Locale.getDefault());
 			NumberFormat nfCambio = NumberFormat.getInstance();
 			nfCambio.setMaximumFractionDigits(4);
-			
+
 			float cambio = (float) (importoValprin / importo);
 			((TextView) findViewById(R.id.tvImportoOriginale)).setText(nfValuta.format(importo) + " " + Currency.getInstance(valuta).getSymbol());
 			((TextView) findViewById(R.id.tvTassoCambio)).setText(nfCambio.format(cambio));
-		}
-		else {
+		} else {
 			findViewById(R.id.card_view_importo).setVisibility(View.GONE);
 		}
 
 		//recupero i dettagli delle spese ripetute in un thread separato
 		dbcSpeseSostenute = new DBCSpeseSostenute(SpeseDettaglioVoce.this);
 		dbcSpeseRipetute = new DBCSpeseRipetute(SpeseDettaglioVoce.this);
-		if(ripetizione_id != 1) {
+		if (ripetizione_id != 1) {
 			new ImpostaDettagliSpesaRipetuta().execute(ripetizione_id);
 		} else {
-            findViewById(R.id.card_view_ripetizione).setVisibility(View.GONE);
+			findViewById(R.id.card_view_ripetizione).setVisibility(View.GONE);
 		}
-		
+
 		new CaricaSuoniTask().execute();
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-	}	
-	
-	
+    }
+
+	private void testDebug() {
+		Log.d("TEST DEBUG", "Inside method. Step 1");
+		Log.d("TEST DEBUG", "Inside method. Step 2");
+		Log.d("TEST DEBUG", "Inside method. Step 3");
+		Log.d("TEST DEBUG", "Inside method. Step 4");
+		Log.d("TEST DEBUG", "Inside method. Step 5");
+		Log.d("TEST DEBUG", "Inside method. Step 6");
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
-		
+
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.menu_speseentratedettagliovoce, menu);
-		
+
 		return true;
 	}
 
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch(item.getItemId()) {
+		switch (item.getItemId()) {
 
-		case R.id.menu_speseEntrateDettaglioVoce_cancella:
-			eliminaVoce();
+			case R.id.menu_speseEntrateDettaglioVoce_cancella:
+				eliminaVoce();
 
-			return true;	
-		case R.id.menu_speseEntrateDettaglioVoce_duplica:
-			duplicaVoce(); // duplicazione voce
+				return true;
+			case R.id.menu_speseEntrateDettaglioVoce_duplica:
+				duplicaVoce(); // duplicazione voce
 
-			return true;
-		case android.R.id.home:
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                finishAfterTransition();
-            }
-            else {
-                finish();
-            }
+				return true;
+			case android.R.id.home:
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+					finishAfterTransition();
+				} else {
+					finish();
+				}
 
-	        return true;
-		default:
-			return super.onOptionsItemSelected(item);
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
 		}
 	}
-	
+
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		
-		if(suoniAbilitati && confermaElimina) {
+
+		if (suoniAbilitati && confermaElimina) {
 			soundPool.play(mappaSuoni.get(CostantiSuoni.SUONO_CANCELLAZIONE), 1, 1, 1, 0, 1f);
-		}
-		else if(suoniAbilitati && confermaDuplica) {
+		} else if (suoniAbilitati && confermaDuplica) {
 			soundPool.play(mappaSuoni.get(CostantiSuoni.SUONO_AGGIUNGI_SPESA_ENTRATA), 1, 1, 1, 0, 1f);
 		}
 	}
@@ -231,7 +241,7 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 				statoCorrente = COLLASSATO;
 			} else {
 				if (statoCorrente != INTERMEDIO) {
-					if(fabVisibile) {
+					if (fabVisibile) {
 						fabBasso.hide();
 					}
 					fabVisibile = false;
@@ -248,6 +258,7 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 		String codiceValutaDefault = pref.getString(VALUTA_PRINCIPALE, Currency.getInstance(Locale.getDefault()).getCurrencyCode());
 		currValuta = Currency.getInstance(codiceValutaDefault);
+
 	}
 
 
@@ -271,7 +282,7 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 
 	// elimina 1 o pi� voci di spesa ripetute
 	private void eliminaVoce() {
-		if(ripetizione_id == 1) {
+		if (ripetizione_id == 1) {
 			UtilitaVarie.visualizzaDialogOKAnnulla(SpeseDettaglioVoce.this,
 					getString(R.string.dettagli_voce_conferma_elimina_titolo),
 					getString(R.string.dettagli_voce_conferma_elimina_msg),
@@ -287,8 +298,7 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 							new AggiornaTabellaBudgetTask(ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA, "%" + tag + "%", Long.valueOf(data).toString(), Long.valueOf(data).toString()).execute((Object[]) null);
 						}
 					});
-		}
-		else {
+		} else {
 			DialogFragment dialogEliminaVociRipetute = new SpeseEntrateEliminaVociRipetute();
 			dialogEliminaVociRipetute.show(getSupportFragmentManager(), "EliminaVociRipetute");
 		}
@@ -299,7 +309,7 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 	public void fabPremuto(View v) {
 		modificaVoce();
 	}
-	
+
 	// modifica questa voce
 	private void modificaVoce() {
 		Intent modificaSpesa = new Intent(SpeseDettaglioVoce.this, SpeseAggiungi.class);
@@ -316,11 +326,11 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		startActivityForResult(modificaSpesa, 0);
 
 	}
-	
-	
+
+
 	//AsyncTask per recuperare i dettagli delle spese ripetute.
 	private class ImpostaDettagliSpesaRipetuta extends AsyncTask<Long, Object, Cursor> {
-		
+
 		protected Cursor doInBackground(Long... params) {
 			dbcSpeseRipetute.openLettura();
 			Cursor curSpesaRipetuta = dbcSpeseRipetute.getSpesaRipetuta(params[0]);
@@ -333,33 +343,26 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 			String ripetizione = curSpesaRipetuta.getString(curSpesaRipetuta.getColumnIndex("ripetizione"));
 			dataFine = curSpesaRipetuta.getLong(curSpesaRipetuta.getColumnIndex("data_fine"));
 			dataInizio = curSpesaRipetuta.getLong(curSpesaRipetuta.getColumnIndex("data_inizio"));
-			
+
 			String tipiBudget[] = getResources().getStringArray(R.array.ripetizioni);
-			if(ripetizione.equals("nessuna")) {
+			if (ripetizione.equals("nessuna")) {
 				ripetizione = tipiBudget[0];
-			}
-			else if(ripetizione.equals("giornaliero")) {
+			} else if (ripetizione.equals("giornaliero")) {
 				ripetizione = tipiBudget[1];
-			}
-			else if(ripetizione.equals("settimanale")) {
+			} else if (ripetizione.equals("settimanale")) {
 				ripetizione = tipiBudget[2];
-			}
-			else if(ripetizione.equals("bisettimanale")) {
+			} else if (ripetizione.equals("bisettimanale")) {
 				ripetizione = tipiBudget[3];
-			}
-			else if(ripetizione.equals("mensile")) {
+			} else if (ripetizione.equals("mensile")) {
 				ripetizione = tipiBudget[4];
-			}
-			else if(ripetizione.equals("annuale")) {
+			} else if (ripetizione.equals("annuale")) {
 				ripetizione = tipiBudget[5];
-			}
-			else if(ripetizione.equals("giorni_lavorativi")) {
+			} else if (ripetizione.equals("giorni_lavorativi")) {
 				ripetizione = tipiBudget[6];
-			}
-			else if(ripetizione.equals("weekend")) {
+			} else if (ripetizione.equals("weekend")) {
 				ripetizione = tipiBudget[7];
 			}
-			
+
 			tvRipetizione.setText(ripetizione);
 			DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, miaLocale);
 			tvFineRipetizione.setText(df.format(new Date(dataFine)));
@@ -369,52 +372,51 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 	}
 
 
-	
 	//implementazione di EliminaVociRipetute.EliminaVociRipetuteListener: serve per specificare, per le voci ripetute, se eliminarne una o pi� di una
 	@Override
 	public void onDialogPositiveClick(int sceltaElimina) {
 		confermaElimina = true;
 		Long oggi = FunzioniComuni.getDataAttuale();
-		
-		switch(sceltaElimina) {
-		case ELIMINA_SOLO_QUESTA:
-			new EliminaQuestaSpesaTask().execute(id);
-			new AggiornaTabellaBudgetTask(ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA, "%" + tag + "%", Long.valueOf(data).toString(),  Long.valueOf(data).toString()).execute((Object[]) null);
-			break;
-		case ELIMINA_TUTTE:
-			new EliminaTutteSpeseRipetuteTask().execute(ripetizione_id);
-			new AggiornaTabellaBudgetTask(ESTRAI_BUDGET_PER_ELIMINAZIONE_SPESE_RIPETUTE, "%" + tag + "%", Long.valueOf(dataInizio).toString(),  Long.valueOf(dataInizio).toString(), Long.valueOf(dataInizio).toString(), oggi.toString(), oggi.toString(), oggi.toString(), Long.valueOf(dataInizio).toString(), oggi.toString()).execute((Object[]) null);
-			break;
-		case ELIMINA_DA_OGGI:
-			new EliminaSpeseRipetuteDaOggiTask().execute(ripetizione_id);
-			new AggiornaTabellaBudgetTask(ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA, "%" + tag + "%", oggi.toString(),  oggi.toString()).execute((Object[]) null);
-			break;
+
+		switch (sceltaElimina) {
+			case ELIMINA_SOLO_QUESTA:
+				new EliminaQuestaSpesaTask().execute(id);
+				new AggiornaTabellaBudgetTask(ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA, "%" + tag + "%", Long.valueOf(data).toString(), Long.valueOf(data).toString()).execute((Object[]) null);
+				break;
+			case ELIMINA_TUTTE:
+				new EliminaTutteSpeseRipetuteTask().execute(ripetizione_id);
+				new AggiornaTabellaBudgetTask(ESTRAI_BUDGET_PER_ELIMINAZIONE_SPESE_RIPETUTE, "%" + tag + "%", Long.valueOf(dataInizio).toString(), Long.valueOf(dataInizio).toString(), Long.valueOf(dataInizio).toString(), oggi.toString(), oggi.toString(), oggi.toString(), Long.valueOf(dataInizio).toString(), oggi.toString()).execute((Object[]) null);
+				break;
+			case ELIMINA_DA_OGGI:
+				new EliminaSpeseRipetuteDaOggiTask().execute(ripetizione_id);
+				new AggiornaTabellaBudgetTask(ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA, "%" + tag + "%", oggi.toString(), oggi.toString()).execute((Object[]) null);
+				break;
 		}
 	}
-	
-	
+
+
 	//AsyncTask per caricare la HashMap con i suoni dell'app
 	private class CaricaSuoniTask extends AsyncTask<Object, Object, Boolean> {
-			
-		protected Boolean doInBackground(Object... params) {		
+
+		protected Boolean doInBackground(Object... params) {
 			SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(SpeseDettaglioVoce.this);
 			boolean abilitazioneSuoni = pref.getBoolean(CostantiPreferenze.SUONI_ABILITATI, false);
-			if(abilitazioneSuoni) {
+			if (abilitazioneSuoni) {
 				soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
 				mappaSuoni = new SparseIntArray(1);
 				mappaSuoni.put(CostantiSuoni.SUONO_CANCELLAZIONE, soundPool.load(SpeseDettaglioVoce.this, R.raw.cancellazione, 1));
 				mappaSuoni.put(CostantiSuoni.SUONO_AGGIUNGI_SPESA_ENTRATA, soundPool.load(SpeseDettaglioVoce.this, R.raw.spese_entrate_budget_aggiunta, 1));
 			}
-			
+
 			return abilitazioneSuoni;
 		}
-			
+
 		protected void onPostExecute(Boolean result) {
 			//una volta caricati i suoni nella Map l'app � pronta ad utilizzarli, non prima
 			suoniAbilitati = result;
 		}
 	}
-	
+
 
 	//AsyncTask per caricare icona spesa
 	private class CaricaIconaTask extends AsyncTask<String, Object, Bitmap> {
@@ -423,19 +425,19 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 			DBCSpeseVoci dbcSpeseVoci = new DBCSpeseVoci(SpeseDettaglioVoce.this);
 			dbcSpeseVoci.openLettura();
 			Cursor curVoci = dbcSpeseVoci.getTutteLeVociFiltrato(params[0]);
-			
+
 			int iconaId = R.drawable.tag_0;
-			if(curVoci.moveToFirst()) {
+			if (curVoci.moveToFirst()) {
 				int icona = curVoci.getInt(curVoci.getColumnIndex("icona"));
 				iconaId = ListViewIconeVeloce.arrIconeId[icona];
 			}
-			
+
 			curVoci.close();
 			dbcSpeseVoci.close();
 
             return ListViewIconeVeloce.decodeSampledBitmapFromResource(getResources(), iconaId, 70, 70);
 		}
-		
+
 		@Override
 		protected void onPostExecute(Bitmap miaBitmap) {
 			final ImageView ivIcona = (ImageView) findViewById(R.id.spese_entrate_dettaglio_voce_ivIcona);
@@ -476,14 +478,14 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 			dbcSpeseSostenute.eliminaSpesaSostenuta(params[0]);
 			return null;
 		}
-		
+
 		@Override
 		protected void onPostExecute(Object result) {
 			dbcSpeseSostenute.close();
-			
+
 			String msg = getResources().getQuantityString(R.plurals.dettagli_voce_x_voci_eliminate, 1, 1);
 			new MioToast(SpeseDettaglioVoce.this, msg).visualizza(Toast.LENGTH_SHORT);
-			
+
 			Intent intRitorno = new Intent();
 			intRitorno.putExtra(TIPO_OPERAZIONE, OPERAZIONE_ELIMINAZIONE);
 			setResult(Activity.RESULT_OK, intRitorno);
@@ -491,7 +493,7 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		}
 	}
 
-	/*AsyncTask x eliminare tutte le spese ripetute. Elimina sia dalla tabella spese_sost che dalla 
+	/*AsyncTask x eliminare tutte le spese ripetute. Elimina sia dalla tabella spese_sost che dalla
 	 * tabella spese_ripet (se si eliminano tutte le ripetizioni il record in spese_ripet non serve pi�).
 	 * Nel campo Long passo la ripetizione_id
 	 */
@@ -500,29 +502,29 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		protected Integer doInBackground(Long... params) {
 			dbcSpeseSostenute.openModifica();
 			int speseCancellate = dbcSpeseSostenute.eliminaSpeseRipetute(params[0]);
-			
+
 			dbcSpeseRipetute.openModifica();
 			dbcSpeseRipetute.eliminaSpesaRipetuta(params[0]);
-			
+
 			return speseCancellate;
 		}
-		
+
 		@Override
 		protected void onPostExecute(Integer result) {
 			dbcSpeseSostenute.close();
 			dbcSpeseRipetute.close();
-			
+
 			String msg = getResources().getQuantityString(R.plurals.dettagli_voce_x_voci_eliminate, result, result);
 			new MioToast(SpeseDettaglioVoce.this, msg).visualizza(Toast.LENGTH_SHORT);
-			
+
 			Intent intRitorno = new Intent();
 			intRitorno.putExtra(TIPO_OPERAZIONE, OPERAZIONE_ELIMINAZIONE);
 			setResult(Activity.RESULT_OK, intRitorno);
 			finish();
 		}
 	}
-	
-	/*AsyncTask x eliminare tutte le spese ripetute da oggi in poi. Elimina solo dalla tabella 
+
+	/*AsyncTask x eliminare tutte le spese ripetute da oggi in poi. Elimina solo dalla tabella
 	 * spese_sost.
 	 * Nel campo Long passo la ripetizione_id
 	 */
@@ -534,73 +536,74 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 			int mese = oggi.get(GregorianCalendar.MONTH);
 			int anno = oggi.get(GregorianCalendar.YEAR);
 			oggi = new GregorianCalendar(anno, mese, giorno);
-			
+
 			dbcSpeseSostenute.openModifica();
 			int speseCancellate = dbcSpeseSostenute.eliminaSpeseRipetuteDallaData(params[0], oggi.getTimeInMillis());
-			
+
 			dbcSpeseRipetute.openModifica();
 			Cursor curSpeseRipetute = dbcSpeseRipetute.getSpesaRipetuta(params[0]);
 			curSpeseRipetute.moveToFirst();
-			dbcSpeseRipetute.aggiornaSpesaRipetuta(params[0], curSpeseRipetute.getString(curSpeseRipetute.getColumnIndex("voce")), curSpeseRipetute.getString(curSpeseRipetute.getColumnIndex("ripetizione")), curSpeseRipetute.getDouble(curSpeseRipetute.getColumnIndex("importo")), curSpeseRipetute.getString(curSpeseRipetute.getColumnIndex("valuta")), curSpeseRipetute.getDouble(curSpeseRipetute.getColumnIndex("importo_valprin")), curSpeseRipetute.getString(curSpeseRipetute.getColumnIndex("descrizione")), curSpeseRipetute.getLong(curSpeseRipetute.getColumnIndex("data_inizio")), 1, oggi.getTimeInMillis(), oggi.getTimeInMillis(), curSpeseRipetute.getString(curSpeseRipetute.getColumnIndex("conto")));		
-			curSpeseRipetute.close();		
-			
+			dbcSpeseRipetute.aggiornaSpesaRipetuta(params[0], curSpeseRipetute.getString(curSpeseRipetute.getColumnIndex("voce")), curSpeseRipetute.getString(curSpeseRipetute.getColumnIndex("ripetizione")), curSpeseRipetute.getDouble(curSpeseRipetute.getColumnIndex("importo")), curSpeseRipetute.getString(curSpeseRipetute.getColumnIndex("valuta")), curSpeseRipetute.getDouble(curSpeseRipetute.getColumnIndex("importo_valprin")), curSpeseRipetute.getString(curSpeseRipetute.getColumnIndex("descrizione")), curSpeseRipetute.getLong(curSpeseRipetute.getColumnIndex("data_inizio")), 1, oggi.getTimeInMillis(), oggi.getTimeInMillis(), curSpeseRipetute.getString(curSpeseRipetute.getColumnIndex("conto")));
+			curSpeseRipetute.close();
+
 			return speseCancellate;
 		}
-		
+
 		@Override
 		protected void onPostExecute(Integer result) {
 			dbcSpeseSostenute.close();
 			dbcSpeseRipetute.close();
-			
+
 			String msg = getResources().getQuantityString(R.plurals.dettagli_voce_x_voci_eliminate, result, result);
 			new MioToast(SpeseDettaglioVoce.this, msg).visualizza(Toast.LENGTH_SHORT);
-			
+
 			Intent intRitorno = new Intent();
 			intRitorno.putExtra(TIPO_OPERAZIONE, OPERAZIONE_ELIMINAZIONE);
 			setResult(Activity.RESULT_OK, intRitorno);
 			finish();
 		}
 	}
-	
+
 	//ritorno dall'Activity SpeseAggiungi per modificare la spesa
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		
-		if(resultCode == RESULT_OK) {
+
+		if (resultCode == RESULT_OK) {
 			Intent intRitorno = new Intent();
 			intRitorno.putExtra(TIPO_OPERAZIONE, OPERAZIONE_MODIFICA);
 			setResult(Activity.RESULT_OK, intRitorno);
 			finish();
 		}
 	}
-	
+
 	//AsyncTask per aggiornare la tabella spese_budget campo spesa_sost a seguito della eliminazione della/e spesa/e
 	private class AggiornaTabellaBudgetTask extends AsyncTask<Object, Object, Boolean> {
 		String query;
 		String args[];
-		
+
 		public AggiornaTabellaBudgetTask(String query, String... args) {
 			this.query = query;
 			this.args = args;
 		}
-		
+
 		protected Boolean doInBackground(Object... params) {
 			FunzioniAggiornamento aggBudget = new FunzioniAggiornamento(SpeseDettaglioVoce.this);
 			int budgetAggiornati = aggBudget.aggiornaTabBudgetSpeseSost(query, args);
 
 			return budgetAggiornati != -1;
 		}
-		
+
 		protected void onPostExecute(Boolean result) {
-			if(!result) {
+			if (!result) {
 				new MioToast(SpeseDettaglioVoce.this, getString(R.string.toast_aggiornamentoDatabase_errore)).visualizza(Toast.LENGTH_SHORT);
 			}
-			
-			final Intent intAggiornaWidget = new Intent (WIDGET_AGGIORNA);
+
+			final Intent intAggiornaWidget = new Intent(WIDGET_AGGIORNA);
 			sendBroadcast(intAggiornaWidget);
 		}
 	}
+
 
 
 	//variabili di istanza
@@ -627,7 +630,7 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 	private DBCSpeseRipetute dbcSpeseRipetute;
 	private Currency currValuta;
 	Locale miaLocale = (Locale.getDefault().getDisplayLanguage().equals("italiano") ? Locale.getDefault() : Locale.UK);
-	
+
 	//gestione suoni
 	private SoundPool soundPool;
 	private SparseIntArray mappaSuoni;

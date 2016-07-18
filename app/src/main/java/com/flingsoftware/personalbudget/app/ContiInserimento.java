@@ -135,13 +135,13 @@ public class ContiInserimento extends ActionBarActivity implements DatePickerFra
 		public void onClick(View v) {
 			if(schedaEspansa) {
 				findViewById(R.id.ci_llContoControlli).setVisibility(View.GONE);
-				animazioni.ruotaFreccia((ImageView) findViewById(R.id.ci_ivFrecciaConto), schedaEspansa);
+				animazioni.ruotaFreccia(findViewById(R.id.ci_ivFrecciaConto), schedaEspansa);
 				findViewById(R.id.ci_tlConto_tableRowBordo).setVisibility(View.GONE);
 				schedaEspansa = false;
 			}
 			else {
 				findViewById(R.id.ci_llContoControlli).setVisibility(View.VISIBLE);
-				animazioni.ruotaFreccia((ImageView) findViewById(R.id.ci_ivFrecciaConto), schedaEspansa);
+				animazioni.ruotaFreccia(findViewById(R.id.ci_ivFrecciaConto), schedaEspansa);
 				findViewById(R.id.ci_tlConto_tableRowBordo).setVisibility(View.VISIBLE);
 				schedaEspansa = true;
 			}

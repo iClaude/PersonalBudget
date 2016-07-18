@@ -864,7 +864,7 @@ public class BudgetAggiungi extends ActionBarActivity implements DatePickerFragm
 				if(importoEspanso) {
 					findViewById(R.id.budget_aggiungi_tlImporto_tableRow0).setVisibility(View.GONE);
 					findViewById(R.id.budget_aggiungi_tlImporto_tableRow1).setVisibility(View.GONE);
-					animazioni.ruotaFreccia((ImageView) findViewById(R.id.budget_aggiungi_ivFrecciaImporto), importoEspanso);
+					animazioni.ruotaFreccia(findViewById(R.id.budget_aggiungi_ivFrecciaImporto), importoEspanso);
 					findViewById(R.id.budget_aggiungi_tlImporto_tableRowBordo).setVisibility(View.GONE);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         findViewById(R.id.card_view_importo).setElevation(6);
@@ -874,7 +874,7 @@ public class BudgetAggiungi extends ActionBarActivity implements DatePickerFragm
 				else {
 					findViewById(R.id.budget_aggiungi_tlImporto_tableRow0).setVisibility(View.VISIBLE);
 					findViewById(R.id.budget_aggiungi_tlImporto_tableRow1).setVisibility(View.VISIBLE);
-					animazioni.ruotaFreccia((ImageView) findViewById(R.id.budget_aggiungi_ivFrecciaImporto), importoEspanso);
+					animazioni.ruotaFreccia(findViewById(R.id.budget_aggiungi_ivFrecciaImporto), importoEspanso);
 					findViewById(R.id.budget_aggiungi_tlImporto_tableRowBordo).setVisibility(View.VISIBLE);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         findViewById(R.id.card_view_importo).setElevation(16);
@@ -886,7 +886,7 @@ public class BudgetAggiungi extends ActionBarActivity implements DatePickerFragm
 				
 			case R.id.budget_aggiungi_tlTags_tableRowTitolo:
 				if(tagsEspanso) {
-					animazioni.ruotaFreccia((ImageView) findViewById(R.id.budget_aggiungi_ivFrecciaTags), tagsEspanso);
+					animazioni.ruotaFreccia(findViewById(R.id.budget_aggiungi_ivFrecciaTags), tagsEspanso);
 					findViewById(R.id.budget_aggiungi_tlTags_tableRowBordo).setVisibility(View.GONE);
 					findViewById(R.id.budget_aggiungi_tlTags_tableRow0).setVisibility(View.GONE);
 					findViewById(R.id.budget_aggiungi_llTagsBottoni).setVisibility(View.GONE);
@@ -896,7 +896,7 @@ public class BudgetAggiungi extends ActionBarActivity implements DatePickerFragm
                     tagsEspanso = false;
 				}
 				else {
-					animazioni.ruotaFreccia((ImageView) findViewById(R.id.budget_aggiungi_ivFrecciaTags), tagsEspanso);
+					animazioni.ruotaFreccia(findViewById(R.id.budget_aggiungi_ivFrecciaTags), tagsEspanso);
 					findViewById(R.id.budget_aggiungi_tlTags_tableRowBordo).setVisibility(View.VISIBLE);
 					findViewById(R.id.budget_aggiungi_tlTags_tableRow0).setVisibility(View.VISIBLE);
 					findViewById(R.id.budget_aggiungi_llTagsBottoni).setVisibility(View.VISIBLE);
@@ -910,7 +910,7 @@ public class BudgetAggiungi extends ActionBarActivity implements DatePickerFragm
 				
 			case R.id.budget_aggiungi_tlPeriodo_tableRowTitolo:
 				if(periodoEspanso) {
-					animazioni.ruotaFreccia((ImageView) findViewById(R.id.budget_aggiungi_ivFrecciaData), periodoEspanso);
+					animazioni.ruotaFreccia(findViewById(R.id.budget_aggiungi_ivFrecciaData), periodoEspanso);
 					findViewById(R.id.budget_aggiungi_tlPeriodo_tableRowBordo).setVisibility(View.GONE);
 					findViewById(R.id.budget_aggiungi_etDataInizio).setVisibility(View.GONE);
 					findViewById(R.id.budget_aggiungi_etDataFine).setVisibility(View.GONE);
@@ -920,7 +920,7 @@ public class BudgetAggiungi extends ActionBarActivity implements DatePickerFragm
                     periodoEspanso = false;
 				}
 				else {
-					animazioni.ruotaFreccia((ImageView) findViewById(R.id.budget_aggiungi_ivFrecciaData), periodoEspanso);
+					animazioni.ruotaFreccia(findViewById(R.id.budget_aggiungi_ivFrecciaData), periodoEspanso);
 					findViewById(R.id.budget_aggiungi_tlPeriodo_tableRowBordo).setVisibility(View.VISIBLE);
 					findViewById(R.id.budget_aggiungi_etDataInizio).setVisibility(View.VISIBLE);
 					findViewById(R.id.budget_aggiungi_etDataFine).setVisibility(View.VISIBLE);
@@ -934,7 +934,7 @@ public class BudgetAggiungi extends ActionBarActivity implements DatePickerFragm
 				
 			case R.id.budget_aggiungi_tlRisparmi_tableRowTitolo:
 				if(risparmiEspanso) {
-					animazioni.ruotaFreccia((ImageView) findViewById(R.id.budget_aggiungi_ivFrecciaRisparmi), risparmiEspanso);
+					animazioni.ruotaFreccia(findViewById(R.id.budget_aggiungi_ivFrecciaRisparmi), risparmiEspanso);
 					findViewById(R.id.budget_aggiungi_tlRisparmi_tableRowBordo).setVisibility(View.GONE);
 					findViewById(R.id.budget_aggiungi_tvRimanenza).setVisibility(View.GONE);
 					findViewById(R.id.budget_aggiungi_tbRimanenza).setVisibility(View.GONE);
@@ -944,7 +944,7 @@ public class BudgetAggiungi extends ActionBarActivity implements DatePickerFragm
                     risparmiEspanso = false;
 				}
 				else {
-					animazioni.ruotaFreccia((ImageView) findViewById(R.id.budget_aggiungi_ivFrecciaRisparmi), risparmiEspanso);
+					animazioni.ruotaFreccia(findViewById(R.id.budget_aggiungi_ivFrecciaRisparmi), risparmiEspanso);
 					findViewById(R.id.budget_aggiungi_tlRisparmi_tableRowBordo).setVisibility(View.VISIBLE);
 					findViewById(R.id.budget_aggiungi_tlRisparmi_tableRowBordo).setVisibility(View.VISIBLE);
 					findViewById(R.id.budget_aggiungi_tvRimanenza).setVisibility(View.VISIBLE);
@@ -959,7 +959,7 @@ public class BudgetAggiungi extends ActionBarActivity implements DatePickerFragm
 				
 			case R.id.budget_aggiungi_tlRipetizione_tableRowTitolo:
 				if(ripetizioneEspanso) {
-					animazioni.ruotaFreccia((ImageView) findViewById(R.id.budget_aggiungi_ivFrecciaRipetizione), ripetizioneEspanso);
+					animazioni.ruotaFreccia(findViewById(R.id.budget_aggiungi_ivFrecciaRipetizione), ripetizioneEspanso);
 					findViewById(R.id.budget_aggiungi_tlRipetizione_tableRowBordo).setVisibility(View.GONE);
                     findViewById(R.id.budget_aggiungi_spRipetizione).setVisibility(View.GONE);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -968,7 +968,7 @@ public class BudgetAggiungi extends ActionBarActivity implements DatePickerFragm
                     ripetizioneEspanso = false;
 				}
 				else {
-					animazioni.ruotaFreccia((ImageView) findViewById(R.id.budget_aggiungi_ivFrecciaRipetizione), ripetizioneEspanso);
+					animazioni.ruotaFreccia(findViewById(R.id.budget_aggiungi_ivFrecciaRipetizione), ripetizioneEspanso);
 					findViewById(R.id.budget_aggiungi_tlRipetizione_tableRowBordo).setVisibility(View.VISIBLE);
                     findViewById(R.id.budget_aggiungi_spRipetizione).setVisibility(View.VISIBLE);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

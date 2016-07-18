@@ -43,6 +43,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -71,6 +72,7 @@ public class EntrateDettaglioVoce extends AppCompatActivity implements SpeseEntr
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.spese_entrate_dettaglio_voce);
+		Log.i(getClass().getSimpleName(), "test log");
 
         // Toolbar per menu opzioni
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -131,7 +133,7 @@ public class EntrateDettaglioVoce extends AppCompatActivity implements SpeseEntr
 		}
 		else {
 			tvDescrizione.setVisibility(View.GONE);
-			((View) findViewById(R.id.tvDescrizioneTitolo)).setVisibility(View.GONE);
+			findViewById(R.id.tvDescrizioneTitolo).setVisibility(View.GONE);
 		}
 		if(!valuta.equals(currValuta.getCurrencyCode())) {
 			NumberFormat nfValuta = NumberFormat.getInstance(Locale.getDefault());
@@ -143,7 +145,7 @@ public class EntrateDettaglioVoce extends AppCompatActivity implements SpeseEntr
 			((TextView) findViewById(R.id.tvTassoCambio)).setText(nfCambio.format(cambio));
 		}
 		else {
-			((View) findViewById(R.id.card_view_importo)).setVisibility(View.GONE);
+			findViewById(R.id.card_view_importo).setVisibility(View.GONE);
 		}
 
 		//recupero i dettagli delle entrate ripetute in un thread separato

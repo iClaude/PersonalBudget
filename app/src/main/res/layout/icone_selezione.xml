@@ -2,13 +2,14 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -19,7 +20,7 @@
         android:layout_alignParentTop="true"
         android:elevation="6dp"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
 	    <TextView
 	        android:id="@+id/icone_selezione_tvIndicazioni"
@@ -31,6 +32,7 @@
 	        android:textStyle="bold"
             android:textColor="@color/text_primary"
             android:layout_below="@+id/toolbar"
+
             android:layout_marginTop="8dp" />
 	
     <GridView
@@ -47,7 +49,8 @@
         android:verticalSpacing="10dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
-        android:layout_marginBottom="4dp">
+        android:layout_marginBottom="4dp"
+		tools:numColumns="5">
 
     </GridView>
 
