@@ -1152,7 +1152,7 @@ public class SpeseAggiungi extends ActionBarActivity implements DatePickerFragme
 			int budgetAggiornati = 0;
 
 			FunzioniAggiornamento aggBudget = new FunzioniAggiornamento(SpeseAggiungi.this);
-			if(tipoOperazione == TIPO_OPERAZIONE_AGGIUNGI) {
+			if(tipoOperazione == TIPO_OPERAZIONE_AGGIUNGI || tipoOperazione == TIPO_OPERAZIONE_PREFERITO) {
 				budgetAggiornati = aggBudget.aggiornaTabBudgetSpeseSost(ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA, "%" + tag + "%", Long.valueOf(data.getTimeInMillis()).toString(), Long.valueOf(data.getTimeInMillis()).toString());
 			}
 			else if (tipoOperazione == TIPO_OPERAZIONE_MODIFICA) {
