@@ -385,6 +385,12 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 		
 		myViewPager.setVisibility(View.VISIBLE);
 		findViewById(R.id.main_rlUpdatingDatabase).setVisibility(View.GONE);
+
+		// Imposto una custom view per ogni tab (icona + testo).
+		for (int i = 0; i < tabLayout.getTabCount(); i++) {
+			TabLayout.Tab tab = tabLayout.getTabAt(i);
+			tab.setCustomView(myCustomPagerAdapter.getTabView(i));
+		}
 		
 		fab.setVisibility(View.VISIBLE);
 
@@ -430,7 +436,10 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 	public class MyAdapter extends FragmentPagerAdapter {
 		private final int PAGE_COUNT = 4;
         Context mContext;
-		
+		private int iconeTabIds[] = {R.drawable.ic_action_bad, R.drawable.ic_action_good, R.drawable.ic_collections_sort_by_size, R.drawable.ic_content_event};
+		private String titoliTab[] = {getString(R.string.tab_spese), getString(R.string.tab_entrate), getString(R.string.tab_saldo), getString(R.string.tab_budget)};
+
+
 		public MyAdapter(FragmentManager fm, Context context) {
 			super(fm);
             mContext = context;
@@ -460,6 +469,17 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 			default:
 				return null;
 			}
+		}
+
+		// Restituisce la view personalizzata per ogni tab (una TextView con una icona a sinistra.
+		public View getTabView(int position) {
+			View v = LayoutInflater.from(mContext).inflate(R.layout.tab, null);
+			ImageView ivIcona = (ImageView) v.findViewById(R.id.ivIcona);
+			TextView tvTab = (TextView) v.findViewById(R.id.tvTitolo);
+			ivIcona.setImageResource(iconeTabIds[position]);
+			tvTab.setText(titoliTab[position]);
+
+			return v;
 		}
 	}
 

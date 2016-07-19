@@ -16,6 +16,7 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.HashMap;
 
+import android.os.Build;
 import android.support.v4.app.ListFragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -83,6 +84,12 @@ public class FragmentBudget extends ListFragment implements SharedPreferences.On
 		//imposto la ListView dei budget
 		lvBudget = getListView();
 		lvBudget.setOnItemClickListener(lvBudgetListener);
+
+		// Per avere l'effetto della Toolbar a scomparsa (funziona solo con Lollipop).
+		// TODO: 19/07/2016 cercare soluzione per versioni precedenti
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			lvBudget.setNestedScrollingEnabled(true);
+		}
 		
 		//collegamento ListView - database
 		String from[] = new String[] {"voce_budget", "importo_valprin", "spesa_sost", "data_fine"};

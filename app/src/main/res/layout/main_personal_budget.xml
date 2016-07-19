@@ -30,8 +30,8 @@
                 android:id="@+id/sliding_tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabMode="scrollable"
-                app:layout_collapseMode="pin"/>
+                style="@style/MioStileTabLayout"
+                app:tabMode="scrollable" />
 
         </android.support.design.widget.AppBarLayout>
 

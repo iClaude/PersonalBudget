@@ -106,6 +106,12 @@ public class FragmentEntrate extends Fragment implements SharedPreferences.OnSha
 		new RefreshGroupsCursorTask().execute((Object[]) null);
 		
 		elv = (ExpandableListView) rootView.findViewById(R.id.elvEntrate);
+
+		// Per avere l'effetto della Toolbar a scomparsa (funziona solo con Lollipop).
+		// TODO: 19/07/2016 cercare soluzione per versioni precedenti
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			elv.setNestedScrollingEnabled(true);
+		}
 		
 		//adapter per personalizzare il formato dei dati visualizzati sulla elv. NB: adapter per la visualizzazione per data
 		mAdapter = new MyExpandableListAdapter(null, getActivity(), R.layout.fragment_spese_entrate_group_item, R.layout.fragment_spese_entrate_child_item, new String[] {"data", "totale_entrata"}, new int[] {R.id.tvVoceGruppo, R.id.fragment_spese_tvImportoGruppo}, new String[] {"voce", "ripetizione_id", "importo_valprin", "data"}, new int[] {R.id.tvVoceChild, R.id.fragment_spese_entrate_child_item_tvRipetizione, R.id.tvImportoChild, R.id.tvDataComodo});
