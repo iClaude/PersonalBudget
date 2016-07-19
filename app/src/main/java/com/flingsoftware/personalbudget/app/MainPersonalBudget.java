@@ -91,6 +91,7 @@ import com.flingsoftware.personalbudget.preferenze.BudgetStatusService;
 import com.flingsoftware.personalbudget.preferenze.PreferenzeActivity;
 import com.flingsoftware.personalbudget.preferenze.ReminderService;
 import com.flingsoftware.personalbudget.ricvoc.RiconoscimentoVocale;
+import com.flingsoftware.personalbudget.utilita.ZoomOutPageTransformer;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -393,6 +394,9 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 		}
 		
 		fab.setVisibility(View.VISIBLE);
+
+		// Animazione zoom-out per il cambio Fragment.
+		myViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
 
 		myViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 			@Override
