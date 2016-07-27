@@ -85,7 +85,8 @@
             app:elevation="6dp"
             app:pressedTranslationZ="6dp"
             android:layout_margin="16dp"
-            android:onClick="animateFab"/>
+            android:onClick="animateFab"
+            app:layout_behavior="com.flingsoftware.personalbudget.utilita.RidimensionaFAVBehavior"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabFav"
@@ -100,7 +101,7 @@
             app:backgroundTint="@color/primary"
             android:layout_margin="16dp"
             android:onClick="launchFav"
-            android:alpha="0" />
+            android:alpha="0"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabMic"
@@ -115,7 +116,7 @@
             app:backgroundTint="@color/primary"
             android:layout_margin="16dp"
             android:onClick="launchVocRec"
-            android:alpha="0" />
+            android:alpha="0"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabAgg"

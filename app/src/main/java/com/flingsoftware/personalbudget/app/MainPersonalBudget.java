@@ -411,14 +411,12 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
                 if (state == ViewPager.SCROLL_STATE_IDLE) {
 					fab.setVisibility(View.VISIBLE);
 					fab.setAlpha(1.0f);
+					fab.setImageResource(R.drawable.ic_content_new);
 					fabMic.setVisibility(View.GONE);
 					fabFav.setVisibility(View.GONE);
 					fabAgg.setVisibility(View.GONE);
-                    if(fragSel == TAB_SPESE || fragSel == TAB_ENTRATE || fragSel == TAB_BUDGET) {
-						fab.setImageResource(R.drawable.ic_content_new);
-                    }
-                    else if(fragSel == TAB_SALDO) {
-                        fab.setImageResource(R.drawable.ic_action_copy);
+   					if(fragSel == TAB_SALDO) {
+						fab.setImageResource(R.drawable.ic_action_copy);
                     }
                 }
             }
