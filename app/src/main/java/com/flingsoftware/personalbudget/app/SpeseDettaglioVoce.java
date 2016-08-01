@@ -90,6 +90,7 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener());
 
 		//ottengo i reference ai vari componenti
+		tvVoce = (TextView) findViewById(R.id.tvImporto);
 		tvImporto = (TextView) findViewById(R.id.tvImporto);
 		tvConto = (TextView) findViewById(R.id.sedv_tvConto);
 		tvData = (TextView) findViewById(R.id.tvData);
@@ -114,7 +115,7 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		//visualizzo i valori recuperati nel layout
 		CollapsingToolbarLayout collapsingToolbar =
 				(CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-		collapsingToolbar.setTitle(tag);
+		tvVoce.setText(tag);
 		new CaricaIconaTask().execute(tag);
 
 		//ricavo la valuta di default
@@ -607,6 +608,7 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 
 
 	//variabili di istanza
+	private TextView tvVoce;
 	private TextView tvImporto;
 	private TextView tvConto;
 	private TextView tvData;
