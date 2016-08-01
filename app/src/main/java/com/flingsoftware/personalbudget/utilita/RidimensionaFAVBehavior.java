@@ -44,7 +44,7 @@ public class RidimensionaFAVBehavior extends CoordinatorLayout.Behavior<Floating
     public boolean onDependentViewChanged(CoordinatorLayout parent, FloatingActionButton child, View dependency) {
         float y = dependency.getY();
 
-        if(y == 0 && (child.getVisibility() == View.INVISIBLE || child.getVisibility() ==View.GONE)) {
+        if((y >= 0 && y < mActionBarSize * 0.1)  && (child.getVisibility() == View.INVISIBLE || child.getVisibility() ==View.GONE)) {
             child.show();
         }
         else if(y < (-mActionBarSize * 0.9) && child.getVisibility() == View.VISIBLE) {
