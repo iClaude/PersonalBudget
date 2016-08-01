@@ -79,18 +79,19 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 	protected void onCreate(Bundle savedInstanceState) {
 		getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.spese_entrate_dettaglio_voce);
+		setContentView(R.layout.spese_entrate_dettaglio_voce_b);
 
 		// Toolbar per menu opzioni
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
+		toolbar.setTitle("");
 
 		// Listener per Toolbar espansa o collassata: serve per visualizzare o nascondere il fab in basso
 		AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
 		appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener());
 
 		//ottengo i reference ai vari componenti
-		tvVoce = (TextView) findViewById(R.id.tvImporto);
+		tvVoce = (TextView) findViewById(R.id.tvVoce);
 		tvImporto = (TextView) findViewById(R.id.tvImporto);
 		tvConto = (TextView) findViewById(R.id.sedv_tvConto);
 		tvData = (TextView) findViewById(R.id.tvData);
@@ -113,8 +114,6 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		preferito = extras.getInt(CostantiPubbliche.VOCE_FAVORITE);
 
 		//visualizzo i valori recuperati nel layout
-		CollapsingToolbarLayout collapsingToolbar =
-				(CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
 		tvVoce.setText(tag);
 		new CaricaIconaTask().execute(tag);
 

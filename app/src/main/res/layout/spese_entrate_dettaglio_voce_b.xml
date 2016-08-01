@@ -11,7 +11,7 @@
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/main.appbar"
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -65,7 +65,7 @@
                         android:layout_marginRight="@dimen/activity_horizontal_margin" />
 
                     <TextView
-                        android:id="@+id/tvImportoAppbar"
+                        android:id="@+id/tvImporto"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -85,6 +85,7 @@
 
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nsv_main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
@@ -147,6 +148,34 @@
         app:layout_anchorGravity="top|left|start"
         android:background="@drawable/background_tondo"
         android:src="@drawable/tag_17"
-        android:layout_marginLeft="16dp" />
+        android:layout_marginLeft="16dp"
+        android:transitionName="icona"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:src="@drawable/ic_content_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabSize="normal"
+        android:layout_margin="16dp"
+        app:layout_anchor="@id/nsv_main_content"
+        app:layout_anchorGravity="top|right|end"
+        android:elevation="6dp"
+        app:pressedTranslationZ="6dp"
+        android:onClick="fabPremuto" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabBasso"
+        android:src="@drawable/ic_content_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabSize="normal"
+        android:layout_margin="16dp"
+        app:layout_anchor="@id/nsv_main_content"
+        app:layout_anchorGravity="bottom|right|end"
+        android:elevation="6dp"
+        app:pressedTranslationZ="6dp"
+        android:onClick="fabPremuto"
+        android:visibility="gone" />
 
 </android.support.design.widget.CoordinatorLayout>
