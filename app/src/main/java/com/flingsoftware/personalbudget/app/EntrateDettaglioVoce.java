@@ -145,7 +145,7 @@ public class EntrateDettaglioVoce extends AppCompatActivity implements SpeseEntr
 			((TextView) findViewById(R.id.tvTassoCambio)).setText(nfCambio.format(cambio));
 		}
 		else {
-			findViewById(R.id.card_view_importo).setVisibility(View.GONE);
+			findViewById(R.id.spese_entrate_dettaglio_voce_rlImporto).setVisibility(View.GONE);
 		}
 
 		//recupero i dettagli delle entrate ripetute in un thread separato
@@ -154,7 +154,7 @@ public class EntrateDettaglioVoce extends AppCompatActivity implements SpeseEntr
 		if(ripetizione_id != 1) {
 			new ImpostaDettagliEntrataRipetuta().execute(ripetizione_id);
 		} else {
-            findViewById(R.id.card_view_ripetizione).setVisibility(View.GONE);
+            findViewById(R.id.spese_entrate_dettaglio_voce_rlRipetizione).setVisibility(View.GONE);
 		}
 		
 		new CaricaSuoniTask().execute();

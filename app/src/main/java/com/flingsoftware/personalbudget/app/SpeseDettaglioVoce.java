@@ -142,7 +142,7 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 			((TextView) findViewById(R.id.tvImportoOriginale)).setText(nfValuta.format(importo) + " " + Currency.getInstance(valuta).getSymbol());
 			((TextView) findViewById(R.id.tvTassoCambio)).setText(nfCambio.format(cambio));
 		} else {
-			findViewById(R.id.card_view_importo).setVisibility(View.GONE);
+			findViewById(R.id.spese_entrate_dettaglio_voce_rlImporto).setVisibility(View.GONE);
 		}
 
 		//recupero i dettagli delle spese ripetute in un thread separato
@@ -151,7 +151,7 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		if (ripetizione_id != 1) {
 			new ImpostaDettagliSpesaRipetuta().execute(ripetizione_id);
 		} else {
-			findViewById(R.id.card_view_ripetizione).setVisibility(View.GONE);
+			findViewById(R.id.spese_entrate_dettaglio_voce_rlRipetizione).setVisibility(View.GONE);
 		}
 
 		new CaricaSuoniTask().execute();
