@@ -2,7 +2,7 @@
  * Copyright (c) - Software developed by iClaude.
  */
 
-package com.flingsoftware.personalbudget.utilita;
+package com.flingsoftware.personalbudget.app.utility;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -19,13 +19,13 @@ import com.flingsoftware.personalbudget.R;
 /**
  * Created by Claudio on 27/07/2016.
  */
-public class RidimensionaFAVBehavior extends CoordinatorLayout.Behavior<FloatingActionButton> {
-    private static final String TAG = "RidimensionaFAVBehavior";
+public class RidimensionaFABBehavior extends CoordinatorLayout.Behavior<FloatingActionButton> {
+    private static final String TAG = "RidimensionaFABBehavior";
     private int mActionBarSize;
 
-    public RidimensionaFAVBehavior() { }
+    public RidimensionaFABBehavior() { }
 
-    public RidimensionaFAVBehavior(Context context, AttributeSet attrs) {
+    public RidimensionaFABBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         final TypedArray styledAttributes = context.getTheme().obtainStyledAttributes(

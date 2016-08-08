@@ -18,11 +18,10 @@
         android:fitsSystemWindows="true">
 
         <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/main.collapsing"
+            android:id="@+id/main_collapsing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            android:fitsSystemWindows="true">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <ImageView
                 android:id="@+id/main.imageview.placeholder"
@@ -38,7 +37,7 @@
             <FrameLayout
                 android:id="@+id/main.framelayout.title"
                 android:layout_width="match_parent"
-                android:layout_height="140dp"
+                android:layout_height="160dp"
                 android:layout_gravity="bottom|center_horizontal"
                 android:background="@color/primary"
                 android:orientation="vertical"
@@ -46,11 +45,12 @@
                 app:layout_collapseParallaxMultiplier="0.3">
 
                 <LinearLayout
-                    android:id="@+id/main.linearlayout.title"
+                    android:id="@+id/main_linearlayout_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginTop="8dp">
 
                     <TextView
                         android:id="@+id/tvVoce"
@@ -71,12 +71,45 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="4dp"
                         android:text="@string/provv_importoValutaZero"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 
             </FrameLayout>
 
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_anchor="@id/main.framelayout.title"
+                app:layout_anchorGravity="top"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark"
+                app:title=""
+                app:layout_collapseMode= "pin">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="32dp"
+                        android:layout_height="32dp" />
+
+                    <TextView
+                        android:id="@+id/main_textview_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="8dp"
+                        android:gravity="center_vertical"
+                        android:textColor="@android:color/white"
+                        android:textSize="20sp"
+                        android:visibility="invisible" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.Toolbar>
 
 
         </android.support.design.widget.CollapsingToolbarLayout>
@@ -105,37 +138,7 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/primary"
-        app:layout_anchor="@id/main.framelayout.title"
-        app:layout_anchorGravity="top"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark"
-        app:title="">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Space
-                android:layout_width="32dp"
-                android:layout_height="32dp" />
-
-            <TextView
-                android:id="@+id/main.textview.title"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="8dp"
-                android:gravity="center_vertical"
-                android:textColor="@android:color/white"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-    </android.support.v7.widget.Toolbar>
 
     <ImageView
         android:id="@+id/spese_entrate_dettaglio_voce_ivIcona"
@@ -144,12 +147,13 @@
         android:layout_height="90dp"
         android:scaleType="centerInside"
         android:padding="12dp"
-        app:layout_anchor="@id/toolbar"
-        app:layout_anchorGravity="top|left|start"
+        app:layout_anchor="@id/main.framelayout.title"
+        app:layout_anchorGravity="center_horizontal"
         android:background="@drawable/background_tondo"
         android:src="@drawable/tag_17"
         android:layout_marginLeft="16dp"
-        android:transitionName="icona"/>
+        android:transitionName="icona"
+        app:layout_behavior="com.flingsoftware.personalbudget.app.utility.AvatarImageBehavior"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

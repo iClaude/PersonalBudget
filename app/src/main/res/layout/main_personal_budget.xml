@@ -86,7 +86,7 @@
             app:pressedTranslationZ="6dp"
             android:layout_margin="16dp"
             android:onClick="animateFab"
-            app:layout_behavior="com.flingsoftware.personalbudget.utilita.RidimensionaFAVBehavior"/>
+            app:layout_behavior="com.flingsoftware.personalbudget.app.utility.RidimensionaFABBehavior"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabFav"

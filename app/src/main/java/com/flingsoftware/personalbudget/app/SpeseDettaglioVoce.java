@@ -25,7 +25,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +41,8 @@ import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
 import com.flingsoftware.personalbudget.database.FunzioniAggiornamento;
 import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
 import com.flingsoftware.personalbudget.utilita.UtilitaVarie;
+
+import org.w3c.dom.Text;
 
 import java.text.DateFormat;
 import java.text.NumberFormat;
@@ -75,16 +79,23 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		String VOCE_FAVORITE = "favorite";
 	}
 
+	// Private constants.
+	private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f;
+	private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f;
+	private static final int ALPHA_ANIMATIONS_DURATION = 200;
+	private static final String TAG = "SpeseDettaglioVoce";
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.spese_entrate_dettaglio_voce_b);
 
-		// Toolbar per menu opzioni
+		// Toolbar per menu opzioni.
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
-		toolbar.setTitle("");
+		getSupportActionBar().setTitle(null);
 
 		// Listener per Toolbar espansa o collassata: serve per visualizzare o nascondere il fab in basso
 		AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
@@ -99,6 +110,9 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		tvRipetizione = (TextView) findViewById(R.id.dettagli_voce_tvRipetizione);
 		tvFineRipetizione = (TextView) findViewById(R.id.dettagli_voce_tvFineRipetizione);
 		fabBasso = (FloatingActionButton) findViewById(R.id.fabBasso);
+		fabAlto = (FloatingActionButton) findViewById(R.id.fab);
+		tvToolbarTitle = (TextView) findViewById(R.id.main_textview_title);
+		llExpandedTitle = (LinearLayout) findViewById(R.id.main_linearlayout_title);
 
 		//recupero i dettagli della voce passati dall'Activity chiamante
 		Bundle extras = getIntent().getExtras();
@@ -115,6 +129,7 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 
 		//visualizzo i valori recuperati nel layout
 		tvVoce.setText(tag);
+		tvToolbarTitle.setText(tag);
 		new CaricaIconaTask().execute(tag);
 
 		//ricavo la valuta di default
@@ -224,10 +239,15 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		private final static int COLLASSATO = 1;
 		private final static int INTERMEDIO = 2;
 		private int statoCorrente = INTERMEDIO;
-		private boolean fabVisibile = false;
+		private boolean fabBassoVisibile = false;
 
 		@Override
 		public final void onOffsetChanged(AppBarLayout appBarLayout, int i) {
+			int maxScroll = appBarLayout.getTotalScrollRange();
+			float percentage = (float) Math.abs(i) / (float) maxScroll;
+			handleToolbarTitleVisibility(percentage);
+			handleExpandedTitleVisibility(percentage);
+
 			if (i == 0) {
 				if (statoCorrente != ESPANSO) {
 					// non fare nulla
@@ -235,16 +255,18 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 				statoCorrente = ESPANSO;
 			} else if (Math.abs(i) >= appBarLayout.getTotalScrollRange()) {
 				if (statoCorrente != COLLASSATO) {
+					fabAlto.hide();
 					fabBasso.show();
-					fabVisibile = true;
+					fabBassoVisibile = true;
 				}
 				statoCorrente = COLLASSATO;
 			} else {
 				if (statoCorrente != INTERMEDIO) {
-					if (fabVisibile) {
+					if (fabBassoVisibile) {
+						fabAlto.show();
 						fabBasso.hide();
 					}
-					fabVisibile = false;
+					fabBassoVisibile = false;
 				}
 				statoCorrente = INTERMEDIO;
 			}
@@ -604,6 +626,50 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		}
 	}
 
+	// Animations related to AppBar.
+
+	// Generic alpha animation.
+	private void startAlphaAnimation(View view, long duration, int visibility) {
+		AlphaAnimation alphaAnimation = (visibility == View.VISIBLE) ? new AlphaAnimation(0f, 1f) : new AlphaAnimation(1f, 0f);
+		alphaAnimation.setDuration(duration);
+		alphaAnimation.setFillAfter(true);
+		view.startAnimation(alphaAnimation);
+	}
+
+	// Hide/show title in collapsed app bar.
+	private void handleToolbarTitleVisibility(float percentage) {
+		if(percentage >= PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR) {
+			if (!isToolbarTitleVisible) {
+				tvToolbarTitle.setVisibility(View.VISIBLE);
+				startAlphaAnimation(tvToolbarTitle, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
+				isToolbarTitleVisible = true;
+			}
+		}
+		else {
+			if(isToolbarTitleVisible) {
+				tvToolbarTitle.setVisibility(View.INVISIBLE);
+				startAlphaAnimation(tvToolbarTitle, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
+				isToolbarTitleVisible = false;
+			}
+		}
+	}
+
+	// Hide/show title in expanded app bar.
+	private void handleExpandedTitleVisibility(float percentage) {
+		if(percentage <= PERCENTAGE_TO_HIDE_TITLE_DETAILS) {
+			if (!isExpandedTitleVisible) {
+				startAlphaAnimation(llExpandedTitle, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
+				isExpandedTitleVisible = true;
+			}
+		}
+		else {
+			if(isExpandedTitleVisible) {
+				startAlphaAnimation(llExpandedTitle, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
+				isExpandedTitleVisible = false;
+			}
+		}
+	}
+
 
 
 	//variabili di istanza
@@ -614,7 +680,10 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 	private TextView tvDescrizione;
 	private TextView tvRipetizione;
 	private TextView tvFineRipetizione;
+	private FloatingActionButton fabAlto;
 	private FloatingActionButton fabBasso;
+	private TextView tvToolbarTitle;
+	private LinearLayout llExpandedTitle;
 	private long id;
 	private long ripetizione_id;
 	private double importo;
@@ -631,6 +700,8 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 	private DBCSpeseRipetute dbcSpeseRipetute;
 	private Currency currValuta;
 	Locale miaLocale = (Locale.getDefault().getDisplayLanguage().equals("italiano") ? Locale.getDefault() : Locale.UK);
+	private boolean isToolbarTitleVisible = false;
+	private boolean isExpandedTitleVisible = true;
 
 	//gestione suoni
 	private SoundPool soundPool;

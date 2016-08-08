@@ -392,7 +392,7 @@ public class FragmentSpese extends Fragment implements SharedPreferences.OnShare
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         final View viewComune = v.findViewById(R.id.menu_esporta_ivFormato);
-                        getActivity().startActivityForResult(visualizzaVoceIntent, ACTIVITY_SPESE_DETTAGLIOVOCE, ActivityOptions.makeSceneTransitionAnimation(getActivity(), viewComune, "icona").toBundle());
+                        getActivity().startActivityForResult(visualizzaVoceIntent, ACTIVITY_SPESE_DETTAGLIOVOCE);
                     }
                     else {
                         getActivity().startActivityForResult(visualizzaVoceIntent, ACTIVITY_SPESE_DETTAGLIOVOCE);
