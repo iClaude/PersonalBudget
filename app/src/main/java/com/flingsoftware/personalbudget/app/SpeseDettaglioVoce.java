@@ -97,6 +97,10 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setTitle(null);
 
+		// Listener for appbar expanded/collapsed to show the title correctly.
+		AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+		appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener());
+
 		//ottengo i reference ai vari componenti
 		tvVoce = (TextView) findViewById(R.id.tvVoce);
 		tvImporto = (TextView) findViewById(R.id.tvImporto);
@@ -215,6 +219,27 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 			soundPool.play(mappaSuoni.get(CostantiSuoni.SUONO_CANCELLAZIONE), 1, 1, 1, 0, 1f);
 		} else if (suoniAbilitati && confermaDuplica) {
 			soundPool.play(mappaSuoni.get(CostantiSuoni.SUONO_AGGIUNGI_SPESA_ENTRATA), 1, 1, 1, 0, 1f);
+		}
+	}
+
+
+	/*
+	Classe per intercettare quando la Toolbar è collassata o espansa, in modo tale da visualizzare
+	il fab per la modifica della voce in basso a destra.
+	 */
+	private class AppBarStateChangeListener implements AppBarLayout.OnOffsetChangedListener {
+		private final static int ESPANSO = 0;
+		private final static int COLLASSATO = 1;
+		private final static int INTERMEDIO = 2;
+		private int statoCorrente = INTERMEDIO;
+		private boolean fabBassoVisibile = false;
+
+		@Override
+		public final void onOffsetChanged(AppBarLayout appBarLayout, int i) {
+			int maxScroll = appBarLayout.getTotalScrollRange();
+			float percentage = (float) Math.abs(i) / (float) maxScroll;
+			handleToolbarTitleVisibility(percentage);
+			handleExpandedTitleVisibility(percentage);
 		}
 	}
 
