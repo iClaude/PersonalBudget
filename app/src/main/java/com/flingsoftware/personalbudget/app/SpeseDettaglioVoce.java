@@ -97,10 +97,6 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setTitle(null);
 
-		// Listener per Toolbar espansa o collassata: serve per visualizzare o nascondere il fab in basso
-		AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
-		appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener());
-
 		//ottengo i reference ai vari componenti
 		tvVoce = (TextView) findViewById(R.id.tvVoce);
 		tvImporto = (TextView) findViewById(R.id.tvImporto);
@@ -173,14 +169,6 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-	private void testDebug() {
-		Log.d("TEST DEBUG", "Inside method. Step 1");
-		Log.d("TEST DEBUG", "Inside method. Step 2");
-		Log.d("TEST DEBUG", "Inside method. Step 3");
-		Log.d("TEST DEBUG", "Inside method. Step 4");
-		Log.d("TEST DEBUG", "Inside method. Step 5");
-		Log.d("TEST DEBUG", "Inside method. Step 6");
-	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -230,48 +218,6 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		}
 	}
 
-	/*
-	Classe per intercettare quando la Toolbar è collassata o espansa, in modo tale da visualizzare
-	il fab per la modifica della voce in basso a destra.
-	 */
-	private class AppBarStateChangeListener implements AppBarLayout.OnOffsetChangedListener {
-		private final static int ESPANSO = 0;
-		private final static int COLLASSATO = 1;
-		private final static int INTERMEDIO = 2;
-		private int statoCorrente = INTERMEDIO;
-		private boolean fabBassoVisibile = false;
-
-		@Override
-		public final void onOffsetChanged(AppBarLayout appBarLayout, int i) {
-			int maxScroll = appBarLayout.getTotalScrollRange();
-			float percentage = (float) Math.abs(i) / (float) maxScroll;
-			handleToolbarTitleVisibility(percentage);
-			handleExpandedTitleVisibility(percentage);
-
-			if (i == 0) {
-				if (statoCorrente != ESPANSO) {
-					// non fare nulla
-				}
-				statoCorrente = ESPANSO;
-			} else if (Math.abs(i) >= appBarLayout.getTotalScrollRange()) {
-				if (statoCorrente != COLLASSATO) {
-					fabAlto.hide();
-					fabBasso.show();
-					fabBassoVisibile = true;
-				}
-				statoCorrente = COLLASSATO;
-			} else {
-				if (statoCorrente != INTERMEDIO) {
-					if (fabBassoVisibile) {
-						fabAlto.show();
-						fabBasso.hide();
-					}
-					fabBassoVisibile = false;
-				}
-				statoCorrente = INTERMEDIO;
-			}
-		}
-	}
 
 	/*
 	 * Ricavo la valuta principale salvata nelle preferenze.

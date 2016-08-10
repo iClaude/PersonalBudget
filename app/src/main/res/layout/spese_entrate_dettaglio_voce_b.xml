@@ -166,7 +166,8 @@
         app:layout_anchorGravity="top|right|end"
         android:elevation="6dp"
         app:pressedTranslationZ="6dp"
-        android:onClick="fabPremuto" />
+        android:onClick="fabPremuto"
+        app:layout_behavior="com.flingsoftware.personalbudget.app.utility.FABHighShowHideBehavior"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabBasso"
@@ -180,6 +181,7 @@
         android:elevation="6dp"
         app:pressedTranslationZ="6dp"
         android:onClick="fabPremuto"
-        android:visibility="gone" />
+        android:visibility="gone"
+        app:layout_behavior="com.flingsoftware.personalbudget.app.utility.FABLowShowHideBehavior"/>
 
 </android.support.design.widget.CoordinatorLayout>
