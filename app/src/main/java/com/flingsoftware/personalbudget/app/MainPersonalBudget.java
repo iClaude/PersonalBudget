@@ -1,8 +1,5 @@
 /*
- * COSE DA SISTEMARE:
- * - nuove animazioni
- * - password con fingerprint per Android 6
- * - sincronizzazione con google app engine
+ * Test uploading data on Github from 2 different computers.
  */
 
 package com.flingsoftware.personalbudget.app;
