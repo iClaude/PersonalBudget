@@ -21,7 +21,8 @@
             android:id="@+id/main_collapsing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            android:fitsSystemWindows="true">
 
             <ImageView
                 android:id="@+id/main.imageview.placeholder"
@@ -82,7 +83,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_anchor="@id/main.framelayout.title"
+                app:layout_anchor="@id/main_collapsing"
                 app:layout_anchorGravity="top"
                 app:theme="@style/ThemeOverlay.AppCompat.Dark"
                 app:title=""
@@ -93,14 +94,9 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/ivActionBarIcon"
-                        android:layout_width="?attr/actionBarSize"
-                        android:layout_height="?attr/actionBarSize"
-                        android:layout_margin="8dp"
-                        android:scaleType="centerInside"
-                        android:padding="12dp"
-                        android:visibility="invisible"/>
+                    <Space
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"/>
 
                     <TextView
                         android:id="@+id/main_textview_title"
@@ -142,8 +138,6 @@
         </android.support.v7.widget.CardView>
 
     </android.support.v4.widget.NestedScrollView>
-
-
 
     <ImageView
         android:id="@+id/spese_entrate_dettaglio_voce_ivIcona"

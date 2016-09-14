@@ -104,8 +104,8 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<ImageView> {
         Log.d(TAG, "icon x: " + currentX);
         Log.d(TAG, "icon y: " + currentY);
         Log.d(TAG, "icon size: " + currentSize);
+        Log.d(TAG, "icon visible: " + child.getVisibility());
         child.setLayoutParams(lp);
-        child.bringToFront();
 
         return true;
     }
@@ -136,7 +136,7 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<ImageView> {
         }
     }
 
-    // TODO: comments
+    // Get the status bar height.
     private int getStatusBarHeight() {
         Rect rectangle = new Rect();
         Window window = mActivity.getWindow();
