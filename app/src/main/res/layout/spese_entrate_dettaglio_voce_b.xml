@@ -93,9 +93,14 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <Space
-                        android:layout_width="32dp"
-                        android:layout_height="32dp" />
+                    <ImageView
+                        android:id="@+id/ivActionBarIcon"
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="?attr/actionBarSize"
+                        android:layout_margin="8dp"
+                        android:scaleType="centerInside"
+                        android:padding="12dp"
+                        android:visibility="invisible"/>
 
                     <TextView
                         android:id="@+id/main_textview_title"
@@ -148,12 +153,11 @@
         android:scaleType="centerInside"
         android:padding="12dp"
         app:layout_anchor="@id/main.framelayout.title"
-        app:layout_anchorGravity="center_horizontal"
+        app:layout_anchorGravity="top|center_horizontal"
         android:background="@drawable/background_tondo"
         android:src="@drawable/tag_17"
         android:layout_marginLeft="16dp"
-        android:transitionName="icona"
-        app:layout_behavior="com.flingsoftware.personalbudget.app.utility.AvatarImageBehavior"/>
+        android:transitionName="icona" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

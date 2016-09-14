@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +35,7 @@ import android.widget.Toast;
 import com.flingsoftware.personalbudget.R;
 import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze;
 import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiSuoni;
+import com.flingsoftware.personalbudget.app.utility.AvatarImageBehavior;
 import com.flingsoftware.personalbudget.customviews.MioToast;
 import com.flingsoftware.personalbudget.database.DBCSpeseRipetute;
 import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
@@ -109,10 +111,17 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		tvDescrizione = (TextView) findViewById(R.id.tvDescrizione);
 		tvRipetizione = (TextView) findViewById(R.id.dettagli_voce_tvRipetizione);
 		tvFineRipetizione = (TextView) findViewById(R.id.dettagli_voce_tvFineRipetizione);
+		ivIcona = (ImageView) findViewById(R.id.spese_entrate_dettaglio_voce_ivIcona);
 		fabBasso = (FloatingActionButton) findViewById(R.id.fabBasso);
 		fabAlto = (FloatingActionButton) findViewById(R.id.fab);
 		tvToolbarTitle = (TextView) findViewById(R.id.main_textview_title);
 		llExpandedTitle = (LinearLayout) findViewById(R.id.main_linearlayout_title);
+
+		// Set custom layout behavior on ImageView ivIcona.
+		AvatarImageBehavior avatarImageBehavior = new AvatarImageBehavior(this);
+		CoordinatorLayout.LayoutParams params =
+				(CoordinatorLayout.LayoutParams) ivIcona.getLayoutParams();
+		params.setBehavior(avatarImageBehavior);
 
 		//recupero i dettagli della voce passati dall'Activity chiamante
 		Bundle extras = getIntent().getExtras();
@@ -433,7 +442,6 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 
 		@Override
 		protected void onPostExecute(Bitmap miaBitmap) {
-			final ImageView ivIcona = (ImageView) findViewById(R.id.spese_entrate_dettaglio_voce_ivIcona);
 			ivIcona.setImageBitmap(miaBitmap);
 		}
 	}
@@ -651,6 +659,7 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 	private TextView tvDescrizione;
 	private TextView tvRipetizione;
 	private TextView tvFineRipetizione;
+	private ImageView ivIcona;
 	private FloatingActionButton fabAlto;
 	private FloatingActionButton fabBasso;
 	private TextView tvToolbarTitle;
