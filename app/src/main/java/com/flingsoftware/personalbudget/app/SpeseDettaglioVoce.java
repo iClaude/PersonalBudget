@@ -112,10 +112,17 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		tvRipetizione = (TextView) findViewById(R.id.dettagli_voce_tvRipetizione);
 		tvFineRipetizione = (TextView) findViewById(R.id.dettagli_voce_tvFineRipetizione);
 		ivIcona = (ImageView) findViewById(R.id.spese_entrate_dettaglio_voce_ivIcona);
+		ivIconToolbar = (ImageView) findViewById(R.id.ivIconToolbar);
 		fabBasso = (FloatingActionButton) findViewById(R.id.fabBasso);
 		fabAlto = (FloatingActionButton) findViewById(R.id.fab);
 		tvToolbarTitle = (TextView) findViewById(R.id.main_textview_title);
 		llExpandedTitle = (LinearLayout) findViewById(R.id.main_linearlayout_title);
+
+		// Set height of icon in the toolbar to 70% of action bar height.
+		int ivIconToolbarSize = (int) (UtilitaVarie.getActionBarHeight(this) * 0.7);
+		ivIconToolbar.getLayoutParams().width = ivIconToolbarSize;
+		ivIconToolbar.getLayoutParams().height = ivIconToolbarSize;
+		ivIconToolbar.requestLayout();
 
 		// Set custom layout behavior on ImageView ivIcona.
 		AvatarImageBehavior avatarImageBehavior = new AvatarImageBehavior(this);
@@ -437,12 +444,13 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 			curVoci.close();
 			dbcSpeseVoci.close();
 
-            return ListViewIconeVeloce.decodeSampledBitmapFromResource(getResources(), iconaId, 70, 70);
+            return ListViewIconeVeloce.decodeSampledBitmapFromResource(getResources(), iconaId, 90, 90);
 		}
 
 		@Override
 		protected void onPostExecute(Bitmap miaBitmap) {
 			ivIcona.setImageBitmap(miaBitmap);
+			ivIconToolbar.setImageBitmap(miaBitmap);
 		}
 	}
 
@@ -617,6 +625,15 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 
 	// Hide/show title in collapsed app bar.
 	private void handleToolbarTitleVisibility(float percentage) {
+		if(percentage == 1) {
+			ivIconToolbar.setVisibility(View.VISIBLE);
+			isIconToolbarVisible = true;
+		}
+		else if(isIconToolbarVisible) {
+			ivIconToolbar.setVisibility(View.INVISIBLE);
+			isIconToolbarVisible = false;
+		}
+
 		if(percentage >= PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR) {
 			if (!isToolbarTitleVisible) {
 				tvToolbarTitle.setVisibility(View.VISIBLE);
@@ -660,6 +677,7 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 	private TextView tvRipetizione;
 	private TextView tvFineRipetizione;
 	private ImageView ivIcona;
+	private ImageView ivIconToolbar;
 	private FloatingActionButton fabAlto;
 	private FloatingActionButton fabBasso;
 	private TextView tvToolbarTitle;
@@ -682,6 +700,7 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 	Locale miaLocale = (Locale.getDefault().getDisplayLanguage().equals("italiano") ? Locale.getDefault() : Locale.UK);
 	private boolean isToolbarTitleVisible = false;
 	private boolean isExpandedTitleVisible = true;
+	private boolean isIconToolbarVisible = false;
 
 	//gestione suoni
 	private SoundPool soundPool;

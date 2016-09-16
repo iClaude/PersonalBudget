@@ -94,15 +94,22 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <Space
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"/>
+                    <ImageView
+                        android:id="@+id/ivIconToolbar"
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="?attr/actionBarSize"
+                        android:padding="12dp"
+                        android:contentDescription="@string/provv_contenutoImmagini"
+                        android:scaleType="centerInside"
+                        android:background="@drawable/background_tondo"
+                        android:visibility="invisible"
+                        android:layout_gravity="center_vertical" />
 
                     <TextView
                         android:id="@+id/main_textview_title"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="8dp"
+                        android:layout_marginLeft="12dp"
                         android:gravity="center_vertical"
                         android:textColor="@android:color/white"
                         android:textSize="20sp"

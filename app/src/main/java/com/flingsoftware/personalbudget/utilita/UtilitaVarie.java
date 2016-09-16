@@ -4,8 +4,11 @@ package com.flingsoftware.personalbudget.utilita;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+
+import com.flingsoftware.personalbudget.R;
 
 public class UtilitaVarie {
 
@@ -72,5 +75,14 @@ public class UtilitaVarie {
         }
         AlertDialog confirmDialog = builder.create();
         confirmDialog.show();
+    }
+
+    // Get the height of the action bar programmatically.
+    public static int getActionBarHeight(Context mContext) {
+        TypedArray a = mContext.getTheme().obtainStyledAttributes(new int[] {R.attr.actionBarSize});
+        int actionBarHeight = a.getDimensionPixelSize(0, 0);
+        a.recycle();
+
+        return actionBarHeight;
     }
 }
