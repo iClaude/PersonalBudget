@@ -13,7 +13,7 @@ import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiNotifiche
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.DROPBOX_TOKEN;
 
 import com.flingsoftware.personalbudget.customviews.MioToast;
-import com.flingsoftware.personalbudget.utilita.UtilitaVarie;
+import com.flingsoftware.personalbudget.utilita.UtilityVarious;
 
 import static com.flingsoftware.personalbudget.backup.BackupRestoreIntentService.CostantiBackupRestore.*;
 
@@ -301,7 +301,7 @@ public class MenuBackupRestore extends ActionBarActivity {
 				if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 					confermaOperazione();
 				} else {
-					UtilitaVarie.visualizzaDialogOKAnnulla(this, getResources().getString(R.string.permessi_negati_titolo), getResources().getString(R.string.permessi_negati_descrizione), getResources().getString(R.string.ok), false, null, R.drawable.ic_action_warning, null);
+					UtilityVarious.visualizzaDialogOKAnnulla(this, getResources().getString(R.string.permessi_negati_titolo), getResources().getString(R.string.permessi_negati_descrizione), getResources().getString(R.string.ok), false, null, R.drawable.ic_action_warning, null);
 				}
 				return;
 			}

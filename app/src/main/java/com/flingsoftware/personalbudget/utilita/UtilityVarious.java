@@ -1,16 +1,19 @@
 package com.flingsoftware.personalbudget.utilita;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Rect;
+import android.view.Window;
 
 import com.flingsoftware.personalbudget.R;
 
-public class UtilitaVarie {
+public class UtilityVarious {
 
     /**
      * Converte una bitmap passata come parametro in scala di grigi.
@@ -84,5 +87,15 @@ public class UtilitaVarie {
         a.recycle();
 
         return actionBarHeight;
+    }
+
+    // Get the status bar height.
+    public static int getStatusBarHeight(Activity mActivity) {
+        Rect rectangle = new Rect();
+        Window window = mActivity.getWindow();
+        window.getDecorView().getWindowVisibleDisplayFrame(rectangle);
+        int statusBarHeight = rectangle.top;
+
+        return statusBarHeight;
     }
 }

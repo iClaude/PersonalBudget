@@ -6,7 +6,7 @@ import com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche
 import com.flingsoftware.personalbudget.database.*;
 import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
 import com.flingsoftware.personalbudget.customviews.MioToast;
-import com.flingsoftware.personalbudget.utilita.UtilitaVarie;
+import com.flingsoftware.personalbudget.utilita.UtilityVarious;
 
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.WIDGET_PICCOLO_AGGIORNA;
@@ -53,7 +53,6 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v7.app.ActionBarActivity;
 
 
 public class EntrateDettaglioVoce extends AppCompatActivity implements SpeseEntrateEliminaVociRipetute.EliminaVociRipetuteListener {
@@ -261,7 +260,7 @@ public class EntrateDettaglioVoce extends AppCompatActivity implements SpeseEntr
 
 	// Duplicazione voce: aggiungo una nuova voce con data oggi con gli stessi dati.
 	private void duplicaVoce() {
-		UtilitaVarie.visualizzaDialogOKAnnulla(EntrateDettaglioVoce.this,
+		UtilityVarious.visualizzaDialogOKAnnulla(EntrateDettaglioVoce.this,
 				getString(R.string.dettagli_voce_conferma_duplica_titolo),
 				getString(R.string.dettagli_voce_conferma_duplica_msg),
 				getString(R.string.ok), true, getString(R.string.cancella), 0,
@@ -278,7 +277,7 @@ public class EntrateDettaglioVoce extends AppCompatActivity implements SpeseEntr
 	//elimina 1 o pi� entrate ripetute
 	private void eliminaVoce() {
 		if(ripetizione_id == 1) {
-			UtilitaVarie.visualizzaDialogOKAnnulla(EntrateDettaglioVoce.this,
+			UtilityVarious.visualizzaDialogOKAnnulla(EntrateDettaglioVoce.this,
 					getString(R.string.dettagli_voce_conferma_elimina_titolo),
 					getString(R.string.dettagli_voce_conferma_elimina_msg),
 					getString(R.string.ok),

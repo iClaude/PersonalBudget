@@ -10,29 +10,27 @@ import android.graphics.Rect;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 
 import com.flingsoftware.personalbudget.R;
-import com.flingsoftware.personalbudget.utilita.UtilitaVarie;
+import com.flingsoftware.personalbudget.utilita.UtilityVarious;
 
 
 public class AvatarImageBehavior extends CoordinatorLayout.Behavior<ImageView> {
     private static final String TAG = "AvatarImageBehavior";
 
     private Activity mActivity;
-    private Context context;
+    private Context mContext;
     private Rect mTmpRect;
     private int appbarHeight;
     private int appbarScrollRange;
-    private int actionBarHeight; // when collapsed
+    private int toolbarHeight; // when collapsed
     // Position and size of the image.
-    private float startX = 0f;
-    private float startY = 0f;
-    private float finalX = 0f;
-    private float finalY = 0f;
+    private float startX = 0;
+    private float startY = 0;
+    private float finalX = 0;
+    private float finalY = 0;
     private float currentX;
     private float currentY;
     private int startSize = 0;
@@ -44,14 +42,13 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<ImageView> {
 
     }
 
-    public AvatarImageBehavior(Context mActivity) {
-        this.context = mActivity;
-        this.mActivity = (Activity) mActivity;
+    public AvatarImageBehavior(Activity mActivity) {
+        this.mContext = mActivity;
+        this.mActivity = mActivity;
     }
 
-    public AvatarImageBehavior(Context context, AttributeSet attrs) {
-        this.context = context;
-
+    public AvatarImageBehavior(Context mContext, AttributeSet attrs) {
+        this.mContext = mContext;
     }
 
     @Override
@@ -60,7 +57,7 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<ImageView> {
             // Action bar sizes.
             appbarHeight = dependency.getHeight();
             appbarScrollRange = ((AppBarLayout) dependency).getTotalScrollRange();
-            actionBarHeight = UtilitaVarie.getActionBarHeight(context);
+            toolbarHeight = UtilityVarious.getActionBarHeight(mContext);
 
             return true;
         } else {
@@ -78,7 +75,7 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<ImageView> {
         if (mTmpRect == null) {
             mTmpRect = new Rect();
         }
-        // First, let's get the visible rect of the dependency
+        // First, let's get the visible rect of the dependency.
         final Rect rect = mTmpRect;
         ViewGroupUtils.getDescendantRect(parent, dependency, rect);
 
@@ -106,7 +103,7 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<ImageView> {
         }
 
         if (finalSize == 0) {
-            finalSize = (int) (actionBarHeight * 0.7f);
+            finalSize = (int) (toolbarHeight * 0.7f);
         }
 
         if (startX == 0) {
@@ -126,17 +123,7 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<ImageView> {
         }
 
         if (finalY == 0) {
-            finalY = getStatusBarHeight() + (actionBarHeight - finalSize) / 2;
+            finalY = UtilityVarious.getStatusBarHeight(mActivity) + (toolbarHeight - finalSize) / 2;
         }
-    }
-
-    // Get the status bar height.
-    private int getStatusBarHeight() {
-        Rect rectangle = new Rect();
-        Window window = mActivity.getWindow();
-        window.getDecorView().getWindowVisibleDisplayFrame(rectangle);
-        int statusBarHeight = rectangle.top;
-
-        return statusBarHeight;
     }
 }

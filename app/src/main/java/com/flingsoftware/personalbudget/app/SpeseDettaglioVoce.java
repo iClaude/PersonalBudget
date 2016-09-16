@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.AsyncTask;
@@ -13,7 +14,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
@@ -41,10 +41,9 @@ import com.flingsoftware.personalbudget.database.DBCSpeseRipetute;
 import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
 import com.flingsoftware.personalbudget.database.FunzioniAggiornamento;
+import com.flingsoftware.personalbudget.utilita.BlurBuilder;
 import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
-import com.flingsoftware.personalbudget.utilita.UtilitaVarie;
-
-import org.w3c.dom.Text;
+import com.flingsoftware.personalbudget.utilita.UtilityVarious;
 
 import java.text.DateFormat;
 import java.text.NumberFormat;
@@ -119,7 +118,7 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		llExpandedTitle = (LinearLayout) findViewById(R.id.main_linearlayout_title);
 
 		// Set height of icon in the toolbar to 70% of action bar height.
-		int ivIconToolbarSize = (int) (UtilitaVarie.getActionBarHeight(this) * 0.7);
+		int ivIconToolbarSize = (int) (UtilityVarious.getActionBarHeight(this) * 0.7);
 		ivIconToolbar.getLayoutParams().width = ivIconToolbarSize;
 		ivIconToolbar.getLayoutParams().height = ivIconToolbarSize;
 		ivIconToolbar.requestLayout();
@@ -147,6 +146,7 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		tvVoce.setText(tag);
 		tvToolbarTitle.setText(tag);
 		new CaricaIconaTask().execute(tag);
+		new LoadHeaderImageTask().execute(tag);
 
 		//ricavo la valuta di default
 		ricavaValuta();
@@ -273,7 +273,7 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 
 	// Duplicazione voce: aggiungo una nuova voce con data oggi con gli stessi dati.
 	private void duplicaVoce() {
-		UtilitaVarie.visualizzaDialogOKAnnulla(SpeseDettaglioVoce.this,
+		UtilityVarious.visualizzaDialogOKAnnulla(SpeseDettaglioVoce.this,
 				getString(R.string.dettagli_voce_conferma_duplica_titolo),
 				getString(R.string.dettagli_voce_conferma_duplica_msg),
 				getString(R.string.ok),
@@ -292,7 +292,7 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 	// elimina 1 o pi� voci di spesa ripetute
 	private void eliminaVoce() {
 		if (ripetizione_id == 1) {
-			UtilitaVarie.visualizzaDialogOKAnnulla(SpeseDettaglioVoce.this,
+			UtilityVarious.visualizzaDialogOKAnnulla(SpeseDettaglioVoce.this,
 					getString(R.string.dettagli_voce_conferma_elimina_titolo),
 					getString(R.string.dettagli_voce_conferma_elimina_msg),
 					getString(R.string.ok),
@@ -451,6 +451,36 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		protected void onPostExecute(Bitmap miaBitmap) {
 			ivIcona.setImageBitmap(miaBitmap);
 			ivIconToolbar.setImageBitmap(miaBitmap);
+		}
+	}
+
+	// Load the header image and blur it in a separate thread.
+	private class LoadHeaderImageTask extends AsyncTask<String, Object, Bitmap> {
+		@Override
+		protected Bitmap doInBackground(String... params) {
+			DBCSpeseVoci dbcSpeseVoci = new DBCSpeseVoci(SpeseDettaglioVoce.this);
+			dbcSpeseVoci.openLettura();
+			Cursor curVoci = dbcSpeseVoci.getTutteLeVociFiltrato(params[0]);
+
+			int iconaId = R.drawable.tag_0;
+			if (curVoci.moveToFirst()) {
+				int icona = curVoci.getInt(curVoci.getColumnIndex("icona"));
+				iconaId = ListViewIconeVeloce.arrIconeId[icona];
+			}
+
+			curVoci.close();
+			dbcSpeseVoci.close();
+
+			Bitmap origBitmap = ListViewIconeVeloce.decodeSampledBitmapFromResource(getResources(), iconaId, 256, 256);
+			Bitmap blurredBitmap = BlurBuilder.blur(SpeseDettaglioVoce.this, origBitmap);
+
+			return blurredBitmap;
+		}
+
+		@Override
+		protected void onPostExecute(Bitmap miaBitmap) {
+			ImageView ivHeader = (ImageView) findViewById(R.id.main_imageview_placeholder);
+			ivHeader.setImageBitmap(miaBitmap);
 		}
 	}
 

@@ -9,6 +9,10 @@ android {
         minSdkVersion 15
         targetSdkVersion 23
     }
+    defaultConfig {
+        renderscriptTargetApi 19
+        renderscriptSupportModeEnabled true
+    }
     buildTypes {
         release {
             minifyEnabled false

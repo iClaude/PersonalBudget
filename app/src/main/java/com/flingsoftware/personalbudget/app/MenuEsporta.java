@@ -3,9 +3,8 @@ package com.flingsoftware.personalbudget.app;
 import com.flingsoftware.personalbudget.R;
 import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiNotifiche;
 import com.flingsoftware.personalbudget.customviews.MioToast;
-import com.flingsoftware.personalbudget.esporta.ExportDetails;
 import com.flingsoftware.personalbudget.esporta.MenuEsportaIntentService;
-import com.flingsoftware.personalbudget.utilita.UtilitaVarie;
+import com.flingsoftware.personalbudget.utilita.UtilityVarious;
 
 import static com.flingsoftware.personalbudget.esporta.MenuEsportaIntentService.CostantiIntentService.*;
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.*;
@@ -167,7 +166,7 @@ public class MenuEsporta extends ActionBarActivity {
 				if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 					esporta();
 				} else {
-					UtilitaVarie.visualizzaDialogOKAnnulla(this, getResources().getString(R.string.permessi_negati_titolo), getResources().getString(R.string.permessi_negati_descrizione), getResources().getString(R.string.ok), false, null, R.drawable.ic_action_warning, null);
+					UtilityVarious.visualizzaDialogOKAnnulla(this, getResources().getString(R.string.permessi_negati_titolo), getResources().getString(R.string.permessi_negati_descrizione), getResources().getString(R.string.ok), false, null, R.drawable.ic_action_warning, null);
 				}
 				return; // prova
 			}
