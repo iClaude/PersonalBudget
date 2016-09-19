@@ -156,7 +156,8 @@
         app:layout_anchor="@id/main.framelayout.title"
         app:layout_anchorGravity="top|center_horizontal"
         android:background="@drawable/background_tondo"
-        android:src="@drawable/tag_17" />
+        android:src="@drawable/tag_17"
+        android:visibility="visible" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

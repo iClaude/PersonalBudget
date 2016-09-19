@@ -22,8 +22,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
+import android.transition.Slide;
 import android.util.Log;
 import android.util.SparseIntArray;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -93,6 +95,10 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+		// Slide enter animation for Lollipop+.
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			getWindow().setEnterTransition(new Slide(Gravity.RIGHT));
+		}
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.spese_entrate_dettaglio_voce_b);
 
@@ -192,6 +198,12 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+/*	@Override
+	public void onEnterAnimationComplete() {
+		super.onEnterAnimationComplete();
+
+		ivIcona.setVisibility(View.VISIBLE);
+	}*/
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
