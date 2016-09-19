@@ -36,7 +36,7 @@
                 android:fitsSystemWindows="true" />
 
             <FrameLayout
-                android:id="@+id/main.framelayout.title"
+                android:id="@+id/main_framelayout_title"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:layout_gravity="bottom|center_horizontal"
@@ -153,11 +153,10 @@
         android:layout_height="90dp"
         android:scaleType="centerInside"
         android:padding="12dp"
-        app:layout_anchor="@id/main.framelayout.title"
         app:layout_anchorGravity="top|center_horizontal"
         android:background="@drawable/background_tondo"
         android:src="@drawable/tag_17"
-        android:visibility="visible" />
+        android:visibility="invisible" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

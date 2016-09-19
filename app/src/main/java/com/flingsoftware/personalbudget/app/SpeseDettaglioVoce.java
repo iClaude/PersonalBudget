@@ -198,12 +198,16 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-/*	@Override
+	@Override
 	public void onEnterAnimationComplete() {
 		super.onEnterAnimationComplete();
+		//app:layout_anchor="@id/main.framelayout.title"
 
+		CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) ivIcona.getLayoutParams();
+		p.setAnchorId(R.id.main_framelayout_title);
+		ivIcona.setLayoutParams(p);
 		ivIcona.setVisibility(View.VISIBLE);
-	}*/
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
