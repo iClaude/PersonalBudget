@@ -13,8 +13,7 @@
         android:layout_marginLeft="30dp"
         android:contentDescription="@string/provv_contenutoImmagini"
         android:scaleType="centerInside"
-        android:src="@drawable/img_spese"
-        android:transitionName="icona"/>
+        android:src="@drawable/img_spese" />
     
     <TextView
         android:id="@+id/tvImportoChild"

@@ -547,4 +547,7 @@
     <string name="preferiti_spese">Favorite expenses</string>
     <string name="preferiti_entrate">Favorite earnings</string>
     <string name="seleziona_conto">select the account...</string>
+
+    <!-- Transitions -->
+    <string name="transitionName">transitionIcon</string>
 </resources>

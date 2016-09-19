@@ -391,9 +391,11 @@ public class FragmentSpese extends Fragment implements SharedPreferences.OnShare
 					visualizzaVoceIntent.putExtra(VOCE_FAVORITE, preferito);
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        final View viewComune = v.findViewById(R.id.menu_esporta_ivFormato);
-                        getActivity().startActivityForResult(visualizzaVoceIntent, ACTIVITY_SPESE_DETTAGLIOVOCE);
-                    }
+                        //final View viewComune = v.findViewById(R.id.menu_esporta_ivFormato);
+						//ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), viewComune, viewComune.getTransitionName());
+                        //getActivity().startActivityForResult(visualizzaVoceIntent, ACTIVITY_SPESE_DETTAGLIOVOCE, options.toBundle());
+						getActivity().startActivityForResult(visualizzaVoceIntent, ACTIVITY_SPESE_DETTAGLIOVOCE);
+					}
                     else {
                         getActivity().startActivityForResult(visualizzaVoceIntent, ACTIVITY_SPESE_DETTAGLIOVOCE);
                     }

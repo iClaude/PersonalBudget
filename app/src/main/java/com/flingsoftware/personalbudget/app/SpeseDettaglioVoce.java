@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -17,7 +18,9 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.SparseIntArray;
@@ -456,6 +459,8 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 
 	// Load the header image and blur it in a separate thread.
 	private class LoadHeaderImageTask extends AsyncTask<String, Object, Bitmap> {
+		int backgroundColor = R.color.primary_light;
+
 		@Override
 		protected Bitmap doInBackground(String... params) {
 			DBCSpeseVoci dbcSpeseVoci = new DBCSpeseVoci(SpeseDettaglioVoce.this);
@@ -471,8 +476,12 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 			curVoci.close();
 			dbcSpeseVoci.close();
 
-			Bitmap origBitmap = ListViewIconeVeloce.decodeSampledBitmapFromResource(getResources(), iconaId, 256, 256);
+			Bitmap origBitmap = ListViewIconeVeloce.decodeSampledBitmapFromResource(getResources(), iconaId, 128, 128);
 			Bitmap blurredBitmap = BlurBuilder.blur(SpeseDettaglioVoce.this, origBitmap);
+
+			// Get a suitable color for image background.
+			Palette palette = Palette.from(origBitmap).generate();
+			backgroundColor = palette.getMutedColor(ContextCompat.getColor(SpeseDettaglioVoce.this, R.color.primary_light));
 
 			return blurredBitmap;
 		}
@@ -481,6 +490,7 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		protected void onPostExecute(Bitmap miaBitmap) {
 			ImageView ivHeader = (ImageView) findViewById(R.id.main_imageview_placeholder);
 			ivHeader.setImageBitmap(miaBitmap);
+			ivHeader.setBackgroundColor(Color.rgb(Color.red(backgroundColor), Color.green(backgroundColor), Color.blue(backgroundColor)));
 		}
 	}
 
