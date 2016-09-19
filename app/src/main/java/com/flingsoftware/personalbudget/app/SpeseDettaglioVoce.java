@@ -126,17 +126,17 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		tvToolbarTitle = (TextView) findViewById(R.id.main_textview_title);
 		llExpandedTitle = (LinearLayout) findViewById(R.id.main_linearlayout_title);
 
-		// Set height of icon in the toolbar to 70% of action bar height.
-		int ivIconToolbarSize = (int) (UtilityVarious.getActionBarHeight(this) * 0.7);
-		ivIconToolbar.getLayoutParams().width = ivIconToolbarSize;
-		ivIconToolbar.getLayoutParams().height = ivIconToolbarSize;
-		ivIconToolbar.requestLayout();
-
 		// Set custom layout behavior on ImageView ivIcona.
 		AvatarImageBehavior avatarImageBehavior = new AvatarImageBehavior(this);
 		CoordinatorLayout.LayoutParams params =
 				(CoordinatorLayout.LayoutParams) ivIcona.getLayoutParams();
 		params.setBehavior(avatarImageBehavior);
+
+		// Set height of icon in the toolbar to 70% of action bar height.
+		int ivIconToolbarSize = (int) (UtilityVarious.getActionBarHeight(this) * 0.7);
+		ivIconToolbar.getLayoutParams().width = ivIconToolbarSize;
+		ivIconToolbar.getLayoutParams().height = ivIconToolbarSize;
+		ivIconToolbar.requestLayout();
 
 		//recupero i dettagli della voce passati dall'Activity chiamante
 		Bundle extras = getIntent().getExtras();
@@ -198,16 +198,6 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-	@Override
-	public void onEnterAnimationComplete() {
-		super.onEnterAnimationComplete();
-		//app:layout_anchor="@id/main.framelayout.title"
-
-		CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) ivIcona.getLayoutParams();
-		p.setAnchorId(R.id.main_framelayout_title);
-		ivIcona.setLayoutParams(p);
-		ivIcona.setVisibility(View.VISIBLE);
-	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
