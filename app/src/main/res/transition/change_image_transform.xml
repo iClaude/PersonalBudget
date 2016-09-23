@@ -6,7 +6,5 @@
     <changeTransform/>
     <changeClipBounds/>
     <changeImageTransform/>
-    <!-- Here we're using arc motion which handles the curved path for us.
-         Also see PathMotion and PatternPathMotion for other techniques  -->
-    <arcMotion android:minimumHorizontalAngle="50" android:minimumVerticalAngle="50" />
+
 </transitionSet>

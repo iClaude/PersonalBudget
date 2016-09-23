@@ -86,7 +86,7 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 	}
 
 	// Private constants.
-	private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f;
+	private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.8f;
 	private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f;
 	private static final int ALPHA_ANIMATIONS_DURATION = 200;
 	private static final String TAG = "SpeseDettaglioVoce";
@@ -97,7 +97,7 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
 		// Slide enter animation for Lollipop+.
 		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-			getWindow().setEnterTransition(new Slide(Gravity.RIGHT));
+			getWindow().setEnterTransition(new Slide(Gravity.BOTTOM));
 		}
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.spese_entrate_dettaglio_voce_b);

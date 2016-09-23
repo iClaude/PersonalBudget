@@ -20,14 +20,14 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/main_collapsing"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="300dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             android:fitsSystemWindows="true">
 
             <ImageView
                 android:id="@+id/main_imageview_placeholder"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="140dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/header_voce"
                 android:tint="#11000000"
