@@ -99,11 +99,15 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<ImageView> {
         if(scrollDistance <= treshold) { // icon moves up/down
             percCompleted = scrollDistance / treshold;
             currentY = startY - (startY - finalY) * percCompleted;
+            if(currentY > startY) currentY = startY;
+            currentX = startX;
+            currentSize = startSize;
         }
         else { // icon moves left/right and shrinks/expands
             percCompleted = (scrollDistance - treshold) / (appbarScrollRange - treshold);
             currentX = startX - (startX - finalX) * percCompleted;
             currentSize = (int) (startSize - (startSize - finalSize) * percCompleted);
+            currentY = finalY;
         }
 
         child.setX(currentX);
