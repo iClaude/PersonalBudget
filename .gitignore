@@ -33,3 +33,6 @@ captures/
 
 /.idea/
 .idea/workspace.xml
+
+# Android Studio
+*.iml
