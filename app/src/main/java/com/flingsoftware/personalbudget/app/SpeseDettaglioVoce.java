@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) - Software developed by iClaude.
+ */
+
 package com.flingsoftware.personalbudget.app;
 
 import android.app.Activity;
@@ -115,7 +119,6 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		tvFineRipetizione = (TextView) findViewById(R.id.dettagli_voce_tvFineRipetizione);
 		ivIcona = (ImageView) findViewById(R.id.spese_entrate_dettaglio_voce_ivIcona);
 		ivIconToolbar = (ImageView) findViewById(R.id.ivIconToolbar);
-		fabBasso = (FloatingActionButton) findViewById(R.id.fabBasso);
 		fabAlto = (FloatingActionButton) findViewById(R.id.fab);
 		tvToolbarTitle = (TextView) findViewById(R.id.main_textview_title);
 		llExpandedTitle = (LinearLayout) findViewById(R.id.main_linearlayout_title);
@@ -192,6 +195,10 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+	/*
+    Enter animation. NestedScrollView, which contains a CardView representing the main content,
+    is moved upwards with an animation.
+ */
 	@Override
 	public void onEnterAnimationComplete() {
 		super.onEnterAnimationComplete();
@@ -737,7 +744,6 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 	private ImageView ivIcona;
 	private ImageView ivIconToolbar;
 	private FloatingActionButton fabAlto;
-	private FloatingActionButton fabBasso;
 	private TextView tvToolbarTitle;
 	private LinearLayout llExpandedTitle;
 	private long id;
