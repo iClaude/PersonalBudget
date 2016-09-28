@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.AsyncTask;
@@ -22,16 +21,15 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
-import android.transition.Slide;
-import android.util.Log;
 import android.util.SparseIntArray;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.AlphaAnimation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.Interpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -95,10 +93,6 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-		// Slide enter animation for Lollipop+.
-		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-			getWindow().setEnterTransition(new Slide(Gravity.BOTTOM));
-		}
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.spese_entrate_dettaglio_voce_b);
 
@@ -198,6 +192,24 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+	@Override
+	public void onEnterAnimationComplete() {
+		super.onEnterAnimationComplete();
+
+		View contentView = findViewById(R.id.nsv_main_content);
+		float offset = getResources().getDimensionPixelSize(R.dimen.content_offset_y);
+		Interpolator interpolator = AnimationUtils.loadInterpolator(this, android.R.interpolator.linear_out_slow_in);
+		contentView.setVisibility(View.VISIBLE);
+		fabAlto.setVisibility(View.VISIBLE);
+		contentView.setTranslationY(offset);
+		contentView.setAlpha(0.3f);
+		contentView.animate()
+				.translationY(0f)
+				.alpha(1f)
+				.setInterpolator(interpolator)
+				.setDuration(500L)
+				.start();
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

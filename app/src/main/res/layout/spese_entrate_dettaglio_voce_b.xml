@@ -131,7 +131,8 @@
         android:layout_height="match_parent"
         android:scrollbars="none"
         app:behavior_overlapTop="30dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:visibility="invisible">
 
         <android.support.v7.widget.CardView
             android:layout_width="wrap_content"
@@ -171,7 +172,8 @@
         android:elevation="6dp"
         app:pressedTranslationZ="6dp"
         android:onClick="fabPremuto"
-        app:layout_behavior="com.flingsoftware.personalbudget.app.utility.FABHighShowHideBehavior"/>
+        app:layout_behavior="com.flingsoftware.personalbudget.app.utility.FABHighShowHideBehavior"
+        android:visibility="gone" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabBasso"

@@ -1,30 +1,5 @@
 package com.flingsoftware.personalbudget.app;
 
-import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze;
-import com.flingsoftware.personalbudget.customviews.MioToast;
-import com.flingsoftware.personalbudget.database.*;
-import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
-
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiActivity.*;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.*;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.WIDGET_AGGIORNA;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.*;
-import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA;
-
-import com.flingsoftware.personalbudget.R;
-
-import java.text.DateFormat;
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
-import java.util.Currency;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Locale;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-
-import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -32,34 +7,70 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.os.Build;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.MenuItemCompat;
-import android.text.TextUtils;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AbsListView.MultiChoiceModeListener;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.support.v7.widget.SearchView;
-import android.widget.Toast;
 import android.widget.SimpleCursorTreeAdapter;
 import android.widget.TextView;
-import android.widget.AbsListView.MultiChoiceModeListener;
+import android.widget.Toast;
+
+import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze;
+import com.flingsoftware.personalbudget.customviews.MioToast;
+import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
+import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
+import com.flingsoftware.personalbudget.database.FunzioniAggiornamento;
+import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
+
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Currency;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Locale;
+
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiActivity.ACTIVITY_SPESE_AGGIUNGI;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiActivity.ACTIVITY_SPESE_DETTAGLIOVOCE;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VISUALIZZA_PER_DATA;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.WIDGET_AGGIORNA;
+import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_CONTO;
+import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_DATA;
+import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_DESCRIZIONE;
+import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_FAVORITE;
+import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_ID;
+import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_IMPORTO;
+import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_IMPORTO_VALPRIN;
+import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_RIPETIZIONE_ID;
+import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_TAG;
+import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_VALUTA;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA;
+
 //import android.support.v7.view.ActionMode;
-import android.view.ActionMode;
-import android.view.MenuInflater;
 
 
 public class FragmentSpese extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -390,15 +401,8 @@ public class FragmentSpese extends Fragment implements SharedPreferences.OnShare
 					visualizzaVoceIntent.putExtra(VOCE_CONTO, conto);
 					visualizzaVoceIntent.putExtra(VOCE_FAVORITE, preferito);
 
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-						final View commonView = v.findViewById(R.id.menu_esporta_ivFormato);
-						ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity());
-						getActivity().startActivityForResult(visualizzaVoceIntent, ACTIVITY_SPESE_DETTAGLIOVOCE, options.toBundle());
-					}
-                    else {
-                        getActivity().startActivityForResult(visualizzaVoceIntent, ACTIVITY_SPESE_DETTAGLIOVOCE);
-                    }
-					
+					getActivity().startActivityForResult(visualizzaVoceIntent, ACTIVITY_SPESE_DETTAGLIOVOCE);
+
 					return true;
 				}
 				else if(mActionMode != null && expandableListSelectionType == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
