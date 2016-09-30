@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app;
@@ -98,7 +98,7 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 	protected void onCreate(Bundle savedInstanceState) {
 		getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.spese_entrate_dettaglio_voce_b);
+		setContentView(R.layout.spese_entrate_dettaglio_voce);
 
 		// Toolbar per menu opzioni.
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
