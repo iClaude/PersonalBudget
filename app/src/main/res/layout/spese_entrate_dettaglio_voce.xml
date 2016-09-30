@@ -158,7 +158,8 @@
         app:layout_anchorGravity="top|center_horizontal"
         android:background="@drawable/background_tondo"
         android:src="@drawable/tag_17"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:elevation="4dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
