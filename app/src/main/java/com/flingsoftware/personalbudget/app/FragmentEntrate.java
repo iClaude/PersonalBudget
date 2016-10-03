@@ -381,13 +381,7 @@ public class FragmentEntrate extends Fragment implements SharedPreferences.OnSha
 					visualizzaVoceIntent.putExtra(VOCE_CONTO, conto);
 					visualizzaVoceIntent.putExtra(VOCE_FAVORITE, preferito);
 
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        final View viewComune = v.findViewById(R.id.menu_esporta_ivFormato);
-                        getActivity().startActivityForResult(visualizzaVoceIntent, ACTIVITY_ENTRATE_DETTAGLIOVOCE, ActivityOptions.makeSceneTransitionAnimation(getActivity(), viewComune, "icona").toBundle());
-                    }
-                    else {
-                        getActivity().startActivityForResult(visualizzaVoceIntent, ACTIVITY_ENTRATE_DETTAGLIOVOCE);
-                    }
+					getActivity().startActivityForResult(visualizzaVoceIntent, ACTIVITY_ENTRATE_DETTAGLIOVOCE);
 
 					return true;
 				}
