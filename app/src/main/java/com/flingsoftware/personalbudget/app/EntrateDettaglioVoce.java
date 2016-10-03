@@ -38,6 +38,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 import com.flingsoftware.personalbudget.R;
 import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze;
@@ -144,7 +145,6 @@ public class EntrateDettaglioVoce extends AppCompatActivity implements SpeseEntr
 		tvTag.setText(tag);
 		tvToolbarTitle.setText(tag);
 		new CaricaIconaTask().execute(tag);
-		new LoadHeaderImageTask().execute(tag);
 
 		//ricavo la valuta di default
 		ricavaValuta();
@@ -197,6 +197,8 @@ public class EntrateDettaglioVoce extends AppCompatActivity implements SpeseEntr
 	@Override
 	public void onEnterAnimationComplete() {
 		super.onEnterAnimationComplete();
+
+        new LoadHeaderImageTask().execute(tag);
 
 		View contentView = findViewById(R.id.nsv_main_content);
 		float offset = getResources().getDimensionPixelSize(R.dimen.content_offset_y);
@@ -505,10 +507,14 @@ public class EntrateDettaglioVoce extends AppCompatActivity implements SpeseEntr
 
 		@Override
 		protected void onPostExecute(Bitmap miaBitmap) {
-			ImageView ivHeader = (ImageView) findViewById(R.id.main_imageview_placeholder);
-			ivHeader.setImageBitmap(miaBitmap);
+            ImageView ivHeader = (ImageView) findViewById(R.id.main_imageview_placeholder2);
+            ivHeader.setImageBitmap(miaBitmap);
 			ivHeader.setBackgroundColor(Color.rgb(Color.red(backgroundColor), Color.green(backgroundColor), Color.blue(backgroundColor)));
-		}
+
+            // Show the header image with a fadein-fadeout animation.
+            ViewSwitcher viewSwitcher = (ViewSwitcher) findViewById(R.id.vsHeader);
+            viewSwitcher.showNext();
+        }
 	}
 
 	/*

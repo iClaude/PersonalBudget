@@ -24,16 +24,37 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             android:fitsSystemWindows="true">
 
-            <ImageView
-                android:id="@+id/main_imageview_placeholder"
+            <ViewSwitcher
+                android:id="@+id/vsHeader"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/header_voce"
-                android:tint="#11000000"
-                app:layout_collapseMode="parallax"
-                app:layout_collapseParallaxMultiplier="0.9"
-                android:fitsSystemWindows="true" />
+                android:inAnimation="@anim/fadein"
+                android:outAnimation="@anim/fadeout"
+                android:fitsSystemWindows="true">
+
+                <ImageView
+                    android:id="@+id/main_imageview_placeholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/header_voce"
+                    android:tint="#11000000"
+                    app:layout_collapseMode="parallax"
+                    app:layout_collapseParallaxMultiplier="0.9"
+                    android:fitsSystemWindows="true" />
+
+                <ImageView
+                    android:id="@+id/main_imageview_placeholder2"
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/header_voce"
+                    android:tint="#11000000"
+                    app:layout_collapseMode="parallax"
+                    app:layout_collapseParallaxMultiplier="0.9"
+                    android:fitsSystemWindows="true" />
+
+            </ViewSwitcher>
 
             <FrameLayout
                 android:id="@+id/main_framelayout_title"
