@@ -1,16 +1,22 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app;
 
+import android.content.SharedPreferences;
+import android.media.AudioManager;
+import android.media.SoundPool;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.SparseIntArray;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.AlphaAnimation;
@@ -21,6 +27,12 @@ import android.widget.TextView;
 import com.flingsoftware.personalbudget.R;
 import com.flingsoftware.personalbudget.app.utility.AvatarImageBehavior;
 import com.flingsoftware.personalbudget.utilita.UtilityVarious;
+
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.util.Currency;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Base class for displaying expense or earning details.
@@ -46,6 +58,9 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
     private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.8f;
     private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f;
     private static final int ALPHA_ANIMATIONS_DURATION = 200;
+
+    // Other constants.
+    private final Locale miaLocale = (Locale.getDefault().getDisplayLanguage().equals("italiano") ? Locale.getDefault() : Locale.UK);
 
 
     // Instance variables.
@@ -94,7 +109,7 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
         getDetails();
         displayDetails();
 
-
+        new LoadSoundEffectsTask().execute();
     }
 
 
@@ -104,6 +119,7 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Listener for appbar expanded/collapsed to show the title correctly.
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
@@ -218,8 +234,64 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
 
     // Display expense/earning details on the layout.
     private void displayDetails() {
-        // Currency section.
+        // App bar: tag and amount.
+        tvVoce.setText(tag);
+        tvToolbarTitle.setText(tag);
 
+        Currency prefCurrency = UtilityVarious.getPrefCurrency(this);
+        NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
+        nf.setCurrency(prefCurrency);
+        String importoFormattato = nf.format(importoValprin);
+        tvImporto.setText(importoFormattato);
+
+        // Currency section.
+        if (!valuta.equals(prefCurrency.getCurrencyCode())) {
+            NumberFormat nfCurrency = NumberFormat.getInstance(Locale.getDefault());
+            NumberFormat nfExchangeRate = NumberFormat.getInstance();
+            nfExchangeRate.setMaximumFractionDigits(4);
+
+            float cambio = (float) (importoValprin / importo);
+            ((TextView) findViewById(R.id.tvImportoOriginale)).setText(nfCurrency.format(importo) + " " + Currency.getInstance(valuta).getSymbol());
+            ((TextView) findViewById(R.id.tvTassoCambio)).setText(nfCurrency.format(cambio));
+        } else {
+            findViewById(R.id.spese_entrate_dettaglio_voce_rlImporto).setVisibility(View.GONE);
+        }
+
+        // Details section.
+        tvConto.setText(conto);
+
+        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, miaLocale);
+
+        tvData.setText(df.format(new Date(data)));
+        if (descrizione.length() > 0) {
+            tvDescrizione.setText(descrizione);
+        } else {
+            tvDescrizione.setVisibility(View.GONE);
+            findViewById(R.id.tvDescrizioneTitolo).setVisibility(View.GONE);
+        }
+    }
+
+
+    //AsyncTask per caricare la HashMap con i suoni dell'app
+    private class CaricaSuoniTask extends AsyncTask<Object, Object, Boolean> {
+
+        protected Boolean doInBackground(Object... params) {
+            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(SpeseDettaglioVoce.this);
+            boolean abilitazioneSuoni = pref.getBoolean(MainPersonalBudget.CostantiPreferenze.SUONI_ABILITATI, false);
+            if (abilitazioneSuoni) {
+                soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+                mappaSuoni = new SparseIntArray(1);
+                mappaSuoni.put(MainPersonalBudget.CostantiSuoni.SUONO_CANCELLAZIONE, soundPool.load(SpeseDettaglioVoce.this, R.raw.cancellazione, 1));
+                mappaSuoni.put(MainPersonalBudget.CostantiSuoni.SUONO_AGGIUNGI_SPESA_ENTRATA, soundPool.load(SpeseDettaglioVoce.this, R.raw.spese_entrate_budget_aggiunta, 1));
+            }
+
+            return abilitazioneSuoni;
+        }
+
+        protected void onPostExecute(Boolean result) {
+            //una volta caricati i suoni nella Map l'app ? pronta ad utilizzarli, non prima
+            suoniAbilitati = result;
+        }
     }
 
 }

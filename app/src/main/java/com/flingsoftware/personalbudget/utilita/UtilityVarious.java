@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) - Software developed by iClaude.
+ */
+
 package com.flingsoftware.personalbudget.utilita;
 
 
@@ -5,13 +9,18 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.preference.PreferenceManager;
 import android.view.Window;
 
 import com.flingsoftware.personalbudget.R;
+
+import java.util.Currency;
+import java.util.Locale;
 
 public class UtilityVarious {
 
@@ -97,5 +106,12 @@ public class UtilityVarious {
         int statusBarHeight = rectangle.top;
 
         return statusBarHeight;
+    }
+
+    // Get the current Currency from the preferences.
+    public static Currency getPrefCurrency(Context context) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        String currCode = pref.getString(Constants.PREF_CURRENCY, Currency.getInstance(Locale.getDefault()).getCurrencyCode());
+        return Currency.getInstance(currCode);
     }
 }
