@@ -152,7 +152,7 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		//visualizzo i valori recuperati nel layout
 		tvVoce.setText(tag);
 		tvToolbarTitle.setText(tag);
-		new CaricaIconaTask().execute(tag);
+		new LoadImagesTask().execute(tag);
 
 		//ricavo la valuta di default
 		ricavaValuta();
@@ -202,8 +202,6 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 	@Override
 	public void onEnterAnimationComplete() {
 		super.onEnterAnimationComplete();
-
-        new LoadHeaderImageTask().execute(tag);
 
 		View contentView = findViewById(R.id.nsv_main_content);
 		float offset = getResources().getDimensionPixelSize(R.dimen.content_offset_y);
@@ -457,8 +455,8 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 	}
 
 
-	//AsyncTask per caricare icona spesa
-	private class CaricaIconaTask extends AsyncTask<String, Object, Bitmap> {
+	// Loading images (icon and header) in a separate thread.
+	private class LoadImagesTask extends AsyncTask<String, Object, Bitmap> {
 		@Override
 		protected Bitmap doInBackground(String... params) {
 			DBCSpeseVoci dbcSpeseVoci = new DBCSpeseVoci(SpeseDettaglioVoce.this);
@@ -470,9 +468,17 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 				int icona = curVoci.getInt(curVoci.getColumnIndex("icona"));
 				iconaId = ListViewIconeVeloce.arrIconeId[icona];
 			}
+			final int iconaIdDef = iconaId;
 
 			curVoci.close();
 			dbcSpeseVoci.close();
+
+			runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					new LoadHeaderImageTask().execute(iconaIdDef);
+				}
+			});
 
             return ListViewIconeVeloce.decodeSampledBitmapFromResource(getResources(), iconaId, 90, 90);
 		}
@@ -484,24 +490,13 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		}
 	}
 
-	// Load the header image and blur it in a separate thread.
-	private class LoadHeaderImageTask extends AsyncTask<String, Object, Bitmap> {
+	// Load the header image and blur it in a separate thread. Takes iconId as parameter.
+	private class LoadHeaderImageTask extends AsyncTask<Integer, Object, Bitmap> {
 		int backgroundColor = R.color.primary_light;
 
 		@Override
-		protected Bitmap doInBackground(String... params) {
-			DBCSpeseVoci dbcSpeseVoci = new DBCSpeseVoci(SpeseDettaglioVoce.this);
-			dbcSpeseVoci.openLettura();
-			Cursor curVoci = dbcSpeseVoci.getTutteLeVociFiltrato(params[0]);
-
-			int iconaId = R.drawable.tag_0;
-			if (curVoci.moveToFirst()) {
-				int icona = curVoci.getInt(curVoci.getColumnIndex("icona"));
-				iconaId = ListViewIconeVeloce.arrIconeId[icona];
-			}
-
-			curVoci.close();
-			dbcSpeseVoci.close();
+		protected Bitmap doInBackground(Integer... params) {
+			int iconaId = params[0];
 
 			Bitmap origBitmap = ListViewIconeVeloce.decodeSampledBitmapFromResource(getResources(), iconaId, 128, 128);
 			Bitmap blurredBitmap = BlurBuilder.blur(SpeseDettaglioVoce.this, origBitmap);

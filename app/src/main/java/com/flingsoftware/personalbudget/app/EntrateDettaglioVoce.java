@@ -144,7 +144,7 @@ public class EntrateDettaglioVoce extends AppCompatActivity implements SpeseEntr
 		//visualizzo i valori recuperati nel layout
 		tvTag.setText(tag);
 		tvToolbarTitle.setText(tag);
-		new CaricaIconaTask().execute(tag);
+		new LoadImagesTask().execute(tag);
 
 		//ricavo la valuta di default
 		ricavaValuta();
@@ -197,8 +197,6 @@ public class EntrateDettaglioVoce extends AppCompatActivity implements SpeseEntr
 	@Override
 	public void onEnterAnimationComplete() {
 		super.onEnterAnimationComplete();
-
-        new LoadHeaderImageTask().execute(tag);
 
 		View contentView = findViewById(R.id.nsv_main_content);
 		float offset = getResources().getDimensionPixelSize(R.dimen.content_offset_y);
@@ -447,10 +445,10 @@ public class EntrateDettaglioVoce extends AppCompatActivity implements SpeseEntr
 			suoniAbilitati = result;
 		}
 	}
-	
-	
-	//AsyncTask per caricare icona entrata
-	private class CaricaIconaTask extends AsyncTask<String, Object, Bitmap> {
+
+
+	/// Loading images (icon and header) in a separate thread.
+	private class LoadImagesTask extends AsyncTask<String, Object, Bitmap> {
 		@Override
 		protected Bitmap doInBackground(String... params) {
 			DBCEntrateVoci dbcEntrateVoci = new DBCEntrateVoci(EntrateDettaglioVoce.this);
@@ -462,9 +460,17 @@ public class EntrateDettaglioVoce extends AppCompatActivity implements SpeseEntr
 				int icona = curVoci.getInt(curVoci.getColumnIndex("icona"));
 				iconaId = ListViewIconeVeloce.arrIconeId[icona];
 			}
+			final int iconaIdDef = iconaId;
 			
 			curVoci.close();
 			dbcEntrateVoci.close();
+
+			runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					new LoadHeaderImageTask().execute(iconaIdDef);
+				}
+			});
 			
 			return ListViewIconeVeloce.decodeSampledBitmapFromResource(getResources(), iconaId, 90, 90);
 		}
@@ -476,24 +482,14 @@ public class EntrateDettaglioVoce extends AppCompatActivity implements SpeseEntr
 		}
 	}
 
-	// Load the header image and blur it in a separate thread.
-	private class LoadHeaderImageTask extends AsyncTask<String, Object, Bitmap> {
+
+	// Load the header image and blur it in a separate thread. Takes iconId as parameter.
+	private class LoadHeaderImageTask extends AsyncTask<Integer, Object, Bitmap> {
 		int backgroundColor = R.color.primary_light;
 
 		@Override
-		protected Bitmap doInBackground(String... params) {
-			DBCEntrateVoci dbcEntrateVoci = new DBCEntrateVoci(EntrateDettaglioVoce.this);
-			dbcEntrateVoci.openLettura();
-			Cursor curVoci = dbcEntrateVoci.getTutteLeVociFiltrato(params[0]);
-
-			int iconaId = R.drawable.tag_0;
-			if (curVoci.moveToFirst()) {
-				int icona = curVoci.getInt(curVoci.getColumnIndex("icona"));
-				iconaId = ListViewIconeVeloce.arrIconeId[icona];
-			}
-
-			curVoci.close();
-			dbcEntrateVoci.close();
+		protected Bitmap doInBackground(Integer... params) {
+			int iconaId = params[0];
 
 			Bitmap origBitmap = ListViewIconeVeloce.decodeSampledBitmapFromResource(getResources(), iconaId, 128, 128);
 			Bitmap blurredBitmap = BlurBuilder.blur(EntrateDettaglioVoce.this, origBitmap);
