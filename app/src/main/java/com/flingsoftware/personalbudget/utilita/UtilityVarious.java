@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.utilita;
@@ -18,6 +18,7 @@ import android.preference.PreferenceManager;
 import android.view.Window;
 
 import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.app.MainPersonalBudget;
 
 import java.util.Currency;
 import java.util.Locale;
@@ -108,10 +109,17 @@ public class UtilityVarious {
         return statusBarHeight;
     }
 
+
     // Get the current Currency from the preferences.
     public static Currency getPrefCurrency(Context context) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         String currCode = pref.getString(Constants.PREF_CURRENCY, Currency.getInstance(Locale.getDefault()).getCurrencyCode());
         return Currency.getInstance(currCode);
+    }
+
+    // Are sounds effects enabled? Check the preferences.
+    public static boolean soundsEnabled(Context context) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        return pref.getBoolean(MainPersonalBudget.CostantiPreferenze.SUONI_ABILITATI, false);
     }
 }

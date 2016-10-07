@@ -1,22 +1,16 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app;
 
-import android.content.SharedPreferences;
-import android.media.AudioManager;
-import android.media.SoundPool;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.SparseIntArray;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.AlphaAnimation;
@@ -26,6 +20,7 @@ import android.widget.TextView;
 
 import com.flingsoftware.personalbudget.R;
 import com.flingsoftware.personalbudget.app.utility.AvatarImageBehavior;
+import com.flingsoftware.personalbudget.utilita.SoundEffectsManager;
 import com.flingsoftware.personalbudget.utilita.UtilityVarious;
 
 import java.text.DateFormat;
@@ -91,6 +86,7 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
     private long dataInizio;
     private String valuta;
     private double importoValprin;
+    protected SoundEffectsManager soundEffectsManager;
 
 
     @Override
@@ -109,7 +105,8 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
         getDetails();
         displayDetails();
 
-        new LoadSoundEffectsTask().execute();
+        // Sound effects.
+        setupSoundEffects();
     }
 
 
@@ -272,25 +269,11 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
     }
 
 
-    //AsyncTask per caricare la HashMap con i suoni dell'app
-    private class CaricaSuoniTask extends AsyncTask<Object, Object, Boolean> {
-
-        protected Boolean doInBackground(Object... params) {
-            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(SpeseDettaglioVoce.this);
-            boolean abilitazioneSuoni = pref.getBoolean(MainPersonalBudget.CostantiPreferenze.SUONI_ABILITATI, false);
-            if (abilitazioneSuoni) {
-                soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-                mappaSuoni = new SparseIntArray(1);
-                mappaSuoni.put(MainPersonalBudget.CostantiSuoni.SUONO_CANCELLAZIONE, soundPool.load(SpeseDettaglioVoce.this, R.raw.cancellazione, 1));
-                mappaSuoni.put(MainPersonalBudget.CostantiSuoni.SUONO_AGGIUNGI_SPESA_ENTRATA, soundPool.load(SpeseDettaglioVoce.this, R.raw.spese_entrate_budget_aggiunta, 1));
-            }
-
-            return abilitazioneSuoni;
-        }
-
-        protected void onPostExecute(Boolean result) {
-            //una volta caricati i suoni nella Map l'app ? pronta ad utilizzarli, non prima
-            suoniAbilitati = result;
+    // Set up sound effects it these are enabled.
+    private void setupSoundEffects() {
+        if (UtilityVarious.soundsEnabled(this)) {
+            soundEffectsManager = SoundEffectsManager.getInstance();
+            soundEffectsManager.loadSounds(this.getApplicationContext());
         }
     }
 

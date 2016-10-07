@@ -1,4 +1,8 @@
 /*
+ * Copyright (c) This code was written by iClaude. All rights reserved.
+ */
+
+/*
  * Test uploading data on Github from 2 different computers.
  */
 
@@ -23,12 +27,10 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.Cursor;
-import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -55,16 +57,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -187,16 +185,6 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 		int ACTIVITY_RIC_VOCALE = 13;
 		int ACTIVITY_CONTIELENCO = 14;
 		int ACTIVITY_PREFERITI = 15;
-	}
-	
-	
-	//costanti x suoni
-	public interface CostantiSuoni {
-		int SUONO_AGGIUNGI_SPESA_ENTRATA = 0;
-		int SUONO_AGGIUNGI_BUDGET = 1;
-		int SUONO_CANCELLAZIONE = 2;
-		int SUONO_OPERAZIONE_COMPLETATA = 3;
-		int SUONO_BLOCCO_APP = 4;
 	}
 	
 	
