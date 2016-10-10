@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app;
@@ -361,7 +361,7 @@ public class EntrateDettaglioVoce extends AppCompatActivity implements SpeseEntr
 		
 		protected Cursor doInBackground(Long... params) {
 			dbcEntrateRipetute.openLettura();
-			Cursor curEntrataRipetuta = dbcEntrateRipetute.getEntrataRipetuta(params[0]);
+			Cursor curEntrataRipetuta = dbcEntrateRipetute.getItemRepeated(params[0]);
 			
 			return curEntrataRipetuta;
 		}
@@ -616,7 +616,7 @@ public class EntrateDettaglioVoce extends AppCompatActivity implements SpeseEntr
 			int entrateCancellate = dbcEntrateIncassate.eliminaEntrateRipetuteDallaData(params[0], oggi.getTimeInMillis());
 			
 			dbcEntrateRipetute.openModifica();
-			Cursor curEntrateRipetute = dbcEntrateRipetute.getEntrataRipetuta(params[0]);
+			Cursor curEntrateRipetute = dbcEntrateRipetute.getItemRepeated(params[0]);
 			curEntrateRipetute.moveToFirst();
 			dbcEntrateRipetute.aggiornaEntrataRipetuta(params[0], curEntrateRipetute.getString(curEntrateRipetute.getColumnIndex("voce")), curEntrateRipetute.getString(curEntrateRipetute.getColumnIndex("ripetizione")), curEntrateRipetute.getDouble(curEntrateRipetute.getColumnIndex("importo")), curEntrateRipetute.getString(curEntrateRipetute.getColumnIndex("valuta")), curEntrateRipetute.getDouble(curEntrateRipetute.getColumnIndex("importo_valprin")), curEntrateRipetute.getString(curEntrateRipetute.getColumnIndex("descrizione")), curEntrateRipetute.getLong(curEntrateRipetute.getColumnIndex("data_inizio")), 1, oggi.getTimeInMillis(), oggi.getTimeInMillis(), curEntrateRipetute.getString(curEntrateRipetute.getColumnIndex("conto")));		
 			curEntrateRipetute.close();		

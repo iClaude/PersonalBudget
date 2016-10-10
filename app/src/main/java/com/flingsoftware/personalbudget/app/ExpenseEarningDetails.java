@@ -1,9 +1,13 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -11,15 +15,21 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.AlphaAnimation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.Interpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.flingsoftware.personalbudget.R;
 import com.flingsoftware.personalbudget.app.utility.AvatarImageBehavior;
+import com.flingsoftware.personalbudget.database.DBCExpEarRepeated;
 import com.flingsoftware.personalbudget.utilita.SoundEffectsManager;
 import com.flingsoftware.personalbudget.utilita.UtilityVarious;
 
@@ -28,6 +38,10 @@ import java.text.NumberFormat;
 import java.util.Currency;
 import java.util.Date;
 import java.util.Locale;
+
+import static com.flingsoftware.personalbudget.database.DBCExpEarRepeated.COL_DATE_END;
+import static com.flingsoftware.personalbudget.database.DBCExpEarRepeated.COL_DATE_START;
+import static com.flingsoftware.personalbudget.database.DBCExpEarRepeated.COL_REP;
 
 /**
  * Base class for displaying expense or earning details.
@@ -56,7 +70,7 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
 
     // Other constants.
     private final Locale miaLocale = (Locale.getDefault().getDisplayLanguage().equals("italiano") ? Locale.getDefault() : Locale.UK);
-
+    private final DateFormat dfDate = DateFormat.getDateInstance(DateFormat.MEDIUM, miaLocale);
 
     // Instance variables.
     // Layout widgets.
@@ -86,6 +100,7 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
     private long dataInizio;
     private String valuta;
     private double importoValprin;
+    private long dataInizio;
     protected SoundEffectsManager soundEffectsManager;
 
 
@@ -257,14 +272,19 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
         // Details section.
         tvConto.setText(conto);
 
-        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, miaLocale);
-
-        tvData.setText(df.format(new Date(data)));
+        tvData.setText(dfDate.format(new Date(data)));
         if (descrizione.length() > 0) {
             tvDescrizione.setText(descrizione);
         } else {
             tvDescrizione.setVisibility(View.GONE);
             findViewById(R.id.tvDescrizioneTitolo).setVisibility(View.GONE);
+        }
+
+        // Repetition section.
+        if (ripetizione_id == 1) {
+            findViewById(R.id.spese_entrate_dettaglio_voce_rlRipetizione).setVisibility(View.GONE);
+        } else {
+            new LoadRepetitionDetails().execute(ripetizione_id);
         }
     }
 
@@ -277,4 +297,158 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
         }
     }
 
+
+    // Load details of repeated expenses/earnings.
+    private class LoadRepetitionDetails extends AsyncTask<Long, Object, Cursor> {
+        DBCExpEarRepeated dbcExpEarRepeated = getDBCExpEarRepeated();
+        long dataFine;
+
+        protected Cursor doInBackground(Long... params) {
+            dbcExpEarRepeated.openLettura();
+            Cursor cursor = dbcExpEarRepeated.getItemRepeated(params[0]);
+
+            return cursor;
+        }
+
+        protected void onPostExecute(Cursor cursor) {
+            cursor.moveToFirst();
+            String repetition = cursor.getString(cursor.getColumnIndex(COL_REP));
+            String ripetizione = cursor.getString(cursor.getColumnIndex(COL_REP));
+            dataFine = cursor.getLong(cursor.getColumnIndex(COL_DATE_END));
+            dataInizio = cursor.getLong(cursor.getColumnIndex(COL_DATE_START));
+
+            String tipiBudget[] = getResources().getStringArray(R.array.ripetizioni);
+            if (ripetizione.equals("nessuna")) {
+                ripetizione = tipiBudget[0];
+            } else if (ripetizione.equals("giornaliero")) {
+                ripetizione = tipiBudget[1];
+            } else if (ripetizione.equals("settimanale")) {
+                ripetizione = tipiBudget[2];
+            } else if (ripetizione.equals("bisettimanale")) {
+                ripetizione = tipiBudget[3];
+            } else if (ripetizione.equals("mensile")) {
+                ripetizione = tipiBudget[4];
+            } else if (ripetizione.equals("annuale")) {
+                ripetizione = tipiBudget[5];
+            } else if (ripetizione.equals("giorni_lavorativi")) {
+                ripetizione = tipiBudget[6];
+            } else if (ripetizione.equals("weekend")) {
+                ripetizione = tipiBudget[7];
+            }
+
+            tvRipetizione.setText(ripetizione);
+            tvFineRipetizione.setText(dfDate.format(new Date(dataFine)));
+            cursor.close();
+            cursor.close();
+        }
+    }
+
+    /*
+        Returns an implementation of DBCSpeseRipetute or DBCEntrate ripetute, depending on
+        wether this class displays an expense or earning.
+     */
+    public abstract DBCExpEarRepeated getDBCExpEarRepeated();
+
+
+    /*
+        Enter animation. NestedScrollView, which contains a CardView representing the main content,
+        is moved upwards with an animation.
+    */
+    @Override
+    public void onEnterAnimationComplete() {
+        super.onEnterAnimationComplete();
+
+        View contentView = findViewById(R.id.nsv_main_content);
+        float offset = getResources().getDimensionPixelSize(R.dimen.content_offset_y);
+        Interpolator interpolator = AnimationUtils.loadInterpolator(this, android.R.interpolator.linear_out_slow_in);
+        contentView.setVisibility(View.VISIBLE);
+        fabAlto.setVisibility(View.VISIBLE);
+        contentView.setTranslationY(offset);
+        contentView.setAlpha(0.3f);
+        contentView.animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setInterpolator(interpolator)
+                .setDuration(500L)
+                .start();
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_speseentratedettagliovoce, menu);
+
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_speseEntrateDettaglioVoce_cancella:
+                eliminaVoce();
+
+                return true;
+            case R.id.menu_speseEntrateDettaglioVoce_duplica:
+                duplicaVoce(); // duplication of expense/earning
+
+                return true;
+            case android.R.id.home:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    finishAfterTransition();
+                } else {
+                    finish();
+                }
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+    // FAB pressed: edit expense/earning.
+    public void fabPressed(View v) {
+        edit();
+    }
+
+
+    // Launch Activity to edit this expense/earning.
+    private void edit() {
+        Intent intent = getEditIntent();
+        intent.putExtra(KEY_ID, id);
+        intent.putExtra(KEY_TAG, tag);
+        intent.putExtra(KEY_AMOUNT, importo);
+        intent.putExtra(KEY_CURRENCY, valuta);
+        intent.putExtra(KEY_AMOUNT_CURR, importoValprin);
+        intent.putExtra(KEY_DATE, data);
+        intent.putExtra(KEY_DESC, descrizione);
+        intent.putExtra(KEY_REP_ID, ripetizione_id);
+        intent.putExtra(KEY_ACCOUNT, conto);
+        intent.putExtra(KEY_FAVORITE, preferito);
+        startActivityForResult(intent, 0);
+    }
+
+
+    /*
+        Returns an Intent to launch an Activity to edit this expense/earning.
+        Subclasses must specify the class (for expenses or earnings).
+     */
+    public abstract Intent getEditIntent();
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // TODO: 10/10/2016 inserire suoni quando si cancella o aggiunge una voce
+/*        if (suoniAbilitati && confermaElimina) {
+            soundPool.play(mappaSuoni.get(CostantiSuoni.SUONO_CANCELLAZIONE), 1, 1, 1, 0, 1f);
+        } else if (suoniAbilitati && confermaDuplica) {
+            soundPool.play(mappaSuoni.get(CostantiSuoni.SUONO_AGGIUNGI_SPESA_ENTRATA), 1, 1, 1, 0, 1f);
+        }*/
+    }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  ~ Copyright (c) - Software developed by iClaude.
   -->
 
 <android.support.design.widget.CoordinatorLayout
@@ -193,7 +193,7 @@
         app:layout_anchorGravity="top|right|end"
         android:elevation="6dp"
         app:pressedTranslationZ="6dp"
-        android:onClick="fabPremuto"
+        android:onClick="fabPressed"
         app:layout_behavior="com.flingsoftware.personalbudget.app.utility.FABHighShowHideBehavior"
         android:visibility="gone" />
 
@@ -208,7 +208,7 @@
         app:layout_anchorGravity="bottom|right|end"
         android:elevation="6dp"
         app:pressedTranslationZ="6dp"
-        android:onClick="fabPremuto"
+        android:onClick="fabPressed"
         android:visibility="gone"
         app:layout_behavior="com.flingsoftware.personalbudget.app.utility.FABLowShowHideBehavior"/>
 

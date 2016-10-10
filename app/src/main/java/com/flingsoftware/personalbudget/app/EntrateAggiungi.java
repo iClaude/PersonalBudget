@@ -1,39 +1,8 @@
+/*
+ * Copyright (c) - Software developed by iClaude.
+ */
+
 package com.flingsoftware.personalbudget.app;
-
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.CONTO_DEFAULT;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.TAG_ENTRATE_ULTIMO;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_CORRENTE;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.*;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.*;
-import static com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche.DETTAGLIO_VALUTA_CODICE;
-import static com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche.DETTAGLIO_VALUTA_SIMBOLO;
-import static com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche.DETTAGLIO_VALUTA_TASSO;
-import static com.flingsoftware.personalbudget.valute.ElencoValute.CostantiPubbliche.ELENCO_VALUTE_VALUTADEFAULT_CODICE;
-import static com.flingsoftware.personalbudget.valute.ElencoValute.CostantiPubbliche.ELENCO_VALUTE_VALUTA_CODICE;
-import static com.flingsoftware.personalbudget.valute.RecuperaCambioIntentService.CostantiPubbliche.AZIONE_RECUPERA_CAMBIO;
-import static com.flingsoftware.personalbudget.valute.RecuperaCambioIntentService.CostantiPubbliche.EXTRA_CAMBIO;
-
-import com.flingsoftware.personalbudget.database.*;
-import com.flingsoftware.personalbudget.oggetti.SpesaEntrata;
-import com.flingsoftware.personalbudget.utilita.Animazioni;
-import com.flingsoftware.personalbudget.valute.ElencoValute;
-import com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche;
-import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze;
-import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiSuoni;
-import com.flingsoftware.personalbudget.customviews.MioToast;
-
-import java.text.DateFormat;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Currency;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-
-import com.flingsoftware.personalbudget.R;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -54,6 +23,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -68,17 +38,60 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FilterQueryProvider;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.SimpleCursorAdapter;
 import android.widget.SimpleCursorAdapter.CursorToStringConverter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v7.app.ActionBarActivity;
+
+import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze;
+import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiSuoni;
+import com.flingsoftware.personalbudget.customviews.MioToast;
+import com.flingsoftware.personalbudget.database.DBCConti;
+import com.flingsoftware.personalbudget.database.DBCEntrateIncassate;
+import com.flingsoftware.personalbudget.database.DBCEntrateRipetute;
+import com.flingsoftware.personalbudget.database.DBCEntrateVoci;
+import com.flingsoftware.personalbudget.database.InserimentoMultiploIntentService;
+import com.flingsoftware.personalbudget.oggetti.SpesaEntrata;
+import com.flingsoftware.personalbudget.utilita.Animazioni;
+import com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche;
+import com.flingsoftware.personalbudget.valute.ElencoValute;
+
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Currency;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.CONTO_DEFAULT;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.TAG_ENTRATE_ULTIMO;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_CORRENTE;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.ID_DATEPICKER;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.WIDGET_PICCOLO_AGGIORNA;
+import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_CONTO;
+import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_DATA;
+import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_DESCRIZIONE;
+import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_FAVORITE;
+import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_ID;
+import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_IMPORTO;
+import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_IMPORTO_VALPRIN;
+import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_RIPETIZIONE_ID;
+import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_TAG;
+import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_VALUTA;
+import static com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche.DETTAGLIO_VALUTA_CODICE;
+import static com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche.DETTAGLIO_VALUTA_SIMBOLO;
+import static com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche.DETTAGLIO_VALUTA_TASSO;
+import static com.flingsoftware.personalbudget.valute.ElencoValute.CostantiPubbliche.ELENCO_VALUTE_VALUTADEFAULT_CODICE;
+import static com.flingsoftware.personalbudget.valute.ElencoValute.CostantiPubbliche.ELENCO_VALUTE_VALUTA_CODICE;
+import static com.flingsoftware.personalbudget.valute.RecuperaCambioIntentService.CostantiPubbliche.AZIONE_RECUPERA_CAMBIO;
+import static com.flingsoftware.personalbudget.valute.RecuperaCambioIntentService.CostantiPubbliche.EXTRA_CAMBIO;
 
 
 public class EntrateAggiungi extends ActionBarActivity implements DatePickerFragment.DialogFinishedListener {
@@ -896,7 +909,7 @@ Create an Intent to start this Activity with the main variables set.
 		
 		protected Cursor doInBackground(Long... params) {
 			dbcEntrateRipetute.openLettura();
-			Cursor curRipetizione = dbcEntrateRipetute.getEntrataRipetuta(params[0]);
+			Cursor curRipetizione = dbcEntrateRipetute.getItemRepeated(params[0]);
 			
 			return curRipetizione;
 		}

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) - Software developed by iClaude.
+ */
+
 /**
  * Gestione tabella entrate_ripet
  * Funzionamento del database:
@@ -7,37 +11,18 @@
  */
 package com.flingsoftware.personalbudget.database;
 
-import static com.flingsoftware.personalbudget.database.DatabaseOpenHelper.sDataLock;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
+
+import static com.flingsoftware.personalbudget.database.DatabaseOpenHelper.sDataLock;
 
 
-public class DBCEntrateRipetute {
+public class DBCEntrateRipetute extends DBCExpEarRepeated {
 	
 	public DBCEntrateRipetute(Context context) {
-		mioDatabaseOpenHelper = new DatabaseOpenHelper(context, DatabaseOpenHelper.NOME_DATABASE, null);
+		super(context);
 	}
-	
-	
-	public void openModifica() throws SQLException {
-		mioSQLiteDatabase = mioDatabaseOpenHelper.getWritableDatabase();
-		mioSQLiteDatabase.execSQL("PRAGMA foreign_keys=ON;"); // bisogna abilitare le foreign keys qui
-	}
-	
-	
-	public void openLettura() throws SQLException {
-		mioSQLiteDatabase = mioDatabaseOpenHelper.getReadableDatabase();
-	}
-	
-	
-	public void close() {
-		if(mioSQLiteDatabase != null)
-			mioSQLiteDatabase.close();
-	}
-	
 	
 	/**
 	 * Inserisce una entrata ripetuta nella tabella entrate_ripet.
@@ -133,7 +118,8 @@ public class DBCEntrateRipetute {
 	 * @param id id della entrata ripetuta di questa tabella
 	 * @return un Cursor che rappresenta la entrata ripetuta selezionata
 	 */
-	public Cursor getEntrataRipetuta(long id) {
+	@Override
+	public Cursor getItemRepeated(long id) {
 		return mioSQLiteDatabase.query("entrate_ripet", null, "_id=" + id,  null,  null,  null,  null);
 	}
 	
@@ -165,11 +151,6 @@ public class DBCEntrateRipetute {
 	public Cursor getTutteLeEntrate() {
 		return mioSQLiteDatabase.query("entrate_ripet", null, null, null, null, null, null);
 	}
-		
-	
-	// variabili d'istanza
-	private SQLiteDatabase mioSQLiteDatabase;
-	private DatabaseOpenHelper mioDatabaseOpenHelper;
 }
 
 
