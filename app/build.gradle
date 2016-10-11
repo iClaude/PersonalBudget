@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) This code was written by iClaude. All rights reserved.
+ */
+
 apply plugin: 'com.android.application'
 
 android {
@@ -8,6 +12,8 @@ android {
         applicationId "com.flingsoftware.personalbudget"
         minSdkVersion 15
         targetSdkVersion 23
+        versionCode 14
+        versionName "1.6"
     }
     defaultConfig {
         renderscriptTargetApi 19
@@ -39,13 +45,5 @@ dependencies {
     compile ('com.android.support:support-v4:23.2.0')
     compile 'com.android.support:palette-v7:23.2.0'
 
-    compile files('libs/achartengine-1.1.0.jar')
-    compile files('libs/bcprov-jdk16-146.jar')
-    compile files('libs/commons-logging-1.1.1.jar')
-    compile files('libs/dropbox-android-sdk-1.6.1.jar')
-    compile files('libs/httpclient-4.0.3.jar')
-    compile files('libs/httpcore-4.0.1.jar')
-    compile files('libs/httpmime-4.0.3.jar')
-    compile files('libs/json_simple-1.1.jar')
-    compile files('libs/poi-3.10-beta2-20130904.jar')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
 }
