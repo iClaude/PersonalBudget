@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) This code was written by iClaude. All rights reserved.
+ */
+
 package com.flingsoftware.personalbudget.app;
 
 import android.app.AlertDialog;
@@ -798,8 +802,8 @@ public class FragmentSpese extends Fragment implements SharedPreferences.OnShare
 				curSpesa.moveToFirst();
 				String voce = curSpesa.getString(curSpesa.getColumnIndex("voce"));
 				long data = curSpesa.getLong(curSpesa.getColumnIndex("data"));
-				
-				speseEliminate += dbcSpeseSostenute.eliminaSpesaSostenuta(idSpesa);		
+
+				speseEliminate += dbcSpeseSostenute.deleteElement(idSpesa);
 				dbcSpeseSostenute.close();
 				curSpesa.close();
 				//aggiorno i budget per ogni spesa eliminata

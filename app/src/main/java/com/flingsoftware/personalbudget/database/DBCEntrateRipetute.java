@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 /**
@@ -18,10 +18,15 @@ import android.database.Cursor;
 import static com.flingsoftware.personalbudget.database.DatabaseOpenHelper.sDataLock;
 
 
-public class DBCEntrateRipetute extends DBCExpEarRepeated {
+public class DBCEntrateRipetute extends DBCExpEarRepeatedAbs {
 	
 	public DBCEntrateRipetute(Context context) {
 		super(context);
+	}
+
+	@Override
+	public String getTableName() {
+		return "entrate_inc";
 	}
 	
 	/**
@@ -122,22 +127,8 @@ public class DBCEntrateRipetute extends DBCExpEarRepeated {
 	public Cursor getItemRepeated(long id) {
 		return mioSQLiteDatabase.query("entrate_ripet", null, "_id=" + id,  null,  null,  null,  null);
 	}
-	
-	
-	/**
-	 * Elimina una entrata ripetuta dalla tabella entrate_ripet.
-	 * 
-	 * @param id id della entrata ripetuta da eliminare in questa tabella
-	 */
-	public void eliminaEntrataRipetuta(long id) {
-		synchronized (sDataLock) {
-			openModifica();
-			mioSQLiteDatabase.delete("entrate_ripet", "_id=" + id, null);
-			close();
-		}
-	}
-	
-	
+
+
 	/**
 	 * Restituisce tutte le entrate appartenenti al conto indicato.
 	 * @return Cursor con tutti i campi

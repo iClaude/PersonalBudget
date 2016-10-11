@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app;
@@ -953,7 +953,7 @@ Create an Intent to start this Activity with the main variables set.
 			if(ripetizione_id != -1) { 
 				dbcEntrateIncassate.openModifica();
 				try {
-					dbcEntrateIncassate.inserisciEntrataIncassata(data.getTimeInMillis(), tag, importo, valutaCorrente, importo * tassoCambio, descrizione, ripetizione_id, conto, favorite);
+					dbcEntrateIncassate.insertElement(data.getTimeInMillis(), tag, importo, valutaCorrente, importo * tassoCambio, descrizione, ripetizione_id, conto, favorite);
 				}
 				catch (Exception exc) {
 					return false;

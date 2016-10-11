@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app;
@@ -970,7 +970,7 @@ public class SpeseAggiungi extends ActionBarActivity implements DatePickerFragme
 			if(ripetizione_id != -1) {
 				dbcSpeseSostenute.openModifica();
 				try {
-					dbcSpeseSostenute.inserisciSpesaSostenuta(data.getTimeInMillis(), tag, importo, valutaCorrente, importo * tassoCambio, descrizione, ripetizione_id, conto, favorite);
+					dbcSpeseSostenute.insertElement(data.getTimeInMillis(), tag, importo, valutaCorrente, importo * tassoCambio, descrizione, ripetizione_id, conto, favorite);
 				}
 				catch (Exception exc) {
 					return false;

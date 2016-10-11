@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) This code was written by iClaude. All rights reserved.
+ */
+
 /**
  * Gestione tabella entrate_inc
  * Funzionamento del database:
@@ -7,73 +11,42 @@
  */
 package com.flingsoftware.personalbudget.database;
 
-import static com.flingsoftware.personalbudget.database.DatabaseOpenHelper.sDataLock;
-import static com.flingsoftware.personalbudget.database.StringheSQL.*;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import static com.flingsoftware.personalbudget.database.DatabaseOpenHelper.sDataLock;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ENTRATE_INC_DATAX_ELENCO_FILTRATO;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ENTRATE_INC_ENTRATAX_DETTAGLIO;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ENTRATE_INC_INTERVALLO;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ENTRATE_INC_INTERVALLO_ENTRATAX_AVG;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ENTRATE_INC_INTERVALLO_ENTRATAX_FILTRATO;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ENTRATE_INC_INTERVALLO_ENTRATAX_MAX;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ENTRATE_INC_INTERVALLO_ENTRATAX_MIN;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ENTRATE_INC_INTERVALLO_ENTRATAX_TOTALE;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ENTRATE_INC_INTERVALLO_MIN_MAX_PER_VOCE;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ENTRATE_INC_INTERVALLO_NO_TRASF;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ENTRATE_INC_INTERVALLO_TOTALE;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ENTRATE_INC_INTERVALLO_TOTALE_NO_TRASF;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ENTRATE_INC_INTERVALLO_TOTALI_PER_DATA_FILTRATO;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ENTRATE_INC_INTERVALLO_TOTALI_PER_VOCE_FILTRATO;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ENTRATE_INC_INTERVALLO_TOTALI_PER_VOCE_ORDINATO_PER_IMPORTO;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ENTRATE_INC_INTERVALLO_TOTALI_PER_VOCE_ORDINATO_PER_IMPORTO_NO_TRASF;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ENTRATE_INC_PREFERITE;
 
-public class DBCEntrateIncassate {
+
+public class DBCEntrateIncassate extends DBCExpEarAbs {
 	
 	public DBCEntrateIncassate(Context context) {
-		mioDatabaseOpenHelper = new DatabaseOpenHelper(context, DatabaseOpenHelper.NOME_DATABASE, null);
+		super(context);
 	}
-	
-	
-	public void openModifica() throws SQLException {
-		mioSQLiteDatabase = mioDatabaseOpenHelper.getWritableDatabase();
-		mioSQLiteDatabase.execSQL("PRAGMA foreign_keys=ON;"); // bisogna abilitare le foreign keys qui
-	}
-	
-	
-	public void openLettura() throws SQLException {
-		mioSQLiteDatabase = mioDatabaseOpenHelper.getReadableDatabase();
-	}
-	
-	
-	public void close() {
-		if(mioSQLiteDatabase != null)
-			mioSQLiteDatabase.close();
-	}
-	
-	
-	/**
-	 * Inserisce una entrata incassata nella tabella entrate_inc.
-	 * 
-	 * @param data data di incasso della entrata nel formato Unix Time, the number of seconds since 
-	 * 1970-01-01 00:00:00 UTC
-	 * @param voce voce della entrata come da tabella entrate_voci
-	 * @param importo importo entrata in valuta
-	 * @param valuta simbolo della valuta
-	 * @param importo_valprin importo entrata nella valuta di default
-	 * @param descrizione descrizione entrata
-	 * @param ripetizione_id id per eventuali entrate ripetute, come da tabella entrate_ripet. 0 se non 
-	 * c'è ripetizione.
-	 * @param conto nome del conto
-	 * @param favorite 1 for favorite transactions, 0 otherwise
-	 */
-	public void inserisciEntrataIncassata(long data, String voce, double importo, String valuta, double importo_valprin, String descrizione, long ripetizione_id, String conto, int favorite) {
-		ContentValues nuovoContact = new ContentValues();
-		nuovoContact.put("data", data);
-		nuovoContact.put("voce", voce);
-		nuovoContact.put("importo", importo);
-		nuovoContact.put("valuta", valuta);
-		nuovoContact.put("importo_valprin", importo_valprin);
-		nuovoContact.put("descrizione", descrizione);
-		nuovoContact.put("ripetizione_id", ripetizione_id);
-		nuovoContact.put("conto", conto);
-		nuovoContact.put("favorite", favorite);
 
-		synchronized (sDataLock) {
-			openModifica();
-			mioSQLiteDatabase.insert("entrate_inc", null, nuovoContact);
-			close();
-		}
+	@Override
+	public String getTableName() {
+		return "entrate_inc";
 	}
-	
+
 	
 	/**
 	 * Aggiorna una entrata incassata nella tabella entrate_inc.
@@ -119,44 +92,7 @@ public class DBCEntrateIncassate {
 	public Cursor getEntrataIncassata(long id) {
 		return mioSQLiteDatabase.query("entrate_inc", null, "_id=" + id,  null,  null,  null,  null);
 	}
-	
-	
-	/**
-	 * Elimina una entrata incassata dalla tabella entrate_inc.
-	 * 
-	 * @param id id della entrata incassata da eliminare in questa tabella
-	 * @return numero entrate eliminate dalla tabella
-	 */
-	public int eliminaEntrataIncassata(long id) {
-		synchronized (sDataLock) {
-			int entrateEliminate = 0;
-			openModifica();
-			entrateEliminate = mioSQLiteDatabase.delete("entrate_inc", "_id=" + id, null);
-			close();
-			
-			return entrateEliminate;
-		}
-	}
-	
-	/**
-	 * Elimina tutte le entrate ripetute con un dato codice ripetizione_id dalla tabella entrate_inc e 
-	 * restituisce il numero di record cancellati.
-	 * 
-	 * @param ripetizioneId identificativo del campo ripetizione_id (fa riferimento al campo _id della
-	 * tabella entrate_ripet
-	 * 
-	 * @return numero di record cancellati dalla tabella
-	 */
-	public int eliminaEntrateRipetute(long ripetizioneId) {
-		synchronized (sDataLock) {
-			openModifica();
-			int num = mioSQLiteDatabase.delete("entrate_inc", "ripetizione_id=" + ripetizioneId, null);
-			close();
-			
-			return num;
-		}
-	}
-	
+
 	/**
 	 * Elimina tutte le entrate ripetute con un dato codice ripetizione_id ma solo a partire dalla data
 	 * specificata, e restituisce il numero di record cancellati.

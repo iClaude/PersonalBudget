@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 /**
@@ -18,11 +18,16 @@ import android.database.Cursor;
 import static com.flingsoftware.personalbudget.database.DatabaseOpenHelper.sDataLock;
 
 
-public class DBCSpeseRipetute extends DBCExpEarRepeated {
-	
-	public DBCSpeseRipetute(Context context) {
+public class DBCSpeseRipetute extends DBCExpEarRepeatedAbs {
+
+    public DBCSpeseRipetute(Context context) {
 		super(context);
 	}
+
+    @Override
+    public String getTableName() {
+        return "spese_sost";
+    }
 
 	/**
 	 * Inserisce una spesa ripetuta nella tabella spese_ripet e restituisce un valore long che rappresenta
@@ -123,23 +128,9 @@ public class DBCSpeseRipetute extends DBCExpEarRepeated {
 	public Cursor getItemRepeated(long id) {
 		return mioSQLiteDatabase.query("spese_ripet", null, "_id=" + id,  null,  null,  null,  null);
 	}
-	
-	/**
-	 * Elimina una spesa ripetuta dalla tabella spese_ripet.
-	 * 
-	 * @param id id della spesa ripetuta da eliminare in questa tabella
-	 */
-	
-	public void eliminaSpesaRipetuta(long id) {
-		synchronized (sDataLock) {
-			openModifica();
-			mioSQLiteDatabase.delete("spese_ripet", "_id=" + id, null);
-			close();
-		}
-	}
-	
-	
-	/**
+
+
+    /**
 	 * Restituisce tutte le spese appartenenti al conto indicato.
 	 * @return Cursor con tutti i campi
 	 */

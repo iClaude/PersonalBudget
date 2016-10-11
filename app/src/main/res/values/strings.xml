@@ -1,4 +1,8 @@
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<!--
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  -->
+
+<resources>
 
     <!-- Menu info last version -->
     <string name="miv_last_version_title">Version 1.6</string>
@@ -531,10 +535,9 @@
     <string name="preferiti_preferiti">Favorites</string>
     <string name="preferiti_istruzioni">Click on Add to favorites when you insert an expense/earning.</string>
     <string name="budget_dettaglio_duplica">Duplicate</string>
-    <string name="dettagli_voce_spesa_duplicata">The expense has been duplicated.</string>
-    <string name="dettagli_voce_entrata_duplicata">The earning has been duplicated.</string>
+    <string name="dettagli_voce_elemento_duplicato">The element has been duplicated.</string>
     <string name="dettagli_voce_conferma_duplica_titolo">Confirm duplicate?</string>
-    <string name="dettagli_voce_conferma_duplica_msg">The selected item will be duplicated.</string>
+    <string name="dettagli_voce_conferma_duplica_msg">The selected element will be duplicated.</string>
     <string name="preferiti_conferma_elimina_titolo">Confirm delete?</string>
     <string name="preferiti_conferma_elimina_msg">The selected transactions will be deleted from the favorites. The transactions themselves will not be deleted.</string>
     <string name="nfc_error">NFC error: the operation can not be completed!</string>

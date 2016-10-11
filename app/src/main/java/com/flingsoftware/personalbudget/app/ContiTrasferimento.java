@@ -1,15 +1,8 @@
+/*
+ * Copyright (c) This code was written by iClaude. All rights reserved.
+ */
+
 package com.flingsoftware.personalbudget.app;
-
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
-
-import java.util.Currency;
-import java.util.Locale;
-
-import com.flingsoftware.personalbudget.R;
-import com.flingsoftware.personalbudget.customviews.MioToast;
-import com.flingsoftware.personalbudget.database.DBCConti;
-import com.flingsoftware.personalbudget.database.DBCEntrateIncassate;
-import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -17,15 +10,26 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
-import android.widget.EditText;
 import android.widget.Toast;
-import android.support.v7.app.ActionBarActivity;
+
+import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.customviews.MioToast;
+import com.flingsoftware.personalbudget.database.DBCConti;
+import com.flingsoftware.personalbudget.database.DBCEntrateIncassate;
+import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
+
+import java.util.Currency;
+import java.util.Locale;
+
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
 
 
 public class ContiTrasferimento extends ActionBarActivity {
@@ -162,10 +166,10 @@ public class ContiTrasferimento extends ActionBarActivity {
 			String voce = getString(R.string.voce_giroconto);
 			
 			DBCSpeseSostenute dbcSpeseSostenute = new DBCSpeseSostenute(ContiTrasferimento.this);
-			dbcSpeseSostenute.inserisciSpesaSostenuta(oggi, voce, importoTrasf, valuta, importoTrasf, voce + " " + contoA, 1, contoDa, 0);
+			dbcSpeseSostenute.insertElement(oggi, voce, importoTrasf, valuta, importoTrasf, voce + " " + contoA, 1, contoDa, 0);
 			
 			DBCEntrateIncassate dbcEntrateIncassate = new DBCEntrateIncassate(ContiTrasferimento.this);
-			dbcEntrateIncassate.inserisciEntrataIncassata(oggi, voce, importoTrasf, valuta, importoTrasf, voce + " " + contoDa, 1, contoA, 0);
+			dbcEntrateIncassate.insertElement(oggi, voce, importoTrasf, valuta, importoTrasf, voce + " " + contoDa, 1, contoA, 0);
 
 			return null;
 		}

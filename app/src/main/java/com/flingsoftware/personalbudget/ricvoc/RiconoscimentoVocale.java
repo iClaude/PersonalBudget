@@ -1,31 +1,24 @@
+/*
+ * Copyright (c) This code was written by iClaude. All rights reserved.
+ */
+
 package com.flingsoftware.personalbudget.ricvoc;
 
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_CORRENTE;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.WIDGET_AGGIORNA;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.WIDGET_PICCOLO_AGGIORNA;
-import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA;
-
-import com.flingsoftware.personalbudget.R;
-import com.flingsoftware.personalbudget.app.FunzioniComuni;
-import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze;
-import com.flingsoftware.personalbudget.customviews.MioToast;
-import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
-import com.flingsoftware.personalbudget.database.DBCEntrateVoci;
-import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
-import com.flingsoftware.personalbudget.database.DBCEntrateIncassate;
-import com.flingsoftware.personalbudget.database.FunzioniAggiornamento;
-
-import java.util.Currency;
-import java.util.Locale;
-import java.util.HashMap;
-import java.util.ArrayList;
-
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.TextToSpeech.OnInitListener;
+import android.speech.tts.UtteranceProgressListener;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.SparseIntArray;
@@ -33,18 +26,29 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.database.Cursor;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.speech.RecognizerIntent;
-import android.speech.tts.TextToSpeech;
-import android.speech.tts.TextToSpeech.OnInitListener;
-import android.content.Intent;
-import android.content.ActivityNotFoundException;
-import android.content.SharedPreferences;
-import android.widget.ImageView;
-import android.speech.tts.UtteranceProgressListener;
-import android.support.v7.app.ActionBarActivity;
+
+import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.app.FunzioniComuni;
+import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze;
+import com.flingsoftware.personalbudget.customviews.MioToast;
+import com.flingsoftware.personalbudget.database.DBCEntrateIncassate;
+import com.flingsoftware.personalbudget.database.DBCEntrateVoci;
+import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
+import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
+import com.flingsoftware.personalbudget.database.FunzioniAggiornamento;
+
+import java.util.ArrayList;
+import java.util.Currency;
+import java.util.HashMap;
+import java.util.Locale;
+
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_CORRENTE;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.WIDGET_AGGIORNA;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.WIDGET_PICCOLO_AGGIORNA;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA;
 
 
 public class RiconoscimentoVocale extends ActionBarActivity {
@@ -574,7 +578,7 @@ public class RiconoscimentoVocale extends ActionBarActivity {
 			
 			dbcSpeseSostenute.openModifica();
 			try {
-				dbcSpeseSostenute.inserisciSpesaSostenuta(oggi, datiVoce.getVoce(), datiVoce.getImporto(), valutaCorrente, datiVoce.getImporto(), "", 1, contoDefault, 0);
+				dbcSpeseSostenute.insertElement(oggi, datiVoce.getVoce(), datiVoce.getImporto(), valutaCorrente, datiVoce.getImporto(), "", 1, contoDefault, 0);
 			}
 			catch (Exception exc) {
 				return false;
@@ -649,7 +653,7 @@ public class RiconoscimentoVocale extends ActionBarActivity {
 			
 			dbcEntrateIncassate.openModifica();
 			try {
-				dbcEntrateIncassate.inserisciEntrataIncassata(oggi, datiVoce.getVoce(), datiVoce.getImporto(), valutaCorrente, datiVoce.getImporto(), "", 1, contoDefault, 0);
+				dbcEntrateIncassate.insertElement(oggi, datiVoce.getVoce(), datiVoce.getImporto(), valutaCorrente, datiVoce.getImporto(), "", 1, contoDefault, 0);
 			}
 			catch (Exception exc) {
 				return false;

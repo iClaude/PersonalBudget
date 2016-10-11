@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app;
@@ -529,7 +529,7 @@ public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrat
 		@Override
 		protected Void doInBackground(Object... params) {
 			dbcSpeseSostenute.openModifica();
-			dbcSpeseSostenute.inserisciSpesaSostenuta(FunzioniComuni.getDataAttuale(), tag, importo, valuta, importoValprin, descrizione, ripetizione_id, conto, 0);
+			dbcSpeseSostenute.insertElement(FunzioniComuni.getDataAttuale(), tag, importo, valuta, importoValprin, descrizione, ripetizione_id, conto, 0);
 			dbcSpeseSostenute.close();
 			return null;
 		}

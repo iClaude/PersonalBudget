@@ -1,4 +1,8 @@
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<!--
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  -->
+
+<resources>
 
     <!-- Menu info last version -->
     <string name="miv_last_version_title">Versione 1.6</string>
@@ -534,8 +538,7 @@
     <string name="preferiti_preferiti">Preferiti</string>
     <string name="preferiti_istruzioni">Clicca su Aggiungi ai preferiti quando inserisci una voce.</string>
     <string name="budget_dettaglio_duplica">Duplica</string>
-    <string name="dettagli_voce_spesa_duplicata">La spesa è stata duplicata.</string>
-    <string name="dettagli_voce_entrata_duplicata">L\'entrata è stata duplicata</string>
+    <string name="dettagli_voce_elemento_duplicato">La voce è stata duplicata.</string>
     <string name="dettagli_voce_conferma_duplica_titolo">Conferma duplicazione?</string>
     <string name="dettagli_voce_conferma_duplica_msg">La voce selezionata sarà duplicata.</string>
     <string name="preferiti_conferma_elimina_titolo">Conferma eliminazione?</string>

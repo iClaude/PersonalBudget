@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) This code was written by iClaude. All rights reserved.
+ */
+
 /**
  * Gestione tabella spese_sost
  * Funzionamento del database:
@@ -7,77 +11,46 @@
  */
 package com.flingsoftware.personalbudget.database;
 
-import static com.flingsoftware.personalbudget.database.DatabaseOpenHelper.sDataLock;
-
-// stringhe SQL usate in questa classe
-import static com.flingsoftware.personalbudget.database.StringheSQL.*;
-
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import static com.flingsoftware.personalbudget.database.DatabaseOpenHelper.sDataLock;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_DATAX_ELENCO_FILTRATO;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_INTERVALLO;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_INTERVALLO_MIN_MAX_PER_VOCE;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_INTERVALLO_NO_TRASF;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_INTERVALLO_SPESAX_AVG;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_INTERVALLO_SPESAX_FILTRATO;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_INTERVALLO_SPESAX_MAX;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_INTERVALLO_SPESAX_MIN;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_INTERVALLO_SPESAX_TOTALE;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_INTERVALLO_TOTALE;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_INTERVALLO_TOTALE_NO_TRASF;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_INTERVALLO_TOTALI_PER_DATA_FILTRATO;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_INTERVALLO_TOTALI_PER_VOCE_FILTRATO;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_INTERVALLO_TOTALI_PER_VOCE_ORDINATO_PER_IMPORTO;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_INTERVALLO_TOTALI_PER_VOCE_ORDINATO_PER_IMPORTO_NO_TRASF;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_PREFERITE;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_SPESAX_DETTAGLIO;
 
-public class DBCSpeseSostenute {
+// stringhe SQL usate in questa classe
+
+
+public class DBCSpeseSostenute extends DBCExpEarAbs {
 	
 	public DBCSpeseSostenute(Context context) {
-		mioDatabaseOpenHelper = new DatabaseOpenHelper(context, DatabaseOpenHelper.NOME_DATABASE, null);
+		super(context);
 	}
-	
-	
-	public void openModifica() throws SQLException {
-		mioSQLiteDatabase = mioDatabaseOpenHelper.getWritableDatabase();
-		mioSQLiteDatabase.execSQL("PRAGMA foreign_keys=ON;"); // bisogna abilitare le foreign keys qui
+
+
+	@Override
+	public String getTableName() {
+		return "spese_sost";
 	}
-	
-	
-	public void openLettura() throws SQLException {
-		mioSQLiteDatabase = mioDatabaseOpenHelper.getReadableDatabase();
-	}
-	
-	
-	public void close() {
-		if(mioSQLiteDatabase != null)
-			mioSQLiteDatabase.close();
-	}
-	
-	/**
-	 * Inserisce una spesa sostenuta nella tabella spese_sost.
-	 * 
-	 * @param data data di sostenimento della spesa nel formato Unix Time, the number of seconds since 
-	 * 1970-01-01 00:00:00 UTC
-	 * @param voce voce della spesa come da tabella spese_voci
-	 * @param importo importo spesa in valuta
-	 * @param valuta simbolo della valuta
-	 * @param importo_valprin importo spesa nella valuta di default
-	 * @param descrizione descrizione spesa
-	 * @param ripetizione_id id per eventuali spese ripetute, come da tabella spese_ripet. 0 se non c'è 
-	 * ripetizione.
-	 * @param conto nome del conto
-	 * @param favorite 1 for favorite transactions, 0 otherwise
-	 */
-	public void inserisciSpesaSostenuta(long data, String voce, double importo, String valuta, double importo_valprin, String descrizione, long ripetizione_id, String conto, int favorite) {
-		ContentValues nuovoContact = new ContentValues();
-		nuovoContact.put("data", data);
-		nuovoContact.put("voce", voce);
-		nuovoContact.put("importo", importo);
-		nuovoContact.put("valuta", valuta);
-		nuovoContact.put("importo_valprin", importo_valprin);
-		nuovoContact.put("descrizione", descrizione);
-		nuovoContact.put("ripetizione_id", ripetizione_id);
-		nuovoContact.put("conto", conto);
-		nuovoContact.put("favorite", favorite);
-		
-		synchronized (sDataLock) {
-			openModifica();
-			mioSQLiteDatabase.insert("spese_sost", null, nuovoContact);
-			close();
-		}
-	}
-	
-	
+
+
 	/**
 	 * Aggiorna una spesa sostenuta nella tabella spese_sost.
 	 * 
@@ -122,45 +95,6 @@ public class DBCSpeseSostenute {
 	public Cursor getSpesaSostenuta(long id) {
 		return mioSQLiteDatabase.query("spese_sost", null, "_id=" + id,  null,  null,  null,  null);
 	}
-	
-	
-	/**
-	 * Elimina una spesa sostenuta dalla tabella spese_sost.
-	 * 
-	 * @param id id della spesa sostenuta da eliminare in questa tabella
-	 * @return numero di spese eliminate
-	 */
-	public int eliminaSpesaSostenuta(long id) {
-		synchronized (sDataLock) {
-			int speseEliminate = 0;
-			openModifica();
-			speseEliminate = mioSQLiteDatabase.delete("spese_sost", "_id=" + id, null);
-			close();
-			
-			return speseEliminate;
-		}
-	}
-	
-	
-	/**
-	 * Elimina tutte le spese ripetute con un dato codice ripetizione_id dalla tabella spese_sost e 
-	 * restituisce il numero di record cancellati.
-	 * 
-	 * @param ripetizioneId identificativo del campo ripetizione_id (fa riferimento al campo _id della
-	 * tabella spese_ripet
-	 * 
-	 * @return numero di record cancellati dalla tabella
-	 */
-	public int eliminaSpeseRipetute(long ripetizioneId) {
-		synchronized (sDataLock) {
-			openModifica();
-			int num = mioSQLiteDatabase.delete("spese_sost", "ripetizione_id=" + ripetizioneId, null);
-			close();
-			
-			return num;
-		}
-	}
-	
 	
 	/**
 	 * Elimina tutte le spese ripetute con un dato codice ripetizione_id ma solo a partire dalla data

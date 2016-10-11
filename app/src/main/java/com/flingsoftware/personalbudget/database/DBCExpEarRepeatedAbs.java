@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.database;
@@ -9,12 +9,14 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import static com.flingsoftware.personalbudget.database.DatabaseOpenHelper.sDataLock;
+
 /**
  * Abstract class for repeated expenses/earnings.
  * Work in progress...
  */
 
-public abstract class DBCExpEarRepeated {
+public abstract class DBCExpEarRepeatedAbs {
 
     // Columns in the table.
     public static final String COL_TAG = "voce";
@@ -34,7 +36,7 @@ public abstract class DBCExpEarRepeated {
     protected DatabaseOpenHelper mioDatabaseOpenHelper;
 
 
-    public DBCExpEarRepeated(Context context) {
+    public DBCExpEarRepeatedAbs(Context context) {
         mioDatabaseOpenHelper = new DatabaseOpenHelper(context, DatabaseOpenHelper.NOME_DATABASE, null);
     }
 
@@ -52,7 +54,26 @@ public abstract class DBCExpEarRepeated {
             mioSQLiteDatabase.close();
     }
 
+
+    // Gets the name of the table (spese_sost or entrate_inc).
+    public abstract String getTableName();
+
     // Get a specific expense/earning.
     public abstract Cursor getItemRepeated(long id);
+
+
+    /**
+     * Deletes a repeated expense/earning from spese_ripet or entrate_ripet table.
+     *
+     * @param id id of the element to delete from the table
+     */
+
+    public void deleteElementRepeated(long id) {
+        synchronized (sDataLock) {
+            openModifica();
+            mioSQLiteDatabase.delete(getTableName(), "_id=" + id, null);
+            close();
+        }
+    }
 
 }

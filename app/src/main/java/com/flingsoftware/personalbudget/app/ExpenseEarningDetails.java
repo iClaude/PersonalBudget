@@ -1,9 +1,11 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
@@ -26,10 +28,13 @@ import android.view.animation.Interpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.flingsoftware.personalbudget.R;
 import com.flingsoftware.personalbudget.app.utility.AvatarImageBehavior;
-import com.flingsoftware.personalbudget.database.DBCExpEarRepeated;
+import com.flingsoftware.personalbudget.customviews.MioToast;
+import com.flingsoftware.personalbudget.database.DBCExpEarAbs;
+import com.flingsoftware.personalbudget.database.DBCExpEarRepeatedAbs;
 import com.flingsoftware.personalbudget.utilita.SoundEffectsManager;
 import com.flingsoftware.personalbudget.utilita.UtilityVarious;
 
@@ -39,9 +44,11 @@ import java.util.Currency;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.flingsoftware.personalbudget.database.DBCExpEarRepeated.COL_DATE_END;
-import static com.flingsoftware.personalbudget.database.DBCExpEarRepeated.COL_DATE_START;
-import static com.flingsoftware.personalbudget.database.DBCExpEarRepeated.COL_REP;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiDettaglioVoce.OPERAZIONE_ELIMINAZIONE;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiDettaglioVoce.TIPO_OPERAZIONE;
+import static com.flingsoftware.personalbudget.database.DBCExpEarRepeatedAbs.COL_DATE_END;
+import static com.flingsoftware.personalbudget.database.DBCExpEarRepeatedAbs.COL_DATE_START;
+import static com.flingsoftware.personalbudget.database.DBCExpEarRepeatedAbs.COL_REP;
 
 /**
  * Base class for displaying expense or earning details.
@@ -100,7 +107,6 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
     private long dataInizio;
     private String valuta;
     private double importoValprin;
-    private long dataInizio;
     protected SoundEffectsManager soundEffectsManager;
 
 
@@ -300,7 +306,7 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
 
     // Load details of repeated expenses/earnings.
     private class LoadRepetitionDetails extends AsyncTask<Long, Object, Cursor> {
-        DBCExpEarRepeated dbcExpEarRepeated = getDBCExpEarRepeated();
+        DBCExpEarRepeatedAbs dbcExpEarRepeated = getDBCExpEarRepeated();
         long dataFine;
 
         protected Cursor doInBackground(Long... params) {
@@ -347,7 +353,7 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
         Returns an implementation of DBCSpeseRipetute or DBCEntrate ripetute, depending on
         wether this class displays an expense or earning.
      */
-    public abstract DBCExpEarRepeated getDBCExpEarRepeated();
+    public abstract DBCExpEarRepeatedAbs getDBCExpEarRepeated();
 
 
     /*
@@ -393,7 +399,7 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
 
                 return true;
             case R.id.menu_speseEntrateDettaglioVoce_duplica:
-                duplicaVoce(); // duplication of expense/earning
+                duplicate(); // duplication of expense/earning
 
                 return true;
             case android.R.id.home:
@@ -438,6 +444,131 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
         Subclasses must specify the class (for expenses or earnings).
      */
     public abstract Intent getEditIntent();
+
+
+    // Duplicate this element: add a new expense/earning with the same data.
+    private void duplicate() {
+        UtilityVarious.visualizzaDialogOKAnnulla(ExpenseEarningDetails.this,
+                getString(R.string.dettagli_voce_conferma_duplica_titolo),
+                getString(R.string.dettagli_voce_conferma_duplica_msg),
+                getString(R.string.ok),
+                true, getString(R.string.cancella),
+                0,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        new DuplicateElementTask().execute((Object[]) null);
+                    }
+                });
+    }
+
+
+    /*
+        Duplicazione voce: AsyncTask x duplicare la voce in un thread separato. NB: duplicazione =
+        aggiungere nuova voce con data oggi e con gli stessi dati.
+    */
+    private class DuplicateElementTask extends AsyncTask<Object, Void, Void> {
+        DBCExpEarAbs dbcExpEar = getDBCExpEar();
+
+        @Override
+        protected Void doInBackground(Object... params) {
+            dbcExpEar.openModifica();
+            dbcExpEar.insertElement(FunzioniComuni.getDataAttuale(), tag, importo, valuta, importoValprin, descrizione, ripetizione_id, conto, 0);
+            dbcExpEar.close();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            String msg = getResources().getString(R.string.dettagli_voce_elemento_duplicato);
+            new MioToast(ExpenseEarningDetails.this, msg).visualizza(Toast.LENGTH_SHORT);
+            // Subclasses representing an expense must override this method to update the budget table.
+            updateBudgetTable();
+
+            setResult(Activity.RESULT_OK);
+            finish();
+        }
+    }
+
+
+    /*
+        Returns an implementation of DBCSpeseSostenute or DBCEntrateIncassate, depending on
+        wether this class displays an expense or earning.
+    */
+    public abstract DBCExpEarAbs getDBCExpEar();
+
+
+    /*
+        The Activity that displays expenses must override this method to update the budget table
+        when an expense is duplicated. The Activity diplaying earnings must override this
+        and keeping it void.
+     */
+    public abstract void updateBudgetTable();
+
+
+    // Delete this expense/earning in a separate thread.
+    private class DeleteThisElementTask extends AsyncTask<Long, Object, Object> {
+        DBCExpEarAbs dbcExpEarAbs = getDBCExpEar();
+
+        @Override
+        protected Object doInBackground(Long... params) {
+            dbcExpEarAbs.openModifica();
+            dbcExpEarAbs.deleteElement(params[0]);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object result) {
+            dbcExpEarAbs.close();
+
+            String msg = getResources().getQuantityString(R.plurals.dettagli_voce_x_voci_eliminate, 1, 1);
+            new MioToast(ExpenseEarningDetails.this, msg).visualizza(Toast.LENGTH_SHORT);
+            // Subclasses representing an expense must override this method to update the budget table.
+            updateBudgetTable();
+
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra(TIPO_OPERAZIONE, OPERAZIONE_ELIMINAZIONE);
+            setResult(Activity.RESULT_OK, returnIntent);
+            finish();
+        }
+    }
+
+
+    /*
+        Deletes all repeated expenses/earnings from tables spese_sost and entrate_inc,
+        as well as spese_ripet and entrate_ripet.
+    */
+    private class DeleteAllRepeatedElementsTask extends AsyncTask<Long, Object, Integer> {
+        DBCExpEarAbs dbcExpEarAbs = getDBCExpEar();
+        DBCExpEarRepeatedAbs dbcExpEarRepeatedAbs = getDBCExpEarRepeated();
+
+        @Override
+        protected Integer doInBackground(Long... params) {
+            dbcExpEarAbs.openModifica();
+            int elementsDeleted = dbcExpEarAbs.deleteElementRepeated(params[0]);
+
+            dbcExpEarRepeatedAbs.openModifica();
+            dbcExpEarRepeatedAbs.deleteElementRepeated(params[0]);
+
+            return elementsDeleted;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            dbcExpEarAbs.close();
+            dbcExpEarRepeatedAbs.close();
+
+            String msg = getResources().getQuantityString(R.plurals.dettagli_voce_x_voci_eliminate, result, result);
+            new MioToast(ExpenseEarningDetails.this, msg).visualizza(Toast.LENGTH_SHORT);
+            // Subclasses representing an expense must override this method to update the budget table.
+            updateBudgetTable();
+
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra(TIPO_OPERAZIONE, OPERAZIONE_ELIMINAZIONE);
+            setResult(Activity.RESULT_OK, returnIntent);
+            finish();
+        }
+    }
 
 
     @Override
