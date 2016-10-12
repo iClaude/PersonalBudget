@@ -1006,7 +1006,7 @@ Create an Intent to start this Activity with the main variables set.
 			if(ripetizione_id != -1) {
 				dbcEntrateIncassate.openModifica();
 				try {
-					dbcEntrateIncassate.aggiornaEntrataIncassata(id, data.getTimeInMillis(), tag, importo, valutaCorrente, importo * tassoCambio, descrizione, ripetizione_id, conto, favorite);
+					dbcEntrateIncassate.updateElement(id, data.getTimeInMillis(), tag, importo, valutaCorrente, importo * tassoCambio, descrizione, ripetizione_id, conto, favorite);
 				}
 				catch (Exception exc) {
 					return false;
@@ -1064,7 +1064,7 @@ Create an Intent to start this Activity with the main variables set.
 		dbcEntrateRipetute.openModifica();
 		long risul = ripetizione_id;
 		try {
-			dbcEntrateRipetute.aggiornaEntrataRipetuta(ripetizione_id, tag, ripetizione, importo, valutaCorrente, importo * tassoCambio, descrizione, data.getTimeInMillis(), 0, dataFineRipetizione.getTimeInMillis(), oggi.getTimeInMillis(), conto);
+			dbcEntrateRipetute.updateElement(ripetizione_id, tag, ripetizione, importo, valutaCorrente, importo * tassoCambio, descrizione, data.getTimeInMillis(), 0, dataFineRipetizione.getTimeInMillis(), oggi.getTimeInMillis(), conto);
 		}
 		catch (Exception exc) {
 			risul = -1;

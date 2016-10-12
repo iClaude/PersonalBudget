@@ -1,44 +1,55 @@
+/*
+ * Copyright (c) This code was written by iClaude. All rights reserved.
+ */
+
 package com.flingsoftware.personalbudget.app;
-
-import com.flingsoftware.personalbudget.R;
-import com.flingsoftware.personalbudget.customviews.MioToast;
-
-import static com.flingsoftware.personalbudget.app.ContiElenco.*;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.CONTO_DEFAULT;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
-
-import com.flingsoftware.personalbudget.database.DBCConti;
-import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
-import com.flingsoftware.personalbudget.database.DBCSpeseRipetute;
-import com.flingsoftware.personalbudget.database.DBCEntrateIncassate;
-import com.flingsoftware.personalbudget.database.DBCEntrateRipetute;
-
-import java.text.DateFormat;
-import java.text.NumberFormat;
-import java.util.Currency;
-import java.util.Locale;
-import java.util.Date;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.Window;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.database.Cursor;
-import android.widget.CheckBox;
-import android.support.v7.app.ActionBarActivity;
+
+import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.customviews.MioToast;
+import com.flingsoftware.personalbudget.database.DBCConti;
+import com.flingsoftware.personalbudget.database.DBCEntrateIncassate;
+import com.flingsoftware.personalbudget.database.DBCEntrateRipetute;
+import com.flingsoftware.personalbudget.database.DBCSpeseRipetute;
+import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
+
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.util.Currency;
+import java.util.Date;
+import java.util.Locale;
+
+import static com.flingsoftware.personalbudget.app.ContiElenco.ContoDettaglio;
+import static com.flingsoftware.personalbudget.app.ContiElenco.EXTRA_CONTO;
+import static com.flingsoftware.personalbudget.app.ContiElenco.EXTRA_CONTO_DEFAULT;
+import static com.flingsoftware.personalbudget.app.ContiElenco.EXTRA_DATA_SALDO;
+import static com.flingsoftware.personalbudget.app.ContiElenco.EXTRA_ENTRATE_INCASSATE;
+import static com.flingsoftware.personalbudget.app.ContiElenco.EXTRA_ID;
+import static com.flingsoftware.personalbudget.app.ContiElenco.EXTRA_SALDO;
+import static com.flingsoftware.personalbudget.app.ContiElenco.EXTRA_SALDO_FINALE;
+import static com.flingsoftware.personalbudget.app.ContiElenco.EXTRA_SPESE_SOSTENUTE;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.CONTO_DEFAULT;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
 
 
 public class ContiVisualizza extends ActionBarActivity {
@@ -218,8 +229,8 @@ public class ContiVisualizza extends ActionBarActivity {
 				String descrizione = curSpeseSost.getString(curSpeseSost.getColumnIndex("descrizione"));
 				long ripetizioneId = curSpeseSost.getLong(curSpeseSost.getColumnIndex("ripetizione_id"));
 				int favorite = curSpeseSost.getInt(curSpeseSost.getColumnIndex("favorite"));
-				
-				dbcSpeseSostenute.aggiornaSpesaSostenuta(id, data, voce, importo, valuta, importoValprin, descrizione, ripetizioneId, "default", favorite);
+
+				dbcSpeseSostenute.updateElement(id, data, voce, importo, valuta, importoValprin, descrizione, ripetizioneId, "default", favorite);
 			}			
 			curSpeseSost.close();
 			dbcSpeseSostenute.close();
@@ -240,8 +251,8 @@ public class ContiVisualizza extends ActionBarActivity {
 				int flagFine = curSpeseRip.getInt(curSpeseRip.getColumnIndex("flag_fine"));
 				long dataFine = curSpeseRip.getLong(curSpeseRip.getColumnIndex("data_fine"));
 				long aggiornatoA = curSpeseRip.getLong(curSpeseRip.getColumnIndex("aggiornato_a"));
-				
-				dbcSpeseRipetute.aggiornaSpesaRipetuta(id, voce, ripetizione, importo, valuta, importoValprin, descrizione, dataInizio, flagFine, dataFine, aggiornatoA, "default");
+
+				dbcSpeseRipetute.updateElement(id, voce, ripetizione, importo, valuta, importoValprin, descrizione, dataInizio, flagFine, dataFine, aggiornatoA, "default");
 			}			
 			curSpeseRip.close();
 			dbcSpeseRipetute.close();
@@ -260,8 +271,8 @@ public class ContiVisualizza extends ActionBarActivity {
 				String descrizione = curEntrateInc.getString(curEntrateInc.getColumnIndex("descrizione"));
 				long ripetizioneId = curEntrateInc.getLong(curEntrateInc.getColumnIndex("ripetizione_id"));
 				int favorite = curEntrateInc.getInt(curEntrateInc.getColumnIndex("favorite"));
-				
-				dbcEntrateIncassate.aggiornaEntrataIncassata(id, data, voce, importo, valuta, importoValprin, descrizione, ripetizioneId, "default", favorite);
+
+				dbcEntrateIncassate.updateElement(id, data, voce, importo, valuta, importoValprin, descrizione, ripetizioneId, "default", favorite);
 			}			
 			curEntrateInc.close();
 			dbcEntrateIncassate.close();
@@ -282,8 +293,8 @@ public class ContiVisualizza extends ActionBarActivity {
 				int flagFine = curEntrateRip.getInt(curEntrateRip.getColumnIndex("flag_fine"));
 				long dataFine = curEntrateRip.getLong(curEntrateRip.getColumnIndex("data_fine"));
 				long aggiornatoA = curEntrateRip.getLong(curEntrateRip.getColumnIndex("aggiornato_a"));
-				
-				dbcEntrateRipetute.aggiornaEntrataRipetuta(id, voce, ripetizione, importo, valuta, importoValprin, descrizione, dataInizio, flagFine, dataFine, aggiornatoA, "default");
+
+				dbcEntrateRipetute.updateElement(id, voce, ripetizione, importo, valuta, importoValprin, descrizione, dataInizio, flagFine, dataFine, aggiornatoA, "default");
 			}			
 			curEntrateRip.close();
 			dbcEntrateRipetute.close();

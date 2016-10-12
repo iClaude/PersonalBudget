@@ -11,12 +11,10 @@
  */
 package com.flingsoftware.personalbudget.database;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import static com.flingsoftware.personalbudget.database.DatabaseOpenHelper.sDataLock;
 import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_DATAX_ELENCO_FILTRATO;
 import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_INTERVALLO;
 import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_INTERVALLO_MIN_MAX_PER_VOCE;
@@ -52,41 +50,6 @@ public class DBCSpeseSostenute extends DBCExpEarAbs {
 
 
 	/**
-	 * Aggiorna una spesa sostenuta nella tabella spese_sost.
-	 * 
-	 * @param id id della spesa sostenuta
-	 * @param data data di sostenimento della spesa nel formato Unix Time, the number of seconds since 
-	 * 1970-01-01 00:00:00 UTC
-	 * @param voce voce della spesa come da tabella spese_voci
-	 * @param importo importo spesa in valuta
-	 * @param valuta simbolo della valuta
-	 * @param importo_valprin importo spesa nella valuta di default
-	 * @param descrizione descrizione spesa
-	 * @param ripetizione_id id per eventuali spese ripetute, come da tabella spese_ripet
-	 * @param conto nome del conto
-	 * @param favorite 1 for favorite transactions, 0 otherwise
-	 */
-	public void aggiornaSpesaSostenuta(long id, long data, String voce, double importo, String valuta, double importo_valprin, String descrizione, long ripetizione_id, String conto, int favorite) {
-		ContentValues aggiornaContact = new ContentValues();
-		aggiornaContact.put("data", data);
-		aggiornaContact.put("voce", voce);
-		aggiornaContact.put("importo", importo);
-		aggiornaContact.put("valuta", valuta);
-		aggiornaContact.put("importo_valprin", importo_valprin);
-		aggiornaContact.put("descrizione", descrizione);
-		aggiornaContact.put("ripetizione_id", ripetizione_id);
-		aggiornaContact.put("conto", conto);
-		aggiornaContact.put("favorite", favorite);
-		
-		synchronized (sDataLock) {
-			openModifica();
-			mioSQLiteDatabase.update("spese_sost", aggiornaContact, "_id=" + id, null);
-			close();
-		}
-	}
-	
-	
-	/**
 	 * Ottiene un Cursor che rappresenta una spesa sostenuta dalla tabella spese_sost.
 	 * 
 	 * @param id id della spesa sostenuta di questa tabella
@@ -95,27 +58,8 @@ public class DBCSpeseSostenute extends DBCExpEarAbs {
 	public Cursor getSpesaSostenuta(long id) {
 		return mioSQLiteDatabase.query("spese_sost", null, "_id=" + id,  null,  null,  null,  null);
 	}
-	
-	/**
-	 * Elimina tutte le spese ripetute con un dato codice ripetizione_id ma solo a partire dalla data
-	 * specificata, e restituisce il numero di record cancellati.
-	 * 
-	 * @param ripetizioneId identificativo del campo ripetizione_id (fa riferimento al campo _id della
-	 * tabella spese_ripet
-	 * @param dallaData data (in millisecondi, valore long) a partire dalla quale eliminare le spese ripetute
-	 * 
-	 * @return numero di record cancellati dalla tabella
-	 */
-	public int eliminaSpeseRipetuteDallaData(long ripetizioneId, long dallaData) {
-		synchronized (sDataLock) {
-			openModifica();
-			int num = mioSQLiteDatabase.delete("spese_sost", "ripetizione_id=" + ripetizioneId + " AND data>=" + dallaData, null);
-			close();
-			
-			return num;
-		}
-	}
-	
+
+
 	/**
 	 * Si fornisce in input la data iniziale e la data finale e si ottengono tutte le spese sostenute tra le 
 	 * due date, ordinate per data discendente (tutti i campi).

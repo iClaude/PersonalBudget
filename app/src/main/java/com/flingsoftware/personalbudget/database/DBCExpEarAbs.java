@@ -49,28 +49,28 @@ public abstract class DBCExpEarAbs {
     /**
      * Insert a new expense/earning.
      *
-     * @param data            date of this element in the format Unix Time, the number of seconds since
+     * @param date            date of this element in the format Unix Time, the number of seconds since
      *                        1970-01-01 00:00:00 UTC
-     * @param voce            tag of this element (see table spese_voci)
-     * @param importo         amount
-     * @param valuta          currecy symbol
-     * @param importo_valprin amount in default currency
-     * @param descrizione     description
-     * @param ripetizione_id  id per eventuali spese ripetute, come da tabella spese_ripet. 0 se non c'è
+     * @param tag            tag of this element (see table spese_voci)
+     * @param amount         amount
+     * @param currency          currecy symbol
+     * @param amountCurr amount in default currency
+     * @param description     description
+     * @param repetitionId  id per eventuali spese ripetute, come da tabella spese_ripet. 0 se non c'è
      *                        ripetizione.
-     * @param conto           nome del conto
+     * @param account           nome del conto
      * @param favorite        1 for favorite transactions, 0 otherwise
      */
-    public void insertElement(long data, String voce, double importo, String valuta, double importo_valprin, String descrizione, long ripetizione_id, String conto, int favorite) {
+    public void insertElement(long date, String tag, double amount, String currency, double amountCurr, String description, long repetitionId, String account, int favorite) {
         ContentValues nuovoContact = new ContentValues();
-        nuovoContact.put("data", data);
-        nuovoContact.put("voce", voce);
-        nuovoContact.put("importo", importo);
-        nuovoContact.put("valuta", valuta);
-        nuovoContact.put("importo_valprin", importo_valprin);
-        nuovoContact.put("descrizione", descrizione);
-        nuovoContact.put("ripetizione_id", ripetizione_id);
-        nuovoContact.put("conto", conto);
+        nuovoContact.put("data", date);
+        nuovoContact.put("voce", tag);
+        nuovoContact.put("importo", amount);
+        nuovoContact.put("valuta", currency);
+        nuovoContact.put("importo_valprin", amountCurr);
+        nuovoContact.put("descrizione", description);
+        nuovoContact.put("ripetizione_id", repetitionId);
+        nuovoContact.put("conto", account);
         nuovoContact.put("favorite", favorite);
 
         synchronized (sDataLock) {
@@ -79,6 +79,43 @@ public abstract class DBCExpEarAbs {
             close();
         }
     }
+
+
+    /**
+     * Update an expense/earning.
+     *
+     * @param id           id of the expense/earning
+     * @param date         date of this element in the format Unix Time, the number of seconds since
+     *                     1970-01-01 00:00:00 UTC
+     * @param tag          tag of this element (see table spese_voci)
+     * @param amount       amount
+     * @param currency     currecy symbol
+     * @param amountCurr   amount in default currency
+     * @param description  description
+     * @param repetitionId id per eventuali spese ripetute, come da tabella spese_ripet. 0 se non c'è
+     *                     ripetizione.
+     * @param account      nome del conto
+     * @param favorite     1 for favorite transactions, 0 otherwise
+     */
+    public void updateElement(long id, long date, String tag, double amount, String currency, double amountCurr, String description, long repetitionId, String account, int favorite) {
+        ContentValues updateContact = new ContentValues();
+        updateContact.put("data", date);
+        updateContact.put("voce", tag);
+        updateContact.put("importo", amount);
+        updateContact.put("valuta", currency);
+        updateContact.put("importo_valprin", amountCurr);
+        updateContact.put("descrizione", description);
+        updateContact.put("ripetizione_id", repetitionId);
+        updateContact.put("conto", account);
+        updateContact.put("favorite", favorite);
+
+        synchronized (sDataLock) {
+            openModifica();
+            mioSQLiteDatabase.update(getTableName(), updateContact, "_id=" + id, null);
+            close();
+        }
+    }
+
 
     // Delete an expense/earning.
     public int deleteElement(long id) {
@@ -105,6 +142,26 @@ public abstract class DBCExpEarAbs {
         synchronized (sDataLock) {
             openModifica();
             int num = mioSQLiteDatabase.delete(getTableName(), "ripetizione_id=" + repetitionId, null);
+            close();
+
+            return num;
+        }
+    }
+
+
+    /**
+     * Delete all repeated expenses/earnings with a given repetition id, but only from the
+     * supplied date, returning the number of records deleted.
+     *
+     * @param repetitionId refers to the field _id of the tables spese_ripet or entrate_ripet
+     * @param fromDate date (in milliseconds, long) from which deleting repeated elements
+     *
+     * @return numero di record cancellati dalla tabella
+     */
+    public int deleteRepeatedElementsFromDate(long repetitionId, long fromDate) {
+        synchronized (sDataLock) {
+            openModifica();
+            int num = mioSQLiteDatabase.delete(getTableName(), "ripetizione_id=" + repetitionId + " AND data>=" + fromDate, null);
             close();
 
             return num;

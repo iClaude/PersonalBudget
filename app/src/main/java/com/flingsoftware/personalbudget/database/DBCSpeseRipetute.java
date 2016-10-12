@@ -75,49 +75,8 @@ public class DBCSpeseRipetute extends DBCExpEarRepeatedAbs {
 		
 		return id;
 	}
-	
-	/**
-	 * Aggiorna una spesa ripetuta nella tabella spese_ripet.
-	 * Ad ogni lancio dell'app aggiornare le spese ripetute nella tabella delle spese ripetute. 
-	 * Es. al 26/3 aggiornare tutte le spese ripetute sostenute fino a quella data a partire
-	 * dall'ultimo aggiornamento, quindi aggiornare il campo aggiornato_a.
-	 * Se voglio eliminare tutte le spese ripetute del codice 2 per es. le ricavo facilmente dall'altra 
-	 * tabella cercando tutte le corrispondenze di tale codice nell'ultima colonna
-	 * 
-	 * @param id ide della spesa ripetuta di questa tabella
-	 * @param voce voce della spesa che deve essere ripetuta
-	 * @param ripetizione tipo di ripetizione (giornaliero, settimanale, bisettimanale, mensile, annuale, giorni_lavorativi, weekend)
-	 * @param importo importo spesa
-	 * @param valuta simbolo valuta
-	 * @param importo_valprin importo nella valuta di default
-	 * @param descrizione descrizione della spesa ripetuta
-	 * @param data_inizio data di inizio ripetizione spesa nel formato Unix Time, the number of seconds since 1970-01-01 00:00:00 UTC
-	 * @param flag_fine la ripetizione è già finita (1) o è in corso(0)
-	 * @param data_fine data di fine ripetizione spesa nel formato Unix Time, the number of seconds since 1970-01-01 00:00:00 UTC
-	 * @param aggiornato_a aggiornamento tabella spese_sost fino a questa data nel formato Unix Time, the number of seconds since 1970-01-01 00:00:00 UTC
-	 * @param conto nome del conto
-	 */
-	public void aggiornaSpesaRipetuta(long id, String voce, String ripetizione, double importo, String valuta, double importo_valprin, String descrizione, long data_inizio, int flag_fine, long data_fine, long aggiornato_a, String conto) {
-		ContentValues aggiornaContact = new ContentValues();
-		aggiornaContact.put("voce", voce);
-		aggiornaContact.put("ripetizione", ripetizione);
-		aggiornaContact.put("importo", importo);
-		aggiornaContact.put("valuta", valuta);
-		aggiornaContact.put("importo_valprin", importo_valprin);
-		aggiornaContact.put("descrizione", descrizione);
-		aggiornaContact.put("data_inizio", data_inizio);
-		aggiornaContact.put("flag_fine", flag_fine);
-		aggiornaContact.put("data_fine", data_fine);
-		aggiornaContact.put("aggiornato_a", aggiornato_a);
-		aggiornaContact.put("conto", conto);
-		
-		synchronized (sDataLock) {
-			openModifica();
-			mioSQLiteDatabase.update("spese_ripet", aggiornaContact, "_id=" + id, null);
-			close();
-		}
-	}
-	
+
+
 	/**
 	 * Ottiene un Cursor che rappresenta una spesa ripetuta dalla tabella spese_ripet.
 	 * 

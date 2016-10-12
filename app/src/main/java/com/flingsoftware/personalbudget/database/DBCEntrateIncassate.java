@@ -93,25 +93,6 @@ public class DBCEntrateIncassate extends DBCExpEarAbs {
 		return mioSQLiteDatabase.query("entrate_inc", null, "_id=" + id,  null,  null,  null,  null);
 	}
 
-	/**
-	 * Elimina tutte le entrate ripetute con un dato codice ripetizione_id ma solo a partire dalla data
-	 * specificata, e restituisce il numero di record cancellati.
-	 * 
-	 * @param ripetizioneId identificativo del campo ripetizione_id (fa riferimento al campo _id della
-	 * tabella entrate_ripet
-	 * @param dallaData data (in millisecondi, valore long) a partire dalla quale eliminare le spese ripetute
-	 * 
-	 * @return numero di record cancellati dalla tabella
-	 */
-	public int eliminaEntrateRipetuteDallaData(long ripetizioneId, long dallaData) {
-		synchronized (sDataLock) {
-			openModifica();
-			int num = mioSQLiteDatabase.delete("entrate_inc", "ripetizione_id=" + ripetizioneId + " AND data>=" + dallaData, null);
-			close();
-			
-			return num;
-		}
-	}
 	
 	/**
 	 * Si fornisce in input la data iniziale e la data finale e si ottengono tutte le entrate incassate 

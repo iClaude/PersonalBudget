@@ -15,6 +15,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -46,15 +47,28 @@ import java.util.Locale;
 
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiDettaglioVoce.OPERAZIONE_ELIMINAZIONE;
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiDettaglioVoce.TIPO_OPERAZIONE;
+import static com.flingsoftware.personalbudget.app.SpeseEntrateEliminaVociRipetute.ELIMINA_DA_OGGI;
+import static com.flingsoftware.personalbudget.app.SpeseEntrateEliminaVociRipetute.ELIMINA_SOLO_QUESTA;
+import static com.flingsoftware.personalbudget.app.SpeseEntrateEliminaVociRipetute.ELIMINA_TUTTE;
+import static com.flingsoftware.personalbudget.database.DBCExpEarRepeatedAbs.COL_ACCOUNT;
+import static com.flingsoftware.personalbudget.database.DBCExpEarRepeatedAbs.COL_AMOUNT;
+import static com.flingsoftware.personalbudget.database.DBCExpEarRepeatedAbs.COL_AMOUNT_MAIN_CURR;
+import static com.flingsoftware.personalbudget.database.DBCExpEarRepeatedAbs.COL_CURRENCY;
 import static com.flingsoftware.personalbudget.database.DBCExpEarRepeatedAbs.COL_DATE_END;
 import static com.flingsoftware.personalbudget.database.DBCExpEarRepeatedAbs.COL_DATE_START;
+import static com.flingsoftware.personalbudget.database.DBCExpEarRepeatedAbs.COL_DESC;
 import static com.flingsoftware.personalbudget.database.DBCExpEarRepeatedAbs.COL_REP;
+import static com.flingsoftware.personalbudget.database.DBCExpEarRepeatedAbs.COL_TAG;
+
 
 /**
  * Base class for displaying expense or earning details.
  * Must be extended to show an expense or earning.
  * This class contains common code used by both.
  */
+
+// TODO: 12/10/2016 delete all new AggiornaTabellaBudgetTask lines
+
 
 public abstract class ExpenseEarningDetails extends AppCompatActivity implements SpeseEntrateEliminaVociRipetute.EliminaVociRipetuteListener {
 
@@ -395,7 +409,7 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_speseEntrateDettaglioVoce_cancella:
-                eliminaVoce();
+                delete();
 
                 return true;
             case R.id.menu_speseEntrateDettaglioVoce_duplica:
@@ -444,6 +458,55 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
         Subclasses must specify the class (for expenses or earnings).
      */
     public abstract Intent getEditIntent();
+
+
+    // Delete one element or more repeated elements.
+    private void delete() {
+        if (ripetizione_id == 1) {
+            UtilityVarious.visualizzaDialogOKAnnulla(ExpenseEarningDetails.this,
+                    getString(R.string.dettagli_voce_conferma_elimina_titolo),
+                    getString(R.string.dettagli_voce_conferma_elimina_msg),
+                    getString(R.string.ok),
+                    true, getString(R.string.cancella),
+                    0,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            new DeleteThisElementTask().execute(id);
+                            //aggiorno la tabella spese_budget campo spesa_sost a seguito della eliminazione della/e spesa/e
+                            //new AggiornaTabellaBudgetTask(ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA, "%" + tag + "%", Long.valueOf(data).toString(), Long.valueOf(data).toString()).execute((Object[]) null);
+                        }
+                    });
+        } else {
+            DialogFragment dialogEliminaVociRipetute = new SpeseEntrateEliminaVociRipetute();
+            dialogEliminaVociRipetute.show(getSupportFragmentManager(), "EliminaVociRipetute");
+        }
+    }
+
+
+    /*
+        Implementation of EliminaVociRipetute.EliminaVociRipetuteListener: for repeated elements,
+        delete one or more elements?
+     */
+    @Override
+    public void onDialogPositiveClick(int choice) {
+        long oggi = FunzioniComuni.getDataAttuale();
+
+        switch (choice) {
+            case ELIMINA_SOLO_QUESTA:
+                new DeleteThisElementTask().execute(id);
+                //new AggiornaTabellaBudgetTask(ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA, "%" + tag + "%", Long.valueOf(data).toString(), Long.valueOf(data).toString()).execute((Object[]) null);
+                break;
+            case ELIMINA_TUTTE:
+                new DeleteAllRepeatedElementsTask().execute(ripetizione_id);
+                //new AggiornaTabellaBudgetTask(ESTRAI_BUDGET_PER_ELIMINAZIONE_SPESE_RIPETUTE, "%" + tag + "%", Long.valueOf(dataInizio).toString(), Long.valueOf(dataInizio).toString(), Long.valueOf(dataInizio).toString(), oggi.toString(), oggi.toString(), oggi.toString(), Long.valueOf(dataInizio).toString(), oggi.toString()).execute((Object[]) null);
+                break;
+            case ELIMINA_DA_OGGI:
+                new DeleteRepeatedElementsFromTodayTask().execute(ripetizione_id);
+                //new AggiornaTabellaBudgetTask(ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA, "%" + tag + "%", oggi.toString(), oggi.toString()).execute((Object[]) null);
+                break;
+        }
+    }
 
 
     // Duplicate this element: add a new expense/earning with the same data.
@@ -566,6 +629,45 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
             Intent returnIntent = new Intent();
             returnIntent.putExtra(TIPO_OPERAZIONE, OPERAZIONE_ELIMINAZIONE);
             setResult(Activity.RESULT_OK, returnIntent);
+            finish();
+        }
+    }
+
+
+    // Deletes repeated expenses/earning from today onwards.
+    private class DeleteRepeatedElementsFromTodayTask extends AsyncTask<Long, Object, Integer> {
+        DBCExpEarAbs dbcExpEarAbs = getDBCExpEar();
+        DBCExpEarRepeatedAbs dbcExpEarRepeatedAbs = getDBCExpEarRepeated();
+
+        @Override
+        protected Integer doInBackground(Long... params) {
+            long oggi = FunzioniComuni.getDataAttuale();
+
+            dbcExpEarAbs.openModifica();
+            int expDeleted = dbcExpEarAbs.deleteRepeatedElementsFromDate(params[0], oggi);
+
+            dbcExpEarRepeatedAbs.openModifica();
+            Cursor curRep = dbcExpEarRepeatedAbs.getItemRepeated(params[0]);
+            curRep.moveToFirst();
+            dbcExpEarRepeatedAbs.updateElement(params[0], curRep.getString(curRep.getColumnIndex(COL_TAG)), curRep.getString(curRep.getColumnIndex(COL_REP)), curRep.getDouble(curRep.getColumnIndex(COL_AMOUNT)), curRep.getString(curRep.getColumnIndex(COL_CURRENCY)), curRep.getDouble(curRep.getColumnIndex(COL_AMOUNT_MAIN_CURR)), curRep.getString(curRep.getColumnIndex(COL_DESC)), curRep.getLong(curRep.getColumnIndex(COL_DATE_START)), 1, oggi, oggi, curRep.getString(curRep.getColumnIndex(COL_ACCOUNT)));
+            curRep.close();
+
+            return expDeleted;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            dbcExpEarAbs.close();
+            dbcExpEarRepeatedAbs.close();
+
+            String msg = getResources().getQuantityString(R.plurals.dettagli_voce_x_voci_eliminate, result, result);
+            new MioToast(ExpenseEarningDetails.this, msg).visualizza(Toast.LENGTH_SHORT);
+            // Subclasses representing an expense must override this method to update the budget table.
+            updateBudgetTable();
+
+            Intent intRitorno = new Intent();
+            intRitorno.putExtra(TIPO_OPERAZIONE, OPERAZIONE_ELIMINAZIONE);
+            setResult(Activity.RESULT_OK, intRitorno);
             finish();
         }
     }

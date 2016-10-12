@@ -4,6 +4,7 @@
 
 package com.flingsoftware.personalbudget.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -60,6 +61,49 @@ public abstract class DBCExpEarRepeatedAbs {
 
     // Get a specific expense/earning.
     public abstract Cursor getItemRepeated(long id);
+
+
+    /**
+     * Aggiorna una spesa ripetuta nella tabella spese_ripet.
+     * Ad ogni lancio dell'app aggiornare le spese ripetute nella tabella delle spese ripetute.
+     * Es. al 26/3 aggiornare tutte le spese ripetute sostenute fino a quella data a partire
+     * dall'ultimo aggiornamento, quindi aggiornare il campo aggiornato_a.
+     * Se voglio eliminare tutte le spese ripetute del codice 2 per es. le ricavo facilmente dall'altra
+     * tabella cercando tutte le corrispondenze di tale codice nell'ultima colonna
+     *
+     * @param id          ide della spesa ripetuta di questa tabella
+     * @param tag         voce della spesa che deve essere ripetuta
+     * @param repetition  tipo di ripetizione (giornaliero, settimanale, bisettimanale, mensile, annuale, giorni_lavorativi, weekend)
+     * @param amount      importo spesa
+     * @param currency    simbolo valuta
+     * @param amountCurr  importo nella valuta di default
+     * @param description descrizione della spesa ripetuta
+     * @param dateFrom    data di inizio ripetizione spesa nel formato Unix Time, the number of seconds since 1970-01-01 00:00:00 UTC
+     * @param endFlag     la ripetizione è già finita (1) o è in corso(0)
+     * @param dateEnd     data di fine ripetizione spesa nel formato Unix Time, the number of seconds since 1970-01-01 00:00:00 UTC
+     * @param updatedTo   aggiornamento tabella spese_sost fino a questa data nel formato Unix Time, the number of seconds since 1970-01-01 00:00:00 UTC
+     * @param account     nome del conto
+     */
+    public void updateElement(long id, String tag, String repetition, double amount, String currency, double amountCurr, String description, long dateFrom, int endFlag, long dateEnd, long updatedTo, String account) {
+        ContentValues aggiornaContact = new ContentValues();
+        aggiornaContact.put("voce", tag);
+        aggiornaContact.put("ripetizione", repetition);
+        aggiornaContact.put("importo", amount);
+        aggiornaContact.put("valuta", currency);
+        aggiornaContact.put("importo_valprin", amountCurr);
+        aggiornaContact.put("descrizione", description);
+        aggiornaContact.put("data_inizio", dateFrom);
+        aggiornaContact.put("flag_fine", endFlag);
+        aggiornaContact.put("data_fine", dateEnd);
+        aggiornaContact.put("aggiornato_a", updatedTo);
+        aggiornaContact.put("conto", account);
+
+        synchronized (sDataLock) {
+            openModifica();
+            mioSQLiteDatabase.update(getTableName(), aggiornaContact, "_id=" + id, null);
+            close();
+        }
+    }
 
 
     /**

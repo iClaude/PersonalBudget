@@ -42,7 +42,7 @@
     <string name="dettagli_voce_modifica">Edit</string>
     <string name="dettagli_voce_prezzo">Amount</string>
     <string name="dettagli_voce_conferma_elimina_titolo">Confirm delete?</string>
-    <string name="dettagli_voce_conferma_elimina_msg">Are you sure to delete the selected item?</string>
+    <string name="dettagli_voce_conferma_elimina_msg">Are you sure to delete the selected element?</string>
     <string name="aggiungi_spese_aggiungi_spesa">Add expense</string>
     <string name="aggiungi_spese_inserisci_tag">Insert new tags here&#8230;</string>
     <string name="aggiungi_spese_aggiungi">Add</string>
@@ -87,8 +87,8 @@
         <item>Items from today</item>
     </string-array>
     <plurals name="dettagli_voce_x_voci_eliminate">
-        <item quantity="one">1 item has been deleted!</item>
-        <item quantity="other">%1$d items have been deleted!</item>
+        <item quantity="one">1 element has been deleted!</item>
+        <item quantity="other">%1$d elements have been deleted!</item>
     </plurals>
     <string name="aggiungi_spese_altro_giorno">Other</string>
     <string name="aggiungi_spese_modifica_spesa">Edit expense</string>

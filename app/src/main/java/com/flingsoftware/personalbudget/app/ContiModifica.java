@@ -1,23 +1,8 @@
+/*
+ * Copyright (c) This code was written by iClaude. All rights reserved.
+ */
+
 package com.flingsoftware.personalbudget.app;
-
-import com.flingsoftware.personalbudget.R;
-
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.ID_DATEPICKER;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.CONTO_DEFAULT;
-import static com.flingsoftware.personalbudget.app.ContiElenco.*;
-
-import com.flingsoftware.personalbudget.customviews.MioToast;
-import com.flingsoftware.personalbudget.database.Conto;
-import com.flingsoftware.personalbudget.database.DBCConti;
-import com.flingsoftware.personalbudget.database.DBCEntrateIncassate;
-import com.flingsoftware.personalbudget.database.DBCEntrateRipetute;
-import com.flingsoftware.personalbudget.database.DBCSpeseRipetute;
-import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
-
-import java.text.DateFormat;
-import java.util.GregorianCalendar;
-import java.util.Locale;
-import java.util.Date;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -26,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -36,7 +22,28 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.support.v7.app.ActionBarActivity;
+
+import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.customviews.MioToast;
+import com.flingsoftware.personalbudget.database.Conto;
+import com.flingsoftware.personalbudget.database.DBCConti;
+import com.flingsoftware.personalbudget.database.DBCEntrateIncassate;
+import com.flingsoftware.personalbudget.database.DBCEntrateRipetute;
+import com.flingsoftware.personalbudget.database.DBCSpeseRipetute;
+import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
+
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+
+import static com.flingsoftware.personalbudget.app.ContiElenco.EXTRA_CONTO;
+import static com.flingsoftware.personalbudget.app.ContiElenco.EXTRA_CONTO_DEFAULT;
+import static com.flingsoftware.personalbudget.app.ContiElenco.EXTRA_DATA_SALDO;
+import static com.flingsoftware.personalbudget.app.ContiElenco.EXTRA_ID;
+import static com.flingsoftware.personalbudget.app.ContiElenco.EXTRA_SALDO;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.CONTO_DEFAULT;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.ID_DATEPICKER;
 
 
 public class ContiModifica extends ActionBarActivity implements DatePickerFragment.DialogFinishedListener {
@@ -261,8 +268,8 @@ public class ContiModifica extends ActionBarActivity implements DatePickerFragme
 			String descrizione = curSpeseSost.getString(curSpeseSost.getColumnIndex("descrizione"));
 			long ripetizioneId = curSpeseSost.getLong(curSpeseSost.getColumnIndex("ripetizione_id"));
 			int favorite = curSpeseSost.getInt(curSpeseSost.getColumnIndex("favorite"));
-			
-			dbcSpeseSostenute.aggiornaSpesaSostenuta(id, data, voce, importo, valuta, importoValprin, descrizione, ripetizioneId, conto.getConto(), favorite);
+
+			dbcSpeseSostenute.updateElement(id, data, voce, importo, valuta, importoValprin, descrizione, ripetizioneId, conto.getConto(), favorite);
 		}			
 		curSpeseSost.close();
 		dbcSpeseSostenute.close();
@@ -283,8 +290,8 @@ public class ContiModifica extends ActionBarActivity implements DatePickerFragme
 			int flagFine = curSpeseRip.getInt(curSpeseRip.getColumnIndex("flag_fine"));
 			long dataFine = curSpeseRip.getLong(curSpeseRip.getColumnIndex("data_fine"));
 			long aggiornatoA = curSpeseRip.getLong(curSpeseRip.getColumnIndex("aggiornato_a"));
-			
-			dbcSpeseRipetute.aggiornaSpesaRipetuta(id, voce, ripetizione, importo, valuta, importoValprin, descrizione, dataInizio, flagFine, dataFine, aggiornatoA, conto.getConto());
+
+			dbcSpeseRipetute.updateElement(id, voce, ripetizione, importo, valuta, importoValprin, descrizione, dataInizio, flagFine, dataFine, aggiornatoA, conto.getConto());
 		}			
 		curSpeseRip.close();
 		dbcSpeseRipetute.close();
@@ -303,8 +310,8 @@ public class ContiModifica extends ActionBarActivity implements DatePickerFragme
 			String descrizione = curEntrateInc.getString(curEntrateInc.getColumnIndex("descrizione"));
 			long ripetizioneId = curEntrateInc.getLong(curEntrateInc.getColumnIndex("ripetizione_id"));
 			int favorite = curEntrateInc.getInt(curEntrateInc.getColumnIndex("favorite"));
-			
-			dbcEntrateIncassate.aggiornaEntrataIncassata(id, data, voce, importo, valuta, importoValprin, descrizione, ripetizioneId, conto.getConto(), favorite);
+
+			dbcEntrateIncassate.updateElement(id, data, voce, importo, valuta, importoValprin, descrizione, ripetizioneId, conto.getConto(), favorite);
 		}			
 		curEntrateInc.close();
 		dbcEntrateIncassate.close();
@@ -325,8 +332,8 @@ public class ContiModifica extends ActionBarActivity implements DatePickerFragme
 			int flagFine = curEntrateRip.getInt(curEntrateRip.getColumnIndex("flag_fine"));
 			long dataFine = curEntrateRip.getLong(curEntrateRip.getColumnIndex("data_fine"));
 			long aggiornatoA = curEntrateRip.getLong(curEntrateRip.getColumnIndex("aggiornato_a"));
-			
-			dbcEntrateRipetute.aggiornaEntrataRipetuta(id, voce, ripetizione, importo, valuta, importoValprin, descrizione, dataInizio, flagFine, dataFine, aggiornatoA, conto.getConto());
+
+			dbcEntrateRipetute.updateElement(id, voce, ripetizione, importo, valuta, importoValprin, descrizione, dataInizio, flagFine, dataFine, aggiornatoA, conto.getConto());
 		}			
 		curEntrateRip.close();
 		dbcEntrateRipetute.close();

@@ -1020,7 +1020,7 @@ public class SpeseAggiungi extends ActionBarActivity implements DatePickerFragme
 			if(ripetizione_id != -1) {
 				dbcSpeseSostenute.openModifica();
 				try {
-					dbcSpeseSostenute.aggiornaSpesaSostenuta(id, data.getTimeInMillis(), tag, importo, valutaCorrente, importo * tassoCambio, descrizione, ripetizione_id, conto, favorite);
+					dbcSpeseSostenute.updateElement(id, data.getTimeInMillis(), tag, importo, valutaCorrente, importo * tassoCambio, descrizione, ripetizione_id, conto, favorite);
 				}
 				catch (Exception exc) {
 					return false;
@@ -1075,7 +1075,7 @@ public class SpeseAggiungi extends ActionBarActivity implements DatePickerFragme
 		dbcSpeseRipetute.openModifica();
 		long risul = ripetizione_id;
 		try {
-			dbcSpeseRipetute.aggiornaSpesaRipetuta(ripetizione_id, tag, ripetizione, importo, valutaCorrente, importo * tassoCambio, descrizione, data.getTimeInMillis(), 0, dataFineRipetizione.getTimeInMillis(), oggi.getTimeInMillis(), conto);
+			dbcSpeseRipetute.updateElement(ripetizione_id, tag, ripetizione, importo, valutaCorrente, importo * tassoCambio, descrizione, data.getTimeInMillis(), 0, dataFineRipetizione.getTimeInMillis(), oggi.getTimeInMillis(), conto);
 		}
 		catch (Exception exc) {
 			risul = -1;

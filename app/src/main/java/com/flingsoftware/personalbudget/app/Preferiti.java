@@ -1,6 +1,9 @@
+/*
+ * Copyright (c) This code was written by iClaude. All rights reserved.
+ */
+
 package com.flingsoftware.personalbudget.app;
 
-import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
@@ -454,12 +457,12 @@ public class Preferiti extends AppCompatActivity {
             if (spesaEntrata.getTipoVoce() == SpesaEntrata.VOCE_SPESA) {
                 DBCSpeseSostenute dbcSpeseSostenute = new DBCSpeseSostenute(Preferiti.this);
                 dbcSpeseSostenute.openModifica();
-                dbcSpeseSostenute.aggiornaSpesaSostenuta(spesaEntrata.getId(), spesaEntrata.getData(), spesaEntrata.getVoce(), spesaEntrata.getImporto(), spesaEntrata.getValuta(), spesaEntrata.getImportoValprin(), spesaEntrata.getDescrizione(), spesaEntrata.getRipetizioneId(), spesaEntrata.getConto(), 0);
+                dbcSpeseSostenute.updateElement(spesaEntrata.getId(), spesaEntrata.getData(), spesaEntrata.getVoce(), spesaEntrata.getImporto(), spesaEntrata.getValuta(), spesaEntrata.getImportoValprin(), spesaEntrata.getDescrizione(), spesaEntrata.getRipetizioneId(), spesaEntrata.getConto(), 0);
                 dbcSpeseSostenute.close();
             } else {
                 DBCEntrateIncassate dbcEntrateIncassate = new DBCEntrateIncassate(Preferiti.this);
                 dbcEntrateIncassate.openModifica();
-                dbcEntrateIncassate.aggiornaEntrataIncassata(spesaEntrata.getId(), spesaEntrata.getData(), spesaEntrata.getVoce(), spesaEntrata.getImporto(), spesaEntrata.getValuta(), spesaEntrata.getImportoValprin(), spesaEntrata.getDescrizione(), spesaEntrata.getRipetizioneId(), spesaEntrata.getConto(), 0);
+                dbcEntrateIncassate.updateElement(spesaEntrata.getId(), spesaEntrata.getData(), spesaEntrata.getVoce(), spesaEntrata.getImporto(), spesaEntrata.getValuta(), spesaEntrata.getImportoValprin(), spesaEntrata.getDescrizione(), spesaEntrata.getRipetizioneId(), spesaEntrata.getConto(), 0);
                 dbcEntrateIncassate.close();
             }
 

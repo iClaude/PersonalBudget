@@ -618,7 +618,7 @@ public class EntrateDettaglioVoce extends AppCompatActivity implements SpeseEntr
 			dbcEntrateRipetute.openModifica();
 			Cursor curEntrateRipetute = dbcEntrateRipetute.getItemRepeated(params[0]);
 			curEntrateRipetute.moveToFirst();
-			dbcEntrateRipetute.aggiornaEntrataRipetuta(params[0], curEntrateRipetute.getString(curEntrateRipetute.getColumnIndex("voce")), curEntrateRipetute.getString(curEntrateRipetute.getColumnIndex("ripetizione")), curEntrateRipetute.getDouble(curEntrateRipetute.getColumnIndex("importo")), curEntrateRipetute.getString(curEntrateRipetute.getColumnIndex("valuta")), curEntrateRipetute.getDouble(curEntrateRipetute.getColumnIndex("importo_valprin")), curEntrateRipetute.getString(curEntrateRipetute.getColumnIndex("descrizione")), curEntrateRipetute.getLong(curEntrateRipetute.getColumnIndex("data_inizio")), 1, oggi.getTimeInMillis(), oggi.getTimeInMillis(), curEntrateRipetute.getString(curEntrateRipetute.getColumnIndex("conto")));		
+			dbcEntrateRipetute.updateElement(params[0], curEntrateRipetute.getString(curEntrateRipetute.getColumnIndex("voce")), curEntrateRipetute.getString(curEntrateRipetute.getColumnIndex("ripetizione")), curEntrateRipetute.getDouble(curEntrateRipetute.getColumnIndex("importo")), curEntrateRipetute.getString(curEntrateRipetute.getColumnIndex("valuta")), curEntrateRipetute.getDouble(curEntrateRipetute.getColumnIndex("importo_valprin")), curEntrateRipetute.getString(curEntrateRipetute.getColumnIndex("descrizione")), curEntrateRipetute.getLong(curEntrateRipetute.getColumnIndex("data_inizio")), 1, oggi.getTimeInMillis(), oggi.getTimeInMillis(), curEntrateRipetute.getString(curEntrateRipetute.getColumnIndex("conto")));
 			curEntrateRipetute.close();		
 			
 			return entrateCancellate;
