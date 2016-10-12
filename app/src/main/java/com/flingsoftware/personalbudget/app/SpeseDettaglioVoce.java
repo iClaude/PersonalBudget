@@ -22,7 +22,6 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseIntArray;
@@ -72,7 +71,7 @@ import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_BUDGE
 import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_BUDGET_PER_ELIMINAZIONE_SPESE_RIPETUTE;
 
 
-public class SpeseDettaglioVoce extends AppCompatActivity implements SpeseEntrateEliminaVociRipetute.EliminaVociRipetuteListener {
+public class SpeseDettaglioVoce extends ExpenseEarningDetails implements SpeseEntrateEliminaVociRipetute.EliminaVociRipetuteListener {
 
 	//costanti pubbliche
 	public interface CostantiPubbliche {
