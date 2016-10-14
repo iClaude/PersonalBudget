@@ -20,7 +20,7 @@ import com.flingsoftware.personalbudget.database.DBCVociAbs;
 /*
     This class extends ExpenseEarningsDetails abstract Activity to display an earning.
  */
-public class EntrateDettaglioVoce extends ExpenseEarningDetails implements SpeseEntrateEliminaVociRipetute.EliminaVociRipetuteListener {
+public class EntrateDettaglioVoce extends ExpenseEarningDetails {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -68,6 +68,8 @@ import static com.flingsoftware.personalbudget.database.DBCExpEarRepeatedAbs.COL
 import static com.flingsoftware.personalbudget.database.DBCExpEarRepeatedAbs.COL_DESC;
 import static com.flingsoftware.personalbudget.database.DBCExpEarRepeatedAbs.COL_REP;
 import static com.flingsoftware.personalbudget.database.DBCExpEarRepeatedAbs.COL_TAG;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_BUDGET_PER_ELIMINAZIONE_SPESE_RIPETUTE;
 
 
 /**
@@ -75,8 +77,6 @@ import static com.flingsoftware.personalbudget.database.DBCExpEarRepeatedAbs.COL
  * Must be extended to show an expense or earning.
  * This class contains common code used by both.
  */
-
-// TODO: 12/10/2016 delete all new AggiornaTabellaBudgetTask lines
 
 
 public abstract class ExpenseEarningDetails extends AppCompatActivity implements SpeseEntrateEliminaVociRipetute.EliminaVociRipetuteListener {
@@ -150,7 +150,7 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
         displayDetails();
 
         // Sound effects.
-        setupSoundEffects();
+        soundEffectsManager = SoundEffectsManager.getInstance();
     }
 
 
@@ -316,15 +316,6 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
             findViewById(R.id.spese_entrate_dettaglio_voce_rlRipetizione).setVisibility(View.GONE);
         } else {
             new LoadRepetitionDetails().execute(ripetizione_id);
-        }
-    }
-
-
-    // Set up sound effects it these are enabled.
-    private void setupSoundEffects() {
-        if (UtilityVarious.soundsEnabled(this)) {
-            soundEffectsManager = SoundEffectsManager.getInstance();
-            soundEffectsManager.loadSounds(this.getApplicationContext());
         }
     }
 
@@ -571,8 +562,8 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             new DeleteThisElementTask().execute(id);
-                            //aggiorno la tabella spese_budget campo spesa_sost a seguito della eliminazione della/e spesa/e
-                            //new AggiornaTabellaBudgetTask(ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA, "%" + tag + "%", Long.valueOf(data).toString(), Long.valueOf(data).toString()).execute((Object[]) null);
+                            // Update budget table when an expense is deleted.
+                            updateBudgetTable(ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA, "%" + tag + "%", Long.valueOf(data).toString(), Long.valueOf(data).toString());
                         }
                     });
         } else {
@@ -588,20 +579,17 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
      */
     @Override
     public void onDialogPositiveClick(int choice) {
-        long oggi = FunzioniComuni.getDataAttuale();
+        Long oggi = FunzioniComuni.getDataAttuale();
 
         switch (choice) {
             case ELIMINA_SOLO_QUESTA:
                 new DeleteThisElementTask().execute(id);
-                //new AggiornaTabellaBudgetTask(ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA, "%" + tag + "%", Long.valueOf(data).toString(), Long.valueOf(data).toString()).execute((Object[]) null);
                 break;
             case ELIMINA_TUTTE:
                 new DeleteAllRepeatedElementsTask().execute(ripetizione_id);
-                //new AggiornaTabellaBudgetTask(ESTRAI_BUDGET_PER_ELIMINAZIONE_SPESE_RIPETUTE, "%" + tag + "%", Long.valueOf(dataInizio).toString(), Long.valueOf(dataInizio).toString(), Long.valueOf(dataInizio).toString(), oggi.toString(), oggi.toString(), oggi.toString(), Long.valueOf(dataInizio).toString(), oggi.toString()).execute((Object[]) null);
                 break;
             case ELIMINA_DA_OGGI:
                 new DeleteRepeatedElementsFromTodayTask().execute(ripetizione_id);
-                //new AggiornaTabellaBudgetTask(ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA, "%" + tag + "%", oggi.toString(), oggi.toString()).execute((Object[]) null);
                 break;
         }
     }
@@ -641,10 +629,12 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
 
         @Override
         protected void onPostExecute(Void aVoid) {
+            soundEffectsManager.playSound(SoundEffectsManager.SOUND_EXPENSE_EARNING_ADDED);
+
             String msg = getResources().getString(R.string.dettagli_voce_elemento_duplicato);
             new MioToast(ExpenseEarningDetails.this, msg).visualizza(Toast.LENGTH_SHORT);
             // Subclasses representing an expense must override this method to update the budget table.
-            updateBudgetTable();
+            updateBudgetTable(ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA, "%" + tag + "%", Long.valueOf(data).toString(), Long.valueOf(data).toString())
 
             setResult(Activity.RESULT_OK);
             finish();
@@ -664,7 +654,7 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
         when an expense is duplicated. The Activity diplaying earnings must override this
         and keeping it void.
      */
-    public abstract void updateBudgetTable();
+    public abstract void updateBudgetTable(String query, String... args);
 
 
     // Delete this expense/earning in a separate thread.
@@ -682,10 +672,11 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
         protected void onPostExecute(Object result) {
             dbcExpEarAbs.close();
 
+            soundEffectsManager.playSound(SoundEffectsManager.SOUND_DELETED);
             String msg = getResources().getQuantityString(R.plurals.dettagli_voce_x_voci_eliminate, 1, 1);
             new MioToast(ExpenseEarningDetails.this, msg).visualizza(Toast.LENGTH_SHORT);
             // Subclasses representing an expense must override this method to update the budget table.
-            updateBudgetTable();
+            updateBudgetTable(ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA, "%" + tag + "%", Long.valueOf(data).toString(), Long.valueOf(data).toString());
 
             Intent returnIntent = new Intent();
             returnIntent.putExtra(TIPO_OPERAZIONE, OPERAZIONE_ELIMINAZIONE);
@@ -719,10 +710,12 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
             dbcExpEarAbs.close();
             dbcExpEarRepeatedAbs.close();
 
+            soundEffectsManager.playSound(SoundEffectsManager.SOUND_DELETED);
             String msg = getResources().getQuantityString(R.plurals.dettagli_voce_x_voci_eliminate, result, result);
             new MioToast(ExpenseEarningDetails.this, msg).visualizza(Toast.LENGTH_SHORT);
             // Subclasses representing an expense must override this method to update the budget table.
-            updateBudgetTable();
+            Long oggi = FunzioniComuni.getDataAttuale();
+            updateBudgetTable(ESTRAI_BUDGET_PER_ELIMINAZIONE_SPESE_RIPETUTE, "%" + tag + "%", Long.valueOf(dataInizio).toString(), Long.valueOf(dataInizio).toString(), Long.valueOf(dataInizio).toString(), oggi.toString(), oggi.toString(), oggi.toString(), Long.valueOf(dataInizio).toString(), oggi.toString());
 
             Intent returnIntent = new Intent();
             returnIntent.putExtra(TIPO_OPERAZIONE, OPERAZIONE_ELIMINAZIONE);
@@ -758,10 +751,12 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
             dbcExpEarAbs.close();
             dbcExpEarRepeatedAbs.close();
 
+            soundEffectsManager.playSound(SoundEffectsManager.SOUND_DELETED);
             String msg = getResources().getQuantityString(R.plurals.dettagli_voce_x_voci_eliminate, result, result);
             new MioToast(ExpenseEarningDetails.this, msg).visualizza(Toast.LENGTH_SHORT);
             // Subclasses representing an expense must override this method to update the budget table.
-            updateBudgetTable();
+            Long oggi = FunzioniComuni.getDataAttuale();
+            updateBudgetTable(ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA, "%" + tag + "%", oggi.toString(), oggi.toString());
 
             Intent intRitorno = new Intent();
             intRitorno.putExtra(TIPO_OPERAZIONE, OPERAZIONE_ELIMINAZIONE);
@@ -774,12 +769,5 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        // TODO: 10/10/2016 inserire suoni quando si cancella o aggiunge una voce
-/*        if (suoniAbilitati && confermaElimina) {
-            soundPool.play(mappaSuoni.get(CostantiSuoni.SUONO_CANCELLAZIONE), 1, 1, 1, 0, 1f);
-        } else if (suoniAbilitati && confermaDuplica) {
-            soundPool.play(mappaSuoni.get(CostantiSuoni.SUONO_AGGIUNGI_SPESA_ENTRATA), 1, 1, 1, 0, 1f);
-        }*/
     }
 }

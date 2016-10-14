@@ -18,16 +18,15 @@ import com.flingsoftware.personalbudget.R;
  * (thread safe implementation).
  * Clients must:
  * 1) get an instance of this class via getInstance
- * 2) load the sound effects via loadSounds
- * 3) play the sound via playSound
+ * 2) play the sound via playSound
  */
 public class SoundEffectsManager {
     // Constants for each sound effect.
-    private static final int SOUND_EXPENSE_EARNING_ADDED = 0;
-    private static final int SOUND_BUDGET_ADDED = 1;
-    private static final int SOUND_DELETED = 2;
-    private static final int SOUND_COMPLETED = 3;
-    private static final int SOUND_APP_LOCKED = 4;
+    public static final int SOUND_EXPENSE_EARNING_ADDED = 0;
+    public static final int SOUND_BUDGET_ADDED = 1;
+    public static final int SOUND_DELETED = 2;
+    public static final int SOUND_COMPLETED = 3;
+    public static final int SOUND_APP_LOCKED = 4;
 
     // Variables.
     private SoundPool soundPool;
@@ -81,6 +80,7 @@ public class SoundEffectsManager {
         soundMap.clear();
         soundPool.release();
         soundPool = null;
+        soundsLoaded = false;
     }
 
     /*
