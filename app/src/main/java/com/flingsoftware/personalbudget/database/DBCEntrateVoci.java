@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) This code was written by iClaude. All rights reserved.
+ */
+
 /**
  * Gestione tabella entrate_voci
  * Funzionamento del database:
@@ -7,40 +11,27 @@
  */
 package com.flingsoftware.personalbudget.database;
 
-import static com.flingsoftware.personalbudget.database.DatabaseOpenHelper.sDataLock;
-import static com.flingsoftware.personalbudget.database.StringheSQL.ENTRATE_VOCI_VOCI_CONTENENTI_STRINGA;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
+
+import static com.flingsoftware.personalbudget.database.DatabaseOpenHelper.sDataLock;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ENTRATE_VOCI_VOCI_CONTENENTI_STRINGA;
 
 
-public class DBCEntrateVoci {
+public class DBCEntrateVoci extends DBCVociAbs {
 	
 	public DBCEntrateVoci(Context context) {
-		mioDatabaseOpenHelper = new DatabaseOpenHelper(context, DatabaseOpenHelper.NOME_DATABASE, null);
+		super(context);
 	}
-	
-	
-	public void openModifica() throws SQLException {
-		mioSQLiteDatabase = mioDatabaseOpenHelper.getWritableDatabase();
-		mioSQLiteDatabase.execSQL("PRAGMA foreign_keys=ON;"); // bisogna abilitare le foreign keys qui
+
+
+	@Override
+	public String getNomeTabella() {
+		return "entrate_voci";
 	}
-	
-	
-	public void openLettura() throws SQLException {
-		mioSQLiteDatabase = mioDatabaseOpenHelper.getReadableDatabase();
-	}
-	
-	
-	public void close() {
-		if(mioSQLiteDatabase != null)
-			mioSQLiteDatabase.close();
-	}
-	
-	
+
+
 	/**
 	 * Inserisce una voce di entrata (tag) nella tabella entrate_voci.
 	 * 
@@ -138,19 +129,8 @@ public class DBCEntrateVoci {
 	public Cursor getTutteLeVociNoTrasf(String trasf) {
 		return mioSQLiteDatabase.query("entrate_voci", new String[] {"_id",  "voce", "icona"}, "voce <> ?", new String[] {trasf}, null, null, "voce");
 	}
-	
-	/**
-	 * Restituisce un Cursor contenente tutti i record della tabella (tutti i campi) che
-	 * contengono la stringa di ricerca nel campo voce.
-	 * 
-	 * @param ricerca stringa da cercare nel campo voce
-	 * @return Cursor contenente tutti i record della tabella (tutti i campi)
-	 */
-	public Cursor getTutteLeVociFiltrato(String ricerca) {
-		return mioSQLiteDatabase.query("entrate_voci", new String[] {"_id",  "voce", "icona"}, "voce LIKE ?", new String[] {"%" + ricerca + "%"}, null, null, "voce");
-	}
-	
-	
+
+
 	/**
 	 * Restituisce un Cursor contenente tutte le voci della tabella entrate_voci che contengono la stringa
 	 * specificata come parametro.
@@ -162,11 +142,7 @@ public class DBCEntrateVoci {
 			String param = "%" + stringa + "%";
 			return mioSQLiteDatabase.rawQuery(ENTRATE_VOCI_VOCI_CONTENENTI_STRINGA, new String[] {param});
 	}
-		
-	
-	// variabili d'istanza
-	private SQLiteDatabase mioSQLiteDatabase;
-	private DatabaseOpenHelper mioDatabaseOpenHelper;
+
 }
 
 

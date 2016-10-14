@@ -8,6 +8,8 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,7 +18,9 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,12 +34,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 import com.flingsoftware.personalbudget.R;
 import com.flingsoftware.personalbudget.app.utility.AvatarImageBehavior;
 import com.flingsoftware.personalbudget.customviews.MioToast;
 import com.flingsoftware.personalbudget.database.DBCExpEarAbs;
 import com.flingsoftware.personalbudget.database.DBCExpEarRepeatedAbs;
+import com.flingsoftware.personalbudget.database.DBCVociAbs;
+import com.flingsoftware.personalbudget.utilita.BlurBuilder;
+import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
 import com.flingsoftware.personalbudget.utilita.SoundEffectsManager;
 import com.flingsoftware.personalbudget.utilita.UtilityVarious;
 
@@ -46,6 +54,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiDettaglioVoce.OPERAZIONE_ELIMINAZIONE;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiDettaglioVoce.OPERAZIONE_MODIFICA;
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiDettaglioVoce.TIPO_OPERAZIONE;
 import static com.flingsoftware.personalbudget.app.SpeseEntrateEliminaVociRipetute.ELIMINA_DA_OGGI;
 import static com.flingsoftware.personalbudget.app.SpeseEntrateEliminaVociRipetute.ELIMINA_SOLO_QUESTA;
@@ -266,6 +275,8 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
 
     // Display expense/earning details on the layout.
     private void displayDetails() {
+        // App bar: images.
+        new LoadImagesTask().execute(tag);
         // App bar: tag and amount.
         tvVoce.setText(tag);
         tvToolbarTitle.setText(tag);
@@ -370,6 +381,81 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
     public abstract DBCExpEarRepeatedAbs getDBCExpEarRepeated();
 
 
+    /// Loading images (icon and header) in a separate thread.
+    private class LoadImagesTask extends AsyncTask<String, Object, Bitmap> {
+        DBCVociAbs dbcVociAbs = getDBCExpEarTags();
+
+        @Override
+        protected Bitmap doInBackground(String... params) {
+            dbcVociAbs.openLettura();
+            Cursor curVoci = dbcVociAbs.getTutteLeVociFiltrato(params[0]);
+
+            int iconaId = R.drawable.tag_1;
+            if (curVoci.moveToFirst()) {
+                int icona = curVoci.getInt(curVoci.getColumnIndex("icona"));
+                iconaId = ListViewIconeVeloce.arrIconeId[icona];
+            }
+            final int iconaIdDef = iconaId;
+
+            curVoci.close();
+            dbcVociAbs.close();
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    new LoadHeaderImageTask().execute(iconaIdDef);
+                }
+            });
+
+            return ListViewIconeVeloce.decodeSampledBitmapFromResource(getResources(), iconaId, 90, 90);
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap miaBitmap) {
+            ivIcona.setImageBitmap(miaBitmap);
+            ivIconToolbar.setImageBitmap(miaBitmap);
+        }
+    }
+
+
+    // Load the header image and blur it in a separate thread. Takes iconId as parameter.
+    private class LoadHeaderImageTask extends AsyncTask<Integer, Object, Bitmap> {
+        int backgroundColor = R.color.primary_light;
+
+        @Override
+        protected Bitmap doInBackground(Integer... params) {
+            int iconaId = params[0];
+
+            Bitmap origBitmap = ListViewIconeVeloce.decodeSampledBitmapFromResource(getResources(), iconaId, 128, 128);
+            Bitmap blurredBitmap = BlurBuilder.blur(ExpenseEarningDetails.this, origBitmap);
+
+            // Get a suitable color for image background.
+            Palette palette = Palette.from(origBitmap).generate();
+            backgroundColor = palette.getMutedColor(ContextCompat.getColor(ExpenseEarningDetails.this, R.color.primary_light));
+
+            return blurredBitmap;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap miaBitmap) {
+            ImageView ivHeader = (ImageView) findViewById(R.id.main_imageview_placeholder2);
+            ivHeader.setImageBitmap(miaBitmap);
+            ivHeader.setBackgroundColor(Color.rgb(Color.red(backgroundColor), Color.green(backgroundColor), Color.blue(backgroundColor)));
+
+            // Show the header image with a fadein-fadeout animation.
+            ViewSwitcher viewSwitcher = (ViewSwitcher) findViewById(R.id.vsHeader);
+            viewSwitcher.showNext();
+        }
+    }
+
+
+    /*
+        Returns an implementation of DBCSpeseVoci or DBCEntrateVoci, depending on wether this is
+        an expense or earning.
+     */
+    public abstract DBCVociAbs getDBCExpEarTags();
+
+
     /*
         Enter animation. NestedScrollView, which contains a CardView representing the main content,
         is moved upwards with an animation.
@@ -459,6 +545,18 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
      */
     public abstract Intent getEditIntent();
 
+    // Ritorno dall'Activity EntrateAggiungi per modificare la entrata.
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            Intent intRitorno = new Intent();
+            intRitorno.putExtra(TIPO_OPERAZIONE, OPERAZIONE_MODIFICA);
+            setResult(Activity.RESULT_OK, intRitorno);
+            finish();
+        }
+    }
 
     // Delete one element or more repeated elements.
     private void delete() {
