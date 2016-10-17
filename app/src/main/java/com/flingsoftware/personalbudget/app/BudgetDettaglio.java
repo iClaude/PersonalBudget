@@ -1,25 +1,8 @@
+/*
+ * Copyright (c) This code was written by iClaude. All rights reserved.
+ */
+
 package com.flingsoftware.personalbudget.app;
-
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiActivity.*;
-import static com.flingsoftware.personalbudget.app.FragmentBudget.ROW_ID;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiDettaglioVoce.TIPO_OPERAZIONE;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiDettaglioVoce.OPERAZIONE_ELIMINAZIONE;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiDettaglioVoce.OPERAZIONE_MODIFICA;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.WIDGET_AGGIORNA;
-
-import com.flingsoftware.personalbudget.R;
-import com.flingsoftware.personalbudget.database.*;
-import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
-import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze;
-import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiSuoni;
-import com.flingsoftware.personalbudget.customviews.MioToast;
-
-import java.text.DateFormat;
-import java.text.NumberFormat;
-import java.util.Currency;
-import java.util.Date;
-import java.util.Locale;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
@@ -28,32 +11,50 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.media.AudioManager;
-import android.media.SoundPool;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.SparseIntArray;
-import 	android.view.animation.DecelerateInterpolator;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-import android.view.WindowManager;
-import android.view.Window;
-import android.graphics.Bitmap;
-import android.widget.ImageView;
-import android.support.v7.app.ActionBarActivity;
+
+import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.customviews.MioToast;
+import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
+import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
+import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
+import com.flingsoftware.personalbudget.utilita.SoundEffectsManager;
+
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.util.Currency;
+import java.util.Date;
+import java.util.Locale;
+
+import static com.flingsoftware.personalbudget.app.FragmentBudget.ROW_ID;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiActivity.ACTIVITY_BUDGET_BUDGETANALOGHI;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiActivity.ACTIVITY_BUDGET_MODIFICA;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiActivity.ACTIVITY_BUDGET_SPESEINCLUSE;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiDettaglioVoce.OPERAZIONE_ELIMINAZIONE;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiDettaglioVoce.OPERAZIONE_MODIFICA;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiDettaglioVoce.TIPO_OPERAZIONE;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.WIDGET_AGGIORNA;
 
 
 public class BudgetDettaglio extends ActionBarActivity {
@@ -103,8 +104,7 @@ public class BudgetDettaglio extends ActionBarActivity {
 			
 		//recupero i dettagli del budget da un thread separato
 		new RecuperaDettagliBudgetTask().execute(id);
-		
-		new CaricaSuoniTask().execute();
+
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 	
@@ -122,9 +122,9 @@ public class BudgetDettaglio extends ActionBarActivity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		
-		if(suoniAbilitati && conferma) {
-			soundPool.play(mappaSuoni.get(CostantiSuoni.SUONO_CANCELLAZIONE), 1, 1, 1, 0, 1f);
+
+		if (conferma) {
+			soundEffectsManager.playSound(SoundEffectsManager.SOUND_DELETED);
 		}
 	}
 
@@ -136,28 +136,6 @@ public class BudgetDettaglio extends ActionBarActivity {
 		currValutaPrinc = Currency.getInstance(valuta);
 	}
 
-
-	//AsyncTask per caricare la HashMap con i suoni dell'app
-	private class CaricaSuoniTask extends AsyncTask<Object, Object, Boolean> {
-			
-		protected Boolean doInBackground(Object... params) {		
-			SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(BudgetDettaglio.this);
-			boolean abilitazioneSuoni = pref.getBoolean(CostantiPreferenze.SUONI_ABILITATI, false);
-			if(abilitazioneSuoni) {
-				soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-				mappaSuoni = new SparseIntArray(1);
-				mappaSuoni.put(CostantiSuoni.SUONO_CANCELLAZIONE, soundPool.load(BudgetDettaglio.this, R.raw.cancellazione, 1));
-			}
-			
-			return abilitazioneSuoni;
-		}
-			
-		protected void onPostExecute(Boolean result) {
-			//una volta caricati i suoni nella Map l'app � pronta ad utilizzarli, non prima
-			suoniAbilitati = result;
-		}
-	}
-		
 		
 	//AsyncTask per recuperare i dettagli del budget da visualizzare
 	private class RecuperaDettagliBudgetTask extends AsyncTask<Long, Object, Cursor> {
@@ -521,8 +499,6 @@ public class BudgetDettaglio extends ActionBarActivity {
 	Locale miaLocale = (Locale.getDefault().getDisplayLanguage().equals("italiano") ? Locale.getDefault() : Locale.UK);
 	
 	//gestione suoni
-	private SoundPool soundPool;
-	private SparseIntArray mappaSuoni;
-	private boolean suoniAbilitati;
+	private SoundEffectsManager soundEffectsManager = SoundEffectsManager.getInstance();
 	private boolean conferma;
 }

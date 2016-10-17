@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  -->
+
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
     <PreferenceCategory
         android:title="@string/preferenze_generale"
@@ -55,7 +59,7 @@
 		
         <SwitchPreference
 		    android:key="pref_altro_suoni"
-		    android:defaultValue="true"
+			android:defaultValue="false"
 		    android:title="@string/preferenze_altro_suoni_titolo"
 		    android:switchTextOn="@string/preferenze_altro_suoni_ON"
 		    android:switchTextOff="@string/preferenze_altro_suoni_OFF"

@@ -18,7 +18,8 @@ import com.flingsoftware.personalbudget.R;
  * (thread safe implementation).
  * Clients must:
  * 1) get an instance of this class via getInstance
- * 2) play the sound via playSound
+ * 2) initialize it with init()
+ * 3) play the sound via playSound
  */
 public class SoundEffectsManager {
     // Constants for each sound effect.
@@ -35,6 +36,7 @@ public class SoundEffectsManager {
 
 
     private SoundEffectsManager() {
+        SoundEffectsManager soundEffectsManager = new SoundEffectsManager();
     }
 
     private static class Container {
@@ -50,18 +52,19 @@ public class SoundEffectsManager {
         thread. When the sounds are loaded soundsLoaded is true.
      */
     public synchronized void loadSounds(final Context context) {
-        if (soundPool != null) return;
+        if (soundPool != null) return; // sounds already loaded
 
         soundPool = new SoundPoolFactory().makeSoundPool();
         soundMap = new SparseIntArray(5);
 
+        final Context applicationContext = context.getApplicationContext();
         new Thread(new Runnable() {
             public void run() {
-                soundMap.put(SOUND_EXPENSE_EARNING_ADDED, soundPool.load(context, R.raw.cancellazione, 1));
-                soundMap.put(SOUND_BUDGET_ADDED, soundPool.load(context, R.raw.spese_entrate_budget_aggiunta, 1));
-                soundMap.put(SOUND_DELETED, soundPool.load(context, R.raw.cancellazione, 1));
-                soundMap.put(SOUND_COMPLETED, soundPool.load(context, R.raw.operazione_completata, 1));
-                soundMap.put(SOUND_APP_LOCKED, soundPool.load(context, R.raw.blocco_app, 1));
+                soundMap.put(SOUND_EXPENSE_EARNING_ADDED, soundPool.load(applicationContext, R.raw.cancellazione, 1));
+                soundMap.put(SOUND_BUDGET_ADDED, soundPool.load(applicationContext, R.raw.spese_entrate_budget_aggiunta, 1));
+                soundMap.put(SOUND_DELETED, soundPool.load(applicationContext, R.raw.cancellazione, 1));
+                soundMap.put(SOUND_COMPLETED, soundPool.load(applicationContext, R.raw.operazione_completata, 1));
+                soundMap.put(SOUND_APP_LOCKED, soundPool.load(applicationContext, R.raw.blocco_app, 1));
 
                 soundsLoaded = true;
             }
@@ -83,10 +86,14 @@ public class SoundEffectsManager {
         soundsLoaded = false;
     }
 
+    public boolean isSoundsLoaded() {
+        return soundsLoaded;
+    }
+
     /*
-        Factory class that returns a SoundPool object. The creation steps depends on the
-        Android version.
-     */
+            Factory class that returns a SoundPool object. The creation steps depends on the
+            Android version.
+         */
     @SuppressWarnings("deprecation")
     private class SoundPoolFactory {
         public SoundPool makeSoundPool() {

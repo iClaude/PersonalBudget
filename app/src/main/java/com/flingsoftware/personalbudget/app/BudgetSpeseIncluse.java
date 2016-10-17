@@ -1,15 +1,42 @@
+/*
+ * Copyright (c) This code was written by iClaude. All rights reserved.
+ */
+
 package com.flingsoftware.personalbudget.app;
+
+import android.app.Activity;
+import android.app.SearchManager;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.SearchView.OnQueryTextListener;
+import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ExpandableListView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.SimpleCursorTreeAdapter;
+import android.widget.TextView;
 
 import com.flingsoftware.personalbudget.R;
 import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze;
-import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiSuoni;
-import com.flingsoftware.personalbudget.database.*;
+import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
+import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
 import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
-
-import static com.flingsoftware.personalbudget.app.BudgetDettaglio.CostantiPubbliche.*;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiActivity.*;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.*;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.*;
+import com.flingsoftware.personalbudget.utilita.SoundEffectsManager;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -23,36 +50,22 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
-import android.app.Activity;
-import android.app.SearchManager;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.media.AudioManager;
-import android.media.SoundPool;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ExpandableListView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.SimpleCursorTreeAdapter;
-import android.widget.TextView;
-import android.widget.ExpandableListView.OnGroupExpandListener;
-import android.util.SparseIntArray;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.SearchView;
-import android.support.v7.widget.SearchView.OnQueryTextListener;
+import static com.flingsoftware.personalbudget.app.BudgetDettaglio.CostantiPubbliche.BUDGET_DATA_FINE;
+import static com.flingsoftware.personalbudget.app.BudgetDettaglio.CostantiPubbliche.BUDGET_DATA_INIZIO;
+import static com.flingsoftware.personalbudget.app.BudgetDettaglio.CostantiPubbliche.BUDGET_VOCE;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_ACCOUNT;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_AMOUNT;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_AMOUNT_CURR;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_CURRENCY;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_DATE;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_DESC;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_FAVORITE;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_ID;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_REP_ID;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_TAG;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiActivity.ACTIVITY_SPESE_DETTAGLIOVOCE;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VISUALIZZA_PER_DATA;
 
 
 public class BudgetSpeseIncluse extends ActionBarActivity implements OnQueryTextListener
@@ -344,29 +357,22 @@ public class BudgetSpeseIncluse extends ActionBarActivity implements OnQueryText
 				cDettaglioVoce.close();
 				dbcSpeseSostenute.close();
 				Intent visualizzaVoceIntent = new Intent(BudgetSpeseIncluse.this, SpeseDettaglioVoce.class);
-				visualizzaVoceIntent.putExtra(VOCE_ID, id);
-				visualizzaVoceIntent.putExtra(VOCE_IMPORTO, importo);
-				visualizzaVoceIntent.putExtra(VOCE_TAG, voce);
-				visualizzaVoceIntent.putExtra(VOCE_DATA, data);
-				visualizzaVoceIntent.putExtra(VOCE_DESCRIZIONE, descrizione);
-				visualizzaVoceIntent.putExtra(VOCE_RIPETIZIONE_ID, ripetizione_id);
-				visualizzaVoceIntent.putExtra(VOCE_VALUTA, valuta);
-				visualizzaVoceIntent.putExtra(VOCE_IMPORTO_VALPRIN, importoValprin);
-				visualizzaVoceIntent.putExtra(VOCE_CONTO, conto);
-				visualizzaVoceIntent.putExtra(VOCE_FAVORITE, preferito);
+				visualizzaVoceIntent.putExtra(KEY_ID, id);
+				visualizzaVoceIntent.putExtra(KEY_AMOUNT, importo);
+				visualizzaVoceIntent.putExtra(KEY_TAG, voce);
+				visualizzaVoceIntent.putExtra(KEY_DATE, data);
+				visualizzaVoceIntent.putExtra(KEY_DESC, descrizione);
+				visualizzaVoceIntent.putExtra(KEY_REP_ID, ripetizione_id);
+				visualizzaVoceIntent.putExtra(KEY_CURRENCY, valuta);
+				visualizzaVoceIntent.putExtra(KEY_AMOUNT_CURR, importoValprin);
+				visualizzaVoceIntent.putExtra(KEY_ACCOUNT, conto);
+				visualizzaVoceIntent.putExtra(KEY_FAVORITE, preferito);
 				
 				startActivityForResult(visualizzaVoceIntent, ACTIVITY_SPESE_DETTAGLIOVOCE);
 				
 				return true;
 			}
 		});
-		
-		/*
-		 * Carico i suoni dell'app in un thread separato per non bloccare l'avvio dell'app. La variabile
-		 * booleana suoniCaricati � impostata su true, e quindi i suoni possono essere utilizzati, solo
-		 * dopo che il caricamente � stato completato.
-		 */
-		new CaricaSuoniTask().execute();
 		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
@@ -430,28 +436,6 @@ public class BudgetSpeseIncluse extends ActionBarActivity implements OnQueryText
 		args[numArgs-1] = "%" + ricerca.toString() + "%";
 		argsChild[numArgs-2] = "%" + ricerca.toString() + "%";
 		argsChild[numArgs-1] = "%" + ricerca.toString() + "%";		
-	}
-	
-	//AsyncTask per caricare la HashMap con i suoni dell'app
-	private class CaricaSuoniTask extends AsyncTask<Object, Object, Boolean> {
-			
-		protected Boolean doInBackground(Object... params) {		
-			SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(BudgetSpeseIncluse.this);
-			boolean abilitazioneSuoni = pref.getBoolean(CostantiPreferenze.SUONI_ABILITATI, false);
-			if(abilitazioneSuoni) {
-				soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-				mappaSuoni = new SparseIntArray(2);
-				mappaSuoni.put(CostantiSuoni.SUONO_AGGIUNGI_SPESA_ENTRATA, soundPool.load(BudgetSpeseIncluse.this, R.raw.spese_entrate_budget_aggiunta, 1));
-				mappaSuoni.put(CostantiSuoni.SUONO_CANCELLAZIONE, soundPool.load(BudgetSpeseIncluse.this, R.raw.cancellazione, 1));
-			}
-			
-			return abilitazioneSuoni;
-		}
-			
-		protected void onPostExecute(Boolean result) {
-			//una volta caricati i suoni nella Map l'app � pronta ad utilizzarli, non prima
-			suoniAbilitati = result;
-		}
 	}
 
 	
@@ -594,15 +578,6 @@ public class BudgetSpeseIncluse extends ActionBarActivity implements OnQueryText
 
 		case ACTIVITY_SPESE_DETTAGLIOVOCE:
 			if(resultCode == Activity.RESULT_OK) {
-				/*if(suoniAbilitati) {
-					int tipoOperazione = data.getExtras().getInt(TIPO_OPERAZIONE);
-					if(tipoOperazione == OPERAZIONE_ELIMINAZIONE) {
-						soundPool.play(mappaSuoni.get(CostantiSuoni.SUONO_CANCELLAZIONE), 1, 1, 1, 0, 1f);
-					}
-					else if(tipoOperazione == OPERAZIONE_MODIFICA) {
-						soundPool.play(mappaSuoni.get(CostantiSuoni.SUONO_AGGIUNGI_SPESA_ENTRATA), 1, 1, 1, 0, 1f);
-					}
-				}*/
 				modifiche = true;
 				aggiornaCursor();
 			}
@@ -712,12 +687,6 @@ public class BudgetSpeseIncluse extends ActionBarActivity implements OnQueryText
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		
-		//libero risorse relative ai suoni
-		if(suoniAbilitati) {
-			soundPool.release();
-			soundPool = null;
-		}
 	}
 
 
@@ -744,9 +713,7 @@ public class BudgetSpeseIncluse extends ActionBarActivity implements OnQueryText
 	private boolean valutaAlternativa;
 	
 	//gestione suoni
-	private SoundPool soundPool;
-	private SparseIntArray mappaSuoni;
-	private boolean suoniAbilitati;
+	private SoundEffectsManager soundEffectsManager = SoundEffectsManager.getInstance();
 	
 	//gestione ricerca
 	private StringBuilder ricerca = new StringBuilder(); //filtro per le ricerche

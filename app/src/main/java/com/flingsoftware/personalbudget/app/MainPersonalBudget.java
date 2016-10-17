@@ -27,8 +27,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.Cursor;
-import android.media.AudioManager;
-import android.media.SoundPool;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -51,7 +49,6 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.SearchView.OnQueryTextListener;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -86,6 +83,7 @@ import com.flingsoftware.personalbudget.preferenze.BudgetStatusService;
 import com.flingsoftware.personalbudget.preferenze.PreferenzeActivity;
 import com.flingsoftware.personalbudget.preferenze.ReminderService;
 import com.flingsoftware.personalbudget.ricvoc.RiconoscimentoVocale;
+import com.flingsoftware.personalbudget.utilita.SoundEffectsManager;
 import com.flingsoftware.personalbudget.utilita.ZoomOutPageTransformer;
 
 import java.io.File;
@@ -307,13 +305,7 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
             intUpdateDatabase.setClass(this, com.flingsoftware.personalbudget.database.AggiornamentoDatabaseIntentService.class);
 	    	startService(intUpdateDatabase);
 		}
-		
-		/*
-		 * Carico i suoni dell'app in un thread separato per non bloccare l'avvio dell'app. La variabile
-		 * booleana suoniCaricati � impostata su true, e quindi i suoni possono essere utilizzati, solo
-		 * dopo che il caricamente � stato completato.
-		 */
-		new CaricaSuoniTask().execute();
+
 		
 		SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
 		preferencesEditor.putInt(CostantiPreferenze.PRIMO_AVVIO_APP, 1);
@@ -506,31 +498,13 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 		conto = sharedPreferences.getString(CostantiPreferenze.CONTO_UTILIZZATO, "%");
 		impostaTitolo(conto);
 		drawerAperto = sharedPreferences.getInt(CostantiPreferenze.DRAWER_APERTO, 0);
-	}
 
+        // Suoni.
+        boolean suoniAbilitati = sharedPreferences.getBoolean(CostantiPreferenze.SUONI_ABILITATI, false);
+        soundEffectsManager = SoundEffectsManager.getInstance();
+        if (suoniAbilitati) soundEffectsManager.loadSounds(this);
+    }
 
-	//AsyncTask per caricare la HashMap con i suoni dell'app
-	private class CaricaSuoniTask extends AsyncTask<Object, Object, Boolean> {
-			
-		protected Boolean doInBackground(Object... params) {		
-			SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(MainPersonalBudget.this);
-			boolean abilitazioneSuoni = pref.getBoolean(CostantiPreferenze.SUONI_ABILITATI, false);
-			if(abilitazioneSuoni) {
-				soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-				mappaSuoni = new SparseIntArray(2);
-				mappaSuoni.put(CostantiSuoni.SUONO_OPERAZIONE_COMPLETATA, soundPool.load(MainPersonalBudget.this, R.raw.operazione_completata, 1));
-				mappaSuoni.put(CostantiSuoni.SUONO_BLOCCO_APP, soundPool.load(MainPersonalBudget.this, R.raw.blocco_app, 1));
-				mappaSuoni.put(CostantiSuoni.SUONO_CANCELLAZIONE, soundPool.load(MainPersonalBudget.this, R.raw.cancellazione, 1));
-			}
-			
-			return abilitazioneSuoni;
-		}
-			
-		protected void onPostExecute(Boolean result) {
-			//una volta caricati i suoni nella Map l'app � pronta ad utilizzarli, non prima
-			suoniAbilitati = result;
-		}
-	}
 	
 	
 	// Navigation Drawer: recupero elenco dei conti
@@ -1117,12 +1091,9 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 		pref.unregisterOnSharedPreferenceChangeListener(this);
 		
 		//libero risorse relative ai suoni
-		if(suoniAbilitati) {
-			soundPool.release();
-			soundPool = null;
-		}
-		
-		//database auto backup (una sola volta al giorno)
+        soundEffectsManager.release();
+
+        //database auto backup (una sola volta al giorno)
 		if(backupNonEffettuato()) {
 	    	Intent brIntent = new Intent(ACTION_BACKUP_AUTO);
             brIntent.setClass(this, com.flingsoftware.personalbudget.backup.BackupRestoreIntentService.class);
@@ -1180,12 +1151,10 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 				String nomeFile = "PersonalBudget." + formatoOutput;
 				File file = new File(exportDir, nomeFile);
 				Uri uri = Uri.fromFile(file);
-				
-				if(suoniAbilitati) {
-					soundPool.play(mappaSuoni.get(CostantiSuoni.SUONO_OPERAZIONE_COMPLETATA), 1, 1, 1, 0, 1f);
-				}
-				
-				//modifico la notifica per l'operazione in background di esportazione del database
+
+                soundEffectsManager.playSound(SoundEffectsManager.SOUND_COMPLETED);
+
+                //modifico la notifica per l'operazione in background di esportazione del database
 				NotificationCompat.Builder builder = new NotificationCompat.Builder(MainPersonalBudget.this);
 				builder.setSmallIcon(R.drawable.ic_notifica);
 				builder.setContentTitle(getString(R.string.notifica_esportaDatabaseCompletato_titolo));
@@ -1275,12 +1244,10 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 				//ricavo i risultati dell'operazione di esportazione
 				boolean risult = intent.getBooleanExtra(CostantiBackupRestore.EXTRA_RISULT, false);
 				String operazione = intent.getStringExtra(CostantiBackupRestore.EXTRA_OPERAZIONE);
-				
-				if(suoniAbilitati) {
-					soundPool.play(mappaSuoni.get(CostantiSuoni.SUONO_OPERAZIONE_COMPLETATA), 1, 1, 1, 0, 1f);
-				}
-				
-				//modifico la notifica per l'operazione in background di esportazione del database
+
+                soundEffectsManager.playSound(SoundEffectsManager.SOUND_COMPLETED);
+
+                //modifico la notifica per l'operazione in background di esportazione del database
 				NotificationCompat.Builder builder = new NotificationCompat.Builder(MainPersonalBudget.this);
 				builder.setSmallIcon(R.drawable.ic_notifica);
 				builder.setContentTitle(getString(R.string.notifica_backupDatabase_titolo));
@@ -1391,24 +1358,8 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 				editor.putString(CostantiPassword.PREFERENZE_PASSWORD, "");
 				editor.apply();
 			}
-			if(suoniAbilitati) {
-				soundPool.play(mappaSuoni.get(CostantiSuoni.SUONO_BLOCCO_APP), 1, 1, 1, 0, 1f);
-			}
-		}
-		else if(key.equals(CostantiPreferenze.SUONI_ABILITATI)) {
-			suoniAbilitati = sharedPreferences.getBoolean(CostantiPreferenze.SUONI_ABILITATI, false);
-			if(suoniAbilitati) {
-				soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-				mappaSuoni = new SparseIntArray(2);
-				mappaSuoni.put(CostantiSuoni.SUONO_OPERAZIONE_COMPLETATA, soundPool.load(this, R.raw.operazione_completata, 1));
-				mappaSuoni.put(CostantiSuoni.SUONO_BLOCCO_APP, soundPool.load(this, R.raw.blocco_app, 1));
-			}
-			else {
-				soundPool.release();
-				soundPool = null;
-				mappaSuoni.clear();
-			}
-		}
+            soundEffectsManager.playSound(SoundEffectsManager.SOUND_APP_LOCKED);
+        }
 		else if(key.equals(CostantiPreferenze.LOWNDES_TIPS_ABILITATI)) {
 			lowndesTipsAbilitati = sharedPreferences.getBoolean(CostantiPreferenze.LOWNDES_TIPS_ABILITATI, false);
 		}
@@ -1509,18 +1460,12 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 	@Override
 	public void onDeletedExpense() {
 		aggiornaCursor(new int[] {1,0,1,1});
-		if(suoniAbilitati) {
-			soundPool.play(mappaSuoni.get(CostantiSuoni.SUONO_CANCELLAZIONE), 1, 1, 1, 0, 1f);
-		}
 	}
 	
 	
 	@Override
 	public void onDeletedEarning() {
 		aggiornaCursor(new int[] {0,1,1,0});
-		if (suoniAbilitati) {
-			soundPool.play(mappaSuoni.get(CostantiSuoni.SUONO_CANCELLAZIONE), 1, 1, 1, 0, 1f);
-		}
 	}
 	
 	
@@ -1548,11 +1493,9 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
     private SearchView searchView;
 
 	//gestione suoni
-	private SoundPool soundPool;
-	private SparseIntArray mappaSuoni;
-	private boolean suoniAbilitati;
-	
-	//reminder registrazione spese
+    private SoundEffectsManager soundEffectsManager;
+
+    //reminder registrazione spese
 	PendingIntent piReminder;
 	AlarmManager alarmManager;
 	

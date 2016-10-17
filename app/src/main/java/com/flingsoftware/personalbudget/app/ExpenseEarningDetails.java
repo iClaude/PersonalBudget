@@ -82,16 +82,16 @@ import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_BUDGE
 public abstract class ExpenseEarningDetails extends AppCompatActivity implements SpeseEntrateEliminaVociRipetute.EliminaVociRipetuteListener {
 
     // Constants used by Intent(s).
-    protected final String KEY_ID = "KEY_ID";
-    protected final String KEY_AMOUNT = "KEY_AMOUNT";
-    protected final String KEY_TAG = "KEY_TAG";
-    protected final String KEY_DATE = "KEY_DATE";
-    protected final String KEY_DESC = "KEY_DESC";
-    protected final String KEY_REP_ID = "KEY_REP_ID"; //repetition id
-    protected final String KEY_AMOUNT_CURR = "KEY_AMOUNT_CURR"; // amount in original currency
-    protected final String KEY_CURRENCY = "KEY_CURRENCY";
-    protected final String KEY_ACCOUNT = "KEY_ACCOUNT";
-    protected final String KEY_FAVORITE = "KEY_FAVORITE";
+    public static final String KEY_ID = "KEY_ID";
+    public static final String KEY_AMOUNT = "KEY_AMOUNT";
+    public static final String KEY_TAG = "KEY_TAG";
+    public static final String KEY_DATE = "KEY_DATE";
+    public static final String KEY_DESC = "KEY_DESC";
+    public static final String KEY_REP_ID = "KEY_REP_ID"; //repetition id
+    public static final String KEY_AMOUNT_CURR = "KEY_AMOUNT_CURR"; // amount in original currency
+    public static final String KEY_CURRENCY = "KEY_CURRENCY";
+    public static final String KEY_ACCOUNT = "KEY_ACCOUNT";
+    public static final String KEY_FAVORITE = "KEY_FAVORITE";
 
     // Constants related to animations.
     private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.8f;
@@ -634,7 +634,7 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
             String msg = getResources().getString(R.string.dettagli_voce_elemento_duplicato);
             new MioToast(ExpenseEarningDetails.this, msg).visualizza(Toast.LENGTH_SHORT);
             // Subclasses representing an expense must override this method to update the budget table.
-            updateBudgetTable(ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA, "%" + tag + "%", Long.valueOf(data).toString(), Long.valueOf(data).toString())
+            updateBudgetTable(ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA, "%" + tag + "%", Long.valueOf(data).toString(), Long.valueOf(data).toString());
 
             setResult(Activity.RESULT_OK);
             finish();

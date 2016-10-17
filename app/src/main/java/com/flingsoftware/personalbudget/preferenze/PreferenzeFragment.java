@@ -1,6 +1,8 @@
-package com.flingsoftware.personalbudget.preferenze;
+/*
+ * Copyright (c) This code was written by iClaude. All rights reserved.
+ */
 
-import com.flingsoftware.personalbudget.R;
+package com.flingsoftware.personalbudget.preferenze;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,6 +13,10 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.util.Log;
+
+import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.app.MainPersonalBudget;
+import com.flingsoftware.personalbudget.utilita.SoundEffectsManager;
 
 
 public class PreferenzeFragment extends PreferenceFragment implements  OnSharedPreferenceChangeListener {
@@ -72,6 +78,14 @@ public class PreferenzeFragment extends PreferenceFragment implements  OnSharedP
 			
 			Preference passwordPref = findPreference("pref_sicurezza_password");
 			passwordPref.setSummary(sommario.toString());
+		} else if (key.equals(MainPersonalBudget.CostantiPreferenze.SUONI_ABILITATI)) {
+			boolean suoniAbilitati = sharedPreferences.getBoolean(MainPersonalBudget.CostantiPreferenze.SUONI_ABILITATI, false);
+			SoundEffectsManager soundEffectsManager = SoundEffectsManager.getInstance();
+			if (suoniAbilitati) {
+				soundEffectsManager.loadSounds(getActivity());
+			} else {
+				soundEffectsManager.release();
+			}
 		}
 	}
 	

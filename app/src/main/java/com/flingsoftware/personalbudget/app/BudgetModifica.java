@@ -1,25 +1,57 @@
+/*
+ * Copyright (c) This code was written by iClaude. All rights reserved.
+ */
+
 package com.flingsoftware.personalbudget.app;
 
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_CORRENTE;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.*;
-import static com.flingsoftware.personalbudget.app.FragmentBudget.ROW_ID;
-import static com.flingsoftware.personalbudget.app.BudgetDettaglio.CostantiPubbliche.*;
-import static com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche.DETTAGLIO_VALUTA_CODICE;
-import static com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche.DETTAGLIO_VALUTA_SIMBOLO;
-import static com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche.DETTAGLIO_VALUTA_TASSO;
-import static com.flingsoftware.personalbudget.valute.ElencoValute.CostantiPubbliche.ELENCO_VALUTE_VALUTADEFAULT_CODICE;
-import static com.flingsoftware.personalbudget.valute.ElencoValute.CostantiPubbliche.ELENCO_VALUTE_VALUTA_CODICE;
-import static com.flingsoftware.personalbudget.valute.RecuperaCambioIntentService.CostantiPubbliche.AZIONE_RECUPERA_CAMBIO;
-import static com.flingsoftware.personalbudget.valute.RecuperaCambioIntentService.CostantiPubbliche.EXTRA_CAMBIO;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FilterQueryProvider;
+import android.widget.ImageView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.SimpleCursorAdapter.CursorToStringConverter;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.flingsoftware.personalbudget.R;
-import com.flingsoftware.personalbudget.database.*;
-import com.flingsoftware.personalbudget.valute.ElencoValute;
-import com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche;
-import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze;
-import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiSuoni;
 import com.flingsoftware.personalbudget.customviews.MioToast;
+import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
+import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
+import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
+import com.flingsoftware.personalbudget.utilita.SoundEffectsManager;
+import com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche;
+import com.flingsoftware.personalbudget.valute.ElencoValute;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -33,50 +65,26 @@ import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Notification;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.media.AudioManager;
-import android.media.SoundPool;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.SparseIntArray;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.FilterQueryProvider;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.SimpleCursorAdapter;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
-import android.widget.SimpleCursorAdapter.CursorToStringConverter;
-import android.support.v7.app.ActionBarActivity;
+import static com.flingsoftware.personalbudget.app.BudgetDettaglio.CostantiPubbliche.BUDGET_AGGIUNGERE_RIMANENZA;
+import static com.flingsoftware.personalbudget.app.BudgetDettaglio.CostantiPubbliche.BUDGET_BUDGET_INIZIALE;
+import static com.flingsoftware.personalbudget.app.BudgetDettaglio.CostantiPubbliche.BUDGET_DATA_FINE;
+import static com.flingsoftware.personalbudget.app.BudgetDettaglio.CostantiPubbliche.BUDGET_DATA_INIZIO;
+import static com.flingsoftware.personalbudget.app.BudgetDettaglio.CostantiPubbliche.BUDGET_IMPORTO;
+import static com.flingsoftware.personalbudget.app.BudgetDettaglio.CostantiPubbliche.BUDGET_RIPETIZIONE;
+import static com.flingsoftware.personalbudget.app.BudgetDettaglio.CostantiPubbliche.BUDGET_ULTIMO_AGGIUNTO;
+import static com.flingsoftware.personalbudget.app.BudgetDettaglio.CostantiPubbliche.BUDGET_VOCE;
+import static com.flingsoftware.personalbudget.app.FragmentBudget.ROW_ID;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_CORRENTE;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.ID_DATEPICKER;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.WIDGET_AGGIORNA;
+import static com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche.DETTAGLIO_VALUTA_CODICE;
+import static com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche.DETTAGLIO_VALUTA_SIMBOLO;
+import static com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche.DETTAGLIO_VALUTA_TASSO;
+import static com.flingsoftware.personalbudget.valute.ElencoValute.CostantiPubbliche.ELENCO_VALUTE_VALUTADEFAULT_CODICE;
+import static com.flingsoftware.personalbudget.valute.ElencoValute.CostantiPubbliche.ELENCO_VALUTE_VALUTA_CODICE;
+import static com.flingsoftware.personalbudget.valute.RecuperaCambioIntentService.CostantiPubbliche.AZIONE_RECUPERA_CAMBIO;
+import static com.flingsoftware.personalbudget.valute.RecuperaCambioIntentService.CostantiPubbliche.EXTRA_CAMBIO;
 
 
 public class BudgetModifica extends ActionBarActivity implements DatePickerFragment.DialogFinishedListener {
@@ -219,8 +227,7 @@ public class BudgetModifica extends ActionBarActivity implements DatePickerFragm
 		findViewById(R.id.budget_aggiungi_tlRipetizione_tableRowTitolo).setOnClickListener(titoliSchedeListener);
 		findViewById(R.id.budget_aggiungi_tlPeriodo_tableRowTitolo).setOnClickListener(titoliSchedeListener);
 		findViewById(R.id.budget_aggiungi_tlRisparmi_tableRowTitolo).setOnClickListener(titoliSchedeListener);
-		
-		new CaricaSuoniTask().execute();
+
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 	
@@ -281,9 +288,9 @@ public class BudgetModifica extends ActionBarActivity implements DatePickerFragm
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		
-		if(suoniAbilitati && conferma) {
-			soundPool.play(mappaSuoni.get(CostantiSuoni.SUONO_AGGIUNGI_BUDGET), 1, 1, 1, 0, 1f);
+
+		if (conferma) {
+			soundEffectsManager.playSound(SoundEffectsManager.SOUND_BUDGET_ADDED);
 		}
 	}
 
@@ -697,28 +704,6 @@ public class BudgetModifica extends ActionBarActivity implements DatePickerFragm
 	    
 	    etImportoBudget.clearFocus();
 	}
-	
-	
-	//AsyncTask per caricare la HashMap con i suoni dell'app
-	private class CaricaSuoniTask extends AsyncTask<Object, Object, Boolean> {
-			
-		protected Boolean doInBackground(Object... params) {		
-			SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(BudgetModifica.this);
-			boolean abilitazioneSuoni = pref.getBoolean(CostantiPreferenze.SUONI_ABILITATI, false);
-			if(abilitazioneSuoni) {
-				soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-				mappaSuoni = new SparseIntArray(1);
-				mappaSuoni.put(CostantiSuoni.SUONO_AGGIUNGI_BUDGET, soundPool.load(BudgetModifica.this, R.raw.spese_entrate_budget_aggiunta, 1));
-			}
-			
-			return abilitazioneSuoni;
-		}
-			
-		protected void onPostExecute(Boolean result) {
-			//una volta caricati i suoni nella Map l'app � pronta ad utilizzarli, non prima
-			suoniAbilitati = result;
-		}
-	}
 		
 		
 	//AsyncTask per recuperare l'elenco dei tag delle spese
@@ -1057,9 +1042,7 @@ public class BudgetModifica extends ActionBarActivity implements DatePickerFragm
 	private DBCSpeseVoci dbcSpeseVociPerAutocomplete;
 	
 	//gestione suoni
-	private SoundPool soundPool;
-	private SparseIntArray mappaSuoni;
-	private boolean suoniAbilitati;
+	private SoundEffectsManager soundEffectsManager = SoundEffectsManager.getInstance();
 	private boolean conferma;
 	
 	Locale miaLocale = (Locale.getDefault().getDisplayLanguage().equals("italiano") ? Locale.getDefault() : Locale.UK);

@@ -14,8 +14,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.media.AudioManager;
-import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,7 +25,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.SparseIntArray;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -47,8 +44,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.flingsoftware.personalbudget.R;
-import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze;
-import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiSuoni;
 import com.flingsoftware.personalbudget.customviews.MioToast;
 import com.flingsoftware.personalbudget.database.DBCConti;
 import com.flingsoftware.personalbudget.database.DBCEntrateIncassate;
@@ -57,6 +52,7 @@ import com.flingsoftware.personalbudget.database.DBCEntrateVoci;
 import com.flingsoftware.personalbudget.database.InserimentoMultiploIntentService;
 import com.flingsoftware.personalbudget.oggetti.SpesaEntrata;
 import com.flingsoftware.personalbudget.utilita.Animazioni;
+import com.flingsoftware.personalbudget.utilita.SoundEffectsManager;
 import com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche;
 import com.flingsoftware.personalbudget.valute.ElencoValute;
 
@@ -69,22 +65,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_ACCOUNT;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_AMOUNT;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_AMOUNT_CURR;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_CURRENCY;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_DATE;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_DESC;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_FAVORITE;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_ID;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_REP_ID;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_TAG;
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.CONTO_DEFAULT;
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.TAG_ENTRATE_ULTIMO;
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_CORRENTE;
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.ID_DATEPICKER;
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.WIDGET_PICCOLO_AGGIORNA;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_CONTO;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_DATA;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_DESCRIZIONE;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_FAVORITE;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_ID;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_IMPORTO;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_IMPORTO_VALPRIN;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_RIPETIZIONE_ID;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_TAG;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_VALUTA;
 import static com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche.DETTAGLIO_VALUTA_CODICE;
 import static com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche.DETTAGLIO_VALUTA_SIMBOLO;
 import static com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche.DETTAGLIO_VALUTA_TASSO;
@@ -110,16 +106,16 @@ Create an Intent to start this Activity with the main variables set.
 	public static Intent makeIntent(Context context, long id, String tag, double amount, String currency, double amountMainCurrency, long date, String description, long repetitionId, String account, int favorite) {
 		Intent intent = new Intent(context, EntrateAggiungi.class);
 
-		intent.putExtra(VOCE_ID, id);
-		intent.putExtra(VOCE_TAG, tag);
-		intent.putExtra(VOCE_IMPORTO, amount);
-		intent.putExtra(VOCE_VALUTA, currency);
-		intent.putExtra(VOCE_IMPORTO_VALPRIN, amountMainCurrency);
-		intent.putExtra(VOCE_DATA, date);
-		intent.putExtra(VOCE_DESCRIZIONE, description);
-		intent.putExtra(VOCE_RIPETIZIONE_ID, repetitionId);
-		intent.putExtra(VOCE_CONTO, account);
-		intent.putExtra(VOCE_FAVORITE, favorite);
+		intent.putExtra(KEY_ID, id);
+		intent.putExtra(KEY_TAG, tag);
+		intent.putExtra(KEY_AMOUNT, amount);
+		intent.putExtra(KEY_CURRENCY, currency);
+		intent.putExtra(KEY_AMOUNT_CURR, amountMainCurrency);
+		intent.putExtra(KEY_DATE, date);
+		intent.putExtra(KEY_DESC, description);
+		intent.putExtra(KEY_REP_ID, repetitionId);
+		intent.putExtra(KEY_ACCOUNT, account);
+		intent.putExtra(KEY_FAVORITE, favorite);
 
 		return intent;
 	}
@@ -148,7 +144,7 @@ Create an Intent to start this Activity with the main variables set.
 			tassoCambio = 1f;
 		}
 		else {
-			favorite = extras.getInt(VOCE_FAVORITE);
+			favorite = extras.getInt(KEY_FAVORITE);
 			if(favorite == -1) {
 				tipoOperazione = TIPO_OPERAZIONE_PREFERITO;
 				((TextView) findViewById(R.id.aggiungi_voce_tvTitolo)).setText(R.string.aggiungi_entrate_aggiungi_entrata);
@@ -157,16 +153,16 @@ Create an Intent to start this Activity with the main variables set.
 				tipoOperazione = TIPO_OPERAZIONE_MODIFICA;
 				((TextView) findViewById(R.id.aggiungi_voce_tvTitolo)).setText(R.string.aggiungi_entrate_modifica_entrata);
 			}
-			
-			id = extras.getLong(VOCE_ID);
-			tag = extras.getString(VOCE_TAG);
-			importo = extras.getDouble(VOCE_IMPORTO);
-			valutaCorrente = extras.getString(VOCE_VALUTA);
-			importoValprin = extras.getDouble(VOCE_IMPORTO_VALPRIN);
-			long miaData = extras.getLong(VOCE_DATA);
-			descrizione = extras.getString(VOCE_DESCRIZIONE);
-			ripetizione_id = extras.getLong(VOCE_RIPETIZIONE_ID);
-			conto = extras.getString(VOCE_CONTO);
+
+			id = extras.getLong(KEY_ID);
+			tag = extras.getString(KEY_TAG);
+			importo = extras.getDouble(KEY_AMOUNT);
+			valutaCorrente = extras.getString(KEY_CURRENCY);
+			importoValprin = extras.getDouble(KEY_AMOUNT_CURR);
+			long miaData = extras.getLong(KEY_DATE);
+			descrizione = extras.getString(KEY_DESC);
+			ripetizione_id = extras.getLong(KEY_REP_ID);
+			conto = extras.getString(KEY_ACCOUNT);
 
 			data = new GregorianCalendar();
 			data.setTimeInMillis(miaData);
@@ -311,8 +307,7 @@ Create an Intent to start this Activity with the main variables set.
 		findViewById(R.id.aggiungi_voce_tlDescrizione_tableRowTitolo).setOnClickListener(titoliSchedeListener);
 		findViewById(R.id.aggiungi_voce_tlRipetizione_tableRowTitolo).setOnClickListener(titoliSchedeListener);
 		findViewById(R.id.aggiungi_voce_tlPreferiti_tableRowTitolo).setOnClickListener(titoliSchedeListener);
-	
-		new CaricaSuoniTask().execute();
+
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
@@ -801,28 +796,6 @@ Create an Intent to start this Activity with the main variables set.
 		setResult(FragmentActivity.RESULT_OK);
 		finish();
 	}
-	
-	
-	//AsyncTask per caricare la HashMap con i suoni dell'app
-	private class CaricaSuoniTask extends AsyncTask<Object, Object, Boolean> {
-			
-		protected Boolean doInBackground(Object... params) {		
-			SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(EntrateAggiungi.this);
-			boolean abilitazioneSuoni = pref.getBoolean(CostantiPreferenze.SUONI_ABILITATI, false);
-			if(abilitazioneSuoni) {
-				soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-				mappaSuoni = new SparseIntArray(1);
-				mappaSuoni.put(CostantiSuoni.SUONO_AGGIUNGI_SPESA_ENTRATA, soundPool.load(EntrateAggiungi.this, R.raw.spese_entrate_budget_aggiunta, 1));
-			}
-			
-			return abilitazioneSuoni;
-		}
-			
-		protected void onPostExecute(Boolean result) {
-			//una volta caricati i suoni nella Map l'app � pronta ad utilizzarli, non prima
-			suoniAbilitati = result;
-		}
-	}
 		
 	
 	//AsyncTask per recuperare l'elenco dei conti per lo Spinner dei conti
@@ -1085,7 +1058,7 @@ Create an Intent to start this Activity with the main variables set.
 		dbcEntrateRipetute.openModifica();
 		long risul = 1;
 		try {
-			dbcEntrateRipetute.eliminaEntrataRipetuta(ripetizione_id);
+			dbcEntrateRipetute.deleteElementRepeated(ripetizione_id);
 		}
 		catch (Exception exc) {
 			risul = -1;
@@ -1169,9 +1142,9 @@ Create an Intent to start this Activity with the main variables set.
 		super.onDestroy();
 
 		dbcEntrateVociPerAutocomplete.close();
-		
-		if(suoniAbilitati && conferma) {
-			soundPool.play(mappaSuoni.get(CostantiSuoni.SUONO_AGGIUNGI_SPESA_ENTRATA), 1, 1, 1, 0, 1f);
+
+		if (conferma) {
+			soundEffectsManager.playSound(SoundEffectsManager.SOUND_EXPENSE_EARNING_ADDED);
 		}
 	}
 
@@ -1390,12 +1363,10 @@ Create an Intent to start this Activity with the main variables set.
 	private String valutaPrincipale;
 	Locale miaLocale = (Locale.getDefault().getDisplayLanguage().equals("italiano") ? Locale.getDefault() : Locale.UK);
 	private int favorite;
+	private boolean conferma;
 
 	//gestione suoni
-	private SoundPool soundPool;
-	private SparseIntArray mappaSuoni;
-	private boolean suoniAbilitati;
-	private boolean conferma;
+	private SoundEffectsManager soundEffectsManager = SoundEffectsManager.getInstance();
 	
 	private DBCEntrateVoci dbcEntrateVoci;
 	private DBCEntrateVoci dbcEntrateVociPerAutocomplete;
