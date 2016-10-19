@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.utilita;
@@ -32,7 +32,7 @@ public class SoundEffectsManager {
     // Variables.
     private SoundPool soundPool;
     private SparseIntArray soundMap;
-    private boolean soundsLoaded;
+    private volatile boolean soundsLoaded;
 
 
     private SoundEffectsManager() {
@@ -52,7 +52,7 @@ public class SoundEffectsManager {
         thread. When the sounds are loaded soundsLoaded is true.
      */
     public synchronized void loadSounds(final Context context) {
-        if (soundPool != null) return; // sounds already loaded
+        if (soundsLoaded) return; // sounds already loaded
 
         soundPool = new SoundPoolFactory().makeSoundPool();
         soundMap = new SparseIntArray(6);
@@ -75,7 +75,7 @@ public class SoundEffectsManager {
     // Play the sound with the specified id.
     public void playSound(int soundId) {
         if (soundsLoaded) {
-            soundPool.play(soundId, 1, 1, 1, 0, 1f);
+            soundPool.play(soundMap.get(soundId), 1, 1, 1, 0, 1f);
         }
     }
 

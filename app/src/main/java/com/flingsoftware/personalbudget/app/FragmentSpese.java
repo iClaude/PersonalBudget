@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app;
@@ -45,6 +45,7 @@ import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
 import com.flingsoftware.personalbudget.database.FunzioniAggiornamento;
 import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
+import com.flingsoftware.personalbudget.utilita.SoundEffectsManager;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -814,7 +815,8 @@ public class FragmentSpese extends Fragment implements SharedPreferences.OnShare
 		}
 		
 		@Override
-		protected void onPostExecute(Integer result) {		
+		protected void onPostExecute(Integer result) {
+			soundEffectsManager.playSound(SoundEffectsManager.SOUND_DELETED);
 			String msg = getResources().getQuantityString(R.plurals.dettagli_voce_x_voci_eliminate, result, result);
 			new MioToast(getActivity(), msg).visualizza(Toast.LENGTH_SHORT);
 			aggiornaCursor();
@@ -891,4 +893,7 @@ public class FragmentSpese extends Fragment implements SharedPreferences.OnShare
 	private Bitmap mPlaceHolderBitmapSpese;
 	private ListViewIconeVeloce iconeVeloci;
 	private HashMap<String,Integer> hmIcone = new HashMap<String,Integer>();
+
+	// Suoni.
+	private SoundEffectsManager soundEffectsManager = SoundEffectsManager.getInstance();
 }

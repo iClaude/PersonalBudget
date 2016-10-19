@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app;
@@ -131,12 +131,12 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
     private long dataInizio;
     private String valuta;
     private double importoValprin;
-    protected SoundEffectsManager soundEffectsManager;
 
-    // Graphics.
+    // Graphics and multimedia.
     private boolean isToolbarTitleVisible = false;
     private boolean isExpandedTitleVisible = true;
     private boolean isIconToolbarVisible = false;
+    private SoundEffectsManager soundEffectsManager;
 
 
     @Override
@@ -574,8 +574,6 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             new DeleteThisElementTask().execute(id);
-                            // Update budget table when an expense is deleted.
-                            updateBudgetTable(ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA, "%" + tag + "%", Long.valueOf(data).toString(), Long.valueOf(data).toString());
                         }
                     });
         } else {
