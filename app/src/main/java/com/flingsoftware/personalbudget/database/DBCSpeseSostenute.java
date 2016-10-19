@@ -13,7 +13,6 @@ package com.flingsoftware.personalbudget.database;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
 import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_DATAX_ELENCO_FILTRATO;
 import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_INTERVALLO;
@@ -345,10 +344,6 @@ public class DBCSpeseSostenute extends DBCExpEarAbs {
 	public Cursor getSpeseSostenutePreferite() {
 		return mioSQLiteDatabase.rawQuery(SPESE_SOST_PREFERITE, new String[] {});
 	}
-	
-	
-	// variabili d'istanza
-	private SQLiteDatabase mioSQLiteDatabase;
-	private DatabaseOpenHelper mioDatabaseOpenHelper;
+
 }
 

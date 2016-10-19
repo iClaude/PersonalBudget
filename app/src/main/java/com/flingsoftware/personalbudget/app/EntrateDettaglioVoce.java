@@ -63,7 +63,7 @@ public class EntrateDettaglioVoce extends ExpenseEarningDetails {
     }
 
     @Override
-    public void updateBudgetTable() {
+    public void updateBudgetTable(String query, String... args) {
         // no implementation: earnings don't have budgets
     }
 

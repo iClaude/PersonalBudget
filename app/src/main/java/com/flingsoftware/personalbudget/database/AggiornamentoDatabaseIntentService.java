@@ -1,11 +1,14 @@
-package com.flingsoftware.personalbudget.database;
+/*
+ * Copyright (c) This code was written by iClaude. All rights reserved.
+ */
 
-import com.flingsoftware.personalbudget.database.FunzioniAggiornamento;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.*;
+package com.flingsoftware.personalbudget.database;
 
 import android.app.IntentService;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
+
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.LOCAL_BROADCAST_UPDATE_DATABASE;
 
 
 public class AggiornamentoDatabaseIntentService extends IntentService {
@@ -37,7 +40,7 @@ public class AggiornamentoDatabaseIntentService extends IntentService {
 	 * Ad ogni lancio dell'app aggiorno il database eseguendo queste operazioni:
 	 * - inserimento spese ripetute non ancora inserite dall'ultima volta che è stata lanciata l'app
 	 * - inserimento entrate ripetute non ancora inserite dall'ultima volta
-	 * - inserimento budget periodici scaduti e cancellazione budget una tantum scaduti	
+	 * - inserimento budget periodici scaduti e sound_deleted budget una tantum scaduti
 	 */
 	private void updateDatabase() {
 		serviceAttivo = true;

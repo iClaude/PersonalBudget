@@ -57,24 +57,23 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Locale;
 
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_ACCOUNT;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_AMOUNT;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_AMOUNT_CURR;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_CURRENCY;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_DATE;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_DESC;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_FAVORITE;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_ID;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_REP_ID;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_TAG;
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiActivity.ACTIVITY_SPESE_AGGIUNGI;
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiActivity.ACTIVITY_SPESE_DETTAGLIOVOCE;
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VISUALIZZA_PER_DATA;
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.WIDGET_AGGIORNA;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_CONTO;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_DATA;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_DESCRIZIONE;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_FAVORITE;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_ID;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_IMPORTO;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_IMPORTO_VALPRIN;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_RIPETIZIONE_ID;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_TAG;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.VOCE_VALUTA;
 import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA;
 
-//import android.support.v7.view.ActionMode;
 
 
 public class FragmentSpese extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -394,16 +393,16 @@ public class FragmentSpese extends Fragment implements SharedPreferences.OnShare
 					cDettaglioVoce.close();
 					dbcSpeseSostenute.close();
 					Intent visualizzaVoceIntent = new Intent(getActivity(), SpeseDettaglioVoce.class);
-					visualizzaVoceIntent.putExtra(VOCE_ID, id);
-					visualizzaVoceIntent.putExtra(VOCE_IMPORTO, importo);
-					visualizzaVoceIntent.putExtra(VOCE_TAG, voce);
-					visualizzaVoceIntent.putExtra(VOCE_DATA, data);
-					visualizzaVoceIntent.putExtra(VOCE_DESCRIZIONE, descrizione);
-					visualizzaVoceIntent.putExtra(VOCE_RIPETIZIONE_ID, ripetizione_id);
-					visualizzaVoceIntent.putExtra(VOCE_VALUTA, valuta);
-					visualizzaVoceIntent.putExtra(VOCE_IMPORTO_VALPRIN, importoValprin);
-					visualizzaVoceIntent.putExtra(VOCE_CONTO, conto);
-					visualizzaVoceIntent.putExtra(VOCE_FAVORITE, preferito);
+					visualizzaVoceIntent.putExtra(KEY_ID, id);
+					visualizzaVoceIntent.putExtra(KEY_AMOUNT, importo);
+					visualizzaVoceIntent.putExtra(KEY_TAG, voce);
+					visualizzaVoceIntent.putExtra(KEY_DATE, data);
+					visualizzaVoceIntent.putExtra(KEY_DESC, descrizione);
+					visualizzaVoceIntent.putExtra(KEY_REP_ID, ripetizione_id);
+					visualizzaVoceIntent.putExtra(KEY_CURRENCY, valuta);
+					visualizzaVoceIntent.putExtra(KEY_AMOUNT_CURR, importoValprin);
+					visualizzaVoceIntent.putExtra(KEY_ACCOUNT, conto);
+					visualizzaVoceIntent.putExtra(KEY_FAVORITE, preferito);
 
 					getActivity().startActivityForResult(visualizzaVoceIntent, ACTIVITY_SPESE_DETTAGLIOVOCE);
 

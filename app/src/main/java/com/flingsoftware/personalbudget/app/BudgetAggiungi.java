@@ -246,7 +246,7 @@ public class BudgetAggiungi extends ActionBarActivity implements DatePickerFragm
 		super.onDestroy();
 
 		if (conferma) {
-			soundEffectsManager.playSound(SoundEffectsManager.SOUND_BUDGET_ADDED);
+			soundEffectsManager.playSound(SoundEffectsManager.SOUND_ADDED);
 		}
 	}
 

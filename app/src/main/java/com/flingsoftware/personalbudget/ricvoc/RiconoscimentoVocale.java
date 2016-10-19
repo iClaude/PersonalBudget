@@ -9,8 +9,6 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.media.AudioManager;
-import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -39,6 +37,7 @@ import com.flingsoftware.personalbudget.database.DBCEntrateVoci;
 import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
 import com.flingsoftware.personalbudget.database.FunzioniAggiornamento;
+import com.flingsoftware.personalbudget.utilita.SoundEffectsManager;
 
 import java.util.ArrayList;
 import java.util.Currency;
@@ -56,7 +55,6 @@ public class RiconoscimentoVocale extends ActionBarActivity {
 	//variabili di istanza
 	private Voce[] arrVociSpesa;
 	private Voce[] arrVociEntrata;
-	private SoundPool soundPool;
 	private SparseIntArray mappaSuoni;
 	private TextToSpeech mTts;
 	private Locale miaLocale;
@@ -72,8 +70,9 @@ public class RiconoscimentoVocale extends ActionBarActivity {
 		R.drawable.tag_40, R.drawable.tag_41, R.drawable.tag_42, R.drawable.tag_43, R.drawable.tag_44, R.drawable.tag_45, R.drawable.tag_46, R.drawable.tag_47, R.drawable.tag_48, R.drawable.tag_49,
 		R.drawable.tag_50, R.drawable.tag_51, R.drawable.tag_52, R.drawable.tag_53, R.drawable.tag_54, R.drawable.tag_55, R.drawable.tag_56, R.drawable.tag_57};
 	String contoDefault;
-	
-	//reference ai componenti
+    private SoundEffectsManager soundEffectsManager = SoundEffectsManager.getInstance();
+
+    //reference ai componenti
 	private TextView tvCosa;
 	private TextView tvVoce;
 	private TextView tvImporto;
@@ -82,9 +81,6 @@ public class RiconoscimentoVocale extends ActionBarActivity {
 	private ImageView ivIconaVoce;
 	
 	//costanti
-	private final int SUONO_CONFERMA = 0;
-	private final int SUONO_ERRORE = 1;
-	private final int SUONO_AGGIUNTA_VOCE = 2;
 	private final int DOMANDA_1 = 1;
 	private final int DOMANDA_2 = 2;
 	private final int DOMANDA_3 = 3;
@@ -125,7 +121,6 @@ public class RiconoscimentoVocale extends ActionBarActivity {
 		}
 		
 		new RecuperaVociTask().execute((Object[]) null);
-		new CaricaSuoniTask().execute((Object[]) null);
 		verificaTtsELingua();
 		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -161,9 +156,6 @@ public class RiconoscimentoVocale extends ActionBarActivity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		
-		soundPool.release();
-		soundPool = null;
 	}
 
 	//thread separato: recupero voci di spesa/entrata e li metto in un due array
@@ -212,24 +204,7 @@ public class RiconoscimentoVocale extends ActionBarActivity {
 		}
 	}
 	
-	//thread separato: carico suoni usati dalla Activity
-	private class CaricaSuoniTask extends AsyncTask<Object, Object, Object> {
-			
-		protected Boolean doInBackground(Object... params) {		
-			soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-			mappaSuoni = new SparseIntArray(2);
-			mappaSuoni.put(SUONO_CONFERMA, soundPool.load(RiconoscimentoVocale.this, R.raw.conferma, 1));
-			mappaSuoni.put(SUONO_ERRORE, soundPool.load(RiconoscimentoVocale.this, R.raw.errore, 1));
-			mappaSuoni.put(SUONO_AGGIUNTA_VOCE, soundPool.load(RiconoscimentoVocale.this, R.raw.spese_entrate_budget_aggiunta, 1));
-			
-			return null;
-		}
-			
-		protected void onPostExecute(Object result) {
 
-		}
-	}
-	
 	//verifico presenza TTS e lingue disponibili
 	private void verificaTtsELingua() {
 		Intent intent = new Intent();
@@ -251,8 +226,8 @@ public class RiconoscimentoVocale extends ActionBarActivity {
 	    	            if(lingDisp == TextToSpeech.LANG_MISSING_DATA || lingDisp == TextToSpeech.LANG_NOT_SUPPORTED) {
 	    	            	tvIndicazioni.setVisibility(View.VISIBLE);
 	    	            	tvIndicazioni.setText(R.string.ricvoc_lingua_non_disponibile);
-	    	            	soundPool.play(mappaSuoni.get(SUONO_ERRORE), 1, 1, 1, 0, 1f);
-	    	            }
+                            soundEffectsManager.playSound(SoundEffectsManager.SOUND_ERROR);
+                        }
 	    	            else {
 	    	            	mTts.setLanguage(miaLocale);
 	    	            	mTts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
@@ -541,8 +516,8 @@ public class RiconoscimentoVocale extends ActionBarActivity {
 		catch(ActivityNotFoundException exc) {
 			tvIndicazioni.setVisibility(View.VISIBLE);
         	tvIndicazioni.setText(R.string.ricvoc_sr_non_presente);
-        	soundPool.play(mappaSuoni.get(SUONO_ERRORE), 1, 1, 1, 0, 1f);
-		}
+            soundEffectsManager.playSound(SoundEffectsManager.SOUND_ERROR);
+        }
 	}
 
 	//messaggio di errore quando non capisce la risposta dopo il terzo tentativo
@@ -551,9 +526,9 @@ public class RiconoscimentoVocale extends ActionBarActivity {
 		
 		tvIndicazioni.setVisibility(View.VISIBLE);
     	tvIndicazioni.setText(msg);
-		
-    	soundPool.play(mappaSuoni.get(SUONO_ERRORE), 1, 1, 1, 0, 1f);
-    	ttsParams.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "errore");
+
+        soundEffectsManager.playSound(SoundEffectsManager.SOUND_ERROR);
+        ttsParams.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "errore");
 		mTts.speak(msg, TextToSpeech.QUEUE_FLUSH, ttsParams);
 	}
 	
@@ -591,16 +566,16 @@ public class RiconoscimentoVocale extends ActionBarActivity {
 			if(!result) {
 				tvIndicazioni.setVisibility(View.VISIBLE);
 				tvIndicazioni.setText(R.string.toast_errore_inserimento);
-				
-		    	soundPool.play(mappaSuoni.get(SUONO_ERRORE), 1, 1, 1, 0, 1f);
-		    	ttsParams.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "errore");
+
+                soundEffectsManager.playSound(SoundEffectsManager.SOUND_ERROR);
+                ttsParams.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "errore");
 				mTts.speak(getResources().getString(R.string.toast_errore_inserimento), TextToSpeech.QUEUE_FLUSH, ttsParams);
 			}
 			else {
 				new MioToast(RiconoscimentoVocale.this, getString(R.string.toast_spesa_aggiunta)).visualizza(Toast.LENGTH_SHORT);
 				//aggiorno i budget a seguito dell'inserimento della spesa
-				soundPool.play(mappaSuoni.get(SUONO_AGGIUNTA_VOCE), 1, 1, 1, 0, 1f);
-				new AggiornaTabellaBudgetTask().execute((Object[]) null);
+                soundEffectsManager.playSound(SoundEffectsManager.SOUND_ADDED);
+                new AggiornaTabellaBudgetTask().execute((Object[]) null);
 			}
 			dbcSpeseVoci.close();
 			dbcSpeseSostenute.close();
@@ -664,8 +639,8 @@ public class RiconoscimentoVocale extends ActionBarActivity {
 	
 		protected void onPostExecute(Boolean result) {
 			if(!result) {
-		    	soundPool.play(mappaSuoni.get(SUONO_ERRORE), 1, 1, 1, 0, 1f);
-		    	ttsParams.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "errore");
+                soundEffectsManager.playSound(SoundEffectsManager.SOUND_ERROR);
+                ttsParams.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "errore");
 				mTts.speak(getResources().getString(R.string.toast_errore_inserimento), TextToSpeech.QUEUE_FLUSH, ttsParams);
 				
 				tvIndicazioni.setVisibility(View.VISIBLE);
@@ -673,9 +648,9 @@ public class RiconoscimentoVocale extends ActionBarActivity {
 			}
 			else {
 				new MioToast(RiconoscimentoVocale.this, getString(R.string.toast_entrata_aggiunta)).visualizza(Toast.LENGTH_SHORT);
-				soundPool.play(mappaSuoni.get(SUONO_AGGIUNTA_VOCE), 1, 1, 1, 0, 1f);
-				
-				final Intent intAggiornaWidget = new Intent (WIDGET_PICCOLO_AGGIORNA);
+                soundEffectsManager.playSound(SoundEffectsManager.SOUND_ADDED);
+
+                final Intent intAggiornaWidget = new Intent (WIDGET_PICCOLO_AGGIORNA);
 				sendBroadcast(intAggiornaWidget);
 				
 				ttsParams.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "uscita");

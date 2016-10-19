@@ -1183,7 +1183,7 @@ public class SpeseAggiungi extends ActionBarActivity implements DatePickerFragme
 		dbcSpeseVociPerAutocomplete.close();
 
 		if (conferma) {
-			soundEffectsManager.playSound(SoundEffectsManager.SOUND_EXPENSE_EARNING_ADDED);
+			soundEffectsManager.playSound(SoundEffectsManager.SOUND_ADDED);
 		}
 	}
 

@@ -18,16 +18,16 @@ import com.flingsoftware.personalbudget.R;
  * (thread safe implementation).
  * Clients must:
  * 1) get an instance of this class via getInstance
- * 2) initialize it with init()
- * 3) play the sound via playSound
+ * 2) play the sound via playSound
  */
 public class SoundEffectsManager {
     // Constants for each sound effect.
-    public static final int SOUND_EXPENSE_EARNING_ADDED = 0;
-    public static final int SOUND_BUDGET_ADDED = 1;
-    public static final int SOUND_DELETED = 2;
-    public static final int SOUND_COMPLETED = 3;
-    public static final int SOUND_APP_LOCKED = 4;
+    public static final int SOUND_ADDED = 0;
+    public static final int SOUND_DELETED = 1;
+    public static final int SOUND_COMPLETED = 2;
+    public static final int SOUND_APP_LOCKED = 3;
+    public static final int SOUND_CONFIRM = 4;
+    public static final int SOUND_ERROR = 5;
 
     // Variables.
     private SoundPool soundPool;
@@ -36,7 +36,7 @@ public class SoundEffectsManager {
 
 
     private SoundEffectsManager() {
-        SoundEffectsManager soundEffectsManager = new SoundEffectsManager();
+
     }
 
     private static class Container {
@@ -55,16 +55,17 @@ public class SoundEffectsManager {
         if (soundPool != null) return; // sounds already loaded
 
         soundPool = new SoundPoolFactory().makeSoundPool();
-        soundMap = new SparseIntArray(5);
+        soundMap = new SparseIntArray(6);
 
         final Context applicationContext = context.getApplicationContext();
         new Thread(new Runnable() {
             public void run() {
-                soundMap.put(SOUND_EXPENSE_EARNING_ADDED, soundPool.load(applicationContext, R.raw.cancellazione, 1));
-                soundMap.put(SOUND_BUDGET_ADDED, soundPool.load(applicationContext, R.raw.spese_entrate_budget_aggiunta, 1));
-                soundMap.put(SOUND_DELETED, soundPool.load(applicationContext, R.raw.cancellazione, 1));
-                soundMap.put(SOUND_COMPLETED, soundPool.load(applicationContext, R.raw.operazione_completata, 1));
-                soundMap.put(SOUND_APP_LOCKED, soundPool.load(applicationContext, R.raw.blocco_app, 1));
+                soundMap.put(SOUND_ADDED, soundPool.load(applicationContext, R.raw.sound_added, 1));
+                soundMap.put(SOUND_DELETED, soundPool.load(applicationContext, R.raw.sound_deleted, 1));
+                soundMap.put(SOUND_COMPLETED, soundPool.load(applicationContext, R.raw.sound_completed, 1));
+                soundMap.put(SOUND_APP_LOCKED, soundPool.load(applicationContext, R.raw.sound_app_locked, 1));
+                soundMap.put(SOUND_CONFIRM, soundPool.load(applicationContext, R.raw.sound_confirm, 1));
+                soundMap.put(SOUND_ERROR, soundPool.load(applicationContext, R.raw.sound_error, 1));
 
                 soundsLoaded = true;
             }
@@ -80,10 +81,12 @@ public class SoundEffectsManager {
 
     // Release all resources associated with this SoundEffectsManager.
     public void release() {
-        soundMap.clear();
-        soundPool.release();
-        soundPool = null;
-        soundsLoaded = false;
+        if (soundsLoaded) {
+            soundMap.clear();
+            soundPool.release();
+            soundPool = null;
+            soundsLoaded = false;
+        }
     }
 
     public boolean isSoundsLoaded() {

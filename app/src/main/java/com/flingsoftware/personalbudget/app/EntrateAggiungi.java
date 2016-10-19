@@ -1144,7 +1144,7 @@ Create an Intent to start this Activity with the main variables set.
 		dbcEntrateVociPerAutocomplete.close();
 
 		if (conferma) {
-			soundEffectsManager.playSound(SoundEffectsManager.SOUND_EXPENSE_EARNING_ADDED);
+			soundEffectsManager.playSound(SoundEffectsManager.SOUND_ADDED);
 		}
 	}
 

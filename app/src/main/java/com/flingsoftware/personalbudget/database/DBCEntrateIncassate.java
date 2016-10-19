@@ -14,7 +14,6 @@ package com.flingsoftware.personalbudget.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
 import static com.flingsoftware.personalbudget.database.DatabaseOpenHelper.sDataLock;
 import static com.flingsoftware.personalbudget.database.StringheSQL.ENTRATE_INC_DATAX_ELENCO_FILTRATO;
@@ -359,11 +358,7 @@ public class DBCEntrateIncassate extends DBCExpEarAbs {
 	public Cursor getEntrateIncassatePreferite() {
 		return mioSQLiteDatabase.rawQuery(ENTRATE_INC_PREFERITE, new String[]{});
 	}
-	
-	
-	// variabili d'istanza
-	private SQLiteDatabase mioSQLiteDatabase;
-	private DatabaseOpenHelper mioDatabaseOpenHelper;
+
 }
 
 

@@ -101,6 +101,7 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
     // Other constants.
     private final Locale miaLocale = (Locale.getDefault().getDisplayLanguage().equals("italiano") ? Locale.getDefault() : Locale.UK);
     private final DateFormat dfDate = DateFormat.getDateInstance(DateFormat.MEDIUM, miaLocale);
+    private static final String TAG = "ExpenseEarningDetails";
 
     // Instance variables.
     // Layout widgets.
@@ -132,6 +133,11 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
     private double importoValprin;
     protected SoundEffectsManager soundEffectsManager;
 
+    // Graphics.
+    private boolean isToolbarTitleVisible = false;
+    private boolean isExpandedTitleVisible = true;
+    private boolean isIconToolbarVisible = false;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -139,11 +145,11 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.spese_entrate_dettaglio_voce);
 
-        // App bar.
-        setUpAppbar();
-
         // Get widgets' references.
         initLayoutWidgets();
+
+        // App bar.
+        setUpAppbar();
 
         // Get expense/earning details and display them.
         getDetails();
@@ -151,6 +157,23 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
 
         // Sound effects.
         soundEffectsManager = SoundEffectsManager.getInstance();
+    }
+
+
+    // Get widgets' references from the inflated layout.
+    private void initLayoutWidgets() {
+        tvVoce = (TextView) findViewById(R.id.tvVoce);
+        tvImporto = (TextView) findViewById(R.id.tvImporto);
+        tvConto = (TextView) findViewById(R.id.sedv_tvConto);
+        tvData = (TextView) findViewById(R.id.tvData);
+        tvDescrizione = (TextView) findViewById(R.id.tvDescrizione);
+        tvRipetizione = (TextView) findViewById(R.id.dettagli_voce_tvRipetizione);
+        tvFineRipetizione = (TextView) findViewById(R.id.dettagli_voce_tvFineRipetizione);
+        ivIcona = (ImageView) findViewById(R.id.spese_entrate_dettaglio_voce_ivIcona);
+        ivIconToolbar = (ImageView) findViewById(R.id.ivIconToolbar);
+        fabAlto = (FloatingActionButton) findViewById(R.id.fab);
+        tvToolbarTitle = (TextView) findViewById(R.id.main_textview_title);
+        llExpandedTitle = (LinearLayout) findViewById(R.id.main_linearlayout_title);
     }
 
 
@@ -208,19 +231,23 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
     private void handleToolbarTitleVisibility(float percentage) {
         if (percentage == 1) {
             ivIconToolbar.setVisibility(View.VISIBLE);
-        } else if (ivIconToolbar.getVisibility() == View.VISIBLE) {
+            isIconToolbarVisible = true;
+        } else if (isIconToolbarVisible) {
             ivIconToolbar.setVisibility(View.INVISIBLE);
+            isIconToolbarVisible = false;
         }
 
         if (percentage >= PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR) {
-            if (ivIconToolbar.getVisibility() == View.INVISIBLE) {
+            if (!isToolbarTitleVisible) {
                 tvToolbarTitle.setVisibility(View.VISIBLE);
                 startAlphaAnimation(tvToolbarTitle, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
+                isToolbarTitleVisible = true;
             }
         } else {
-            if (ivIconToolbar.getVisibility() == View.VISIBLE) {
+            if (isToolbarTitleVisible) {
                 tvToolbarTitle.setVisibility(View.INVISIBLE);
                 startAlphaAnimation(tvToolbarTitle, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
+                isToolbarTitleVisible = false;
             }
         }
     }
@@ -229,31 +256,16 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
     // Hide/show title in expanded app bar.
     private void handleExpandedTitleVisibility(float percentage) {
         if (percentage <= PERCENTAGE_TO_HIDE_TITLE_DETAILS) {
-            if (llExpandedTitle.getAlpha() == 0) {
+            if (!isExpandedTitleVisible) {
                 startAlphaAnimation(llExpandedTitle, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
+                isExpandedTitleVisible = true;
             }
         } else {
-            if (llExpandedTitle.getAlpha() == 1) {
+            if (isExpandedTitleVisible) {
                 startAlphaAnimation(llExpandedTitle, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
+                isExpandedTitleVisible = false;
             }
         }
-    }
-
-
-    // Get widgets' references from the inflated layout.
-    private void initLayoutWidgets() {
-        tvVoce = (TextView) findViewById(R.id.tvVoce);
-        tvImporto = (TextView) findViewById(R.id.tvImporto);
-        tvConto = (TextView) findViewById(R.id.sedv_tvConto);
-        tvData = (TextView) findViewById(R.id.tvData);
-        tvDescrizione = (TextView) findViewById(R.id.tvDescrizione);
-        tvRipetizione = (TextView) findViewById(R.id.dettagli_voce_tvRipetizione);
-        tvFineRipetizione = (TextView) findViewById(R.id.dettagli_voce_tvFineRipetizione);
-        ivIcona = (ImageView) findViewById(R.id.spese_entrate_dettaglio_voce_ivIcona);
-        ivIconToolbar = (ImageView) findViewById(R.id.ivIconToolbar);
-        fabAlto = (FloatingActionButton) findViewById(R.id.fab);
-        tvToolbarTitle = (TextView) findViewById(R.id.main_textview_title);
-        llExpandedTitle = (LinearLayout) findViewById(R.id.main_linearlayout_title);
     }
 
 
@@ -629,7 +641,7 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            soundEffectsManager.playSound(SoundEffectsManager.SOUND_EXPENSE_EARNING_ADDED);
+            soundEffectsManager.playSound(SoundEffectsManager.SOUND_ADDED);
 
             String msg = getResources().getString(R.string.dettagli_voce_elemento_duplicato);
             new MioToast(ExpenseEarningDetails.this, msg).visualizza(Toast.LENGTH_SHORT);

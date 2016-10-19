@@ -1,16 +1,49 @@
+/*
+ * Copyright (c) This code was written by iClaude. All rights reserved.
+ */
+
 package com.flingsoftware.personalbudget.app;
 
-import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze;
-import com.flingsoftware.personalbudget.customviews.MioToast;
-import com.flingsoftware.personalbudget.database.*;
-import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
-
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiActivity.*;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.*;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.WIDGET_PICCOLO_AGGIORNA;
-import static com.flingsoftware.personalbudget.app.SpeseDettaglioVoce.CostantiPubbliche.*;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
+import android.view.ActionMode;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.AbsListView.MultiChoiceModeListener;
+import android.widget.ExpandableListView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.SimpleCursorTreeAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze;
+import com.flingsoftware.personalbudget.customviews.MioToast;
+import com.flingsoftware.personalbudget.database.DBCEntrateIncassate;
+import com.flingsoftware.personalbudget.database.DBCEntrateVoci;
+import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -23,42 +56,21 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Locale;
 
-import android.app.ActivityOptions;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.os.Build;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.MenuItemCompat;
-import android.text.TextUtils;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.view.ActionMode;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ExpandableListView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.support.v7.widget.SearchView;
-import android.widget.Toast;
-import android.widget.AbsListView.MultiChoiceModeListener;
-import android.widget.ExpandableListView.OnGroupExpandListener;
-import android.widget.SimpleCursorTreeAdapter;
-import android.widget.TextView;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_ACCOUNT;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_AMOUNT;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_AMOUNT_CURR;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_CURRENCY;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_DATE;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_DESC;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_FAVORITE;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_ID;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_REP_ID;
+import static com.flingsoftware.personalbudget.app.ExpenseEarningDetails.KEY_TAG;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiActivity.ACTIVITY_ENTRATE_AGGIUNGI;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiActivity.ACTIVITY_ENTRATE_DETTAGLIOVOCE;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VISUALIZZA_PER_DATA;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.WIDGET_PICCOLO_AGGIORNA;
 
 
 public class FragmentEntrate extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -370,16 +382,16 @@ public class FragmentEntrate extends Fragment implements SharedPreferences.OnSha
 					cDettaglioVoce.close();
 					dbcEntrateIncassate.close();
 					Intent visualizzaVoceIntent = new Intent(getActivity(), EntrateDettaglioVoce.class);
-					visualizzaVoceIntent.putExtra(VOCE_ID, id);
-					visualizzaVoceIntent.putExtra(VOCE_IMPORTO, importo);
-					visualizzaVoceIntent.putExtra(VOCE_TAG, voce);
-					visualizzaVoceIntent.putExtra(VOCE_DATA, data);
-					visualizzaVoceIntent.putExtra(VOCE_DESCRIZIONE, descrizione);
-					visualizzaVoceIntent.putExtra(VOCE_RIPETIZIONE_ID, ripetizione_id);
-					visualizzaVoceIntent.putExtra(VOCE_VALUTA, valuta);
-					visualizzaVoceIntent.putExtra(VOCE_IMPORTO_VALPRIN, importoValprin);
-					visualizzaVoceIntent.putExtra(VOCE_CONTO, conto);
-					visualizzaVoceIntent.putExtra(VOCE_FAVORITE, preferito);
+					visualizzaVoceIntent.putExtra(KEY_ID, id);
+					visualizzaVoceIntent.putExtra(KEY_AMOUNT, importo);
+					visualizzaVoceIntent.putExtra(KEY_TAG, voce);
+					visualizzaVoceIntent.putExtra(KEY_DATE, data);
+					visualizzaVoceIntent.putExtra(KEY_DESC, descrizione);
+					visualizzaVoceIntent.putExtra(KEY_REP_ID, ripetizione_id);
+					visualizzaVoceIntent.putExtra(KEY_CURRENCY, valuta);
+					visualizzaVoceIntent.putExtra(KEY_AMOUNT_CURR, importoValprin);
+					visualizzaVoceIntent.putExtra(KEY_ACCOUNT, conto);
+					visualizzaVoceIntent.putExtra(KEY_FAVORITE, preferito);
 
 					getActivity().startActivityForResult(visualizzaVoceIntent, ACTIVITY_ENTRATE_DETTAGLIOVOCE);
 
@@ -758,8 +770,8 @@ public class FragmentEntrate extends Fragment implements SharedPreferences.OnSha
 			int entrateEliminate = 0;
 			
 			dbcEntrateIncassate.openModifica();
-			for(long idEntrata : params) {		
-				entrateEliminate += dbcEntrateIncassate.eliminaEntrataIncassata(idEntrata);	
+			for(long idEntrata : params) {
+				entrateEliminate += dbcEntrateIncassate.deleteElement(idEntrata);
 			}
 			dbcEntrateIncassate.close();
 

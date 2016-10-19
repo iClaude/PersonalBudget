@@ -553,4 +553,7 @@
     <string name="preferiti_spese">Preferiti spese</string>
     <string name="preferiti_entrate">Preferiti entrate</string>
     <string name="seleziona_conto">seleziona il conto...</string>
+
+    <!-- Transitions -->
+    <string name="transitionName">transitionIcon</string>
 </resources>
