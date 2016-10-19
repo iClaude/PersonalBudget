@@ -1,10 +1,26 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 apply plugin: 'com.android.application'
 
+// Create a variable called keystorePropertiesFile, and initialize it to your
+// keystore.properties file, in the rootProject folder.
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+// Initialize a new Properties() object called keystoreProperties.
+def keystoreProperties = new Properties()
+// Load your keystore.properties file into the keystoreProperties object.
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
     compileOptions.encoding = 'windows-1251'
@@ -23,6 +39,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.release
         }
     }
     packagingOptions {
@@ -36,14 +53,16 @@ android {
 }
 
 dependencies {
-    compile ('com.android.support:cardview-v7:23.2.0') {
-        exclude module: 'support-v4' }
-    compile ('com.android.support:recyclerview-v7:23.2.0') {
-        exclude module: 'support-v4' }
-    compile ('com.android.support:design:23.1.0') {
-        exclude module: 'support-v4' }
-    compile ('com.android.support:support-v4:23.2.0')
+    compile('com.android.support:cardview-v7:23.2.0') {
+        exclude module: 'support-v4'
+    }
+    compile('com.android.support:recyclerview-v7:23.2.0') {
+        exclude module: 'support-v4'
+    }
+    compile('com.android.support:design:23.1.0') {
+        exclude module: 'support-v4'
+    }
+    compile 'com.android.support:support-v4:23.2.0'
     compile 'com.android.support:palette-v7:23.2.0'
-
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
 }
