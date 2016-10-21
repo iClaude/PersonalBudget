@@ -60,16 +60,9 @@ ext {
 }
 
 dependencies {
-    compile("com.android.support:cardview-v7:$libraryVersion") {
-        exclude module: 'support-v4'
-    }
-    compile("com.android.support:recyclerview-v7:$libraryVersion") {
-        exclude module: 'support-v4'
-    }
-    compile("com.android.support:design:$libraryVersion") {
-        exclude module: 'support-v4'
-    }
-    compile "com.android.support:support-v4:$libraryVersion"
+    compile("com.android.support:cardview-v7:$libraryVersion")
+    compile("com.android.support:recyclerview-v7:$libraryVersion")
+    compile("com.android.support:design:$libraryVersion")
     compile "com.android.support:palette-v7:$libraryVersion"
 
     compile fileTree(include: ['*.jar'], dir: 'libs')
