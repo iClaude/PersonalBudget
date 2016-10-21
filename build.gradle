@@ -18,3 +18,7 @@ allprojects {
     }
 }
 
+subprojects {
+    apply plugin: 'com.android.application'
+}
+
