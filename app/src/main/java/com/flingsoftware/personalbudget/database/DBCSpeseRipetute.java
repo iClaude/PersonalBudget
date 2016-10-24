@@ -26,8 +26,8 @@ public class DBCSpeseRipetute extends DBCExpEarRepeatedAbs {
 
     @Override
     public String getTableName() {
-        return "spese_sost";
-    }
+		return "spese_ripet";
+	}
 
 	/**
 	 * Inserisce una spesa ripetuta nella tabella spese_ripet e restituisce un valore long che rappresenta

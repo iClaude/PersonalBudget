@@ -26,7 +26,7 @@ public class DBCEntrateRipetute extends DBCExpEarRepeatedAbs {
 
 	@Override
 	public String getTableName() {
-		return "entrate_inc";
+		return "entrate_ripet";
 	}
 	
 	/**

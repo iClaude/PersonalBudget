@@ -75,7 +75,7 @@ public class SpeseDettaglioVoce extends ExpenseEarningDetails {
      */
     @Override
     public void updateBudgetTable(String query, String... args) {
-        new AggiornaTabellaBudgetTask(query, args);
+        new AggiornaTabellaBudgetTask(query, args).execute((Object[]) null);
     }
 
 

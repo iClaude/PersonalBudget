@@ -118,8 +118,28 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<ImageView> {
         lp.height = currentSize;
         child.setLayoutParams(lp);
 
+        // TODO: 24/10/2016 togli tutti i log dalla classe
+        Log.d(TAG, "currentX: " + currentX);
+        Log.d(TAG, "currentY: " + currentY);
+        Log.d(TAG, "currentSize: " + currentSize);
+
         return true;
     }
+
+/*    @Override
+    public boolean onLayoutChild(CoordinatorLayout parent, ImageView child, int layoutDirection) {
+        super.onLayoutChild(parent, child, layoutDirection);
+
+        child.setX(currentX);
+        child.setY(currentY);
+
+        CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) child.getLayoutParams();
+        lp.width = currentSize;
+        lp.height = currentSize;
+        child.setLayoutParams(lp);
+
+        return true;
+    }*/
 
     private void maybeInitProperties(CoordinatorLayout parent, ImageView child) {
         if (startSize == 0) {
@@ -152,5 +172,12 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<ImageView> {
         if (finalY == 0) {
             finalY = UtilityVarious.getStatusBarHeight(mActivity) + (toolbarHeight - finalSize) / 2;
         }
+
+        Log.d(TAG, "startSize: " + startSize);
+        Log.d(TAG, "finalSize: " + finalSize);
+        Log.d(TAG, "startX: " + startX);
+        Log.d(TAG, "startY: " + startY);
+        Log.d(TAG, "finalX: " + finalX);
+        Log.d(TAG, "finalY: " + finalY);
     }
 }
