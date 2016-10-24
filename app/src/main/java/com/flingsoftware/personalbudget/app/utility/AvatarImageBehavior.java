@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app.utility;
@@ -10,7 +10,6 @@ import android.graphics.Rect;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -44,6 +43,8 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<ImageView> {
     private int startSize = 0;
     private int finalSize = 0;
     private int currentSize;
+    private float xPass;
+    private float yPass;
     private float treshold;
 
 
@@ -97,49 +98,19 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<ImageView> {
 
         float percCompleted = 0;
         if(scrollDistance <= treshold) { // icon moves up/down
-            percCompleted = scrollDistance / treshold;
-            currentY = startY - (startY - finalY) * percCompleted;
-            if(currentY > startY) currentY = startY;
-            currentX = startX;
-            currentSize = startSize;
+            child.setTranslationY(-yPass);
         }
         else { // icon moves left/right and shrinks/expands
-            percCompleted = (scrollDistance - treshold) / (appbarScrollRange - treshold);
-            currentX = startX - (startX - finalX) * percCompleted;
-            currentSize = (int) (startSize - (startSize - finalSize) * percCompleted);
-            currentY = finalY;
+            child.setTranslationX(-xPass);
         }
-
-        child.setX(currentX);
-        child.setY(currentY);
 
         CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) child.getLayoutParams();
         lp.width = currentSize;
         lp.height = currentSize;
         child.setLayoutParams(lp);
-
-        // TODO: 24/10/2016 togli tutti i log dalla classe
-        Log.d(TAG, "currentX: " + currentX);
-        Log.d(TAG, "currentY: " + currentY);
-        Log.d(TAG, "currentSize: " + currentSize);
 
         return true;
     }
-
-/*    @Override
-    public boolean onLayoutChild(CoordinatorLayout parent, ImageView child, int layoutDirection) {
-        super.onLayoutChild(parent, child, layoutDirection);
-
-        child.setX(currentX);
-        child.setY(currentY);
-
-        CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) child.getLayoutParams();
-        lp.width = currentSize;
-        lp.height = currentSize;
-        child.setLayoutParams(lp);
-
-        return true;
-    }*/
 
     private void maybeInitProperties(CoordinatorLayout parent, ImageView child) {
         if (startSize == 0) {
@@ -173,11 +144,7 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<ImageView> {
             finalY = UtilityVarious.getStatusBarHeight(mActivity) + (toolbarHeight - finalSize) / 2;
         }
 
-        Log.d(TAG, "startSize: " + startSize);
-        Log.d(TAG, "finalSize: " + finalSize);
-        Log.d(TAG, "startX: " + startX);
-        Log.d(TAG, "startY: " + startY);
-        Log.d(TAG, "finalX: " + finalX);
-        Log.d(TAG, "finalY: " + finalY);
+        xPass = (startX - finalX) / treshold;
+        yPass = (startY - finalY) / treshold;
     }
 }
