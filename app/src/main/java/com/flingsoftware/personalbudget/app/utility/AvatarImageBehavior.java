@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app.utility;
@@ -10,7 +10,6 @@ import android.graphics.Rect;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -115,18 +114,15 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<ImageView> {
             scale = currentSize / startSize;
         }
 
-
-        // Resize the View: the pivot is the top left corner, so that the View doesn't change its position.
-        child.setPivotX(currentX);
-        child.setPivotY(currentY);
-        child.setScaleX(scale);
-        child.setScaleY(scale);
         // Move the View.
         child.setX(currentX);
         child.setY(currentY);
 
-        Log.d(TAG, "currentX: " + currentX);
-        Log.d(TAG, "child.getLeft(): " + child.getLeft());
+        // Resize the image.
+        child.setPivotX(currentX);
+        child.setPivotY(currentY);
+        child.setScaleX(scale);
+        child.setScaleY(scale);
 
         return true;
     }
