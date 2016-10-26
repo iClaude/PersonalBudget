@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app.utility;
@@ -10,6 +10,7 @@ import android.graphics.Rect;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -34,18 +35,17 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<ImageView> {
     private int appbarScrollRange;
     private int toolbarHeight; // when collapsed
     // Position and size of the image.
-    private float startX = 0;
-    private float startY = 0;
-    private float finalX = 0;
-    private float finalY = 0;
+    private float startX;
+    private float startY;
+    private float finalX;
+    private float finalY;
     private float currentX;
     private float currentY;
-    private int startSize = 0;
-    private int finalSize = 0;
-    private int currentSize;
-    private float xPass;
-    private float yPass;
     private float treshold;
+    private float startSize;
+    private float finalSize;
+    private float currentSize;
+    private float scale;
 
 
     public AvatarImageBehavior() {
@@ -96,18 +96,37 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<ImageView> {
 
         int scrollDistance = appbarHeight - rect.bottom;
 
-        float percCompleted = 0;
-        if(scrollDistance <= treshold) { // icon moves up/down
-            child.setTranslationY(-yPass);
+        float percCompleted;
+        if (scrollDistance <= treshold) { // icon moves up/down without changing size
+            currentX = startX;
+            scale = 1f;
+
+            percCompleted = scrollDistance / treshold;
+            currentY = startY - (startY - finalY) * percCompleted;
+            if (currentY > startY) currentY = startY;
         }
         else { // icon moves left/right and shrinks/expands
-            child.setTranslationX(-xPass);
+            currentY = finalY;
+
+            percCompleted = (scrollDistance - treshold) / (appbarScrollRange - treshold);
+            currentX = startX - (startX - finalX) * percCompleted;
+
+            currentSize = (int) (startSize - (startSize - finalSize) * percCompleted);
+            scale = currentSize / startSize;
         }
 
-        CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) child.getLayoutParams();
-        lp.width = currentSize;
-        lp.height = currentSize;
-        child.setLayoutParams(lp);
+
+        // Resize the View: the pivot is the top left corner, so that the View doesn't change its position.
+        child.setPivotX(currentX);
+        child.setPivotY(currentY);
+        child.setScaleX(scale);
+        child.setScaleY(scale);
+        // Move the View.
+        child.setX(currentX);
+        child.setY(currentY);
+
+        Log.d(TAG, "currentX: " + currentX);
+        Log.d(TAG, "child.getLeft(): " + child.getLeft());
 
         return true;
     }
@@ -116,6 +135,7 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<ImageView> {
         if (startSize == 0) {
             startSize = child.getHeight();
             currentSize = startSize;
+            scale = 1f;
         }
 
         if (finalSize == 0) {
@@ -143,8 +163,5 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<ImageView> {
         if (finalY == 0) {
             finalY = UtilityVarious.getStatusBarHeight(mActivity) + (toolbarHeight - finalSize) / 2;
         }
-
-        xPass = (startX - finalX) / treshold;
-        yPass = (startY - finalY) / treshold;
     }
 }
