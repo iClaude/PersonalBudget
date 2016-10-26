@@ -119,8 +119,8 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<ImageView> {
         child.setY(currentY);
 
         // Resize the image.
-        child.setPivotX(currentX);
-        child.setPivotY(currentY);
+        child.setPivotX(0f);
+        child.setPivotY(0f);
         child.setScaleX(scale);
         child.setScaleY(scale);
 
