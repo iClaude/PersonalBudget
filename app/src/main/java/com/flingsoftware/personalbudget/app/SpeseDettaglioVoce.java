@@ -6,9 +6,6 @@ package com.flingsoftware.personalbudget.app;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.flingsoftware.personalbudget.R;
@@ -28,27 +25,6 @@ import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVa
     This class extends ExpenseEarningsDetails abstract Activity to display an earning.
  */
 public class SpeseDettaglioVoce extends ExpenseEarningDetails {
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-    }
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-        return super.onCreateOptionsMenu(menu);
-    }
-
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 
     @Override
     public DBCExpEarAbs getDBCExpEar() {
@@ -82,8 +58,8 @@ public class SpeseDettaglioVoce extends ExpenseEarningDetails {
 
 	//AsyncTask per aggiornare la tabella spese_budget campo spesa_sost a seguito della eliminazione della/e spesa/e
 	private class AggiornaTabellaBudgetTask extends AsyncTask<Object, Object, Boolean> {
-		String query;
-		String args[];
+		final String query;
+		final String[] args;
 
 		public AggiornaTabellaBudgetTask(String query, String... args) {
 			this.query = query;
