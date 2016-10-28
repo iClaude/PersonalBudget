@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app;
@@ -137,6 +137,7 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
     private boolean isExpandedTitleVisible = true;
     private boolean isIconToolbarVisible = false;
     private SoundEffectsManager soundEffectsManager;
+    private boolean firstTimeIn = true;
 
 
     @Override
@@ -467,6 +468,8 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
     public void onEnterAnimationComplete() {
         super.onEnterAnimationComplete();
 
+        if (!firstTimeIn) return;
+
         View contentView = findViewById(R.id.nsv_main_content);
         float offset = getResources().getDimensionPixelSize(R.dimen.content_offset_y);
         Interpolator interpolator = AnimationUtils.loadInterpolator(this, android.R.interpolator.linear_out_slow_in);
@@ -480,6 +483,7 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
                 .setInterpolator(interpolator)
                 .setDuration(500L)
                 .start();
+        firstTimeIn = false;
     }
 
 

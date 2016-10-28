@@ -108,10 +108,11 @@
                 app:layout_anchorGravity="top"
                 app:theme="@style/ThemeOverlay.AppCompat.Dark"
                 app:title=""
-                app:layout_collapseMode= "pin">
+                app:layout_collapseMode="pin"
+                app:contentInsetStartWithNavigation="0dp">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
@@ -134,6 +135,7 @@
                         android:gravity="center_vertical"
                         android:textColor="@android:color/white"
                         android:textSize="20sp"
+                        android:ellipsize="end"
                         android:visibility="invisible" />
 
                 </LinearLayout>
