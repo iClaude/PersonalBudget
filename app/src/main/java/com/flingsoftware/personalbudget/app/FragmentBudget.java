@@ -1,32 +1,20 @@
+/*
+ * Copyright (c) - Software developed by iClaude.
+ */
+
 package com.flingsoftware.personalbudget.app;
 
-import com.flingsoftware.personalbudget.R;
-
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiActivity.*;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
-
-import com.flingsoftware.personalbudget.database.*;
-import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze;
-import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
-
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.Currency;
-import java.util.GregorianCalendar;
-import java.util.Locale;
-import java.util.HashMap;
-
-import android.os.Build;
-import android.support.v4.app.ListFragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ListFragment;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -37,11 +25,27 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
-import android.support.v7.widget.SearchView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+
+import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze;
+import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
+import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
+import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Currency;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Locale;
+
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiActivity.ACTIVITY_BUDGET_AGGIUNGI;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiActivity.ACTIVITY_BUDGET_DETTAGLIOVOCE;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
 
 
 public class FragmentBudget extends ListFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -300,11 +304,9 @@ public class FragmentBudget extends ListFragment implements SharedPreferences.On
 	OnItemClickListener lvBudgetListener = new OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-			Intent dettaglioBudget = new Intent(getActivity(), BudgetDettaglio.class);
-			dettaglioBudget.putExtra(ROW_ID, arg3);
-			dettaglioBudget.putExtra(CHIAMANTE, ACTIVITY_MAIN);
+			Intent intent = BudgetDetails.makeIntent(getActivity(), arg3);
 
-            getActivity().startActivityForResult(dettaglioBudget, ACTIVITY_BUDGET_DETTAGLIOVOCE);
+			getActivity().startActivityForResult(intent, ACTIVITY_BUDGET_DETTAGLIOVOCE);
 		}
 	};
 	
