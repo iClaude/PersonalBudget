@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_budget_dettaglio_cancella"
+        android:title="@string/budget_dettaglio_elimina"
+        android:icon="@drawable/ic_content_discard"
+        app:showAsAction="ifRoom|withText" />
+
+</menu>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (c) 2015. The present software was developed by Claudio iClaude Agostini. All rights reserved.
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
   -->
 
 <resources>
     <!-- FloatingActionButton margins for compatibility. -->
-    <dimen name="fab_margin_right">22dp</dimen>
-    <dimen name="fab_margin_bottom">28dp</dimen>
+    <dimen name="fab_margin_right">16dp</dimen>
+    <dimen name="fab_margin_bottom">16dp</dimen>
 </resources>
