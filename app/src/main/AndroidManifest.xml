@@ -27,7 +27,6 @@
             android:theme="@android:style/Theme.Holo.Dialog"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
-            
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,7 +37,6 @@
         <!-- Activity principale -->
         <activity
             android:name="com.flingsoftware.personalbudget.app.MainPersonalBudget"
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
@@ -47,7 +45,6 @@
         
         <!-- Menu applicazione -->
         <activity android:name="com.flingsoftware.personalbudget.app.MenuPeriodo"
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="portrait">
@@ -58,38 +55,37 @@
             android:screenOrientation="portrait">
         </activity>
         <activity android:name="com.flingsoftware.personalbudget.preferenze.PreferenzeActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="stateHidden"
             android:label="@string/app_name"
             android:theme="@style/PreferenceActivityTheme"
             android:screenOrientation="portrait">
         </activity>
         <activity android:name="com.flingsoftware.personalbudget.preferenze.PreferenzeVoci"
-            android:configChanges="keyboardHidden|orientation|screenSize"
+
             android:windowSoftInputMode="stateHidden|adjustPan"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
         </activity>
         <activity android:name="com.flingsoftware.personalbudget.preferenze.ModificaVoce"
-            android:configChanges="keyboardHidden|orientation|screenSize"
+
             android:windowSoftInputMode="stateHidden|adjustPan"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
         </activity>
         <activity android:name="com.flingsoftware.personalbudget.preferenze.AggiungiVoce"
-            android:configChanges="keyboardHidden|orientation|screenSize"
+
             android:windowSoftInputMode="stateHidden|adjustPan"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
         </activity>
         <activity android:name="com.flingsoftware.personalbudget.app.MenuEsporta"
-            android:configChanges="keyboardHidden|orientation|screenSize"
+
             android:label="@string/app_name"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="portrait">
         </activity>
         <activity android:name="com.flingsoftware.personalbudget.backup.MenuBackupRestore"
-            android:configChanges="keyboardHidden|orientation|screenSize"
+
             android:label="@string/app_name"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="portrait">
@@ -109,13 +105,11 @@
 		    </intent-filter>
 		</activity>
         <activity android:name="com.flingsoftware.personalbudget.app.MenuInfo"
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="portrait">
         </activity>
         <activity android:name="com.flingsoftware.personalbudget.app.MenuInfoVersioni"
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="portrait">
@@ -123,12 +117,11 @@
         
         <!-- Gestione spese -->
         <activity android:name="com.flingsoftware.personalbudget.app.SpeseDettaglioVoce"
-            android:configChanges="keyboardHidden|orientation|screenSize"
+
             android:label="@string/app_name"
             android:screenOrientation="portrait">
         </activity>
         <activity android:name="com.flingsoftware.personalbudget.app.SpeseAggiungi"
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
         </activity>
@@ -136,85 +129,74 @@
         
         <!-- Gestione entrate -->
         <activity android:name="com.flingsoftware.personalbudget.app.EntrateAggiungi"
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
         </activity>
         <activity android:name="com.flingsoftware.personalbudget.app.EntrateDettaglioVoce"
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
         </activity>
         
         <!-- Riconoscimento vocale -->
         <activity android:name="com.flingsoftware.personalbudget.ricvoc.RiconoscimentoVocale"
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
         </activity>
-        
-        <!-- Gestione budget -->
+
+        <!-- Gestione budget TODO: eliminare classi che non servono più-->
         <activity android:name="com.flingsoftware.personalbudget.app.BudgetDettaglio"
-            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.flingsoftware.personalbudget.app.BudgetDetails"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
         </activity>
          <activity android:name="com.flingsoftware.personalbudget.app.BudgetSpeseIncluse"
-            android:configChanges="keyboardHidden|orientation|screenSize"
              android:label="@string/app_name"
              android:screenOrientation="portrait">
          </activity>
          <activity android:name="com.flingsoftware.personalbudget.app.BudgetBudgetAnaloghi"
-            android:configChanges="keyboardHidden|orientation|screenSize"
              android:label="@string/app_name"
              android:screenOrientation="portrait">
          </activity>
          <activity android:name="com.flingsoftware.personalbudget.app.BudgetAggiungi"
-            android:configChanges="keyboardHidden|orientation|screenSize"
              android:label="@string/app_name"
              android:screenOrientation="portrait">
          </activity>
          <activity android:name="com.flingsoftware.personalbudget.app.BudgetModifica"
-            android:configChanges="keyboardHidden|orientation|screenSize"
              android:label="@string/app_name"
              android:screenOrientation="portrait">
          </activity>
          
          <!-- Gestione conti -->
 	     <activity android:name="com.flingsoftware.personalbudget.app.ContiElenco"
-	     	android:configChanges="keyboardHidden|orientation|screenSize"
              android:label="@string/app_name"
              android:screenOrientation="portrait">
 	     </activity>
 	     <activity android:name="com.flingsoftware.personalbudget.app.ContiInserimento"
-	     	android:configChanges="keyboardHidden|orientation|screenSize"
              android:label="@string/app_name"
              android:screenOrientation="portrait">
 	     </activity>
 	     <activity android:name="com.flingsoftware.personalbudget.app.ContiTrasferimento"
-	     	android:configChanges="keyboardHidden|orientation|screenSize"
              android:label="@string/app_name"
              android:screenOrientation="portrait">
 	     </activity>
 	     <activity android:name="com.flingsoftware.personalbudget.app.ContiVisualizza"
-	     	android:configChanges="keyboardHidden|orientation|screenSize"
              android:label="@string/app_name"
              android:screenOrientation="portrait">
 	     </activity>
 	     <activity android:name="com.flingsoftware.personalbudget.app.ContiModifica"
-	     	android:configChanges="keyboardHidden|orientation|screenSize"
              android:label="@string/app_name"
              android:screenOrientation="portrait">
 	     </activity>
          
          <!-- Grafici e statistiche -->
          <activity android:name="com.flingsoftware.personalbudget.app.Statistiche"
-            android:configChanges="keyboardHidden|orientation|screenSize"
              android:label="@string/app_name"
              android:screenOrientation="portrait">
          </activity>  
          <activity android:name="com.flingsoftware.personalbudget.app.StatisticheGrafico"
-            android:configChanges="keyboardHidden|orientation|screenSize"
              android:label="@string/app_name"
              android:screenOrientation="portrait">
          </activity>
@@ -222,12 +204,10 @@
          
          <!-- Gestione valute -->
          <activity android:name="com.flingsoftware.personalbudget.valute.ElencoValute"
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="stateHidden"
              android:label="@string/app_name"
              android:screenOrientation="portrait"></activity>
          <activity android:name="com.flingsoftware.personalbudget.valute.DettaglioValuta"
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="stateHidden"
              android:label="@string/app_name"
              android:screenOrientation="portrait">
@@ -235,7 +215,6 @@
 
          <!-- Selezione icone -->
          <activity android:name="com.flingsoftware.personalbudget.preferenze.IconeSelezione"
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="stateHidden"
              android:label="@string/app_name"
              android:screenOrientation="portrait"></activity>

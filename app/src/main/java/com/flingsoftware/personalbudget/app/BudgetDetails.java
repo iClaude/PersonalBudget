@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app;
@@ -19,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -51,6 +52,8 @@ public class BudgetDetails extends AppCompatActivity {
     private TextView tvToolbarTitle;
     private TextView tvTagAppbar;
     private TextView tvAmountAppbar;
+    private TextView tvTagToolbar;
+    private TextView tvAmountToolbar;
     // Budget details.
     private long id;
     private String tag;
@@ -91,6 +94,8 @@ public class BudgetDetails extends AppCompatActivity {
         tvToolbarTitle = (TextView) findViewById(R.id.toolbar_title);
         tvTagAppbar = (TextView) findViewById(R.id.tvTagAppbar);
         tvAmountAppbar = (TextView) findViewById(R.id.tvAmountAppbar);
+        tvTagToolbar = (TextView) findViewById(R.id.toolbar_title);
+        tvAmountToolbar = (TextView) findViewById(R.id.toolbar_subtitle);
     }
 
     // Set up app bar layout and behavior.
@@ -130,7 +135,7 @@ public class BudgetDetails extends AppCompatActivity {
             return null;
         }
 
-        protected void onPostExecute(Cursor curBudget) {
+        protected void onPostExecute(Void result) {
             displayDetails();
         }
     }
@@ -138,6 +143,7 @@ public class BudgetDetails extends AppCompatActivity {
     // Display budget details in the layout.
     private void displayDetails() {
         // Appbar.
+        tvTagToolbar.setText(tag);
         tvTagAppbar.setText(tag);
         // Running text.
         tvTagAppbar.setEllipsize(TextUtils.TruncateAt.MARQUEE);
@@ -148,8 +154,9 @@ public class BudgetDetails extends AppCompatActivity {
         Currency prefCurrency = UtilityVarious.getPrefCurrency(this);
         NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
         nf.setCurrency(prefCurrency);
-        String importoFormattato = nf.format(amount);
-        tvAmountAppbar.setText(importoFormattato);
+        String amountFormatted = nf.format(amount);
+        tvAmountToolbar.setText(amountFormatted);
+        tvAmountAppbar.setText(amountFormatted);
         // Load main image in a separate thread.
         new LoadHeaderImageTask().execute(tag);
     }
@@ -157,6 +164,7 @@ public class BudgetDetails extends AppCompatActivity {
     // Load header image in a separate thread.
     private class LoadHeaderImageTask extends AsyncTask<String, Object, Bitmap> {
         int backgroundColor = R.color.primary_light;
+        int vibrantColor;
         DBCVociAbs dbcVociAbs = new DBCSpeseVoci(BudgetDetails.this);
 
         protected Bitmap doInBackground(String... params) {
@@ -180,6 +188,9 @@ public class BudgetDetails extends AppCompatActivity {
             // Get a suitable color for image background.
             Palette palette = Palette.from(origBitmap).generate();
             backgroundColor = palette.getMutedColor(ContextCompat.getColor(BudgetDetails.this, R.color.primary_light));
+            // Get a suitable color for text.
+            int defaultTextColor = getColor(R.color.text_primary);
+            vibrantColor = palette.getLightVibrantColor(defaultTextColor);
 
             return blurredBitmap;
         }
@@ -192,6 +203,9 @@ public class BudgetDetails extends AppCompatActivity {
             // Show the header image with a fadein-fadeout animation.
             ViewSwitcher viewSwitcher = (ViewSwitcher) findViewById(R.id.vsHeader);
             viewSwitcher.showNext();
+
+            tvTagAppbar.setTextColor(vibrantColor);
+            tvAmountAppbar.setTextColor(vibrantColor);
         }
     }
 
@@ -203,5 +217,17 @@ public class BudgetDetails extends AppCompatActivity {
         inflater.inflate(R.menu.menu_budget_dettaglio2, menu);
 
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
