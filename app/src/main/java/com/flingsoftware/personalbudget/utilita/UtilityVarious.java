@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.utilita;
@@ -121,5 +121,29 @@ public class UtilityVarious {
     public static boolean soundsEnabled(Context context) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         return pref.getBoolean(MainPersonalBudget.CostantiPreferenze.SUONI_ABILITATI, false);
+    }
+
+    /*
+        Given the String representing the repetition of this budget, returns a String representing
+        the repetition in the correct language (bad code: legacy approach).
+     */
+    public static String getBudgetType(Context context, String repetition) {
+        String[] budgetTypes = context.getResources().getStringArray(R.array.ripetizioni_budget);
+        String budgetType = null;
+        if (repetition.equals("una_tantum")) {
+            budgetType = budgetTypes[0];
+        } else if (repetition.equals("giornaliero")) {
+            budgetType = budgetTypes[1];
+        } else if (repetition.equals("settimanale")) {
+            budgetType = budgetTypes[2];
+        } else if (repetition.equals("bisettimanale")) {
+            budgetType = budgetTypes[3];
+        } else if (repetition.equals("mensile")) {
+            budgetType = budgetTypes[4];
+        } else if (repetition.equals("annuale")) {
+            budgetType = budgetTypes[5];
+        }
+
+        return budgetType;
     }
 }

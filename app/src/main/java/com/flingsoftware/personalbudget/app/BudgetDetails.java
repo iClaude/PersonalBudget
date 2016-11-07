@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app;
@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
@@ -45,6 +46,7 @@ import java.util.Locale;
 public class BudgetDetails extends AppCompatActivity {
 
     // Constants.
+    private static final String TAG = "BudgetDetails";
     private static final String KEY_ID = "KEY_ID";
 
     // Variables.
@@ -58,6 +60,8 @@ public class BudgetDetails extends AppCompatActivity {
     private long id;
     private String tag;
     private double amount;
+    private String repetition;
+    private double expenses;
     // Graphics and multimedia.
     private SoundEffectsManager soundEffectsManager;
 
@@ -105,6 +109,11 @@ public class BudgetDetails extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setContentInsetsAbsolute(0, 0); // left margin of toolbar title
+
+        // Listener for appbar expanded/collapsed to show the title correctly.
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+        appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener());
     }
 
     // Get budget details using the id stored in the Intent that launched this Activity.
@@ -129,6 +138,10 @@ public class BudgetDetails extends AppCompatActivity {
                 tag = tag.substring(0, tag.length() - 1);
             }
             amount = cursor.getDouble(cursor.getColumnIndex("importo_valprin"));
+            String repTmp;
+            repTmp = cursor.getString(cursor.getColumnIndex("ripetizione"));
+            repetition = UtilityVarious.getBudgetType(BudgetDetails.this, repTmp);
+            expenses = cursor.getDouble(cursor.getColumnIndex("spesa_sost"));
 
             cursor.close();
             dbcSpeseBudget.close();
@@ -155,7 +168,7 @@ public class BudgetDetails extends AppCompatActivity {
         NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
         nf.setCurrency(prefCurrency);
         String amountFormatted = nf.format(amount);
-        tvAmountToolbar.setText(amountFormatted);
+        tvAmountToolbar.setText(amountFormatted + " (" + repetition + ")");
         tvAmountAppbar.setText(amountFormatted);
         // Load main image in a separate thread.
         new LoadHeaderImageTask().execute(tag);
@@ -164,7 +177,6 @@ public class BudgetDetails extends AppCompatActivity {
     // Load header image in a separate thread.
     private class LoadHeaderImageTask extends AsyncTask<String, Object, Bitmap> {
         int backgroundColor = R.color.primary_light;
-        int vibrantColor;
         DBCVociAbs dbcVociAbs = new DBCSpeseVoci(BudgetDetails.this);
 
         protected Bitmap doInBackground(String... params) {
@@ -188,9 +200,6 @@ public class BudgetDetails extends AppCompatActivity {
             // Get a suitable color for image background.
             Palette palette = Palette.from(origBitmap).generate();
             backgroundColor = palette.getMutedColor(ContextCompat.getColor(BudgetDetails.this, R.color.primary_light));
-            // Get a suitable color for text.
-            int defaultTextColor = getColor(R.color.text_primary);
-            vibrantColor = palette.getLightVibrantColor(defaultTextColor);
 
             return blurredBitmap;
         }
@@ -203,9 +212,21 @@ public class BudgetDetails extends AppCompatActivity {
             // Show the header image with a fadein-fadeout animation.
             ViewSwitcher viewSwitcher = (ViewSwitcher) findViewById(R.id.vsHeader);
             viewSwitcher.showNext();
+        }
+    }
 
-            tvTagAppbar.setTextColor(vibrantColor);
-            tvAmountAppbar.setTextColor(vibrantColor);
+    /*
+    Used to detect when the app bar is collapsed or expanded, in order to show the Toolbar
+    title accordingly.
+*/
+    private class AppBarStateChangeListener implements AppBarLayout.OnOffsetChangedListener {
+
+        @Override
+        public final void onOffsetChanged(AppBarLayout appBarLayout, int i) {
+            int maxScroll = appBarLayout.getTotalScrollRange();
+            float percentage = (float) Math.abs(i) / (float) maxScroll;
+            tvTagToolbar.setAlpha(percentage);
+            tvAmountToolbar.setAlpha(percentage);
         }
     }
 
