@@ -1,8 +1,8 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
-package com.flingsoftware.personalbudget.app;
+package com.flingsoftware.personalbudget.app.budgets;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,16 +13,24 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
@@ -86,6 +94,9 @@ public class BudgetDetails extends AppCompatActivity {
         // App bar.
         setUpAppbar();
 
+        // Fragments.
+        setupFragments();
+
         // Get expense/earning details and display them.
         getDetails();
 
@@ -114,6 +125,23 @@ public class BudgetDetails extends AppCompatActivity {
         // Listener for appbar expanded/collapsed to show the title correctly.
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
         appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener());
+    }
+
+    // Set up sliding tabs for this Activity.
+    private void setupFragments() {
+        // Get the ViewPager and set it's PagerAdapter so that it can display items
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        BudgetFragmentPagerAdapter fragmentAdapter = new BudgetFragmentPagerAdapter(getSupportFragmentManager(), this);
+        viewPager.setAdapter(fragmentAdapter);
+        // Give the TabLayout the ViewPager
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
+        tabLayout.setupWithViewPager(viewPager);
+
+        // Setting a custom view for each tab (icon + text).
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            tab.setCustomView(fragmentAdapter.getTabView(i));
+        }
     }
 
     // Get budget details using the id stored in the Intent that launched this Activity.
@@ -169,7 +197,10 @@ public class BudgetDetails extends AppCompatActivity {
         nf.setCurrency(prefCurrency);
         String amountFormatted = nf.format(amount);
         tvAmountToolbar.setText(amountFormatted + " (" + repetition + ")");
-        tvAmountAppbar.setText(amountFormatted);
+        tvAmountAppbar.setText(amountFormatted + " / " + repetition);
+        // Rating bar.
+        float perc = (float) (expenses / amount) * 100;
+        setRatingBar(perc);
         // Load main image in a separate thread.
         new LoadHeaderImageTask().execute(tag);
     }
@@ -230,6 +261,16 @@ public class BudgetDetails extends AppCompatActivity {
         }
     }
 
+    /*
+        Given the percentage of budget already spent, show a RatingBar with appropriate color
+        and number of stars filled.
+     */
+    private void setRatingBar(float perc) {
+        RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        float filling = (perc * ratingBar.getNumStars()) / 100;
+        ratingBar.setRating(filling);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -249,6 +290,60 @@ public class BudgetDetails extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private class BudgetFragmentPagerAdapter extends FragmentPagerAdapter {
+        private final int PAGE_COUNT = 3;
+        private String[] tabTitles = getResources().getStringArray(R.array.budget_fragments_titles);
+        private int iconeTabIds[] = {R.drawable.ic_action_view_as_list, R.drawable.ic_action_bad, R.drawable.ic_content_event};
+        private Context context;
+
+        public BudgetFragmentPagerAdapter(FragmentManager fm, Context context) {
+            super(fm);
+            this.context = context;
+        }
+
+        @Override
+        public int getCount() {
+            return PAGE_COUNT;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            Fragment fragment = null;
+            switch (position) {
+                case 0:
+                    fragment = new BudgetDetailsData();
+                    break;
+                case 1:
+                    fragment = new BudgetDetailsExpenses();
+                    break;
+                case 2:
+                    fragment = new BudgetDetailsHistory();
+                    break;
+                default:
+                    // only 3 Fragments
+            }
+
+            return fragment;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            // Generate title based on item position.
+            return tabTitles[position];
+        }
+
+        // Returns a custom view for each tab (icon + text view).
+        public View getTabView(int position) {
+            View v = LayoutInflater.from(context).inflate(R.layout.tab, null);
+            ImageView ivIcon = (ImageView) v.findViewById(R.id.ivIcona);
+            TextView tvTab = (TextView) v.findViewById(R.id.tvTitolo);
+            ivIcon.setImageResource(iconeTabIds[position]);
+            tvTab.setText(tabTitles[position]);
+
+            return v;
         }
     }
 }

@@ -172,6 +172,11 @@
         <item >Tutti i budget dello stesso tipo</item>
     </string-array>
     <string name="budget_dettaglio_eliminaTitolo">Seleziona il/i budget da eliminare&#8230;</string>
+    <string-array name="budget_fragments_titles">
+        <item>Dettagli</item>
+        <item>Spese</item>
+        <item>Storico</item>
+    </string-array>
     <string name="toast_errore_aggiornamento_database_entrate">Errore di aggiornamento  database (entrate ripetute)!</string>
     <string name="budget_dettaglio_aggiungereRimanenza">Aggiungere risparmi?</string>
     <string name="budget_BudgetDettaglioVoce_eliminaRipetuti_msg">Questo eliminerà tutti i budget dello stesso tipo&#8230;</string>
