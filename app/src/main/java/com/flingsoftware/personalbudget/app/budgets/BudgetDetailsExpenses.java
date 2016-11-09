@@ -18,6 +18,19 @@ import com.flingsoftware.personalbudget.R;
  */
 
 public class BudgetDetailsExpenses extends Fragment {
+
+    private static final String BUDGET_ID = "BUDGET_ID";
+
+
+    // Add possible variables to pass to the Fragment.
+    public static BudgetDetailsExpenses newInstance(long id) {
+        Bundle args = new Bundle();
+        args.putLong(BUDGET_ID, id);
+        BudgetDetailsExpenses budgetDetailsExpenses = new BudgetDetailsExpenses();
+        budgetDetailsExpenses.setArguments(args);
+        return budgetDetailsExpenses;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.budget_details_expenses, container, false);

@@ -244,9 +244,9 @@
         <item>Expenses</item>
     </string-array>
     <string name="menu_visualizzaStats">Charts</string>
-    <string name="budget_dettaglio_tipoBudget">Budget type:</string>
-    <string name="budget_dettaglio_importo">Amount:</string>
-    <string name="budget_dettaglio_voci">Tags:</string>
+    <string name="budget_dettaglio_tipoBudget">Budget type</string>
+    <string name="budget_dettaglio_importo">Amount</string>
+    <string name="budget_dettaglio_voci">Tags</string>
     <string-array name="budget_fragments_titles">
         <item>Details</item>
         <item>Expenses</item>

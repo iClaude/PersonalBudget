@@ -253,8 +253,8 @@
     </string-array>
         <string name="menu_visualizzaStats">Grafici</string>
         <string name="budget_dettaglio_tipoBudget">Tipo budget:</string>
-        <string name="budget_dettaglio_importo">Importo:</string>
-        <string name="budget_dettaglio_voci">Tag:</string>
+    <string name="budget_dettaglio_importo">Importo</string>
+    <string name="budget_dettaglio_voci">Tag</string>
         <string name="aggiungi_voce_cambio">Anteprima cambio:</string>
         <string name="aggiungi_voce_tags">Tag&#8230;</string>
         <string name="aggiungi_voce_descrizione_opzionale">Descrizione&#8230;</string>

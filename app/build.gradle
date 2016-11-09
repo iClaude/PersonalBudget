@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 
@@ -66,4 +66,5 @@ dependencies {
     compile "com.android.support:palette-v7:$libraryVersion"
 
     compile fileTree(include: ['*.jar'], dir: 'libs')
+
 }

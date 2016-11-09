@@ -3,13 +3,263 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginStart="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin"
+    android:layout_marginEnd="@dimen/activity_horizontal_margin">
 
-    <TextView
-        android:text="Data"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView7" />
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="12dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_toRightOf="@+id/ivValuta"
+            android:layout_marginLeft="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/budget_dettaglio_voci"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginTop="4dp"
+                android:fontFamily="sans-serif-light"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/provv_lorem_ipsum"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/text_primary"
+                android:fontFamily="sans-serif-light" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="@string/budget_dettaglio_importo"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:fontFamily="sans-serif-light"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/Amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/provv_importoValutaZero"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/text_primary"
+                android:fontFamily="sans-serif-light" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="3dp"
+                android:background="@android:color/darker_gray" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:id="@+id/ivValuta"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_action_view_as_list"
+            android:background="@drawable/background_tondo_primary"
+            android:padding="12dp"
+            android:elevation="6dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/spese_entrate_dettaglio_voce_rlInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:id="@+id/sedv_tvContoTitolo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="false"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/budget_dettaglio_tipoBudget"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_toRightOf="@+id/sedv_tvB"
+            android:layout_marginLeft="16dp"
+            android:fontFamily="sans-serif-light"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/sedv_tvConto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="false"
+            android:layout_below="@+id/sedv_tvContoTitolo"
+            android:layout_marginRight="5dp"
+            android:text="@string/provv_lorem_ipsum"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/text_primary"
+            android:layout_toRightOf="@+id/sedv_tvB"
+            android:layout_marginLeft="16dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light" />
+
+        <TextView
+            android:id="@+id/tvDataTitolo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="false"
+            android:layout_below="@+id/sedv_tvConto"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/dettagli_voce_data"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_toRightOf="@+id/sedv_tvB"
+            android:layout_marginLeft="16dp"
+            android:fontFamily="sans-serif-light"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="false"
+            android:layout_below="@+id/tvDataTitolo"
+            android:layout_marginRight="5dp"
+            android:text="@string/provv_lorem_ipsum"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/text_primary"
+            android:layout_toRightOf="@+id/sedv_tvB"
+            android:layout_marginLeft="16dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_toRightOf="@+id/sedv_tvB"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="3dp"
+            android:layout_below="@id/tvData"
+            android:background="@android:color/darker_gray" />
+
+        <ImageView
+            android:id="@+id/sedv_tvB"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/ic_action_refresh"
+            android:background="@drawable/background_tondo_primary"
+            android:padding="12dp"
+            android:elevation="6dp"
+            android:layout_alignTop="@+id/sedv_tvContoTitolo"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/spese_entrate_dettaglio_voce_rlRipetizione"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="12dp">
+
+        <LinearLayout
+            android:id="@+id/spese_entrate_dettaglio_voce_llRipetizioneInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:layout_toRightOf="@+id/sedv_tvC"
+            android:layout_marginLeft="16dp">
+
+            <TextView
+                android:id="@+id/tvRipetizione"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/dettagli_voce_ripetizione"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:fontFamily="sans-serif-light"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/dettagli_voce_tvRipetizione"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/generici_trattino"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/text_primary"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-light" />
+
+            <TextView
+                android:id="@+id/menu_esporta_tvGoogleDocs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/dettagli_voce_fine_ripetizione"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:fontFamily="sans-serif-light"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/dettagli_voce_tvFineRipetizione"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="@string/generici_trattino"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/text_primary"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-light" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="3dp"
+                android:background="@android:color/darker_gray" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:id="@+id/sedv_tvC"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_action_cloud"
+            android:background="@drawable/background_tondo_primary"
+            android:padding="12dp"
+            android:elevation="6dp" />
+
+    </RelativeLayout>
+
 </LinearLayout>
+
+

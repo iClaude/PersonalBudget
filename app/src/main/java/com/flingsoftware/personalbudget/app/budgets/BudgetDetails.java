@@ -65,11 +65,17 @@ public class BudgetDetails extends AppCompatActivity {
     private TextView tvTagToolbar;
     private TextView tvAmountToolbar;
     // Budget details.
+    private Fragment[] fragments;
     private long id;
     private String tag;
     private double amount;
     private String repetition;
     private double expenses;
+    private long dateStart;
+    private long dateEnd;
+    private int addRest;
+    private long firstBudget;
+    private int lastAdded;
     // Graphics and multimedia.
     private SoundEffectsManager soundEffectsManager;
 
@@ -88,6 +94,9 @@ public class BudgetDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.budget_details);
 
+        // First get the budget id from the Intent that launched this Activity and create the Fragments.
+        getBudgetIdAndCreateFragments();
+
         // Get references to layout widgets.
         initLayoutWidgets();
 
@@ -102,6 +111,15 @@ public class BudgetDetails extends AppCompatActivity {
 
         // Sound effects.
         soundEffectsManager = SoundEffectsManager.getInstance();
+    }
+
+    // First get the budget id from the Intent that launched this Activity and create the Fragments.
+    private void getBudgetIdAndCreateFragments() {
+        Bundle extras = getIntent().getExtras();
+        id = extras.getLong(KEY_ID);
+        fragments[0] = BudgetDetailsData.newInstance();
+        fragments[1] = BudgetDetailsExpenses.newInstance(id);
+        fragments[2] = BudgetDetailsHistory.newInstance(id);
     }
 
     // Get widgets' references from the inflated layout.
@@ -146,8 +164,6 @@ public class BudgetDetails extends AppCompatActivity {
 
     // Get budget details using the id stored in the Intent that launched this Activity.
     private void getDetails() {
-        Bundle extras = getIntent().getExtras();
-        id = extras.getLong(KEY_ID);
         new GetBudgetDetailsTask().execute(id);
     }
 
@@ -171,18 +187,25 @@ public class BudgetDetails extends AppCompatActivity {
             repetition = UtilityVarious.getBudgetType(BudgetDetails.this, repTmp);
             expenses = cursor.getDouble(cursor.getColumnIndex("spesa_sost"));
 
+            dateStart = cursor.getLong(cursor.getColumnIndex("data_inizio"));
+            dateEnd = cursor.getLong(cursor.getColumnIndex("data_fine"));
+            addRest = cursor.getInt(cursor.getColumnIndex("aggiungere_rimanenza"));
+            double savings = cursor.getDouble(cursor.getColumnIndex("risparmio"));
+            firstBudget = cursor.getLong(cursor.getColumnIndex("budget_iniziale"));
+            lastAdded = cursor.getInt(cursor.getColumnIndex("ultimo_aggiunto"));
+
             cursor.close();
             dbcSpeseBudget.close();
             return null;
         }
 
         protected void onPostExecute(Void result) {
-            displayDetails();
+            displayDetailsActivity();
         }
     }
 
     // Display budget details in the layout.
-    private void displayDetails() {
+    private void displayDetailsActivity() {
         // Appbar.
         tvTagToolbar.setText(tag);
         tvTagAppbar.setText(tag);
@@ -311,22 +334,7 @@ public class BudgetDetails extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            Fragment fragment = null;
-            switch (position) {
-                case 0:
-                    fragment = new BudgetDetailsData();
-                    break;
-                case 1:
-                    fragment = new BudgetDetailsExpenses();
-                    break;
-                case 2:
-                    fragment = new BudgetDetailsHistory();
-                    break;
-                default:
-                    // only 3 Fragments
-            }
-
-            return fragment;
+            return fragments[position];
         }
 
         @Override
