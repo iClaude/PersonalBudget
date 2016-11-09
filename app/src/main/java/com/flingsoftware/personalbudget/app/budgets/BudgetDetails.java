@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -42,10 +42,6 @@ import com.flingsoftware.personalbudget.utilita.BlurBuilder;
 import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
 import com.flingsoftware.personalbudget.utilita.SoundEffectsManager;
 import com.flingsoftware.personalbudget.utilita.UtilityVarious;
-
-import java.text.NumberFormat;
-import java.util.Currency;
-import java.util.Locale;
 
 /**
  * Created by agost on 04/11/2016.
@@ -117,6 +113,7 @@ public class BudgetDetails extends AppCompatActivity {
     private void getBudgetIdAndCreateFragments() {
         Bundle extras = getIntent().getExtras();
         id = extras.getLong(KEY_ID);
+        fragments = new Fragment[3];
         fragments[0] = BudgetDetailsData.newInstance();
         fragments[1] = BudgetDetailsExpenses.newInstance(id);
         fragments[2] = BudgetDetailsHistory.newInstance(id);
@@ -201,6 +198,8 @@ public class BudgetDetails extends AppCompatActivity {
 
         protected void onPostExecute(Void result) {
             displayDetailsActivity();
+            BudgetDetailsData budgetDetailsData = (BudgetDetailsData) fragments[0];
+            budgetDetailsData.displayData(tag, amount, repetition, dateEnd, addRest);
         }
     }
 
@@ -215,10 +214,7 @@ public class BudgetDetails extends AppCompatActivity {
         tvTagAppbar.setMarqueeRepeatLimit(5);
         tvTagAppbar.setSelected(true);
         // Amount formatted in main currency.
-        Currency prefCurrency = UtilityVarious.getPrefCurrency(this);
-        NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
-        nf.setCurrency(prefCurrency);
-        String amountFormatted = nf.format(amount);
+        String amountFormatted = UtilityVarious.getFormattedAmount(amount, this);
         tvAmountToolbar.setText(amountFormatted + " (" + repetition + ")");
         tvAmountAppbar.setText(amountFormatted + " / " + repetition);
         // Rating bar.

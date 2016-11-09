@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 
@@ -64,6 +64,7 @@ dependencies {
     compile("com.android.support:recyclerview-v7:$libraryVersion")
     compile("com.android.support:design:$libraryVersion")
     compile "com.android.support:palette-v7:$libraryVersion"
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha8'
 
     compile fileTree(include: ['*.jar'], dir: 'libs')
 

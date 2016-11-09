@@ -20,10 +20,41 @@ import android.view.Window;
 import com.flingsoftware.personalbudget.R;
 import com.flingsoftware.personalbudget.app.MainPersonalBudget;
 
+import java.text.NumberFormat;
 import java.util.Currency;
 import java.util.Locale;
 
 public class UtilityVarious {
+
+    // ***********************************************************************************
+    // User input.
+    // ***********************************************************************************
+
+    /*
+        Visualizza un AlertDialog con pulsanti OK, con relativo listener che definisce le operazioni
+        da eseguire, e Annulla (se la variabile boolean ? impostata su true), che in questo caso non
+        fa nulla.
+    */
+    public static void visualizzaDialogOKAnnulla(Context context, String titolo, String msg, String OK, boolean bottAnnulla, String annulla, int idIcona, DialogInterface.OnClickListener OKListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(titolo);
+        builder.setMessage(msg);
+        builder.setPositiveButton(OK, OKListener);
+        if (bottAnnulla) {
+            builder.setNegativeButton(annulla, null);
+        }
+        builder.setCancelable(true);
+        if (idIcona != 0) {
+            builder.setIcon(idIcona);
+        }
+        AlertDialog confirmDialog = builder.create();
+        confirmDialog.show();
+    }
+
+
+    // ***********************************************************************************
+    // Multimedia and graphic effects.
+    // ***********************************************************************************
 
     /**
      * Converte una bitmap passata come parametro in scala di grigi.
@@ -69,27 +100,6 @@ public class UtilityVarious {
     }
 
 
-    /*
-    Visualizza un AlertDialog con pulsanti OK, con relativo listener che definisce le operazioni
-    da eseguire, e Annulla (se la variabile boolean ? impostata su true), che in questo caso non
-    fa nulla.
- */
-    public static void visualizzaDialogOKAnnulla(Context context, String titolo, String msg, String OK, boolean bottAnnulla, String annulla, int idIcona, DialogInterface.OnClickListener OKListener) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(titolo);
-        builder.setMessage(msg);
-        builder.setPositiveButton(OK, OKListener);
-        if (bottAnnulla) {
-            builder.setNegativeButton(annulla, null);
-        }
-        builder.setCancelable(true);
-        if(idIcona != 0) {
-            builder.setIcon(idIcona);
-        }
-        AlertDialog confirmDialog = builder.create();
-        confirmDialog.show();
-    }
-
     // Get the height of the action bar programmatically.
     public static int getActionBarHeight(Context mContext) {
         TypedArray a = mContext.getTheme().obtainStyledAttributes(new int[] {R.attr.actionBarSize});
@@ -110,6 +120,10 @@ public class UtilityVarious {
     }
 
 
+    // ***********************************************************************************
+    // Shared preferences.
+    // ***********************************************************************************
+
     // Get the current Currency from the preferences.
     public static Currency getPrefCurrency(Context context) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
@@ -122,6 +136,27 @@ public class UtilityVarious {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         return pref.getBoolean(MainPersonalBudget.CostantiPreferenze.SUONI_ABILITATI, false);
     }
+
+    /*
+        Given an amount returns a formatted String using the default Locale and the
+        main currency saved in the preferences.
+    */
+    public static String getFormattedAmount(double amount, Context context) {
+        // Get the main currency from the preferences.
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        String currCode = pref.getString(Constants.PREF_CURRENCY, Currency.getInstance(Locale.getDefault()).getCurrencyCode());
+        Currency prefCurrency = Currency.getInstance(currCode);
+        // Create a formatter using the default Locale and the preferred currency.
+        NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
+        nf.setCurrency(prefCurrency);
+        String amountFormatted = nf.format(amount);
+
+        return amountFormatted;
+    }
+
+    // ***********************************************************************************
+    // Others
+    // ***********************************************************************************
 
     /*
         Given the String representing the repetition of this budget, returns a String representing
