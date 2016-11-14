@@ -11,6 +11,7 @@
 
     <!-- Generici -->
     <string name="elimina">Delete</string>
+    <string name="di">of</string>
 
     <!-- Not yet classified -->
     <string name="app_name">Personal Budget</string>
@@ -101,7 +102,7 @@
     <string name="toast_entrata_aggiunta">1 earning added!</string>
     <string name="toast_entrata_modificata">1 earning modified!</string>
     <string name="budget_dettaglio_titolo">Budget details</string>
-    <string name="budget_dettaglio_scadenza">Expiry date:</string>
+    <string name="budget_dettaglio_scadenza">Expiry date</string>
     <string name="budget_dettaglio_speseincluse">Expenses list</string>
     <string name="budget_dettaglio_riepilogobudget">Budgets list</string>
     <string name="budget_dettaglio_modifica">Edit</string>
@@ -246,6 +247,7 @@
     <string name="menu_visualizzaStats">Charts</string>
     <string name="budget_dettaglio_tipoBudget">Budget type</string>
     <string name="budget_dettaglio_importo">Amount</string>
+    <string name="budget_dettaglio_speso">Spent</string>
     <string name="budget_dettaglio_voci">Tags</string>
     <string-array name="budget_fragments_titles">
         <item>Details</item>

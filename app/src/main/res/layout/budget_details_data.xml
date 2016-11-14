@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) - Software developed by iClaude.
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -7,10 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-    android:layout_marginStart="@dimen/activity_horizontal_margin"
-    android:layout_marginRight="@dimen/activity_horizontal_margin"
-    android:layout_marginEnd="@dimen/activity_horizontal_margin">
+    android:layout_margin="@dimen/activity_horizontal_margin">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -51,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:text="@string/budget_dettaglio_importo"
+                android:text="@string/budget_dettaglio_speso"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textStyle="bold"
                 android:textColor="@color/text_primary"
@@ -132,7 +129,7 @@
             android:layout_below="@+id/tvBudgetType"
             android:layout_marginRight="5dp"
             android:layout_marginTop="8dp"
-            android:text="@string/dettagli_voce_data"
+            android:text="@string/budget_dettaglio_scadenza"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textStyle="bold"
             android:textColor="@color/text_primary"
@@ -183,8 +180,7 @@
         android:id="@+id/spese_entrate_dettaglio_voce_rlRipetizione"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginTop="12dp">
+        android:layout_gravity="center_vertical">
 
         <LinearLayout
             android:id="@+id/spese_entrate_dettaglio_voce_llRipetizioneInfo"
@@ -197,7 +193,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/budget_dettaglio_aggiungereRimanenza"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textStyle="bold"
@@ -209,6 +205,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:layout_marginTop="8dp"
                 app:srcCompat="@drawable/cross"
                 android:id="@+id/ivAddSavings" />
 
@@ -229,5 +226,6 @@
     </RelativeLayout>
 
 </LinearLayout>
+
 
 

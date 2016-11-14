@@ -11,6 +11,7 @@
 
     <!-- Generici -->
     <string name="elimina">Elimina</string>
+    <string name="di">di</string>
 
     <!-- Not yet classified -->
     <string name="app_name">Personal Budget</string>
@@ -101,7 +102,7 @@
     <string name="toast_entrata_aggiunta">1 entrata aggiunta!</string>
     <string name="toast_entrata_modificata">1 entrata modificata!</string>
     <string name="budget_dettaglio_titolo">Dettaglio budget</string>
-    <string name="budget_dettaglio_scadenza">Scadenza:</string>
+    <string name="budget_dettaglio_scadenza">Scadenza</string>
     <string name="budget_dettaglio_speseincluse">Elenco spese</string>
     <string name="budget_dettaglio_riepilogobudget">Storico budget</string>
     <string name="budget_dettaglio_modifica">Modifica</string>
@@ -254,6 +255,7 @@
         <string name="menu_visualizzaStats">Grafici</string>
         <string name="budget_dettaglio_tipoBudget">Tipo budget:</string>
     <string name="budget_dettaglio_importo">Importo</string>
+    <string name="budget_dettaglio_speso">Speso</string>
     <string name="budget_dettaglio_voci">Tag</string>
         <string name="aggiungi_voce_cambio">Anteprima cambio:</string>
         <string name="aggiungi_voce_tags">Tag&#8230;</string>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -38,6 +38,7 @@ import com.flingsoftware.personalbudget.R;
 import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
 import com.flingsoftware.personalbudget.database.DBCVociAbs;
+import com.flingsoftware.personalbudget.oggetti.Budget;
 import com.flingsoftware.personalbudget.utilita.BlurBuilder;
 import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
 import com.flingsoftware.personalbudget.utilita.SoundEffectsManager;
@@ -62,16 +63,9 @@ public class BudgetDetails extends AppCompatActivity {
     private TextView tvAmountToolbar;
     // Budget details.
     private Fragment[] fragments;
+    private Budget budget;
     private long id;
-    private String tag;
-    private double amount;
-    private String repetition;
-    private double expenses;
-    private long dateStart;
-    private long dateEnd;
-    private int addRest;
-    private long firstBudget;
-    private int lastAdded;
+    private String budgetType;
     // Graphics and multimedia.
     private SoundEffectsManager soundEffectsManager;
 
@@ -114,7 +108,7 @@ public class BudgetDetails extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         id = extras.getLong(KEY_ID);
         fragments = new Fragment[3];
-        fragments[0] = BudgetDetailsData.newInstance();
+        fragments[0] = BudgetDetailsData.newInstance(id);
         fragments[1] = BudgetDetailsExpenses.newInstance(id);
         fragments[2] = BudgetDetailsHistory.newInstance(id);
     }
@@ -174,22 +168,19 @@ public class BudgetDetails extends AppCompatActivity {
             cursor.moveToFirst();
 
             // Budget details.
-            tag = cursor.getString(cursor.getColumnIndex("voce"));
-            if (tag.endsWith(",")) {
-                tag = tag.substring(0, tag.length() - 1);
-            }
-            amount = cursor.getDouble(cursor.getColumnIndex("importo_valprin"));
-            String repTmp;
-            repTmp = cursor.getString(cursor.getColumnIndex("ripetizione"));
-            repetition = UtilityVarious.getBudgetType(BudgetDetails.this, repTmp);
-            expenses = cursor.getDouble(cursor.getColumnIndex("spesa_sost"));
-
-            dateStart = cursor.getLong(cursor.getColumnIndex("data_inizio"));
-            dateEnd = cursor.getLong(cursor.getColumnIndex("data_fine"));
-            addRest = cursor.getInt(cursor.getColumnIndex("aggiungere_rimanenza"));
-            double savings = cursor.getDouble(cursor.getColumnIndex("risparmio"));
-            firstBudget = cursor.getLong(cursor.getColumnIndex("budget_iniziale"));
-            lastAdded = cursor.getInt(cursor.getColumnIndex("ultimo_aggiunto"));
+            budget = new Budget();
+            String tag = cursor.getString(cursor.getColumnIndex("voce"));
+            budget.setTag(tag);
+            budget.setAmount(cursor.getDouble(cursor.getColumnIndex("importo_valprin")));
+            budget.setRepetition(cursor.getString(cursor.getColumnIndex("ripetizione")));
+            budgetType = budget.getBudgetType(BudgetDetails.this);
+            budget.setExpenses(cursor.getDouble(cursor.getColumnIndex("spesa_sost")));
+            budget.setDateStart(cursor.getLong(cursor.getColumnIndex("data_inizio")));
+            budget.setDateEnd(cursor.getColumnIndex("data_fine"));
+            budget.setAddRest(cursor.getInt(cursor.getColumnIndex("aggiungere_rimanenza")));
+            budget.setSavings(cursor.getColumnIndex("risparmio"));
+            budget.setFirstBudget(cursor.getLong(cursor.getColumnIndex("budget_iniziale")));
+            budget.setLastAdded(cursor.getInt(cursor.getColumnIndex("ultimo_aggiunto")));
 
             cursor.close();
             dbcSpeseBudget.close();
@@ -198,30 +189,28 @@ public class BudgetDetails extends AppCompatActivity {
 
         protected void onPostExecute(Void result) {
             displayDetailsActivity();
-            BudgetDetailsData budgetDetailsData = (BudgetDetailsData) fragments[0];
-            budgetDetailsData.displayData(tag, amount, repetition, dateEnd, addRest);
         }
     }
 
     // Display budget details in the layout.
     private void displayDetailsActivity() {
         // Appbar.
-        tvTagToolbar.setText(tag);
-        tvTagAppbar.setText(tag);
+        tvTagToolbar.setText(budget.getTagWithoutComma());
+        tvTagAppbar.setText(budget.getTagWithoutComma());
         // Running text.
         tvTagAppbar.setEllipsize(TextUtils.TruncateAt.MARQUEE);
         tvTagAppbar.setSingleLine(true);
         tvTagAppbar.setMarqueeRepeatLimit(5);
         tvTagAppbar.setSelected(true);
         // Amount formatted in main currency.
-        String amountFormatted = UtilityVarious.getFormattedAmount(amount, this);
-        tvAmountToolbar.setText(amountFormatted + " (" + repetition + ")");
-        tvAmountAppbar.setText(amountFormatted + " / " + repetition);
+        String amountFormatted = UtilityVarious.getFormattedAmount(budget.getAmount(), this);
+        tvAmountToolbar.setText(amountFormatted + " (" + budgetType + ")");
+        tvAmountAppbar.setText(amountFormatted + " / " + budgetType);
         // Rating bar.
-        float perc = (float) (expenses / amount) * 100;
+        float perc = (float) (budget.getExpenses() / budget.getAmount()) * 100;
         setRatingBar(perc);
         // Load main image in a separate thread.
-        new LoadHeaderImageTask().execute(tag);
+        new LoadHeaderImageTask().execute(budget.getTag());
     }
 
     // Load header image in a separate thread.
