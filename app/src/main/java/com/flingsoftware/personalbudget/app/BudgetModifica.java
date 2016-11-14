@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app;
@@ -45,10 +45,12 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.app.budgets.BudgetDetails;
 import com.flingsoftware.personalbudget.customviews.MioToast;
 import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
 import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
+import com.flingsoftware.personalbudget.oggetti.Budget;
 import com.flingsoftware.personalbudget.utilita.SoundEffectsManager;
 import com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche;
 import com.flingsoftware.personalbudget.valute.ElencoValute;
@@ -65,15 +67,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
-import static com.flingsoftware.personalbudget.app.BudgetDettaglio.CostantiPubbliche.BUDGET_AGGIUNGERE_RIMANENZA;
-import static com.flingsoftware.personalbudget.app.BudgetDettaglio.CostantiPubbliche.BUDGET_BUDGET_INIZIALE;
-import static com.flingsoftware.personalbudget.app.BudgetDettaglio.CostantiPubbliche.BUDGET_DATA_FINE;
-import static com.flingsoftware.personalbudget.app.BudgetDettaglio.CostantiPubbliche.BUDGET_DATA_INIZIO;
-import static com.flingsoftware.personalbudget.app.BudgetDettaglio.CostantiPubbliche.BUDGET_IMPORTO;
-import static com.flingsoftware.personalbudget.app.BudgetDettaglio.CostantiPubbliche.BUDGET_RIPETIZIONE;
-import static com.flingsoftware.personalbudget.app.BudgetDettaglio.CostantiPubbliche.BUDGET_ULTIMO_AGGIUNTO;
-import static com.flingsoftware.personalbudget.app.BudgetDettaglio.CostantiPubbliche.BUDGET_VOCE;
-import static com.flingsoftware.personalbudget.app.FragmentBudget.ROW_ID;
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_CORRENTE;
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.ID_DATEPICKER;
@@ -119,23 +112,24 @@ public class BudgetModifica extends ActionBarActivity implements DatePickerFragm
 		impostaSezioneConversioneValute();
 		
 		//recupero le variabili principali del budget passate dall'Activity chiamante
-		Bundle extras = getIntent().getExtras();
-		id = extras.getLong(ROW_ID);
-		voce = extras.getString(BUDGET_VOCE);
-		voceVecchia = voce.toString();
-		ripetizione = extras.getString(BUDGET_RIPETIZIONE);
-		ripetizioneVecchia = ripetizione.toString();
-		importoBudgetValprin = extras.getDouble(BUDGET_IMPORTO);
-		dataInizioBudgetGreg.setTimeInMillis(extras.getLong(BUDGET_DATA_INIZIO));
-		dataInizioBudgetGregVecchia.setTimeInMillis(dataInizioBudgetGreg.getTimeInMillis());
-		dataFineBudgetGreg.setTimeInMillis(extras.getLong(BUDGET_DATA_FINE));
-		dataFineBudgetGregVecchia.setTimeInMillis(dataFineBudgetGreg.getTimeInMillis());
-		aggiungereRimanenza = extras.getInt(BUDGET_AGGIUNGERE_RIMANENZA);
-		aggiungereRimanenzaVecchia = aggiungereRimanenza;
-		budgetIniziale = extras.getLong(BUDGET_BUDGET_INIZIALE);
-		ultimoAggiunto = extras.getInt(BUDGET_ULTIMO_AGGIUNTO);
-		
-		//ottengo i reference ai vari widget
+        Intent intent = getIntent();
+        Budget budget = (Budget) intent.getParcelableExtra(BudgetDetails.KEY_BUDGET);
+        id = budget.getId();
+        voce = budget.getTag();
+        voceVecchia = voce.toString();
+        ripetizione = budget.getRepetition();
+        ripetizioneVecchia = ripetizione.toString();
+        importoBudgetValprin = budget.getAmount();
+        dataInizioBudgetGreg.setTimeInMillis(budget.getDateStart());
+        dataInizioBudgetGregVecchia.setTimeInMillis(dataInizioBudgetGreg.getTimeInMillis());
+        dataFineBudgetGreg.setTimeInMillis(budget.getDateEnd());
+        dataFineBudgetGregVecchia.setTimeInMillis(dataFineBudgetGreg.getTimeInMillis());
+        aggiungereRimanenza = budget.getAddRest();
+        aggiungereRimanenzaVecchia = aggiungereRimanenza;
+        budgetIniziale = budget.getFirstBudget();
+        ultimoAggiunto = budget.getLastAdded();
+
+        //ottengo i reference ai vari widget
 		etImportoBudget = (EditText) findViewById(R.id.budget_aggiungi_etImportoBudget);
 		Spinner spRipetizioni = (Spinner) findViewById(R.id.budget_aggiungi_spRipetizione);
 		Button bTagsSpecifici = (Button) findViewById(R.id.budget_aggiungi_bTagsSpecifici);

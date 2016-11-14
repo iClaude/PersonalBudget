@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -35,6 +35,7 @@ import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.app.BudgetModifica;
 import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
 import com.flingsoftware.personalbudget.database.DBCVociAbs;
@@ -43,6 +44,7 @@ import com.flingsoftware.personalbudget.utilita.BlurBuilder;
 import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
 import com.flingsoftware.personalbudget.utilita.SoundEffectsManager;
 import com.flingsoftware.personalbudget.utilita.UtilityVarious;
+
 
 /**
  * Created by agost on 04/11/2016.
@@ -53,6 +55,8 @@ public class BudgetDetails extends AppCompatActivity {
     // Constants.
     private static final String TAG = "BudgetDetails";
     private static final String KEY_ID = "KEY_ID";
+    public static final String KEY_BUDGET = "KEY_BUDGET";
+    private static final int RESULT_CODE_EDIT = 0;
 
     // Variables.
     // Widgets.
@@ -279,28 +283,6 @@ public class BudgetDetails extends AppCompatActivity {
         ratingBar.setRating(filling);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_budget_dettaglio2, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
     private class BudgetFragmentPagerAdapter extends FragmentPagerAdapter {
         private final int PAGE_COUNT = 3;
         private String[] tabTitles = getResources().getStringArray(R.array.budget_fragments_titles);
@@ -338,5 +320,39 @@ public class BudgetDetails extends AppCompatActivity {
 
             return v;
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_budget_dettaglio2, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+
+                return true;
+            case R.id.menu_budgetDettaglio_cancella:
+                //delete();
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    // Edit this budget.
+    public void edit(View v) {
+        Intent intent = new Intent(this, BudgetModifica.class);
+        intent.putExtra(KEY_BUDGET, budget);
+
+        startActivityForResult(intent, RESULT_CODE_EDIT);
     }
 }

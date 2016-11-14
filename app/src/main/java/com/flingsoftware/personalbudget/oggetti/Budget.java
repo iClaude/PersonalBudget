@@ -1,10 +1,12 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.oggetti;
 
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.flingsoftware.personalbudget.R;
 
@@ -12,7 +14,7 @@ import com.flingsoftware.personalbudget.R;
  * POJO representing a budget.
  */
 
-public class Budget {
+public class Budget implements Parcelable {
 
     // Variables.
     private long id;
@@ -144,7 +146,7 @@ public class Budget {
     /*
     Given the String representing the repetition of this budget, returns a String representing
     the repetition in the correct language (bad code: legacy approach).
- */
+    */
     public String getBudgetType(Context context) {
         String[] budgetTypes = context.getResources().getStringArray(R.array.ripetizioni_budget);
         String budgetType = getRepetition();
@@ -163,5 +165,53 @@ public class Budget {
         }
 
         return budgetType;
+    }
+
+
+    // ************************************************************************************
+    // Implementing the Parcelable interface
+    // ************************************************************************************
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeLong(id);
+        out.writeString(tag);
+        out.writeDouble(amount);
+        out.writeString(repetition);
+        out.writeDouble(expenses);
+        out.writeLong(dateStart);
+        out.writeLong(dateEnd);
+        out.writeInt(addRest);
+        out.writeLong(firstBudget);
+        out.writeInt(lastAdded);
+        out.writeDouble(savings);
+    }
+
+    public static final Parcelable.Creator<Budget> CREATOR = new Parcelable.Creator<Budget>() {
+        public Budget createFromParcel(Parcel in) {
+            return new Budget(in);
+        }
+
+        public Budget[] newArray(int size) {
+            return new Budget[size];
+        }
+    };
+
+    private Budget(Parcel in) {
+        id = in.readLong();
+        tag = in.readString();
+        amount = in.readDouble();
+        repetition = in.readString();
+        expenses = in.readDouble();
+        dateStart = in.readLong();
+        dateEnd = in.readLong();
+        addRest = in.readInt();
+        firstBudget = in.readLong();
+        lastAdded = in.readInt();
+        savings = in.readDouble();
     }
 }
