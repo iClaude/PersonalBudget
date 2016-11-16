@@ -53,6 +53,21 @@ android {
     }
     productFlavors {
     }
+
+    // Added to solve compile error: Cannot merge new index xxxxx into a non-jumbo instruction!
+    dexOptions {
+        jumboMode true
+    }
+
+    /* Added to solve problems with lint when executing task "build"
+    lintOptions {
+        abortOnError false
+    }*/
+
+    // Timeout for installing the app on the device
+    adbOptions {
+        timeOutInMs = 30 * 1000
+    }
 }
 
 ext {
@@ -64,8 +79,23 @@ dependencies {
     compile("com.android.support:recyclerview-v7:$libraryVersion")
     compile("com.android.support:design:$libraryVersion")
     compile "com.android.support:palette-v7:$libraryVersion"
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha8'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta3'
 
     compile fileTree(include: ['*.jar'], dir: 'libs')
+}
 
+// Copy apks in the apks folder at every build
+task copyApks(type: Copy, dependsOn: assemble) {
+    from("$buildDir/outputs/apk") {
+        exclude '**/*unsigned.apk', '**/*unaligned.apk'
+    }
+    into '../apks'
+}
+
+build.dependsOn copyApks
+
+gradle.taskGraph.whenReady { graph ->
+    if (project.hasProperty('noLint')) {
+        graph.allTasks.findAll { it.name ==~ /lint.*/ }*.enabled = false
+    }
 }
