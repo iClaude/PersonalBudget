@@ -1,3 +1,10 @@
 Da fare:
-- suoni per eliminazione budget
+- constraint layout su budget details: migliorare UI
 - passare da singoli parametri a POJO in: magari anche in spese/entrate dettagli
+
+coding personal budget: task gradle custom
+- copiare apk in cartella diversa ad ogni build
+- aumentare timeout per installazione app
+- eliminare lint dalla build sulla base di una propriet? impostata
+- creare sottodirectory di res layout per organizzarli meglio
+- librerie android: vedi se ci sono funzioni da riutilizzare in altre app e creare libreria per esse
