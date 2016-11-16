@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  -->
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/activity_horizontal_margin">
+
+    <ImageView
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:id="@+id/ivValuta"
+        android:src="@drawable/ic_action_view_as_list"
+        android:background="@drawable/background_tondo_primary"
+        android:padding="12dp"
+        android:elevation="6dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/budget_dettaglio_voci"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary"
+        android:fontFamily="sans-serif-light"
+        android:textSize="18sp"
+        android:id="@+id/textView10"
+        tools:layout_editor_absoluteY="16dp"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline" />
+
+    <TextView
+        android:id="@+id/tvTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/provv_lorem_ipsum"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/text_primary"
+        android:fontFamily="sans-serif-light"
+        tools:layout_editor_absoluteY="42dp"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/budget_dettaglio_speso"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary"
+        android:fontFamily="sans-serif-light"
+        android:textSize="18sp"
+        android:id="@+id/textView7"
+        tools:layout_editor_absoluteY="72dp"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline" />
+
+    <TextView
+        android:id="@+id/tvAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/provv_importoValutaZero"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/text_primary"
+        android:fontFamily="sans-serif-light"
+        tools:layout_editor_absoluteY="98dp"
+        tools:layout_editor_absoluteX="73dp" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvAmount"
+        app:layout_constraintLeft_toLeftOf="@+id/tvAmount"
+        android:id="@+id/view" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="535dp"
+        android:id="@+id/guideline"
+        app:layout_constraintGuide_begin="73dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="73dp" />
+
+    <ImageView
+        android:id="@+id/sedv_tvB"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:src="@drawable/ic_action_refresh"
+        android:background="@drawable/background_tondo_primary"
+        android:padding="12dp"
+        android:elevation="6dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvAmount" />
+
+    <TextView
+        android:id="@+id/tvBudgetTypeTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/budget_dettaglio_tipoBudget"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary"
+        android:fontFamily="sans-serif-light"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/sedv_tvB" />
+
+    <TextView
+        android:id="@+id/tvBudgetType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/provv_lorem_ipsum"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/text_primary"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-light"
+        tools:layout_editor_absoluteY="170dp"
+        tools:layout_editor_absoluteX="73dp" />
+
+    <TextView
+        android:id="@+id/tvDateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/budget_dettaglio_scadenza"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary"
+        android:fontFamily="sans-serif-light"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvBudgetType" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/provv_lorem_ipsum"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/text_primary"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-light"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline"
+        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvDateTitle" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvDate"
+        android:id="@+id/view2" />
+
+    <ImageView
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:id="@+id/sedv_tvC"
+        android:src="@drawable/ic_device_access_network_cell"
+        android:background="@drawable/background_tondo_primary"
+        android:padding="12dp"
+        android:elevation="6dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/budget_dettaglio_aggiungereRimanenza"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary"
+        android:fontFamily="sans-serif-light"
+        android:textSize="18sp"
+        android:id="@+id/textView11"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/sedv_tvC"
+        app:layout_constraintBottom_toBottomOf="@+id/sedv_tvC" />
+
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:srcCompat="@drawable/cross"
+        android:id="@+id/ivAddSavings"
+        android:layout_marginStart="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/textView11"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintTop_toTopOf="@+id/textView11"
+        app:layout_constraintBottom_toBottomOf="@+id/textView11" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/sedv_tvC" />
+
+</android.support.constraint.ConstraintLayout>

@@ -56,7 +56,7 @@ public class BudgetDetailsData extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.budget_details_data, container, false);
+        View view = inflater.inflate(R.layout.budget_details_data2, container, false);
 
         id = getArguments().getLong(KEY_ID);
         // Get references of widgets.
