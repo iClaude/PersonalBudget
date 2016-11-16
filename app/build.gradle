@@ -71,7 +71,7 @@ android {
 }
 
 ext {
-    libraryVersion = '25.0.0'
+    libraryVersion = '25.0.1'
 }
 
 dependencies {
