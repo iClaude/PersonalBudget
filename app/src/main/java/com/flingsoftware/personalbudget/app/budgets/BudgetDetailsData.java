@@ -94,7 +94,7 @@ public class BudgetDetailsData extends Fragment {
             budgetType = budget.getBudgetType(getActivity());
             budget.setExpenses(cursor.getDouble(cursor.getColumnIndex("spesa_sost")));
             budget.setDateStart(cursor.getLong(cursor.getColumnIndex("data_inizio")));
-            budget.setDateEnd(cursor.getColumnIndex("data_fine"));
+            budget.setDateEnd(cursor.getLong(cursor.getColumnIndex("data_fine")));
             budget.setAddRest(cursor.getInt(cursor.getColumnIndex("aggiungere_rimanenza")));
             budget.setSavings(cursor.getColumnIndex("risparmio"));
             budget.setFirstBudget(cursor.getLong(cursor.getColumnIndex("budget_iniziale")));

@@ -1,10 +1,13 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -32,10 +35,12 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.flingsoftware.personalbudget.R;
 import com.flingsoftware.personalbudget.app.BudgetModifica;
+import com.flingsoftware.personalbudget.customviews.MioToast;
 import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
 import com.flingsoftware.personalbudget.database.DBCVociAbs;
@@ -45,9 +50,14 @@ import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
 import com.flingsoftware.personalbudget.utilita.SoundEffectsManager;
 import com.flingsoftware.personalbudget.utilita.UtilityVarious;
 
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiDettaglioVoce.OPERAZIONE_ELIMINAZIONE;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiDettaglioVoce.TIPO_OPERAZIONE;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.WIDGET_AGGIORNA;
+
 
 /**
- * Created by agost on 04/11/2016.
+ * This Activity displays budget data. Budget details are displayed in the app bar as well
+ * as in the 3 Fragments contained in this Activity.
  */
 
 public class BudgetDetails extends AppCompatActivity {
@@ -180,7 +190,7 @@ public class BudgetDetails extends AppCompatActivity {
             budgetType = budget.getBudgetType(BudgetDetails.this);
             budget.setExpenses(cursor.getDouble(cursor.getColumnIndex("spesa_sost")));
             budget.setDateStart(cursor.getLong(cursor.getColumnIndex("data_inizio")));
-            budget.setDateEnd(cursor.getColumnIndex("data_fine"));
+            budget.setDateEnd(cursor.getLong(cursor.getColumnIndex("data_fine")));
             budget.setAddRest(cursor.getInt(cursor.getColumnIndex("aggiungere_rimanenza")));
             budget.setSavings(cursor.getColumnIndex("risparmio"));
             budget.setFirstBudget(cursor.getLong(cursor.getColumnIndex("budget_iniziale")));
@@ -337,11 +347,9 @@ public class BudgetDetails extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
-
                 return true;
-            case R.id.menu_budgetDettaglio_cancella:
-                //delete();
-
+            case R.id.menu_budget_dettaglio_cancella:
+                delete();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -355,4 +363,90 @@ public class BudgetDetails extends AppCompatActivity {
 
         startActivityForResult(intent, RESULT_CODE_EDIT);
     }
+
+    private void delete() {
+        final boolean singleBudget = budget.getRepetition().equals("una_tantum") ? true : false;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(BudgetDetails.this);
+        builder.setTitle(R.string.dettagli_voce_conferma_elimina_titolo);
+        int msgId = singleBudget ? R.string.dettagli_voce_conferma_elimina_msg : R.string.budget_BudgetDettaglioVoce_eliminaRipetuti_msg;
+        builder.setMessage(msgId);
+        builder.setNegativeButton(R.string.cancella, null);
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Use of the Template Method Pattern.
+                DeleteBudgetTask deleteBudgetTask = singleBudget ? new DeleteOneBudgetTask() : new DeleteMultipleBudgetsTask();
+                deleteBudgetTask.execute(id);
+            }
+        });
+        builder.setCancelable(true);
+        AlertDialog confirmDialog = builder.create();
+        confirmDialog.show();
+    }
+
+    /*
+        AsyncTask used to delete one or multiple budges of the same type.
+        Plays the rose of AbstractClass in the Template Method Pattern. Subclasses must implement
+        deleteBudgets() method, depending on wether they delete one or multiple budges.
+        doInBackground and onPostExecute are template methods, containing the code that doesn't
+        change.
+     */
+    private abstract class DeleteBudgetTask extends AsyncTask<Long, Object, Integer> {
+        DBCSpeseBudget dbcSpeseBudget = new DBCSpeseBudget(BudgetDetails.this);
+        long budgetId;
+
+        @Override
+        protected Integer doInBackground(Long... params) {
+            budgetId = params[0];
+            dbcSpeseBudget.openModifica();
+            int budgetsDeleted = deleteBudgets();
+            dbcSpeseBudget.close();
+            return budgetsDeleted;
+        }
+
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            String msg = getResources().getString(R.string.toast_budget_eliminato, result);
+            new MioToast(BudgetDetails.this, msg).visualizza(Toast.LENGTH_SHORT);
+
+            final Intent intAggiornaWidget = new Intent(WIDGET_AGGIORNA);
+            sendBroadcast(intAggiornaWidget);
+
+            Intent intRitorno = new Intent();
+            intRitorno.putExtra(TIPO_OPERAZIONE, OPERAZIONE_ELIMINAZIONE);
+            setResult(Activity.RESULT_OK, intRitorno);
+            finish();
+        }
+
+        /*
+            Subclasses must override this method to implement the algorithm to delete one or
+            multiple budgets.
+         */
+        public abstract int deleteBudgets();
+    }
+
+    /*
+        ConcreteClass in the TemplateMethodPattern.
+        This class deletes a single budget.
+     */
+    private class DeleteOneBudgetTask extends DeleteBudgetTask {
+        @Override
+        public int deleteBudgets() {
+            return dbcSpeseBudget.eliminaSpesaBudget(budgetId);
+        }
+    }
+
+    /*
+    ConcreteClass in the TemplateMethodPattern.
+    This class deletes multiple budgets of the same type.
+ */
+    private class DeleteMultipleBudgetsTask extends DeleteBudgetTask {
+        @Override
+        public int deleteBudgets() {
+            return dbcSpeseBudget.eliminaBudgetAnaloghi(budget.getFirstBudget());
+        }
+    }
+
 }
