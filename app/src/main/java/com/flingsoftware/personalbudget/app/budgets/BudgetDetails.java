@@ -408,6 +408,7 @@ public class BudgetDetails extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Integer result) {
+            soundEffectsManager.playSound(SoundEffectsManager.SOUND_DELETED);
             String msg = getResources().getString(R.string.toast_budget_eliminato, result);
             new MioToast(BudgetDetails.this, msg).visualizza(Toast.LENGTH_SHORT);
 
