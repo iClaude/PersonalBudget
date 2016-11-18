@@ -1,5 +1,11 @@
-Da fare:
-- constraint layout su budget details: migliorare UI
+Elenco budget analoghi:
+1) usare RecyclerView
+2) fare layout singoli elementi con ConstraintLayout
+3) fare layout globale con ConstraingLayout
+4) codice per recuperare dati budget
+5) codice per impostare il layout
+
+Altro:
 - passare da singoli parametri a POJO in: magari anche in spese/entrate dettagli
 
 coding personal budget: task gradle custom
