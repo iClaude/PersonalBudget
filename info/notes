@@ -1,6 +1,6 @@
 Elenco budget analoghi:
 1) usare RecyclerView
-2) fare layout singoli elementi con ConstraintLayout
+2) fare layout singoli elementi con ConstraintLayout; stile app transport con expand e collapse
 3) fare layout globale con ConstraingLayout
 4) codice per recuperare dati budget
 5) codice per impostare il layout

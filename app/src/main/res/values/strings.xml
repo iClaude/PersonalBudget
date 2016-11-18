@@ -560,4 +560,5 @@
 
     <!-- Transitions -->
     <string name="transitionName">transitionIcon</string>
+    <string name="budgets_show">show...</string>
 </resources>
