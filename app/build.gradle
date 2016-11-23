@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 
@@ -22,7 +22,7 @@ android {
         }
     }
     compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    buildToolsVersion "25.0.1"
     compileOptions.encoding = 'windows-1251'
     defaultConfig {
         applicationId "com.flingsoftware.personalbudget"
