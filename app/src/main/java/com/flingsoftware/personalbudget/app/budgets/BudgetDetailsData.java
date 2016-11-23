@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -20,9 +20,7 @@ import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
 import com.flingsoftware.personalbudget.oggetti.Budget;
 import com.flingsoftware.personalbudget.utilita.UtilityVarious;
 
-import java.text.DateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  * Fragment used to display data in the Activity of budget details.
@@ -85,20 +83,7 @@ public class BudgetDetailsData extends Fragment {
             Cursor cursor = dbcSpeseBudget.getSpesaBudget(params[0]);
             cursor.moveToFirst();
 
-            // Budget details.
-            budget = new Budget();
-            String tag = cursor.getString(cursor.getColumnIndex("voce"));
-            budget.setTag(tag);
-            budget.setAmount(cursor.getDouble(cursor.getColumnIndex("importo_valprin")));
-            budget.setRepetition(cursor.getString(cursor.getColumnIndex("ripetizione")));
-            budgetType = budget.getBudgetType(getActivity());
-            budget.setExpenses(cursor.getDouble(cursor.getColumnIndex("spesa_sost")));
-            budget.setDateStart(cursor.getLong(cursor.getColumnIndex("data_inizio")));
-            budget.setDateEnd(cursor.getLong(cursor.getColumnIndex("data_fine")));
-            budget.setAddRest(cursor.getInt(cursor.getColumnIndex("aggiungere_rimanenza")));
-            budget.setSavings(cursor.getColumnIndex("risparmio"));
-            budget.setFirstBudget(cursor.getLong(cursor.getColumnIndex("budget_iniziale")));
-            budget.setLastAdded(cursor.getInt(cursor.getColumnIndex("ultimo_aggiunto")));
+            budget = Budget.makeBudgetFromCursor(cursor, getActivity());
 
             cursor.close();
             dbcSpeseBudget.close();
@@ -115,15 +100,11 @@ public class BudgetDetailsData extends Fragment {
         in this Fragment.
      */
     private void displayData() {
-        // Some useful formatters.
-        final Locale miaLocale = (Locale.getDefault().getDisplayLanguage().equals("italiano") ? Locale.getDefault() : Locale.UK);
-        final DateFormat dfDate = DateFormat.getDateInstance(DateFormat.SHORT, miaLocale);
-
         // Now display data.
         tvTag.setText(budget.getTagWithoutComma());
         tvAmount.setText(UtilityVarious.getFormattedAmount(budget.getExpenses(), getActivity()) + " " + getString(R.string.di) + " " + UtilityVarious.getFormattedAmount(budget.getAmount(), getActivity()));
         tvBudgetType.setText(budget.getBudgetType(getActivity()));
-        tvDate.setText(dfDate.format(new Date(budget.getDateEnd())));
+        tvDate.setText(UtilityVarious.getDateFormatShort().format(new Date(budget.getDateEnd())));
         int imageId = budget.getAddRest() == 0 ? R.drawable.cross : R.drawable.check;
         ivAddSavings.setImageResource(imageId);
     }

@@ -1,10 +1,11 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.oggetti;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -167,6 +168,26 @@ public class Budget implements Parcelable {
         return budgetType;
     }
 
+    /*
+        Given a Cursor set to a position containing budget data, returns a Budget object with
+        all the relevant fields.
+     */
+    public static Budget makeBudgetFromCursor(Cursor cursor, Context context) {
+        Budget budget = new Budget();
+        budget.setTag(cursor.getString(cursor.getColumnIndex("voce")));
+        budget.setAmount(cursor.getDouble(cursor.getColumnIndex("importo_valprin")));
+        budget.setRepetition(cursor.getString(cursor.getColumnIndex("ripetizione")));
+        String budgetType = budget.getBudgetType(context);
+        budget.setExpenses(cursor.getDouble(cursor.getColumnIndex("spesa_sost")));
+        budget.setDateStart(cursor.getLong(cursor.getColumnIndex("data_inizio")));
+        budget.setDateEnd(cursor.getLong(cursor.getColumnIndex("data_fine")));
+        budget.setAddRest(cursor.getInt(cursor.getColumnIndex("aggiungere_rimanenza")));
+        budget.setSavings(cursor.getColumnIndex("risparmio"));
+        budget.setFirstBudget(cursor.getLong(cursor.getColumnIndex("budget_iniziale")));
+        budget.setLastAdded(cursor.getInt(cursor.getColumnIndex("ultimo_aggiunto")));
+
+        return budget;
+    }
 
     // ************************************************************************************
     // Implementing the Parcelable interface

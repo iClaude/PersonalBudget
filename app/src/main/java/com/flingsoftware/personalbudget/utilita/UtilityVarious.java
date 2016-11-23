@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.utilita;
@@ -20,6 +20,7 @@ import android.view.Window;
 import com.flingsoftware.personalbudget.R;
 import com.flingsoftware.personalbudget.app.MainPersonalBudget;
 
+import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.util.Currency;
 import java.util.Locale;
@@ -180,5 +181,17 @@ public class UtilityVarious {
         }
 
         return budgetType;
+    }
+
+    /*
+        Returns a DateFormat (format SHORT) using the Italian Locale (if the language is Italian),
+        or the English locale otherwise.
+        This function is used extensively in the project.
+     */
+    public static DateFormat getDateFormatShort() {
+        Locale miaLocale = (Locale.getDefault().getDisplayLanguage().equals("italiano") ? Locale.getDefault() : Locale.UK);
+        DateFormat dfDate = DateFormat.getDateInstance(DateFormat.SHORT, miaLocale);
+
+        return dfDate;
     }
 }

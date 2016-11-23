@@ -181,20 +181,7 @@ public class BudgetDetails extends AppCompatActivity {
             Cursor cursor = dbcSpeseBudget.getSpesaBudget(params[0]);
             cursor.moveToFirst();
 
-            // Budget details.
-            budget = new Budget();
-            String tag = cursor.getString(cursor.getColumnIndex("voce"));
-            budget.setTag(tag);
-            budget.setAmount(cursor.getDouble(cursor.getColumnIndex("importo_valprin")));
-            budget.setRepetition(cursor.getString(cursor.getColumnIndex("ripetizione")));
-            budgetType = budget.getBudgetType(BudgetDetails.this);
-            budget.setExpenses(cursor.getDouble(cursor.getColumnIndex("spesa_sost")));
-            budget.setDateStart(cursor.getLong(cursor.getColumnIndex("data_inizio")));
-            budget.setDateEnd(cursor.getLong(cursor.getColumnIndex("data_fine")));
-            budget.setAddRest(cursor.getInt(cursor.getColumnIndex("aggiungere_rimanenza")));
-            budget.setSavings(cursor.getColumnIndex("risparmio"));
-            budget.setFirstBudget(cursor.getLong(cursor.getColumnIndex("budget_iniziale")));
-            budget.setLastAdded(cursor.getInt(cursor.getColumnIndex("ultimo_aggiunto")));
+            budget = Budget.makeBudgetFromCursor(cursor, BudgetDetails.this);
 
             cursor.close();
             dbcSpeseBudget.close();

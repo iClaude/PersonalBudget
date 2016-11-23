@@ -1,9 +1,11 @@
-Elenco budget analoghi:
-1) usare RecyclerView
-2) fare layout singoli elementi con ConstraintLayout; stile app transport con expand e collapse
-3) fare layout globale con ConstraingLayout
-4) codice per recuperare dati budget
-5) codice per impostare il layout
+Sistemare budget analoghi:
+- lista con appbar enter always
+- fab a scomparsa
+- meno spazio tra card della lista
+- dettagli budget (altra scheda): usare stessi font
+- caricamento icone
+- hide/show delle card: per ora senza animazione
+
 
 Altro:
 - passare da singoli parametri a POJO in: magari anche in spese/entrate dettagli
