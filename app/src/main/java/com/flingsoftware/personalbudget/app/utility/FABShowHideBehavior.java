@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app.utility;
@@ -22,7 +22,6 @@ import java.lang.reflect.Method;
  * Subclasses can hide/show the FAB accordingly.
  */
 public class FABShowHideBehavior extends CoordinatorLayout.Behavior<FloatingActionButton> {
-    private boolean appBarcollapsed = false;
     private Rect mTmpRect;
 
     public FABShowHideBehavior() {

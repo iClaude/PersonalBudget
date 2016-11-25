@@ -4,11 +4,13 @@
 
 package com.flingsoftware.personalbudget.app.budgets;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,6 +22,7 @@ import android.widget.TextView;
 import com.flingsoftware.personalbudget.R;
 import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
 import com.flingsoftware.personalbudget.oggetti.Budget;
+import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
 import com.flingsoftware.personalbudget.utilita.UtilityVarious;
 
 import java.text.DateFormat;
@@ -38,6 +41,9 @@ public class BudgetDetailsHistory extends Fragment {
 
     // Variables.
     private long budgetId;
+    // Icons (legacy approach).
+    private ListViewIconeVeloce iconeVeloci;
+
     // Widgets and layout.
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
@@ -162,6 +168,7 @@ public class BudgetDetailsHistory extends Fragment {
             Budget budget = listBudget.get(position);
 
             if (budget != null) {
+                Context context = getActivity();
                 // Show budget's details in the layout.
                 DateFormat dateFormat = UtilityVarious.getDateFormatShort();
                 String period = dateFormat.format
@@ -169,14 +176,24 @@ public class BudgetDetailsHistory extends Fragment {
                 holder.tvPeriod.setText(period);
                 holder.tvTag.setText(budget.getTag());
                 double saved = budget.getAmount() - budget.getExpenses();
-                holder.tvSaved.setText(UtilityVarious.getFormattedAmount(saved, getActivity()));
-                // TODO: color red if saved < 0
+                if (saved >= 0) {
+                    holder.tvSaved.setTextColor(ContextCompat.getColor(context, android.R.color.holo_green_dark));
+                    holder.tvSaved.setText("+ " + UtilityVarious.getFormattedAmount(saved, context));
+                } else {
+                    holder.tvSaved.setTextColor(ContextCompat.getColor(context, android.R.color.holo_red_dark));
+                    holder.tvSaved.setText(UtilityVarious.getFormattedAmount(saved, context));
+                }
+
                 int perc = (int) ((budget.getExpenses() * 100) / budget.getAmount());
                 holder.pbBudget.setProgress(perc);
-                // TODO: change color if perc >= 100
-                holder.tvAmount.setText(UtilityVarious.getFormattedAmount(budget.getAmount(), getActivity()));
-                holder.tvSpent.setText(UtilityVarious.getFormattedAmount(budget.getExpenses(), getActivity()));
-                holder.tvBudgetType.setText(budget.getBudgetType(getActivity()));
+                if (perc >= 100) {
+                    holder.pbBudget.setProgressDrawable(ContextCompat.getDrawable(context, R.drawable.progressbar_accent));
+                } else {
+                    holder.pbBudget.setProgressDrawable(ContextCompat.getDrawable(context, R.drawable.progressbar_standard));
+                }
+                holder.tvAmount.setText(UtilityVarious.getFormattedAmount(budget.getAmount(), context));
+                holder.tvSpent.setText(UtilityVarious.getFormattedAmount(budget.getExpenses(), context));
+                holder.tvBudgetType.setText(budget.getBudgetType(context));
                 holder.tvEndDate.setText(dateFormat.format(new Date(budget.getDateEnd())));
             }
         }

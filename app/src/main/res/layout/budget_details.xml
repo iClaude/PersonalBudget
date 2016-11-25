@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) - Software developed by iClaude.
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
   -->
 
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -166,15 +166,13 @@
         app:fabSize="normal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
+        android:layout_gravity="bottom|right"
         android:layout_marginRight="@dimen/fab_margin_right"
         android:layout_marginBottom="@dimen/fab_margin_right"
         app:layout_behavior="com.flingsoftware.personalbudget.app.utility.FABHighShowHideBehavior"
         android:id="@+id/floatingActionButton"
         android:elevation="6dp"
         app:pressedTranslationZ="6dp"
-        android:onClick="edit"
-        app:layout_anchor="@id/collapsing_toolbar"
-        app:layout_anchorGravity="bottom|right|end" />
+        android:onClick="edit" />
 
 </android.support.design.widget.CoordinatorLayout>

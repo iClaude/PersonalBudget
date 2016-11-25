@@ -16,6 +16,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -75,6 +76,7 @@ public class BudgetDetails extends AppCompatActivity {
     private TextView tvAmountAppbar;
     private TextView tvTagToolbar;
     private TextView tvAmountToolbar;
+    private FloatingActionButton fabEdit;
     // Budget details.
     private Fragment[] fragments;
     private Budget budget;
@@ -134,6 +136,7 @@ public class BudgetDetails extends AppCompatActivity {
         tvAmountAppbar = (TextView) findViewById(R.id.tvAmountAppbar);
         tvTagToolbar = (TextView) findViewById(R.id.toolbar_title);
         tvAmountToolbar = (TextView) findViewById(R.id.toolbar_subtitle);
+        fabEdit = (FloatingActionButton) findViewById(R.id.floatingActionButton);
     }
 
     // Set up app bar layout and behavior.
@@ -156,6 +159,22 @@ public class BudgetDetails extends AppCompatActivity {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         BudgetFragmentPagerAdapter fragmentAdapter = new BudgetFragmentPagerAdapter(getSupportFragmentManager(), this);
         viewPager.setAdapter(fragmentAdapter);
+        // Hide the FAB when showing the expenses and history fragments.
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 0) fabEdit.setVisibility(View.VISIBLE);
+                else fabEdit.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
         // Give the TabLayout the ViewPager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
@@ -182,6 +201,7 @@ public class BudgetDetails extends AppCompatActivity {
             cursor.moveToFirst();
 
             budget = Budget.makeBudgetFromCursor(cursor, BudgetDetails.this);
+            budgetType = budget.getBudgetType(BudgetDetails.this);
 
             cursor.close();
             dbcSpeseBudget.close();
@@ -317,6 +337,8 @@ public class BudgetDetails extends AppCompatActivity {
 
             return v;
         }
+
+
     }
 
     @Override

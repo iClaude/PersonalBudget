@@ -177,7 +177,6 @@ public class Budget implements Parcelable {
         budget.setTag(cursor.getString(cursor.getColumnIndex("voce")));
         budget.setAmount(cursor.getDouble(cursor.getColumnIndex("importo_valprin")));
         budget.setRepetition(cursor.getString(cursor.getColumnIndex("ripetizione")));
-        String budgetType = budget.getBudgetType(context);
         budget.setExpenses(cursor.getDouble(cursor.getColumnIndex("spesa_sost")));
         budget.setDateStart(cursor.getLong(cursor.getColumnIndex("data_inizio")));
         budget.setDateEnd(cursor.getLong(cursor.getColumnIndex("data_fine")));
