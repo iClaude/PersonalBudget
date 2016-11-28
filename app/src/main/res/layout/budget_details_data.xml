@@ -2,225 +2,217 @@
   ~ Copyright (c) - Software developed by iClaude.
   -->
 
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nsv_main_content"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardElevation="8dp"
-    app:contentPadding="8dp"
-    app:cardUseCompatPadding="true">
+    android:scrollbars="none">
 
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/nsv_main_content"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none">
+        android:layout_height="match_parent"
+        android:layout_margin="16dp">
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:id="@+id/ivValuta"
+            android:src="@drawable/ic_action_view_as_list"
+            android:background="@drawable/background_tondo_primary"
+            android:padding="12dp"
+            android:elevation="6dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
 
-            <ImageView
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:id="@+id/ivValuta"
-                android:src="@drawable/ic_action_view_as_list"
-                android:background="@drawable/background_tondo_primary"
-                android:padding="12dp"
-                android:elevation="6dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/budget_dettaglio_voci"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium"
+            android:id="@+id/textView10"
+            app:layout_constraintTop_toTopOf="@+id/ivValuta"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline"
+            android:textStyle="normal|bold"
+            android:textColor="?android:attr/textColorPrimary" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/budget_dettaglio_voci"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:fontFamily="sans-serif-light"
-                android:textSize="18sp"
-                android:id="@+id/textView10"
-                app:layout_constraintTop_toTopOf="@+id/ivValuta"
-                app:layout_constraintLeft_toLeftOf="@+id/guideline" />
+        <TextView
+            android:id="@+id/tvTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/provv_lorem_ipsum"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?android:attr/textColorSecondary"
+            android:fontFamily="sans-serif-light"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
-            <TextView
-                android:id="@+id/tvTag"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/provv_lorem_ipsum"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/text_primary"
-                android:fontFamily="sans-serif-light"
-                app:layout_constraintLeft_toLeftOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/budget_dettaglio_speso"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textStyle="bold"
+            android:textColor="?android:attr/textColorPrimary"
+            android:fontFamily="sans-serif-light"
+            android:textSize="18sp"
+            android:id="@+id/textView7"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvTag"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/budget_dettaglio_speso"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:fontFamily="sans-serif-light"
-                android:textSize="18sp"
-                android:id="@+id/textView7"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/tvTag"
-                app:layout_constraintLeft_toLeftOf="@+id/guideline" />
+        <TextView
+            android:id="@+id/tvAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/provv_importoValutaZero"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/text_primary"
+            android:fontFamily="sans-serif-light"
+            app:layout_constraintTop_toBottomOf="@+id/textView7"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline" />
 
-            <TextView
-                android:id="@+id/tvAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/provv_importoValutaZero"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/text_primary"
-                android:fontFamily="sans-serif-light"
-                app:layout_constraintTop_toBottomOf="@+id/textView7"
-                app:layout_constraintLeft_toLeftOf="@+id/guideline" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvAmount"
+            app:layout_constraintLeft_toLeftOf="@+id/tvAmount"
+            app:layout_constraintRight_toRightOf="parent"
+            android:id="@+id/view" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/tvAmount"
-                app:layout_constraintLeft_toLeftOf="@+id/tvAmount"
-                android:id="@+id/view" />
+        <android.support.constraint.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:id="@+id/guideline"
+            app:layout_constraintGuide_begin="73dp"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="73dp" />
 
-            <android.support.constraint.Guideline
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:id="@+id/guideline"
-                app:layout_constraintGuide_begin="73dp"
-                android:orientation="vertical"
-                tools:layout_editor_absoluteY="0dp"
-                tools:layout_editor_absoluteX="73dp" />
+        <ImageView
+            android:id="@+id/sedv_tvB"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/ic_action_refresh"
+            android:background="@drawable/background_tondo_primary"
+            android:padding="12dp"
+            android:elevation="6dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvAmount" />
 
-            <ImageView
-                android:id="@+id/sedv_tvB"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:src="@drawable/ic_action_refresh"
-                android:background="@drawable/background_tondo_primary"
-                android:padding="12dp"
-                android:elevation="6dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginTop="24dp"
-                app:layout_constraintTop_toBottomOf="@+id/tvAmount" />
+        <TextView
+            android:id="@+id/tvBudgetTypeTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/budget_dettaglio_tipoBudget"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:fontFamily="sans-serif-light"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="@+id/sedv_tvB" />
 
-            <TextView
-                android:id="@+id/tvBudgetTypeTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/budget_dettaglio_tipoBudget"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:fontFamily="sans-serif-light"
-                android:textSize="18sp"
-                app:layout_constraintLeft_toLeftOf="@+id/guideline"
-                app:layout_constraintTop_toTopOf="@+id/sedv_tvB" />
+        <TextView
+            android:id="@+id/tvBudgetType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/provv_lorem_ipsum"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?android:attr/textColorSecondary"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            app:layout_constraintTop_toBottomOf="@+id/tvBudgetTypeTitle"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline" />
 
-            <TextView
-                android:id="@+id/tvBudgetType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/provv_lorem_ipsum"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/text_primary"
-                android:ellipsize="end"
-                android:fontFamily="sans-serif-light"
-                app:layout_constraintTop_toBottomOf="@+id/tvBudgetTypeTitle"
-                app:layout_constraintLeft_toLeftOf="@+id/guideline" />
+        <TextView
+            android:id="@+id/tvDateTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/budget_dettaglio_scadenza"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:fontFamily="sans-serif-light"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvBudgetType" />
 
-            <TextView
-                android:id="@+id/tvDateTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/budget_dettaglio_scadenza"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:fontFamily="sans-serif-light"
-                android:textSize="18sp"
-                app:layout_constraintLeft_toLeftOf="@+id/guideline"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/tvBudgetType" />
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/provv_lorem_ipsum"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?android:attr/textColorSecondary"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/tvDateTitle" />
 
-            <TextView
-                android:id="@+id/tvDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/provv_lorem_ipsum"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/text_primary"
-                android:ellipsize="end"
-                android:fontFamily="sans-serif-light"
-                app:layout_constraintLeft_toLeftOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/tvDateTitle" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvDate"
+            app:layout_constraintRight_toRightOf="parent"
+            android:id="@+id/view2" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                app:layout_constraintLeft_toLeftOf="@+id/guideline"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/tvDate"
-                android:id="@+id/view2" />
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:id="@+id/sedv_tvC"
+            android:src="@drawable/ic_device_access_network_cell"
+            android:background="@drawable/background_tondo_primary"
+            android:padding="12dp"
+            android:elevation="6dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/view2" />
 
-            <ImageView
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:id="@+id/sedv_tvC"
-                android:src="@drawable/ic_device_access_network_cell"
-                android:background="@drawable/background_tondo_primary"
-                android:padding="12dp"
-                android:elevation="6dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/view2" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/budget_dettaglio_aggiungereRimanenza"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:fontFamily="sans-serif-light"
+            android:textSize="18sp"
+            android:id="@+id/textView11"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="@+id/sedv_tvC"
+            app:layout_constraintBottom_toBottomOf="@+id/sedv_tvC" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/budget_dettaglio_aggiungereRimanenza"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:fontFamily="sans-serif-light"
-                android:textSize="18sp"
-                android:id="@+id/textView11"
-                app:layout_constraintLeft_toLeftOf="@+id/guideline"
-                app:layout_constraintTop_toTopOf="@+id/sedv_tvC"
-                app:layout_constraintBottom_toBottomOf="@+id/sedv_tvC" />
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:srcCompat="@drawable/cross"
+            android:id="@+id/ivAddSavings"
+            android:layout_marginStart="8dp"
+            app:layout_constraintLeft_toRightOf="@+id/textView11"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintTop_toTopOf="@+id/textView11"
+            app:layout_constraintBottom_toBottomOf="@+id/textView11" />
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                app:srcCompat="@drawable/cross"
-                android:id="@+id/ivAddSavings"
-                android:layout_marginStart="8dp"
-                app:layout_constraintLeft_toRightOf="@+id/textView11"
-                android:layout_marginLeft="8dp"
-                app:layout_constraintTop_toTopOf="@+id/textView11"
-                app:layout_constraintBottom_toBottomOf="@+id/textView11" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/sedv_tvC"
+            app:layout_constraintRight_toRightOf="parent"
+            android:id="@+id/view3" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                app:layout_constraintLeft_toLeftOf="@+id/guideline"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/sedv_tvC"
-                android:id="@+id/view3" />
+    </android.support.constraint.ConstraintLayout>
 
-        </android.support.constraint.ConstraintLayout>
-
-    </android.support.v4.widget.NestedScrollView>
-
-</android.support.v7.widget.CardView>
+</android.support.v4.widget.NestedScrollView>

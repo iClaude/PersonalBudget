@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -77,6 +77,7 @@ public class BudgetDetails extends AppCompatActivity {
     private TextView tvTagToolbar;
     private TextView tvAmountToolbar;
     private FloatingActionButton fabEdit;
+    private ViewPager viewPager;
     // Budget details.
     private Fragment[] fragments;
     private Budget budget;
@@ -84,6 +85,8 @@ public class BudgetDetails extends AppCompatActivity {
     private String budgetType;
     // Graphics and multimedia.
     private SoundEffectsManager soundEffectsManager;
+    private boolean fabVisible = true;
+    private boolean appbarExpanded = true;
 
 
     // Factory method to create an Intent to start this Activity.
@@ -156,7 +159,7 @@ public class BudgetDetails extends AppCompatActivity {
     // Set up sliding tabs for this Activity.
     private void setupFragments() {
         // Get the ViewPager and set it's PagerAdapter so that it can display items
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
         BudgetFragmentPagerAdapter fragmentAdapter = new BudgetFragmentPagerAdapter(getSupportFragmentManager(), this);
         viewPager.setAdapter(fragmentAdapter);
         // Hide the FAB when showing the expenses and history fragments.
@@ -167,8 +170,15 @@ public class BudgetDetails extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if (position == 0) fabEdit.setVisibility(View.VISIBLE);
-                else fabEdit.setVisibility(View.INVISIBLE);
+                if (position == 0) {
+                    if (appbarExpanded && !fabVisible) {
+                        fabEdit.show();
+                        fabVisible = true;
+                    }
+                } else {
+                    fabEdit.hide();
+                    fabVisible = false;
+                }
             }
 
             @Override
@@ -280,13 +290,25 @@ public class BudgetDetails extends AppCompatActivity {
     title accordingly.
 */
     private class AppBarStateChangeListener implements AppBarLayout.OnOffsetChangedListener {
-
         @Override
         public final void onOffsetChanged(AppBarLayout appBarLayout, int i) {
             int maxScroll = appBarLayout.getTotalScrollRange();
             float percentage = (float) Math.abs(i) / (float) maxScroll;
             tvTagToolbar.setAlpha(percentage);
             tvAmountToolbar.setAlpha(percentage);
+
+            if (percentage > 0.9) appbarExpanded = false;
+            else appbarExpanded = true;
+
+            if (viewPager.getCurrentItem() == 0) {
+                if (!appbarExpanded && fabVisible) {
+                    fabEdit.hide();
+                    fabVisible = false;
+                } else if (appbarExpanded && !fabVisible) {
+                    fabEdit.show();
+                    fabVisible = true;
+                }
+            }
         }
     }
 

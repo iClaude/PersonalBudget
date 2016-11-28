@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -8,12 +8,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -161,9 +163,9 @@ public class BudgetDetailsHistory extends Fragment {
 
                                                   @Override
                                                   public void onClick(View view) {
-                                                      //ImageButton imageButton = (ImageButton) view;
-                                                      //TextView textView = (TextView) ((View) imageButton.getParent()).findViewById(R.id.tvShowHide);
-                                                      //View expandedContent = ((View) imageButton.getParent()).findViewById(R.id.data_expanded);
+                                                      if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                                          TransitionManager.beginDelayedTransition(recyclerView);
+                                                      }
                                                       if (collapsed) {
                                                           ibShowHide.setImageResource(R.drawable.ic_navigation_collapse);
                                                           tvShowHide.setText(getString(R.string.budgets_hide));
@@ -175,6 +177,7 @@ public class BudgetDetailsHistory extends Fragment {
                                                           vExpandedContent.setVisibility(View.GONE);
                                                           collapsed = true;
                                                       }
+                                                      //notifyDataSetChanged();
                                                   }
                                               }
                 );

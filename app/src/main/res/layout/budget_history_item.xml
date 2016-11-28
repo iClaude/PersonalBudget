@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  ~ Copyright (c) - Software developed by iClaude.
   -->
 
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -10,7 +10,9 @@
     app:cardElevation="2dp"
     app:cardUseCompatPadding="true">
 
-    <android.support.constraint.ConstraintLayout
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -87,14 +89,13 @@
             android:layout_height="wrap_content"
             android:text="@string/provv_importoValutaZero"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textSize="14sp"
-            android:textColor="@android:color/holo_green_dark"
-            android:textStyle="normal|bold"
             tools:layout_constraintRight_creator="1"
             android:layout_marginEnd="16dp"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginRight="16dp"
-            app:layout_constraintTop_toTopOf="@+id/tvPeriod" />
+            app:layout_constraintTop_toTopOf="@+id/tvPeriod"
+            android:textStyle="normal|bold"
+            android:textColor="@android:color/holo_green_dark" />
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/data_expanded"
