@@ -6,6 +6,7 @@ package com.flingsoftware.personalbudget.app.budgets;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -43,6 +46,8 @@ public class BudgetDetailsHistory extends Fragment {
     private long budgetId;
     // Icons (legacy approach).
     private ListViewIconeVeloce iconeVeloci;
+    private Bitmap redPig;
+    private Bitmap greenPig;
 
     // Widgets and layout.
     private RecyclerView recyclerView;
@@ -89,13 +94,13 @@ public class BudgetDetailsHistory extends Fragment {
         private List<Budget> listBudget = new ArrayList<>(10);
 
         protected Void doInBackground(Long... params) {
+            // Get the history of budgets.
             // Get the id of the original budget.
             DBCSpeseBudget dbcSpeseBudget = new DBCSpeseBudget(getActivity());
             dbcSpeseBudget.openLettura();
             Cursor cursor = dbcSpeseBudget.getSpesaBudget(params[0]);
             cursor.moveToFirst();
             long startBudget = cursor.getLong(cursor.getColumnIndex("budget_iniziale"));
-
             // Get a cursor containing the history of budgets of the same type.
             cursor = dbcSpeseBudget.getSpeseBudgetElencoBudgetAnaloghi(startBudget);
             // Convert the cursor in a List.
@@ -104,6 +109,10 @@ public class BudgetDetailsHistory extends Fragment {
             }
             cursor.close();
             dbcSpeseBudget.close();
+
+            // Get bitmaps for budgets (red pig or green pig).
+            redPig = ListViewIconeVeloce.decodeSampledBitmapFromResource(getResources(), R.drawable.img_maiale_rosso, 256, 256);
+            greenPig = ListViewIconeVeloce.decodeSampledBitmapFromResource(getResources(), R.drawable.img_maiale_verde, 256, 256);
 
             return null;
         }
@@ -126,6 +135,10 @@ public class BudgetDetailsHistory extends Fragment {
             private TextView tvSpent;
             private TextView tvBudgetType;
             private TextView tvEndDate;
+            private ImageView ivIcon;
+            private TextView tvShowHide;
+            private ImageButton ibShowHide;
+            private View vExpandedContent;
 
             public BudgetViewHolder(View view) {
                 super(view);
@@ -137,6 +150,34 @@ public class BudgetDetailsHistory extends Fragment {
                 tvSpent = (TextView) view.findViewById(R.id.tvSpent);
                 tvBudgetType = (TextView) view.findViewById(R.id.tvBudgetType);
                 tvEndDate = (TextView) view.findViewById(R.id.tvEndDate);
+                tvShowHide = (TextView) view.findViewById(R.id.tvShowHide);
+                vExpandedContent = view.findViewById(R.id.data_expanded);
+                vExpandedContent.setVisibility(View.GONE);
+                ivIcon = (ImageView) view.findViewById(R.id.ivIcon);
+
+                ibShowHide = (ImageButton) view.findViewById(R.id.ibShowHide);
+                ibShowHide.setOnClickListener(new View.OnClickListener() {
+                                                  boolean collapsed = true;
+
+                                                  @Override
+                                                  public void onClick(View view) {
+                                                      //ImageButton imageButton = (ImageButton) view;
+                                                      //TextView textView = (TextView) ((View) imageButton.getParent()).findViewById(R.id.tvShowHide);
+                                                      //View expandedContent = ((View) imageButton.getParent()).findViewById(R.id.data_expanded);
+                                                      if (collapsed) {
+                                                          ibShowHide.setImageResource(R.drawable.ic_navigation_collapse);
+                                                          tvShowHide.setText(getString(R.string.budgets_hide));
+                                                          vExpandedContent.setVisibility(View.VISIBLE);
+                                                          collapsed = false;
+                                                      } else {
+                                                          ibShowHide.setImageResource(R.drawable.ic_navigation_expand);
+                                                          tvShowHide.setText(getString(R.string.budgets_show));
+                                                          vExpandedContent.setVisibility(View.GONE);
+                                                          collapsed = true;
+                                                      }
+                                                  }
+                                              }
+                );
             }
         }
 
@@ -179,9 +220,11 @@ public class BudgetDetailsHistory extends Fragment {
                 if (saved >= 0) {
                     holder.tvSaved.setTextColor(ContextCompat.getColor(context, android.R.color.holo_green_dark));
                     holder.tvSaved.setText("+ " + UtilityVarious.getFormattedAmount(saved, context));
+                    holder.ivIcon.setImageBitmap(greenPig);
                 } else {
                     holder.tvSaved.setTextColor(ContextCompat.getColor(context, android.R.color.holo_red_dark));
                     holder.tvSaved.setText(UtilityVarious.getFormattedAmount(saved, context));
+                    holder.ivIcon.setImageBitmap(redPig);
                 }
 
                 int perc = (int) ((budget.getExpenses() * 100) / budget.getAmount());

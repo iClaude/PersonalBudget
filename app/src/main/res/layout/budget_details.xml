@@ -169,7 +169,6 @@
         android:layout_gravity="bottom|right"
         android:layout_marginRight="@dimen/fab_margin_right"
         android:layout_marginBottom="@dimen/fab_margin_right"
-        app:layout_behavior="com.flingsoftware.personalbudget.app.utility.FABHighShowHideBehavior"
         android:id="@+id/floatingActionButton"
         android:elevation="6dp"
         app:pressedTranslationZ="6dp"

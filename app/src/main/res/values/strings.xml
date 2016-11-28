@@ -561,4 +561,5 @@
     <!-- Transitions -->
     <string name="transitionName">transitionIcon</string>
     <string name="budgets_show">show...</string>
+    <string name="budgets_hide">hide...</string>
 </resources>
