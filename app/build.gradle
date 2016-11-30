@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 
@@ -90,6 +90,11 @@ task copyApks(type: Copy, dependsOn: assemble) {
         exclude '**/*unsigned.apk', '**/*unaligned.apk'
     }
     into '../apks'
+}
+
+// Delete apks folder
+task cleanApksFolder(type: Delete) {
+    delete "$rootProject.projectDir/apks/"
 }
 
 build.dependsOn copyApks
