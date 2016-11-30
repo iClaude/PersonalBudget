@@ -97,7 +97,13 @@ task cleanApksFolder(type: Delete) {
     delete "$rootProject.projectDir/apks/"
 }
 
+// Cleans the project and deletes apks folder: you can just run clean
+task cleanProjectAndApksFolder(type: Delete, dependsOn: clean) {
+    delete "$rootProject.projectDir/apks/"
+}
+
 build.dependsOn copyApks
+clean.dependsOn cleanApksFolder
 
 gradle.taskGraph.whenReady { graph ->
     if (project.hasProperty('noLint')) {

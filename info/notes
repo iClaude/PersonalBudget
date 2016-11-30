@@ -5,3 +5,13 @@ Sistemare budget analoghi:
 
 Altro:
 - passare da singoli parametri a POJO in: magari anche in spese/entrate dettagli
+
+Menu gradle su barra comandi: comandi da salvare:
+- assembleDebug
+- assembleRelease
+- build
+- copyApks
+- clean
+- cleanApksFolder
+- cleanProjectAndApksFolder
+- tasks

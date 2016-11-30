@@ -61,7 +61,7 @@ public class FABShowHideBehavior extends CoordinatorLayout.Behavior<FloatingActi
         try {
             Method method = appBarLayout.getClass().getDeclaredMethod("getMinimumHeightForVisibleOverlappingContent");
             method.setAccessible(true);
-            Object value = method.invoke(appBarLayout, null);
+            Object value = method.invoke(appBarLayout, (Object) null);
             return (int) value;
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
