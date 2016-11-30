@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -46,14 +46,11 @@ public class BudgetDetailsHistory extends Fragment {
 
     // Variables.
     private long budgetId;
-    // Icons (legacy approach).
-    private ListViewIconeVeloce iconeVeloci;
     private Bitmap redPig;
     private Bitmap greenPig;
 
     // Widgets and layout.
     private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
 
 
@@ -83,7 +80,7 @@ public class BudgetDetailsHistory extends Fragment {
         // Set up RecyclerView.
         recyclerView = (RecyclerView) view.findViewById(R.id.rvBudgets);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         adapter = new BudgetAdapter();
         recyclerView.setAdapter(adapter);
@@ -93,7 +90,7 @@ public class BudgetDetailsHistory extends Fragment {
 
     // Retrieve the history of budgets of the same type, passing the id of this budget.
     private class GetBudgetHistoryTask extends AsyncTask<Long, Object, Void> {
-        private List<Budget> listBudget = new ArrayList<>(10);
+        private final List<Budget> listBudget = new ArrayList<>(10);
 
         protected Void doInBackground(Long... params) {
             // Get the history of budgets.
@@ -129,18 +126,18 @@ public class BudgetDetailsHistory extends Fragment {
 
         // ViewHolder.
         public class BudgetViewHolder extends RecyclerView.ViewHolder {
-            private TextView tvPeriod;
-            private TextView tvTag;
-            private TextView tvSaved;
-            private ProgressBar pbBudget;
-            private TextView tvAmount;
-            private TextView tvSpent;
-            private TextView tvBudgetType;
-            private TextView tvEndDate;
-            private ImageView ivIcon;
-            private TextView tvShowHide;
-            private ImageButton ibShowHide;
-            private View vExpandedContent;
+            private final TextView tvPeriod;
+            private final TextView tvTag;
+            private final TextView tvSaved;
+            private final ProgressBar pbBudget;
+            private final TextView tvAmount;
+            private final TextView tvSpent;
+            private final TextView tvBudgetType;
+            private final TextView tvEndDate;
+            private final ImageView ivIcon;
+            private final TextView tvShowHide;
+            private final ImageButton ibShowHide;
+            private final View vExpandedContent;
 
             public BudgetViewHolder(View view) {
                 super(view);

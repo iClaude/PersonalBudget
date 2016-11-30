@@ -32,8 +32,6 @@ public class BudgetDetailsData extends Fragment {
 
     // Variables.
     private Budget budget;
-    private long id;
-    private String budgetType;
     // Widgets' references.
     private TextView tvTag;
     private TextView tvAmount;
@@ -56,7 +54,7 @@ public class BudgetDetailsData extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.budget_details_data, container, false);
 
-        id = getArguments().getLong(KEY_ID);
+        long id = getArguments().getLong(KEY_ID);
         // Get references of widgets.
         tvTag = (TextView) view.findViewById(R.id.tvTag);
         // Running text
@@ -76,7 +74,7 @@ public class BudgetDetailsData extends Fragment {
 
     // Retrieve budget details in a separate thread.
     private class GetBudgetDetailsTask extends AsyncTask<Long, Object, Void> {
-        DBCSpeseBudget dbcSpeseBudget = new DBCSpeseBudget(getActivity());
+        final DBCSpeseBudget dbcSpeseBudget = new DBCSpeseBudget(getActivity());
 
         protected Void doInBackground(Long... params) {
             dbcSpeseBudget.openLettura();

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -13,6 +13,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -71,13 +72,13 @@ public class BudgetDetails extends AppCompatActivity {
 
     // Variables.
     // Widgets.
-    private TextView tvToolbarTitle;
     private TextView tvTagAppbar;
     private TextView tvAmountAppbar;
     private TextView tvTagToolbar;
     private TextView tvAmountToolbar;
     private FloatingActionButton fabEdit;
     private ViewPager viewPager;
+    private TabLayout tabLayout;
     // Budget details.
     private Fragment[] fragments;
     private Budget budget;
@@ -99,7 +100,9 @@ public class BudgetDetails extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.budget_details);
 
@@ -134,7 +137,6 @@ public class BudgetDetails extends AppCompatActivity {
 
     // Get widgets' references from the inflated layout.
     private void initLayoutWidgets() {
-        tvToolbarTitle = (TextView) findViewById(R.id.toolbar_title);
         tvTagAppbar = (TextView) findViewById(R.id.tvTagAppbar);
         tvAmountAppbar = (TextView) findViewById(R.id.tvAmountAppbar);
         tvTagToolbar = (TextView) findViewById(R.id.toolbar_title);
@@ -186,7 +188,7 @@ public class BudgetDetails extends AppCompatActivity {
             }
         });
         // Give the TabLayout the ViewPager
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
+        tabLayout = (TabLayout) findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
 
         // Setting a custom view for each tab (icon + text).
@@ -203,7 +205,7 @@ public class BudgetDetails extends AppCompatActivity {
 
     // Retrieve budget details in a separate thread.
     private class GetBudgetDetailsTask extends AsyncTask<Long, Object, Void> {
-        DBCSpeseBudget dbcSpeseBudget = new DBCSpeseBudget(BudgetDetails.this);
+        final DBCSpeseBudget dbcSpeseBudget = new DBCSpeseBudget(BudgetDetails.this);
 
         protected Void doInBackground(Long... params) {
             dbcSpeseBudget.openLettura();
@@ -247,7 +249,7 @@ public class BudgetDetails extends AppCompatActivity {
     // Load header image in a separate thread.
     private class LoadHeaderImageTask extends AsyncTask<String, Object, Bitmap> {
         int backgroundColor = R.color.primary_light;
-        DBCVociAbs dbcVociAbs = new DBCSpeseVoci(BudgetDetails.this);
+        final DBCVociAbs dbcVociAbs = new DBCSpeseVoci(BudgetDetails.this);
 
         protected Bitmap doInBackground(String... params) {
             // Get the icon id from the tag.
@@ -297,8 +299,7 @@ public class BudgetDetails extends AppCompatActivity {
             tvTagToolbar.setAlpha(percentage);
             tvAmountToolbar.setAlpha(percentage);
 
-            if (percentage > 0.9) appbarExpanded = false;
-            else appbarExpanded = true;
+            appbarExpanded = percentage <= 0.9;
 
             if (viewPager.getCurrentItem() == 0) {
                 if (!appbarExpanded && fabVisible) {
@@ -324,9 +325,9 @@ public class BudgetDetails extends AppCompatActivity {
 
     private class BudgetFragmentPagerAdapter extends FragmentPagerAdapter {
         private final int PAGE_COUNT = 3;
-        private String[] tabTitles = getResources().getStringArray(R.array.budget_fragments_titles);
-        private int iconeTabIds[] = {R.drawable.ic_action_view_as_list, R.drawable.ic_action_bad, R.drawable.ic_content_event};
-        private Context context;
+        private final String[] tabTitles = getResources().getStringArray(R.array.budget_fragments_titles);
+        private final int[] iconeTabIds = {R.drawable.ic_action_view_as_list, R.drawable.ic_action_bad, R.drawable.ic_content_event};
+        private final Context context;
 
         public BudgetFragmentPagerAdapter(FragmentManager fm, Context context) {
             super(fm);
@@ -351,7 +352,7 @@ public class BudgetDetails extends AppCompatActivity {
 
         // Returns a custom view for each tab (icon + text view).
         public View getTabView(int position) {
-            View v = LayoutInflater.from(context).inflate(R.layout.tab, null);
+            View v = LayoutInflater.from(context).inflate(R.layout.tab, tabLayout);
             ImageView ivIcon = (ImageView) v.findViewById(R.id.ivIcona);
             TextView tvTab = (TextView) v.findViewById(R.id.tvTitolo);
             ivIcon.setImageResource(iconeTabIds[position]);
@@ -396,7 +397,7 @@ public class BudgetDetails extends AppCompatActivity {
     }
 
     private void delete() {
-        final boolean singleBudget = budget.getRepetition().equals("una_tantum") ? true : false;
+        final boolean singleBudget = budget.getRepetition().equals("una_tantum");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(BudgetDetails.this);
         builder.setTitle(R.string.dettagli_voce_conferma_elimina_titolo);
@@ -424,7 +425,7 @@ public class BudgetDetails extends AppCompatActivity {
         change.
      */
     private abstract class DeleteBudgetTask extends AsyncTask<Long, Object, Integer> {
-        DBCSpeseBudget dbcSpeseBudget = new DBCSpeseBudget(BudgetDetails.this);
+        final DBCSpeseBudget dbcSpeseBudget = new DBCSpeseBudget(BudgetDetails.this);
         long budgetId;
 
         @Override
