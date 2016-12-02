@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  ~ Copyright (c) - Software developed by iClaude.
   -->
 
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -29,12 +29,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/budget_dettaglio_voci"
-            android:textAppearance="@android:style/TextAppearance.Material.Medium"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/textView10"
             app:layout_constraintTop_toTopOf="@+id/ivValuta"
             app:layout_constraintLeft_toLeftOf="@+id/guideline"
             android:textStyle="normal|bold"
-            android:textColor="?android:attr/textColorPrimary" />
+            android:textColor="?android:attr/textColorPrimary"
+            android:fontFamily="sans-serif-light" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/budget_dettaglio_tipoBudget"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:fontFamily="sans-serif-light"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="@+id/sedv_tvB" />
 
         <TextView
             android:id="@+id/tvTag"
@@ -101,30 +115,6 @@
             android:layout_height="48dp"
             android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@+id/view" />
-
-        <ImageView
-            android:id="@+id/imageView5"
-            android:src="@drawable/ic_action_refresh"
-            android:background="@drawable/background_tondo_primary"
-            android:padding="12dp"
-            android:elevation="6dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@+id/view"
-            android:layout_width="48dp"
-            android:layout_height="48dp" />
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:src="@drawable/ic_action_refresh"
-            android:background="@drawable/background_tondo_primary"
-            android:padding="12dp"
-            android:elevation="6dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@+id/tvAmount" />
 
         <TextView
             android:id="@+id/tvBudgetTypeTitle"

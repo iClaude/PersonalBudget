@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app;
@@ -50,7 +50,7 @@ import com.flingsoftware.personalbudget.database.DBCEntrateIncassate;
 import com.flingsoftware.personalbudget.database.DBCEntrateRipetute;
 import com.flingsoftware.personalbudget.database.DBCEntrateVoci;
 import com.flingsoftware.personalbudget.database.InserimentoMultiploIntentService;
-import com.flingsoftware.personalbudget.oggetti.SpesaEntrata;
+import com.flingsoftware.personalbudget.oggetti.ExpenseEarning;
 import com.flingsoftware.personalbudget.utilita.Animazioni;
 import com.flingsoftware.personalbudget.utilita.SoundEffectsManager;
 import com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche;
@@ -778,9 +778,9 @@ Create an Intent to start this Activity with the main variables set.
             if(inserimentoMultiplo) {
                 calcolaDataFineRipetizione();
 				// qua il campo id non è utilizzato
-                SpesaEntrata spesaEntrata = new SpesaEntrata(SpesaEntrata.VOCE_ENTRATA, -1, data.getTimeInMillis(), tag, importo, valutaCorrente, importo * tassoCambio, descrizione, 1, conto);
-                Intent intent = InserimentoMultiploIntentService.creaIntent(EntrateAggiungi.this,InserimentoMultiploIntentService.TIPO_VOCE_ENTRATA,ripetizione,dataFineRipetizione.getTimeInMillis(), spesaEntrata);
-                startService(intent);
+				ExpenseEarning expenseEarning = new ExpenseEarning(ExpenseEarning.VOCE_ENTRATA, -1, data.getTimeInMillis(), tag, importo, valutaCorrente, importo * tassoCambio, descrizione, 1, conto);
+				Intent intent = InserimentoMultiploIntentService.creaIntent(EntrateAggiungi.this, InserimentoMultiploIntentService.TIPO_VOCE_ENTRATA, ripetizione, dataFineRipetizione.getTimeInMillis(), expenseEarning);
+				startService(intent);
                 new MioToast(EntrateAggiungi.this, getString(R.string.ricvoc_operazione_completata)).visualizza(Toast.LENGTH_SHORT);
             }
             else {

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) - Software developed by iClaude.
+ */
+
 /**
  * Questa classe contiene funzioni di aggiornamento automatico del database, tipicamente da lanciare ad
  * ogni avvio dell'applicazione (inserimento di spese ripetute, entrate ripetute, ecc.).
@@ -6,21 +10,38 @@
 package com.flingsoftware.personalbudget.database;
 
 //stringhe SQL usate in questa classe
-import static com.flingsoftware.personalbudget.database.StringheSQL.*;
-
-import com.flingsoftware.personalbudget.app.FunzioniComuni;
-import com.flingsoftware.personalbudget.oggetti.SpesaEntrata;
-
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.StringTokenizer;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+
+import com.flingsoftware.personalbudget.app.FunzioniComuni;
+import com.flingsoftware.personalbudget.oggetti.ExpenseEarning;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.StringTokenizer;
+
+import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_BUDGET_PERIODICI_ULTIMI_SCADUTI;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_ENTRATERIPETUTE_ANNUALI;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_ENTRATERIPETUTE_BISETTIMANALI;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_ENTRATERIPETUTE_GIORNALIERE;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_ENTRATERIPETUTE_GIORNI_LAVORATIVI;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_ENTRATERIPETUTE_MENSILI;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_ENTRATERIPETUTE_SETTIMANALI;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_ENTRATERIPETUTE_WEEKEND;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_SPESERIPETUTE_ANNUALI;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_SPESERIPETUTE_BISETTIMANALI;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_SPESERIPETUTE_GIORNALIERE;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_SPESERIPETUTE_GIORNI_LAVORATIVI;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_SPESERIPETUTE_MENSILI;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_SPESERIPETUTE_SETTIMANALI;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_SPESERIPETUTE_WEEKEND;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_INTERVALLO_SPESAX_TOTALE;
 
 
 public class FunzioniAggiornamento {
@@ -371,8 +392,8 @@ public class FunzioniAggiornamento {
      * @param dataFine data finale della ripetizione
      * @return numero di voci inserite, -1 in caso di errore
      */
-    public int inserimentoMultiplo(String tipoVoce, SpesaEntrata voce, String ripetizione, long dataFine) {
-        int vociInserite = 0;
+	public int inserimentoMultiplo(String tipoVoce, ExpenseEarning voce, String ripetizione, long dataFine) {
+		int vociInserite = 0;
 
         openModifica();
 
@@ -395,8 +416,8 @@ public class FunzioniAggiornamento {
         return vociInserite;
     }
 
-    private int inserisciVoceMultipla(String tipoVoce, SpesaEntrata voce, String ripetizione, long dataFine) {
-        int vociInserite = 0;
+	private int inserisciVoceMultipla(String tipoVoce, ExpenseEarning voce, String ripetizione, long dataFine) {
+		int vociInserite = 0;
 
         GregorianCalendar dataInizialeGreg = new GregorianCalendar();
         dataInizialeGreg.setTimeInMillis(voce.getData());

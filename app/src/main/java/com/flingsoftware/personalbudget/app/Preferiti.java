@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app;
@@ -35,7 +35,7 @@ import com.flingsoftware.personalbudget.database.DBCEntrateIncassate;
 import com.flingsoftware.personalbudget.database.DBCEntrateVoci;
 import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
-import com.flingsoftware.personalbudget.oggetti.SpesaEntrata;
+import com.flingsoftware.personalbudget.oggetti.ExpenseEarning;
 import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
 
 import java.text.NumberFormat;
@@ -53,14 +53,14 @@ import java.util.Locale;
 public class Preferiti extends AppCompatActivity {
 
     // Variabili.
-    private final ArrayList<SpesaEntrata> lstPreferitiSpese = new ArrayList<>();
-    private final ArrayList<SpesaEntrata> lstPreferitiEntrate = new ArrayList<>();
+    private final ArrayList<ExpenseEarning> lstPreferitiSpese = new ArrayList<>();
+    private final ArrayList<ExpenseEarning> lstPreferitiEntrate = new ArrayList<>();
     private final NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
     private final HashMap<String, Integer> hmIconeSpese = new HashMap<>();
     private final HashMap<String, Integer> hmIconeEntrate = new HashMap<>();
-    private final ArrayList<SpesaEntrata> alSpeseSelezionate = new ArrayList<>();
-    private final ArrayList<SpesaEntrata> alEntrateSelezionate = new ArrayList<>();
-    SpesaEntrata prefDaEliminare;
+    private final ArrayList<ExpenseEarning> alSpeseSelezionate = new ArrayList<>();
+    private final ArrayList<ExpenseEarning> alEntrateSelezionate = new ArrayList<>();
+    ExpenseEarning prefDaEliminare;
 
     // Funzionamento RecyclerView spese.
     private RecyclerView rvPreferitiSpese;
@@ -154,10 +154,10 @@ public class Preferiti extends AppCompatActivity {
     public class PreferitiAdapter extends RecyclerView.Adapter<PreferitiAdapter.ViewHolder> {
 
         // Variabili dell'adapter.
-        private final List<SpesaEntrata> lstPreferiti;
+        private final List<ExpenseEarning> lstPreferiti;
 
 
-        public PreferitiAdapter(List<SpesaEntrata> lstPreferiti) {
+        public PreferitiAdapter(List<ExpenseEarning> lstPreferiti) {
             this.lstPreferiti = lstPreferiti;
         }
 
@@ -174,18 +174,18 @@ public class Preferiti extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            SpesaEntrata spesaEntrata = lstPreferiti.get(position);
-            holder.rlParent.setTag(spesaEntrata);
+            ExpenseEarning expenseEarning = lstPreferiti.get(position);
+            holder.rlParent.setTag(expenseEarning);
 
-            holder.tvImporto.setText(nf.format(spesaEntrata.getImporto()));
-            holder.tvVoce.setText(spesaEntrata.getVoce());
-            holder.tvDescrizione.setText(spesaEntrata.getDescrizione());
-            holder.tvConto.setText(spesaEntrata.getConto().toUpperCase());
+            holder.tvImporto.setText(nf.format(expenseEarning.getImporto()));
+            holder.tvVoce.setText(expenseEarning.getVoce());
+            holder.tvDescrizione.setText(expenseEarning.getDescrizione());
+            holder.tvConto.setText(expenseEarning.getConto().toUpperCase());
 
-            if (spesaEntrata.getTipoVoce() == SpesaEntrata.VOCE_SPESA) {
-                iconeVeloci.loadBitmap(hmIconeSpese.get(spesaEntrata.getVoce()), holder.ivIcona, mPlaceHolderBitmapSpese, 80, 80);
+            if (expenseEarning.getTipoVoce() == ExpenseEarning.VOCE_SPESA) {
+                iconeVeloci.loadBitmap(hmIconeSpese.get(expenseEarning.getVoce()), holder.ivIcona, mPlaceHolderBitmapSpese, 80, 80);
             } else {
-                iconeVeloci.loadBitmap(hmIconeEntrate.get(spesaEntrata.getVoce()), holder.ivIcona, mPlaceHolderBitmapEntrate, 80, 80);
+                iconeVeloci.loadBitmap(hmIconeEntrate.get(expenseEarning.getVoce()), holder.ivIcona, mPlaceHolderBitmapEntrate, 80, 80);
             }
 
             anima(holder);
@@ -244,8 +244,8 @@ public class Preferiti extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     View parent = v instanceof RelativeLayout ? v : (View) v.getParent();
-                    SpesaEntrata spesaEntrata = (SpesaEntrata) parent.getTag();
-                    aggiungiPreferito(spesaEntrata);
+                    ExpenseEarning expenseEarning = (ExpenseEarning) parent.getTag();
+                    aggiungiPreferito(expenseEarning);
                 }
             };
 
@@ -253,7 +253,7 @@ public class Preferiti extends AppCompatActivity {
             public OnClickListener overflowButtonListener = new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    prefDaEliminare = (SpesaEntrata) ((RelativeLayout) v.getParent()).getTag();
+                    prefDaEliminare = (ExpenseEarning) ((RelativeLayout) v.getParent()).getTag();
                     showPopup(v);
                 }
             };
@@ -351,7 +351,7 @@ public class Preferiti extends AppCompatActivity {
             curSpesePreferite = dbcSpeseSostenute.getSpeseSostenutePreferite();
             lstPreferitiSpese.clear();
             for (int i = 1; curSpesePreferite.moveToNext(); i++) {
-                lstPreferitiSpese.add(new SpesaEntrata(SpesaEntrata.VOCE_SPESA, curSpesePreferite.getLong(colId), curSpesePreferite.getLong(colData), curSpesePreferite.getString(colVoce), curSpesePreferite.getDouble(colImporto), curSpesePreferite.getString(colValuta), curSpesePreferite.getDouble(colValprin), curSpesePreferite.getString(colDescrizione), curSpesePreferite.getLong(colRipetizioneId), curSpesePreferite.getString(colConto)));
+                lstPreferitiSpese.add(new ExpenseEarning(ExpenseEarning.VOCE_SPESA, curSpesePreferite.getLong(colId), curSpesePreferite.getLong(colData), curSpesePreferite.getString(colVoce), curSpesePreferite.getDouble(colImporto), curSpesePreferite.getString(colValuta), curSpesePreferite.getDouble(colValprin), curSpesePreferite.getString(colDescrizione), curSpesePreferite.getLong(colRipetizioneId), curSpesePreferite.getString(colConto)));
             }
 
             // Entrate preferite.
@@ -360,7 +360,7 @@ public class Preferiti extends AppCompatActivity {
             lstPreferitiEntrate.clear();
 
             for (int i = 1; curEntratePreferite.moveToNext(); i++) {
-                lstPreferitiEntrate.add(new SpesaEntrata(SpesaEntrata.VOCE_ENTRATA, curEntratePreferite.getLong(colId), curEntratePreferite.getLong(colData), curEntratePreferite.getString(colVoce), curEntratePreferite.getDouble(colImporto), curEntratePreferite.getString(colValuta), curEntratePreferite.getDouble(colValprin), curEntratePreferite.getString(colDescrizione), curEntratePreferite.getLong(colRipetizioneId), curEntratePreferite.getString(colConto)));
+                lstPreferitiEntrate.add(new ExpenseEarning(ExpenseEarning.VOCE_ENTRATA, curEntratePreferite.getLong(colId), curEntratePreferite.getLong(colData), curEntratePreferite.getString(colVoce), curEntratePreferite.getDouble(colImporto), curEntratePreferite.getString(colValuta), curEntratePreferite.getDouble(colValprin), curEntratePreferite.getString(colDescrizione), curEntratePreferite.getLong(colRipetizioneId), curEntratePreferite.getString(colConto)));
             }
 
             return null;
@@ -420,13 +420,13 @@ public class Preferiti extends AppCompatActivity {
     Dato un oggetto SpesaEntrata che rappresenta un preferito, si lancia l'apposita Activity per
     aggiungere una spesa o una entrata.
      */
-    private void aggiungiPreferito(SpesaEntrata spesaEntrata) {
+    private void aggiungiPreferito(ExpenseEarning expenseEarning) {
         Intent addFavoriteIntent;
 
-        if (spesaEntrata.getTipoVoce() == SpesaEntrata.VOCE_SPESA) {
-            addFavoriteIntent = SpeseAggiungi.makeIntent(Preferiti.this, spesaEntrata.getId(), spesaEntrata.getVoce(), spesaEntrata.getImporto(), spesaEntrata.getValuta(), spesaEntrata.getImportoValprin(), spesaEntrata.getData(), spesaEntrata.getDescrizione(), spesaEntrata.getRipetizioneId(), spesaEntrata.getConto(), -1);
+        if (expenseEarning.getTipoVoce() == ExpenseEarning.VOCE_SPESA) {
+            addFavoriteIntent = SpeseAggiungi.makeIntent(Preferiti.this, expenseEarning.getId(), expenseEarning.getVoce(), expenseEarning.getImporto(), expenseEarning.getValuta(), expenseEarning.getImportoValprin(), expenseEarning.getData(), expenseEarning.getDescrizione(), expenseEarning.getRipetizioneId(), expenseEarning.getConto(), -1);
         } else {
-            addFavoriteIntent = EntrateAggiungi.makeIntent(Preferiti.this, spesaEntrata.getId(), spesaEntrata.getVoce(), spesaEntrata.getImporto(), spesaEntrata.getValuta(), spesaEntrata.getImportoValprin(), spesaEntrata.getData(), spesaEntrata.getDescrizione(), spesaEntrata.getRipetizioneId(), spesaEntrata.getConto(), -1);
+            addFavoriteIntent = EntrateAggiungi.makeIntent(Preferiti.this, expenseEarning.getId(), expenseEarning.getVoce(), expenseEarning.getImporto(), expenseEarning.getValuta(), expenseEarning.getImportoValprin(), expenseEarning.getData(), expenseEarning.getDescrizione(), expenseEarning.getRipetizioneId(), expenseEarning.getConto(), -1);
         }
 
         startActivityForResult(addFavoriteIntent, 0);
@@ -452,17 +452,17 @@ public class Preferiti extends AppCompatActivity {
     private class EliminaPreferitoAsyncTask extends AsyncTask<Object, Void, Void> {
         @Override
         protected Void doInBackground(Object... params) {
-            SpesaEntrata spesaEntrata = (SpesaEntrata) params[0];
+            ExpenseEarning expenseEarning = (ExpenseEarning) params[0];
 
-            if (spesaEntrata.getTipoVoce() == SpesaEntrata.VOCE_SPESA) {
+            if (expenseEarning.getTipoVoce() == ExpenseEarning.VOCE_SPESA) {
                 DBCSpeseSostenute dbcSpeseSostenute = new DBCSpeseSostenute(Preferiti.this);
                 dbcSpeseSostenute.openModifica();
-                dbcSpeseSostenute.updateElement(spesaEntrata.getId(), spesaEntrata.getData(), spesaEntrata.getVoce(), spesaEntrata.getImporto(), spesaEntrata.getValuta(), spesaEntrata.getImportoValprin(), spesaEntrata.getDescrizione(), spesaEntrata.getRipetizioneId(), spesaEntrata.getConto(), 0);
+                dbcSpeseSostenute.updateElement(expenseEarning.getId(), expenseEarning.getData(), expenseEarning.getVoce(), expenseEarning.getImporto(), expenseEarning.getValuta(), expenseEarning.getImportoValprin(), expenseEarning.getDescrizione(), expenseEarning.getRipetizioneId(), expenseEarning.getConto(), 0);
                 dbcSpeseSostenute.close();
             } else {
                 DBCEntrateIncassate dbcEntrateIncassate = new DBCEntrateIncassate(Preferiti.this);
                 dbcEntrateIncassate.openModifica();
-                dbcEntrateIncassate.updateElement(spesaEntrata.getId(), spesaEntrata.getData(), spesaEntrata.getVoce(), spesaEntrata.getImporto(), spesaEntrata.getValuta(), spesaEntrata.getImportoValprin(), spesaEntrata.getDescrizione(), spesaEntrata.getRipetizioneId(), spesaEntrata.getConto(), 0);
+                dbcEntrateIncassate.updateElement(expenseEarning.getId(), expenseEarning.getData(), expenseEarning.getVoce(), expenseEarning.getImporto(), expenseEarning.getValuta(), expenseEarning.getImportoValprin(), expenseEarning.getDescrizione(), expenseEarning.getRipetizioneId(), expenseEarning.getConto(), 0);
                 dbcEntrateIncassate.close();
             }
 

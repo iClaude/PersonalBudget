@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) - Software developed by iClaude.
+ */
+
 package com.flingsoftware.personalbudget.database;
 
 
@@ -5,10 +9,9 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 
-import com.flingsoftware.personalbudget.oggetti.SpesaEntrata;
+import com.flingsoftware.personalbudget.oggetti.ExpenseEarning;
 
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.WIDGET_AGGIORNA;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.WIDGET_PICCOLO_AGGIORNA;
 
 public class InserimentoMultiploIntentService extends IntentService {
 
@@ -25,7 +28,7 @@ public class InserimentoMultiploIntentService extends IntentService {
     public static final String TIPO_VOCE_ENTRATA = "entrata";
 
 
-    public static Intent creaIntent(Context context, String tipoVoce, String ripetizione, long dataFine, SpesaEntrata voce) {
+    public static Intent creaIntent(Context context, String tipoVoce, String ripetizione, long dataFine, ExpenseEarning voce) {
         Intent intent = new Intent(context, InserimentoMultiploIntentService.class);
         intent.putExtra(TIPO_VOCE, tipoVoce);
         intent.putExtra(RIPETIZIONE, ripetizione);
@@ -45,7 +48,7 @@ public class InserimentoMultiploIntentService extends IntentService {
         String tipoVoce = intent.getStringExtra(TIPO_VOCE);
         String ripetizione = intent.getStringExtra(RIPETIZIONE);
         long dataFine = intent.getLongExtra(DATA_FINE, 0);
-        SpesaEntrata voce = intent.getParcelableExtra(VOCE);
+        ExpenseEarning voce = intent.getParcelableExtra(VOCE);
         int vociInserite = 0;
 
         vociInserite = inserimentoMultiplo(tipoVoce, voce, ripetizione, dataFine);
@@ -57,7 +60,7 @@ public class InserimentoMultiploIntentService extends IntentService {
         }
     }
 
-    private int inserimentoMultiplo(String tipoVoce, SpesaEntrata voce, String ripetizione, long dataFine) {
+    private int inserimentoMultiplo(String tipoVoce, ExpenseEarning voce, String ripetizione, long dataFine) {
         FunzioniAggiornamento funzioniAggiornamento = new FunzioniAggiornamento(this);
         return funzioniAggiornamento.inserimentoMultiplo(tipoVoce, voce, ripetizione, dataFine);
     }

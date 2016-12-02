@@ -1,10 +1,14 @@
+/*
+ * Copyright (c) - Software developed by iClaude.
+ */
+
 package com.flingsoftware.personalbudget.oggetti;
 
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class SpesaEntrata implements Parcelable {
+public class ExpenseEarning implements Parcelable {
 
     // Costanti
     public static final int VOCE_SPESA = 0;
@@ -22,11 +26,11 @@ public class SpesaEntrata implements Parcelable {
     private long ripetizioneId;
     private String conto;
 
-    public SpesaEntrata() {
+    public ExpenseEarning() {
 
     }
 
-    public SpesaEntrata(int tipoVoce, long id, long data, String voce, double importo, String valuta, double importoValprin, String descrizione, long ripetizioneId, String conto) {
+    public ExpenseEarning(int tipoVoce, long id, long data, String voce, double importo, String valuta, double importoValprin, String descrizione, long ripetizioneId, String conto) {
         this.tipoVoce = tipoVoce;
         this.id = id;
         this.data = data;
@@ -136,7 +140,7 @@ public class SpesaEntrata implements Parcelable {
         dest.writeString(conto);
     }
 
-    private SpesaEntrata(Parcel in) {
+    private ExpenseEarning(Parcel in) {
         tipoVoce = in.readInt();
         id = in.readLong();
         data = in.readLong();
@@ -149,14 +153,14 @@ public class SpesaEntrata implements Parcelable {
         conto = in.readString();
     }
 
-    public static final Parcelable.Creator<SpesaEntrata> CREATOR =
-            new Parcelable.Creator<SpesaEntrata>() {
-                public SpesaEntrata createFromParcel(Parcel in) {
-                    return new SpesaEntrata(in);
+    public static final Parcelable.Creator<ExpenseEarning> CREATOR =
+            new Parcelable.Creator<ExpenseEarning>() {
+                public ExpenseEarning createFromParcel(Parcel in) {
+                    return new ExpenseEarning(in);
                 }
 
-                public SpesaEntrata[] newArray(int size) {
-                    return new SpesaEntrata[size];
+                public ExpenseEarning[] newArray(int size) {
+                    return new ExpenseEarning[size];
                 }
             };
 }

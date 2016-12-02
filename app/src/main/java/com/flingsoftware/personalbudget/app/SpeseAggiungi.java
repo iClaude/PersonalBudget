@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app;
@@ -51,7 +51,7 @@ import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
 import com.flingsoftware.personalbudget.database.FunzioniAggiornamento;
 import com.flingsoftware.personalbudget.database.InserimentoMultiploIntentService;
-import com.flingsoftware.personalbudget.oggetti.SpesaEntrata;
+import com.flingsoftware.personalbudget.oggetti.ExpenseEarning;
 import com.flingsoftware.personalbudget.utilita.Animazioni;
 import com.flingsoftware.personalbudget.utilita.SoundEffectsManager;
 import com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche;
@@ -790,8 +790,8 @@ public class SpeseAggiungi extends ActionBarActivity implements DatePickerFragme
 			if(inserimentoMultiplo) {
 				calcolaDataFineRipetizione();
 				// qua il campo id non è utilizzato
-				SpesaEntrata spesaEntrata = new SpesaEntrata(SpesaEntrata.VOCE_SPESA, -1, data.getTimeInMillis(), tag, importo, valutaCorrente, importo * tassoCambio, descrizione, 1, conto);
-				Intent intent = InserimentoMultiploIntentService.creaIntent(SpeseAggiungi.this, InserimentoMultiploIntentService.TIPO_VOCE_SPESA, ripetizione, dataFineRipetizione.getTimeInMillis(), spesaEntrata);
+				ExpenseEarning expenseEarning = new ExpenseEarning(ExpenseEarning.VOCE_SPESA, -1, data.getTimeInMillis(), tag, importo, valutaCorrente, importo * tassoCambio, descrizione, 1, conto);
+				Intent intent = InserimentoMultiploIntentService.creaIntent(SpeseAggiungi.this, InserimentoMultiploIntentService.TIPO_VOCE_SPESA, ripetizione, dataFineRipetizione.getTimeInMillis(), expenseEarning);
 				startService(intent);
 				new MioToast(SpeseAggiungi.this, getString(R.string.ricvoc_operazione_completata)).visualizza(Toast.LENGTH_SHORT);
 			}
