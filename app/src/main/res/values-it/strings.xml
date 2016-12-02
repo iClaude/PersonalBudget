@@ -253,7 +253,7 @@
         <item >Spese</item>
     </string-array>
         <string name="menu_visualizzaStats">Grafici</string>
-        <string name="budget_dettaglio_tipoBudget">Tipo budget:</string>
+    <string name="budget_dettaglio_tipoBudget">Tipo budget</string>
     <string name="budget_dettaglio_importo">Importo</string>
     <string name="budget_dettaglio_speso">Speso</string>
     <string name="budget_dettaglio_voci">Tag</string>

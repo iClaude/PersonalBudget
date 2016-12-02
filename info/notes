@@ -1,6 +1,13 @@
 Sistemare budget analoghi:
-- dettagli budget (altra scheda): usare stessi font (vedi presentazione google constraint layout per
-  esempio layout)
+- dettagli budget (altra scheda): la seconda icona ha qualche bug di visualizzazione
+
+Elenco spese incluse (fragment 2):
+1) codice per scaricare i dati dal database
+2) layout generale
+3) layout singolo elemento recycler view
+4) codice per visualizzare i dati
+NB: elenco semplice con card che raggruppano x voce, espando la voce e ottengo i dettagli con
+data, descrizione, conto e importo
 
 
 Altro:

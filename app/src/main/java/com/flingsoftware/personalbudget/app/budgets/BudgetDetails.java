@@ -352,7 +352,7 @@ public class BudgetDetails extends AppCompatActivity {
 
         // Returns a custom view for each tab (icon + text view).
         public View getTabView(int position) {
-            View v = LayoutInflater.from(context).inflate(R.layout.tab, tabLayout);
+            View v = LayoutInflater.from(context).inflate(R.layout.tab, null);
             ImageView ivIcon = (ImageView) v.findViewById(R.id.ivIcona);
             TextView tvTab = (TextView) v.findViewById(R.id.tvTitolo);
             ivIcon.setImageResource(iconeTabIds[position]);

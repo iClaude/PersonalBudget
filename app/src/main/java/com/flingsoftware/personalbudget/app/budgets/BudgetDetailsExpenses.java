@@ -5,6 +5,7 @@
 package com.flingsoftware.personalbudget.app.budgets;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +20,11 @@ import com.flingsoftware.personalbudget.R;
 
 public class BudgetDetailsExpenses extends Fragment {
 
+    // Constants.
     private static final String BUDGET_ID = "BUDGET_ID";
+
+    // Variables.
+    private long budgetId;
 
 
     // Add possible variables to pass to the Fragment.
@@ -29,6 +34,13 @@ public class BudgetDetailsExpenses extends Fragment {
         BudgetDetailsExpenses budgetDetailsExpenses = new BudgetDetailsExpenses();
         budgetDetailsExpenses.setArguments(args);
         return budgetDetailsExpenses;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        budgetId = getArguments().getLong(BUDGET_ID);
     }
 
     @Override

@@ -81,14 +81,13 @@
         </LinearLayout>
 
         <ImageView
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:id="@+id/ivValuta"
             android:layout_marginTop="8dp"
             android:src="@drawable/ic_action_cloud"
             android:background="@drawable/background_tondo_primary"
-            android:padding="12dp"
-            android:elevation="6dp"/>
+            android:padding="12dp" />
 
     </RelativeLayout>
 
@@ -98,16 +97,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginTop="12dp">
-
-        <ImageView
-            android:id="@+id/sedv_tvB"
-            android:layout_marginTop="8dp"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:src="@drawable/ic_action_view_as_list"
-            android:background="@drawable/background_tondo_primary"
-            android:padding="12dp"
-            android:elevation="6dp"/>
 
         <TextView
             android:id="@+id/sedv_tvContoTitolo"
@@ -214,6 +203,17 @@
             android:layout_below="@id/tvDescrizione"
             android:background="@android:color/darker_gray"/>
 
+        <ImageView
+            android:id="@+id/sedv_tvB"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_action_view_as_list"
+            android:background="@drawable/background_tondo_primary"
+            android:padding="12dp"
+            android:layout_alignTop="@+id/sedv_tvContoTitolo"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -286,14 +286,16 @@
         </LinearLayout>
 
         <ImageView
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:id="@+id/sedv_tvC"
             android:layout_marginTop="8dp"
             android:src="@drawable/ic_action_refresh"
             android:background="@drawable/background_tondo_primary"
             android:padding="12dp"
-            android:elevation="6dp"/>
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
     </RelativeLayout>
 
