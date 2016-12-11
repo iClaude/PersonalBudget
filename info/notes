@@ -3,7 +3,7 @@ Sistemare budget analoghi:
 
 Elenco spese incluse (fragment 2):
 0) layout parent e child (vedi foglio appunti)
-1) struttura classi per usare expandablerecyclerview
+1) struttura classi per usare expandablerecyclerview: continua da 2ndo view holder
 2) codice per scaricare i dati dal database
 3) codice per visualizzare i dati
 
