@@ -23,6 +23,7 @@ import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_I
 import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_INTERVALLO_SPESAX_MAX;
 import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_INTERVALLO_SPESAX_MIN;
 import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_INTERVALLO_SPESAX_TOTALE;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_INTERVALLO_SPESAX_X_BUDGET_SPESE_INCLUSE;
 import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_INTERVALLO_TOTALE;
 import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_INTERVALLO_TOTALE_NO_TRASF;
 import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_SOST_INTERVALLO_TOTALI_PER_DATA_FILTRATO;
@@ -166,6 +167,18 @@ public class DBCSpeseSostenute extends DBCExpEarAbs {
 	public Cursor getSpeseSostenuteIntervalloSpesaXFiltrato(String conto, Long dataInizio, Long dataFine, String voce, String str) {	
 		String paramConto = "%" + conto + "%";
 		return mioSQLiteDatabase.rawQuery(SPESE_SOST_INTERVALLO_SPESAX_FILTRATO, new String[] {paramConto, dataInizio.toString(), dataFine.toString(), voce, "%" + str + "%", "%" + str + "%"});
+	}
+
+	/**
+	 * Idem di prima, ma con i campi che servono per visualizzare le spese incluse in un budget.
+	 *
+	 * @param dataInizio data iniziale del budget
+	 * @param dataFine   data finale del budget
+	 * @param voce       voce di spesa
+	 * @return Cursor con i campi data, importo_valprin, descrizione e conto
+	 */
+	public Cursor getSpeseSostenuteIntervalloSpesaXBudgetSpeseIncluse(Long dataInizio, Long dataFine, String voce) {
+		return mioSQLiteDatabase.rawQuery(SPESE_SOST_INTERVALLO_SPESAX_X_BUDGET_SPESE_INCLUSE, new String[]{dataInizio.toString(), dataFine.toString(), voce});
 	}
 	
 	/**

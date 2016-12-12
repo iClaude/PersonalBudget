@@ -1,10 +1,11 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.oggetti;
 
 
+import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -118,6 +119,20 @@ public class ExpenseEarning implements Parcelable {
 
     public void setData(long data) {
         this.data = data;
+    }
+
+    public static ExpenseEarning makeExpenseEarning(Cursor cursor) {
+        ExpenseEarning expenseEarning = new ExpenseEarning();
+        expenseEarning.setId(cursor.getInt(cursor.getColumnIndex("_id")));
+        expenseEarning.setData(cursor.getLong(cursor.getColumnIndex("data")));
+        expenseEarning.setVoce(cursor.getString(cursor.getColumnIndex("voce")));
+        expenseEarning.setImporto(cursor.getDouble(cursor.getColumnIndex("importo")));
+        expenseEarning.setValuta(cursor.getString(cursor.getColumnIndex("valuta")));
+        expenseEarning.setImportoValprin(cursor.getDouble(cursor.getColumnIndex("importo_valprin")));
+        expenseEarning.setDescrizione(cursor.getString(cursor.getColumnIndex("descrizione")));
+        expenseEarning.setRipetizioneId(cursor.getLong(cursor.getColumnIndex("ripetizione_id")));
+        expenseEarning.setConto(cursor.getString(cursor.getColumnIndex("conto")));
+        return expenseEarning;
     }
 
     // Implementazione interfaccia Parcelable

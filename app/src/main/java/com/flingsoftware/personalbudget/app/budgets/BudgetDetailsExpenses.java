@@ -1,10 +1,11 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,6 +25,10 @@ import com.bignerdranch.expandablerecyclerview.Model.ParentListItem;
 import com.bignerdranch.expandablerecyclerview.ViewHolder.ChildViewHolder;
 import com.bignerdranch.expandablerecyclerview.ViewHolder.ParentViewHolder;
 import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
+import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
+import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
+import com.flingsoftware.personalbudget.oggetti.Budget;
 import com.flingsoftware.personalbudget.oggetti.ExpenseEarning;
 import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
 import com.flingsoftware.personalbudget.utilita.UtilityVarious;
@@ -32,6 +37,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * Fragment used to display the expenses included in the budget displayed in the BudgetDetails
@@ -47,6 +53,7 @@ public class BudgetDetailsExpenses extends Fragment {
     // Data.
     private long budgetId;
     private List<ExpensesWithTag> list = new ArrayList<>(1);
+    private Budget budget;
     // Icons.
     private ListViewIconeVeloce iconeVeloci;
     private Bitmap mPlaceHolderBitmap;
@@ -73,6 +80,7 @@ public class BudgetDetailsExpenses extends Fragment {
         iconeVeloci = new ListViewIconeVeloce(getActivity());
         new PlaceHolderWorkerTask().execute(R.drawable.tag_0);
         //endregion
+        new GetBudgetDetailsTask().execute(budgetId);
     }
 
     @Override
@@ -169,7 +177,6 @@ public class BudgetDetailsExpenses extends Fragment {
         }
     }
 
-
     // Load icons placeholder in a separate thread.
     private class PlaceHolderWorkerTask extends AsyncTask<Integer, Void, Object> {
         // Decode image in background.
@@ -177,6 +184,103 @@ public class BudgetDetailsExpenses extends Fragment {
         protected Object doInBackground(Integer... params) {
             mPlaceHolderBitmap = ListViewIconeVeloce.decodeSampledBitmapFromResource(getResources(), params[0], 50, 50);
             return null;
+        }
+    }
+
+    // Retrieve budget details in a separate thread.
+    // TODO: 12/12/2016 rivedere con design patterns
+    private class GetBudgetDetailsTask extends AsyncTask<Long, Object, Void> {
+        private final DBCSpeseBudget dbcSpeseBudget = new DBCSpeseBudget(getActivity());
+        private DBCSpeseSostenute dbcSpeseSostenute = new DBCSpeseSostenute(getActivity());
+        private List<String> tags = new ArrayList<>(); // list of the tags of this budget
+
+        protected Void doInBackground(Long... params) {
+            dbcSpeseBudget.openLettura();
+            Cursor cursor = dbcSpeseBudget.getSpesaBudget(params[0]);
+            cursor.moveToFirst();
+
+            budget = Budget.makeBudgetFromCursor(cursor, getActivity());
+            String tag = budget.getTag();
+            cursor.close();
+            dbcSpeseBudget.close();
+
+            // Load data for the ExpandableRecyclerView.
+            createTagsList(tag);
+            loadDataForERV();
+            return null;
+        }
+
+        protected void onPostExecute(Void result) {
+
+        }
+
+        private void createTagsList(String tag) {
+            if (tag.indexOf(',') == -1) {
+                tags.add(tag);
+            } else {
+                StringTokenizer st = new StringTokenizer(tag, ",");
+                while (st.hasMoreTokens()) {
+                    tags.add(st.nextToken());
+                }
+            }
+        }
+
+        private void loadDataForERV() {
+            String queryParent = createQueryForParent();
+            dbcSpeseSostenute.openLettura();
+            Cursor parentCursor = dbcSpeseSostenute.getSpeseSostenuteIntervalloSpeseXYZTotaliPerDataOVoce(queryParent, null);
+            int numParents = parentCursor.getCount();
+            ((ArrayList) list).ensureCapacity(numParents);
+            while (parentCursor.moveToNext()) {
+                String tag = parentCursor.getString(parentCursor.getColumnIndex("voce"));
+                double total = parentCursor.getDouble(parentCursor.getColumnIndex("totale_spesa"));
+                int iconId = getIconId(tag);
+                ExpensesWithTag expenseWithTag = new ExpensesWithTag(iconId, tag, total, null);
+                addChildren(expenseWithTag);
+                ((ArrayList) list).add(expenseWithTag);
+            }
+            parentCursor.close();
+            dbcSpeseSostenute.close();
+        }
+
+        private String createQueryForParent() {
+            StringBuilder query = new StringBuilder("SELECT _id, voce, SUM(importo_valprin) AS totale_spesa FROM spese_sost WHERE data >= " + budget.getDateStart() + " AND data <= " + budget.getDateEnd() + " AND (");
+            int size = tags.size();
+            if (size == 1) {
+                query.append("voce = '" + tags.get(0) + "') GROUP BY voce ORDER BY voce ASC");
+            } else {
+                query.append("voce = '" + tags.get(0) + "'");
+                for (int i = 1; i < (size - 1); i++) {
+                    query.append(" OR voce = '" + tags.get(i) + "'");
+                }
+                query.append(" GROUP BY voce ORDER BY voce ASC");
+            }
+
+            return query.toString();
+        }
+
+        private int getIconId(String tag) {
+            DBCSpeseVoci dbcSpeseVoci = new DBCSpeseVoci(getActivity());
+            dbcSpeseVoci.openLettura();
+            Cursor curTag = dbcSpeseVoci.getVociContenentiStringa(tag);
+            curTag.moveToFirst();
+            int iconId = curTag.getInt(curTag.getColumnIndex("icona"));
+            curTag.close();
+            dbcSpeseVoci.close();
+
+            return iconId;
+        }
+
+        private void addChildren(ExpensesWithTag expenseWithTag) {
+            Cursor childCursor = dbcSpeseSostenute.getSpeseSostenuteIntervalloSpesaXBudgetSpeseIncluse(budget.getDateStart(), budget.getDateEnd(), expenseWithTag.getTag());
+            int numChildren = childCursor.getCount();
+            ArrayList<ExpenseEarning> expenses = new ArrayList<>(numChildren);
+            while (childCursor.moveToNext()) {
+                ExpenseEarning expense = ExpenseEarning.makeExpenseEarning(childCursor);
+                expenses.add(expense);
+            }
+            expenseWithTag.setExpenses(expenses);
+            childCursor.close();
         }
     }
 }
