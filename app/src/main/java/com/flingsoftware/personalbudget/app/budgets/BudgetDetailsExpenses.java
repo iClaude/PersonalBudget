@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -47,12 +47,13 @@ import java.util.StringTokenizer;
 public class BudgetDetailsExpenses extends Fragment {
 
     // Constants.
+    private static final String TAG = "BudgetDetailsExpenses";
     private static final String BUDGET_ID = "BUDGET_ID";
 
     // Variables.
     // Data.
     private long budgetId;
-    private List<ExpensesWithTag> list = new ArrayList<>(1);
+    private List<ExpensesWithTag> list = new ArrayList<>();
     private Budget budget;
     // Icons.
     private ListViewIconeVeloce iconeVeloci;
@@ -60,6 +61,7 @@ public class BudgetDetailsExpenses extends Fragment {
     // Widgets.
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
+    private TextView tvLabel;
 
 
     // Add possible variables to pass to the Fragment.
@@ -80,17 +82,16 @@ public class BudgetDetailsExpenses extends Fragment {
         iconeVeloci = new ListViewIconeVeloce(getActivity());
         new PlaceHolderWorkerTask().execute(R.drawable.tag_0);
         //endregion
-        new GetBudgetDetailsTask().execute(budgetId);
+        new GetExpensesTask().execute(budgetId);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.budget_details_expenses, container, false);
 
+        tvLabel = (TextView) view.findViewById(R.id.tvLabel);
         // Set up ExpandableRecyclerView.
         recyclerView = (RecyclerView) view.findViewById(R.id.rvExpenses);
-        adapter = new MyExpandableRecyclerViewAdapter(getActivity(), list);
-        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return view;
@@ -189,7 +190,7 @@ public class BudgetDetailsExpenses extends Fragment {
 
     // Retrieve budget details in a separate thread.
     // TODO: 12/12/2016 rivedere con design patterns
-    private class GetBudgetDetailsTask extends AsyncTask<Long, Object, Void> {
+    private class GetExpensesTask extends AsyncTask<Long, Object, Void> {
         private final DBCSpeseBudget dbcSpeseBudget = new DBCSpeseBudget(getActivity());
         private DBCSpeseSostenute dbcSpeseSostenute = new DBCSpeseSostenute(getActivity());
         private List<String> tags = new ArrayList<>(); // list of the tags of this budget
@@ -198,7 +199,6 @@ public class BudgetDetailsExpenses extends Fragment {
             dbcSpeseBudget.openLettura();
             Cursor cursor = dbcSpeseBudget.getSpesaBudget(params[0]);
             cursor.moveToFirst();
-
             budget = Budget.makeBudgetFromCursor(cursor, getActivity());
             String tag = budget.getTag();
             cursor.close();
@@ -207,11 +207,19 @@ public class BudgetDetailsExpenses extends Fragment {
             // Load data for the ExpandableRecyclerView.
             createTagsList(tag);
             loadDataForERV();
+
             return null;
         }
 
         protected void onPostExecute(Void result) {
-
+            if (list.size() == 0) {
+                tvLabel.setText(getString(R.string.budgets_no_expenses));
+            } else {
+                tvLabel.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
+            }
+            adapter = new MyExpandableRecyclerViewAdapter(getActivity(), list);
+            recyclerView.setAdapter(adapter);
         }
 
         private void createTagsList(String tag) {
@@ -250,10 +258,10 @@ public class BudgetDetailsExpenses extends Fragment {
                 query.append("voce = '" + tags.get(0) + "') GROUP BY voce ORDER BY voce ASC");
             } else {
                 query.append("voce = '" + tags.get(0) + "'");
-                for (int i = 1; i < (size - 1); i++) {
+                for (int i = 1; i < size; i++) {
                     query.append(" OR voce = '" + tags.get(i) + "'");
                 }
-                query.append(" GROUP BY voce ORDER BY voce ASC");
+                query.append(") GROUP BY voce ORDER BY voce ASC");
             }
 
             return query.toString();

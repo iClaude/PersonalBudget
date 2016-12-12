@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  ~ Copyright (c) - Software developed by iClaude.
   -->
 
 <resources>
@@ -562,4 +562,5 @@
     <string name="transitionName">transitionIcon</string>
     <string name="budgets_show">show...</string>
     <string name="budgets_hide">hide...</string>
+    <string name="budgets_no_expenses">no expenses</string>
 </resources>

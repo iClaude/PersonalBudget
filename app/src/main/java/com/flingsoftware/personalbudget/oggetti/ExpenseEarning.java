@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.oggetti;
@@ -133,6 +133,23 @@ public class ExpenseEarning implements Parcelable {
         expenseEarning.setRipetizioneId(cursor.getLong(cursor.getColumnIndex("ripetizione_id")));
         expenseEarning.setConto(cursor.getString(cursor.getColumnIndex("conto")));
         return expenseEarning;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("ExpenseEarning{");
+        sb.append("conto='").append(conto).append('\'');
+        sb.append(", tipoVoce=").append(tipoVoce);
+        sb.append(", id=").append(id);
+        sb.append(", data=").append(data);
+        sb.append(", voce='").append(voce).append('\'');
+        sb.append(", importo=").append(importo);
+        sb.append(", valuta='").append(valuta).append('\'');
+        sb.append(", importoValprin=").append(importoValprin);
+        sb.append(", descrizione='").append(descrizione).append('\'');
+        sb.append(", ripetizioneId=").append(ripetizioneId);
+        sb.append('}');
+        return sb.toString();
     }
 
     // Implementazione interfaccia Parcelable

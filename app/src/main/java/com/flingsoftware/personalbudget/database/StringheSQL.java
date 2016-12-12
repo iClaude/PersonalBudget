@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.database;
@@ -49,7 +49,7 @@ public interface StringheSQL {
 	String SPESE_SOST_DATAX_ELENCO_FILTRATO = "SELECT _id, voce, ripetizione_id, importo_valprin, data FROM spese_sost WHERE conto LIKE ? AND data=? AND (voce LIKE ? OR descrizione LIKE ?)";
 	String SPESE_SOST_SPESAX_DETTAGLIO = "SELECT spese_sost._id, spese_sost.voce, spese_sost.importo, spese_sost.valuta, spese_sost.importo_valprin, spese_sost.data, spese_sost.descrizione, spese_sost.ripetizione_id, spese_sost.conto, spese_sost.favorite, spese_ripet.ripetizione FROM spese_sost JOIN spese_ripet ON (spese_sost.ripetizione_id=spese_ripet._id) WHERE spese_sost._id=?";
 	String SPESE_SOST_PREFERITE = "SELECT * FROM spese_sost WHERE favorite = 1 ORDER BY voce ASC";
-	String SPESE_SOST_INTERVALLO_SPESAX_X_BUDGET_SPESE_INCLUSE = "SELECT _id, data, importo_valprin, descrizione, conto FROM spese_sost WHERE data >= ? AND data <= ? AND voce=? ORDER BY data DESC";
+	String SPESE_SOST_INTERVALLO_SPESAX_X_BUDGET_SPESE_INCLUSE = "SELECT * FROM spese_sost WHERE data >= ? AND data <= ? AND voce=? ORDER BY data DESC";
 
 	
 	/** Query di ricerca complesse in SQL per la tabella delle entrate (entrate_inc). Vedi la classe 
