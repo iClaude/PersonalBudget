@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -17,6 +17,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,7 +38,6 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.StringTokenizer;
 
 /**
  * Fragment used to display the expenses included in the budget displayed in the BudgetDetails
@@ -50,17 +50,13 @@ public class BudgetDetailsExpenses extends Fragment {
     private static final String TAG = "BudgetDetailsExpenses";
     private static final String BUDGET_ID = "BUDGET_ID";
 
-    // Variables.
-    // Data.
-    private long budgetId;
-    private List<ExpensesWithTag> list = new ArrayList<>();
+    private final List<ExpensesWithTag> list = new ArrayList<>();
     private Budget budget;
     // Icons.
     private ListViewIconeVeloce iconeVeloci;
     private Bitmap mPlaceHolderBitmap;
     // Widgets.
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
     private TextView tvLabel;
 
 
@@ -77,7 +73,7 @@ public class BudgetDetailsExpenses extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        budgetId = getArguments().getLong(BUDGET_ID);
+        long budgetId = getArguments().getLong(BUDGET_ID);
         //region Icons
         iconeVeloci = new ListViewIconeVeloce(getActivity());
         new PlaceHolderWorkerTask().execute(R.drawable.tag_0);
@@ -99,7 +95,7 @@ public class BudgetDetailsExpenses extends Fragment {
 
     public class MyExpandableRecyclerViewAdapter extends ExpandableRecyclerAdapter<MyExpandableRecyclerViewAdapter.ExpensesWithTagViewHolder, MyExpandableRecyclerViewAdapter.ExpenseViewHolder> {
 
-        private LayoutInflater mInflator;
+        private final LayoutInflater mInflator;
 
         public MyExpandableRecyclerViewAdapter(Context context, @NonNull List<? extends ParentListItem> parentItemList) {
             super(parentItemList);
@@ -135,15 +131,32 @@ public class BudgetDetailsExpenses extends Fragment {
         // ViewHolder.
         // Parent ViewHolder.
         public class ExpensesWithTagViewHolder extends ParentViewHolder {
-            private ImageView ivIcon;
-            private TextView tvTag;
-            private TextView tvTotal;
+            private final ImageView ivIcon;
+            private final TextView tvTag;
+            private final TextView tvTotal;
+            private ImageButton ibExpand;
+            private View vLine;
 
             public ExpensesWithTagViewHolder(View itemView) {
                 super(itemView);
                 ivIcon = (ImageView) itemView.findViewById(R.id.ivIcon);
                 tvTag = (TextView) itemView.findViewById(R.id.tvTag);
                 tvTotal = (TextView) itemView.findViewById(R.id.tvTotal);
+                ibExpand = (ImageButton) itemView.findViewById(R.id.ibExpand);
+                vLine = (View) itemView.findViewById(R.id.vLine);
+
+                ibExpand.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (isExpanded()) {
+                            vLine.setVisibility(View.VISIBLE);
+                            collapseView();
+                        } else {
+                            vLine.setVisibility(View.GONE);
+                            expandView();
+                        }
+                    }
+                });
             }
 
             public void bind(ExpensesWithTag expensesWithTag) {
@@ -151,14 +164,19 @@ public class BudgetDetailsExpenses extends Fragment {
                 tvTag.setText(expensesWithTag.getTag());
                 tvTotal.setText(UtilityVarious.getFormattedAmount(expensesWithTag.getTotal(), getActivity()));
             }
+
+            @Override
+            public boolean shouldItemViewClickToggleExpansion() {
+                return false;
+            }
         }
 
         // Child ViewHolder.
         public class ExpenseViewHolder extends ChildViewHolder {
-            private TextView tvDate;
-            private TextView tvDesc;
-            private TextView tvAccount;
-            private TextView tvAmount;
+            private final TextView tvDate;
+            private final TextView tvDesc;
+            private final TextView tvAccount;
+            private final TextView tvAmount;
 
             public ExpenseViewHolder(View view) {
                 super(view);
@@ -188,14 +206,13 @@ public class BudgetDetailsExpenses extends Fragment {
         }
     }
 
-    // Retrieve budget details in a separate thread.
-    // TODO: 12/12/2016 rivedere con design patterns
+    // Retrieve budget expenses in a separate thread.
     private class GetExpensesTask extends AsyncTask<Long, Object, Void> {
-        private final DBCSpeseBudget dbcSpeseBudget = new DBCSpeseBudget(getActivity());
-        private DBCSpeseSostenute dbcSpeseSostenute = new DBCSpeseSostenute(getActivity());
-        private List<String> tags = new ArrayList<>(); // list of the tags of this budget
+        private final DBCSpeseSostenute dbcSpeseSostenute = new DBCSpeseSostenute(getActivity());
+        private List<String> tags; // list of the tags of this budget
 
         protected Void doInBackground(Long... params) {
+            final DBCSpeseBudget dbcSpeseBudget = new DBCSpeseBudget(getActivity());
             dbcSpeseBudget.openLettura();
             Cursor cursor = dbcSpeseBudget.getSpesaBudget(params[0]);
             cursor.moveToFirst();
@@ -205,7 +222,7 @@ public class BudgetDetailsExpenses extends Fragment {
             dbcSpeseBudget.close();
 
             // Load data for the ExpandableRecyclerView.
-            createTagsList(tag);
+            tags = UtilityVarious.createTagsList(tag);
             loadDataForERV();
 
             return null;
@@ -218,34 +235,22 @@ public class BudgetDetailsExpenses extends Fragment {
                 tvLabel.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
             }
-            adapter = new MyExpandableRecyclerViewAdapter(getActivity(), list);
+            RecyclerView.Adapter adapter = new MyExpandableRecyclerViewAdapter(getActivity(), list);
             recyclerView.setAdapter(adapter);
-        }
-
-        private void createTagsList(String tag) {
-            if (tag.indexOf(',') == -1) {
-                tags.add(tag);
-            } else {
-                StringTokenizer st = new StringTokenizer(tag, ",");
-                while (st.hasMoreTokens()) {
-                    tags.add(st.nextToken());
-                }
-            }
         }
 
         private void loadDataForERV() {
             String queryParent = createQueryForParent();
             dbcSpeseSostenute.openLettura();
             Cursor parentCursor = dbcSpeseSostenute.getSpeseSostenuteIntervalloSpeseXYZTotaliPerDataOVoce(queryParent, null);
-            int numParents = parentCursor.getCount();
-            ((ArrayList) list).ensureCapacity(numParents);
+            ((ArrayList) list).ensureCapacity(parentCursor.getCount());
             while (parentCursor.moveToNext()) {
                 String tag = parentCursor.getString(parentCursor.getColumnIndex("voce"));
                 double total = parentCursor.getDouble(parentCursor.getColumnIndex("totale_spesa"));
                 int iconId = getIconId(tag);
                 ExpensesWithTag expenseWithTag = new ExpensesWithTag(iconId, tag, total, null);
-                addChildren(expenseWithTag);
-                ((ArrayList) list).add(expenseWithTag);
+                expenseWithTag.setExpenses(getExpensesWithTag(tag, budget.getDateStart(), budget.getDateEnd()));
+                list.add(expenseWithTag);
             }
             parentCursor.close();
             dbcSpeseSostenute.close();
@@ -255,11 +260,12 @@ public class BudgetDetailsExpenses extends Fragment {
             StringBuilder query = new StringBuilder("SELECT _id, voce, SUM(importo_valprin) AS totale_spesa FROM spese_sost WHERE data >= " + budget.getDateStart() + " AND data <= " + budget.getDateEnd() + " AND (");
             int size = tags.size();
             if (size == 1) {
-                query.append("voce = '" + tags.get(0) + "') GROUP BY voce ORDER BY voce ASC");
+                query.append("voce = '").append(tags.get(0)).append("') GROUP BY voce ORDER BY voce ASC");
             } else {
-                query.append("voce = '" + tags.get(0) + "'");
+                query.append("voce = '").append(tags.get(0)).append("'");
                 for (int i = 1; i < size; i++) {
-                    query.append(" OR voce = '" + tags.get(i) + "'");
+                    query.
+                            append(" OR voce = '").append(tags.get(i)).append("'");
                 }
                 query.append(") GROUP BY voce ORDER BY voce ASC");
             }
@@ -279,16 +285,17 @@ public class BudgetDetailsExpenses extends Fragment {
             return iconId;
         }
 
-        private void addChildren(ExpensesWithTag expenseWithTag) {
-            Cursor childCursor = dbcSpeseSostenute.getSpeseSostenuteIntervalloSpesaXBudgetSpeseIncluse(budget.getDateStart(), budget.getDateEnd(), expenseWithTag.getTag());
-            int numChildren = childCursor.getCount();
-            ArrayList<ExpenseEarning> expenses = new ArrayList<>(numChildren);
+        // Get a list of expenses with a given tag between two dates.
+        private List<ExpenseEarning> getExpensesWithTag(String tag, long dateStart, long dateEnd) {
+            Cursor childCursor = dbcSpeseSostenute.getSpeseSostenuteIntervalloSpesaXBudgetSpeseIncluse(dateStart, dateEnd, tag);
+            ArrayList<ExpenseEarning> expenses = new ArrayList<>(childCursor.getCount());
             while (childCursor.moveToNext()) {
                 ExpenseEarning expense = ExpenseEarning.makeExpenseEarning(childCursor);
                 expenses.add(expense);
             }
-            expenseWithTag.setExpenses(expenses);
             childCursor.close();
+
+            return expenses;
         }
     }
 }

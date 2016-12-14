@@ -1,3 +1,7 @@
+<!--
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  -->
+
 <resources>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
@@ -11,4 +15,5 @@
 
     <!-- Activity SpeseDettaglioVoce and EntrateDettaglioVoce. -->
     <dimen name="content_offset_y">100dp</dimen>
+    <dimen name="cardview_horizontal_margin">8dp</dimen>
 </resources>

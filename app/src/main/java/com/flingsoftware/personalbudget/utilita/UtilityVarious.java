@@ -22,8 +22,11 @@ import com.flingsoftware.personalbudget.app.MainPersonalBudget;
 
 import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Currency;
+import java.util.List;
 import java.util.Locale;
+import java.util.StringTokenizer;
 
 public class UtilityVarious {
 
@@ -193,5 +196,26 @@ public class UtilityVarious {
         DateFormat dfDate = DateFormat.getDateInstance(DateFormat.SHORT, miaLocale);
 
         return dfDate;
+    }
+
+    /**
+     * Given a string contaning multiple tags separated by commas, returns a List where each
+     * element is a separate tag. Useful for budgets having multiple tags.
+     *
+     * @param multipleTag String containing multiple tags separated by commas
+     * @return List<String> where each element is a separate tag
+     */
+    public static List<String> createTagsList(String multipleTag) {
+        List<String> tags = new ArrayList<>();
+        if (multipleTag.indexOf(',') == -1) {
+            tags.add(multipleTag);
+        } else {
+            StringTokenizer st = new StringTokenizer(multipleTag, ",");
+            while (st.hasMoreTokens()) {
+                tags.add(st.nextToken());
+            }
+        }
+
+        return tags;
     }
 }
