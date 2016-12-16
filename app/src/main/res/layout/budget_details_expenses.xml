@@ -3,28 +3,30 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="@dimen/activity_horizontal_margin"
-    android:layout_marginEnd="@dimen/activity_horizontal_margin"
-    android:gravity="center">
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp">
 
     <TextView
         android:text="@string/statistiche_caricamento"
-        android:layout_width="wrap_content"
+        android:visibility="visible"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tvLabel"
-        android:gravity="center"
-        android:layout_gravity="center" />
+        android:gravity="center_horizontal"
+        android:layout_marginTop="16dp" />
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/rvExpenses"
         android:visibility="gone"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginEnd="8dp" />
+        android:layout_marginTop="4dp"
+        tools:listitem="@layout/budget_expenses_item_parent" />
+
 </LinearLayout>

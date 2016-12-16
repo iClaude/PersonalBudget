@@ -4,6 +4,7 @@
 
 package com.flingsoftware.personalbudget.app.budgets;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -88,7 +90,10 @@ public class BudgetDetailsExpenses extends Fragment {
         tvLabel = (TextView) view.findViewById(R.id.tvLabel);
         // Set up ExpandableRecyclerView.
         recyclerView = (RecyclerView) view.findViewById(R.id.rvExpenses);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), linearLayoutManager.getOrientation());
+        recyclerView.addItemDecoration(mDividerItemDecoration);
 
         return view;
     }
@@ -135,7 +140,6 @@ public class BudgetDetailsExpenses extends Fragment {
             private final TextView tvTag;
             private final TextView tvTotal;
             private ImageButton ibExpand;
-            private View vLine;
 
             public ExpensesWithTagViewHolder(View itemView) {
                 super(itemView);
@@ -143,16 +147,13 @@ public class BudgetDetailsExpenses extends Fragment {
                 tvTag = (TextView) itemView.findViewById(R.id.tvTag);
                 tvTotal = (TextView) itemView.findViewById(R.id.tvTotal);
                 ibExpand = (ImageButton) itemView.findViewById(R.id.ibExpand);
-                vLine = (View) itemView.findViewById(R.id.vLine);
 
                 ibExpand.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if (isExpanded()) {
-                            vLine.setVisibility(View.VISIBLE);
                             collapseView();
                         } else {
-                            vLine.setVisibility(View.GONE);
                             expandView();
                         }
                     }
@@ -163,11 +164,26 @@ public class BudgetDetailsExpenses extends Fragment {
                 iconeVeloci.loadBitmap(expensesWithTag.getIconId(), ivIcon, mPlaceHolderBitmap, 40, 40);
                 tvTag.setText(expensesWithTag.getTag());
                 tvTotal.setText(UtilityVarious.getFormattedAmount(expensesWithTag.getTotal(), getActivity()));
+                // Set correct rotation of ibExpand according to the expanded state.
+                float rotation = isExpanded() ? 180.0f : 0.0f;
+                ibExpand.setRotation(rotation);
             }
 
             @Override
             public boolean shouldItemViewClickToggleExpansion() {
                 return false;
+            }
+
+            @Override
+            public void onExpansionToggled(boolean expanded) {
+                super.onExpansionToggled(expanded);
+
+                // Rotate the arrow (ImageButton) with an animation.
+                float startAngle = expanded ? 180.0f : 0.0f;
+                float endAngle = expanded ? 360.0f : 180.0f;
+                ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(ibExpand, "rotation", startAngle, endAngle);
+                objectAnimator.setDuration(300);
+                objectAnimator.start();
             }
         }
 

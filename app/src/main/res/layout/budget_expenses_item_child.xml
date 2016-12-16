@@ -5,14 +5,16 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:background="@color/colore_blu">
 
     <ImageView
         android:layout_width="36dp"
         android:layout_height="36dp"
         app:srcCompat="@drawable/ic_today_black_48dp"
         android:id="@+id/imageView5"
-        android:layout_marginTop="16dp"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -63,24 +65,9 @@
         android:id="@+id/tvAmount"
         android:textColor="?android:attr/textColorSecondary"
         app:layout_constraintTop_toTopOf="@+id/tvDate"
-        android:layout_marginEnd="16dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="16dp"
         android:textStyle="normal|bold"
         android:textSize="14sp" />
 
-    <View
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        android:id="@+id/vLine"
-        android:layout_width="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvAccount"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintLeft_toRightOf="@+id/imageView5"
-        android:layout_marginLeft="8dp" />
 
 </android.support.constraint.ConstraintLayout>

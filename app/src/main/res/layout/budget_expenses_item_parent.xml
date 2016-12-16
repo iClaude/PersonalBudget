@@ -5,37 +5,34 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
 
     <ImageView
         app:srcCompat="@drawable/tag_0"
         android:id="@+id/ivIcon"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="@dimen/cardview_horizontal_margin"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="@dimen/cardview_horizontal_margin" />
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp" />
 
     <TextView
         android:text="@string/provv_lorem_ipsum"
-        android:layout_width="0dp"
+        android:layout_width="277dp"
         android:layout_height="wrap_content"
         android:id="@+id/tvTag"
         android:textSize="18sp"
         android:textColor="?android:attr/textColorPrimary"
         android:textStyle="normal|bold"
         android:fontFamily="sans-serif-light"
-        app:layout_constraintTop_toTopOf="@+id/ivIcon"
-        app:layout_constraintBottom_toBottomOf="@+id/ivIcon"
-        android:layout_marginStart="8dp"
+        android:ellipsize="end"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
         app:layout_constraintLeft_toRightOf="@+id/ivIcon"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintRight_toLeftOf="@+id/tvTotal"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:ellipsize="end" />
+        android:layout_marginLeft="16dp" />
 
     <TextView
         android:text="@string/provv_importoValutaZero"
@@ -49,30 +46,47 @@
         app:layout_constraintTop_toTopOf="@+id/tvTag"
         app:layout_constraintRight_toLeftOf="@+id/ibExpand"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvTag" />
+        android:layout_marginRight="8dp" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_navigation_expand"
         android:id="@+id/ibExpand"
-        android:background="@android:color/transparent"
+        android:background="?android:attr/selectableItemBackground"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvTotal"
         app:layout_constraintBottom_toBottomOf="@+id/tvTotal"
-        app:layout_constraintVertical_bias="0.71000004" />
+        app:layout_constraintVertical_bias="0.71" />
 
-    <View
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        android:id="@+id/vLine"
-        android:layout_width="0dp"
-        android:layout_marginEnd="4dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="4dp"
+    <TextView
+        android:text="17 expenses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvNum"
+        android:textColor="?android:attr/textColorSecondary"
+        app:layout_constraintTop_toBottomOf="@+id/tvTag"
+        app:layout_constraintLeft_toLeftOf="@+id/tvTag" />
+
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:srcCompat="@drawable/ic_action_news"
+        android:id="@+id/ivCount"
+        app:layout_constraintBottom_toBottomOf="@+id/tvNum"
+        app:layout_constraintTop_toBottomOf="@+id/tvTag"
+        app:layout_constraintLeft_toRightOf="@+id/tvNum"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp" />
+
+    <TextView
+        android:text="Max: € 250,00 - Min: € 20,00"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvMax"
+        app:layout_constraintTop_toBottomOf="@+id/tvNum"
         app:layout_constraintLeft_toLeftOf="@+id/tvTag"
-        app:layout_constraintTop_toBottomOf="@+id/ivIcon"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="4dp" />
+
 
 </android.support.constraint.ConstraintLayout>
