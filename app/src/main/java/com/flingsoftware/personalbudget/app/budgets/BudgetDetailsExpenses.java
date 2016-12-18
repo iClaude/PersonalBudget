@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -139,6 +139,8 @@ public class BudgetDetailsExpenses extends Fragment {
             private final ImageView ivIcon;
             private final TextView tvTag;
             private final TextView tvTotal;
+            private final TextView tvCount;
+            private final TextView tvStat;
             private ImageButton ibExpand;
 
             public ExpensesWithTagViewHolder(View itemView) {
@@ -146,6 +148,8 @@ public class BudgetDetailsExpenses extends Fragment {
                 ivIcon = (ImageView) itemView.findViewById(R.id.ivIcon);
                 tvTag = (TextView) itemView.findViewById(R.id.tvTag);
                 tvTotal = (TextView) itemView.findViewById(R.id.tvTotal);
+                tvCount = (TextView) itemView.findViewById(R.id.tvCount);
+                tvStat = (TextView) itemView.findViewById(R.id.tvStat);
                 ibExpand = (ImageButton) itemView.findViewById(R.id.ibExpand);
 
                 ibExpand.setOnClickListener(new View.OnClickListener() {
@@ -161,9 +165,12 @@ public class BudgetDetailsExpenses extends Fragment {
             }
 
             public void bind(ExpensesWithTag expensesWithTag) {
+                // Diplay details of expenses grouped by tag.
                 iconeVeloci.loadBitmap(expensesWithTag.getIconId(), ivIcon, mPlaceHolderBitmap, 40, 40);
                 tvTag.setText(expensesWithTag.getTag());
                 tvTotal.setText(UtilityVarious.getFormattedAmount(expensesWithTag.getTotal(), getActivity()));
+                tvCount.setText(getResources().getQuantityString(R.plurals.budgets_num_expenses, expensesWithTag.getNumExpenses(), expensesWithTag.getNumExpenses()));
+                tvStat.setText(getString(R.string.budgets_maxmin, UtilityVarious.getFormattedAmount(expensesWithTag.getMaxExpense(), getActivity()), UtilityVarious.getFormattedAmount(expensesWithTag.getMinExpense(), getActivity())));
                 // Set correct rotation of ibExpand according to the expanded state.
                 float rotation = isExpanded() ? 180.0f : 0.0f;
                 ibExpand.setRotation(rotation);

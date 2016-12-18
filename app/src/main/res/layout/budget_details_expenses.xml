@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  ~ Copyright (c) - Software developed by iClaude.
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp"
-    android:paddingStart="8dp"
-    android:paddingEnd="8dp">
+    android:layout_height="match_parent">
 
     <TextView
         android:text="@string/statistiche_caricamento"
@@ -26,7 +22,6 @@
         android:layout_height="match_parent"
         android:id="@+id/rvExpenses"
         android:visibility="gone"
-        android:layout_marginTop="4dp"
         tools:listitem="@layout/budget_expenses_item_parent" />
 
 </LinearLayout>

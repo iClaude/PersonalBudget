@@ -7,6 +7,7 @@ package com.flingsoftware.personalbudget.app.budgets;
 import com.bignerdranch.expandablerecyclerview.Model.ParentListItem;
 import com.flingsoftware.personalbudget.oggetti.ExpenseEarning;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -19,6 +20,9 @@ public class ExpensesWithTag implements ParentListItem {
     private int iconId;
     private String tag;
     private double total;
+    private int numExpenses;
+    private double maxExpense;
+    private double minExpense;
     private List<ExpenseEarning> expenses; // list of expenses with given tag in a specific budget
 
     // Constructors.
@@ -64,7 +68,24 @@ public class ExpensesWithTag implements ParentListItem {
     }
 
     public void setExpenses(List<ExpenseEarning> expenses) {
+        /* Get the number of expenses, min and max expense (to display in the budget's details
+           Activity (tab expenses included in the budget).*/
+        numExpenses = expenses.size();
+        minExpense = Collections.min(expenses).getImportoValprin();
+        maxExpense = Collections.max(expenses).getImportoValprin();
         this.expenses = expenses;
+    }
+
+    public double getMaxExpense() {
+        return maxExpense;
+    }
+
+    public double getMinExpense() {
+        return minExpense;
+    }
+
+    public int getNumExpenses() {
+        return numExpenses;
     }
 
     // Implementation of ParentListItem interface.

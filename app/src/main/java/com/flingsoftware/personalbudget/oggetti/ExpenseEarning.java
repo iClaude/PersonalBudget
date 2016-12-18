@@ -9,7 +9,7 @@ import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class ExpenseEarning implements Parcelable {
+public class ExpenseEarning implements Parcelable, Comparable<ExpenseEarning> {
 
     // Costanti
     public static final int VOCE_SPESA = 0;
@@ -195,5 +195,12 @@ public class ExpenseEarning implements Parcelable {
                     return new ExpenseEarning[size];
                 }
             };
+
+    // Implementation of Comparable interface.
+
+    @Override
+    public int compareTo(ExpenseEarning expenseEarning) {
+        return (int) (getImportoValprin() - expenseEarning.getImportoValprin());
+    }
 }
 

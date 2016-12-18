@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  ~ Copyright (c) - Software developed by iClaude.
   -->
 
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -12,12 +12,16 @@
     <ImageView
         app:srcCompat="@drawable/tag_0"
         android:id="@+id/ivIcon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="8dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp" />
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/background_tondo"
+        android:scaleType="centerInside" />
 
     <TextView
         android:text="@string/provv_lorem_ipsum"
@@ -45,8 +49,8 @@
         android:textColor="?android:attr/textColorPrimary"
         app:layout_constraintTop_toTopOf="@+id/tvTag"
         app:layout_constraintRight_toLeftOf="@+id/ibExpand"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp" />
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -55,15 +59,16 @@
         android:id="@+id/ibExpand"
         android:background="?android:attr/selectableItemBackground"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvTotal"
         app:layout_constraintBottom_toBottomOf="@+id/tvTotal"
-        app:layout_constraintVertical_bias="0.71" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintTop_toTopOf="@+id/tvTotal" />
 
     <TextView
         android:text="17 expenses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvNum"
+        android:id="@+id/tvCount"
         android:textColor="?android:attr/textColorSecondary"
         app:layout_constraintTop_toBottomOf="@+id/tvTag"
         app:layout_constraintLeft_toLeftOf="@+id/tvTag" />
@@ -73,9 +78,9 @@
         android:layout_height="24dp"
         app:srcCompat="@drawable/ic_action_news"
         android:id="@+id/ivCount"
-        app:layout_constraintBottom_toBottomOf="@+id/tvNum"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCount"
         app:layout_constraintTop_toBottomOf="@+id/tvTag"
-        app:layout_constraintLeft_toRightOf="@+id/tvNum"
+        app:layout_constraintLeft_toRightOf="@+id/tvCount"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp" />
 
@@ -83,8 +88,8 @@
         android:text="Max: € 250,00 - Min: € 20,00"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvMax"
-        app:layout_constraintTop_toBottomOf="@+id/tvNum"
+        android:id="@+id/tvStat"
+        app:layout_constraintTop_toBottomOf="@+id/tvCount"
         app:layout_constraintLeft_toLeftOf="@+id/tvTag"
         android:layout_marginTop="4dp" />
 

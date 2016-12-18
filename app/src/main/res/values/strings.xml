@@ -558,9 +558,14 @@
     <string name="preferiti_entrate">Favorite earnings</string>
     <string name="seleziona_conto">select the account...</string>
 
-    <!-- Transitions -->
+    <!-- Budgets -->
     <string name="transitionName">transitionIcon</string>
     <string name="budgets_show">show...</string>
     <string name="budgets_hide">hide...</string>
     <string name="budgets_no_expenses">no expenses</string>
+    <plurals name="budgets_num_expenses">
+        <item quantity="one">%d expense</item>
+        <item quantity="other">%d expenses</item>
+    </plurals>
+    <string name="budgets_maxmin">Max: %1$s - Min: %2$s</string>
 </resources>
