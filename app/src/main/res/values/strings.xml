@@ -568,4 +568,5 @@
         <item quantity="other">%d expenses</item>
     </plurals>
     <string name="budgets_maxmin">Max: %1$s - Min: %2$s</string>
+    <string name="budgets_chart_scroll">Pull up for chart...</string>
 </resources>

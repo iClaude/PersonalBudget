@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -8,7 +8,6 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,16 +51,11 @@ public class BudgetDetailsData extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.budget_details_data, container, false);
+        View view = inflater.inflate(R.layout.budget_data, container, false);
 
         long id = getArguments().getLong(KEY_ID);
         // Get references of widgets.
         tvTag = (TextView) view.findViewById(R.id.tvTag);
-        // Running text
-        tvTag.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-        tvTag.setSingleLine(true);
-        tvTag.setMarqueeRepeatLimit(5);
-        tvTag.setSelected(true);
         tvAmount = (TextView) view.findViewById(R.id.tvAmount);
         tvBudgetType = (TextView) view.findViewById(R.id.tvBudgetType);
         tvDate = (TextView) view.findViewById(R.id.tvDate);

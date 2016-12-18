@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -72,7 +72,7 @@ public class BudgetDetailsHistory extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.budget_details_history, container, false);
+        View view = inflater.inflate(R.layout.budget_history, container, false);
 
         // Get the budgets' history.
         new GetBudgetHistoryTask().execute(budgetId);

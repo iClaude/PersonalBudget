@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -16,7 +16,9 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -79,6 +81,7 @@ public class BudgetDetails extends AppCompatActivity {
     private FloatingActionButton fabEdit;
     private ViewPager viewPager;
     private TabLayout tabLayout;
+    private ConstraintLayout bottomSheetViewgroup;
     // Budget details.
     private Fragment[] fragments;
     private Budget budget;
@@ -142,6 +145,8 @@ public class BudgetDetails extends AppCompatActivity {
         tvTagToolbar = (TextView) findViewById(R.id.toolbar_title);
         tvAmountToolbar = (TextView) findViewById(R.id.toolbar_subtitle);
         fabEdit = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        bottomSheetViewgroup = (ConstraintLayout) findViewById(R.id.clBottomSheet);
+        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetViewgroup);
     }
 
     // Set up app bar layout and behavior.
