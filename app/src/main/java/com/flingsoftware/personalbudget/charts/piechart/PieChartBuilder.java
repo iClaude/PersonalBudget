@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.charts.piechart;
@@ -21,7 +21,7 @@ public abstract class PieChartBuilder {
     private GraphicalView pieChart;
     private AmountAndLabel amountsAndLabels[];
     private String title;
-    protected Context context;
+    private Context context;
     private CategorySeries categorySeries;
     private DefaultRenderer defaultRenderer;
 
@@ -70,6 +70,10 @@ public abstract class PieChartBuilder {
 
     public AmountAndLabel[] getAmountsAndLabels() {
         return amountsAndLabels;
+    }
+
+    public DefaultRenderer getDefaultRenderer() {
+        return defaultRenderer;
     }
 
     public void setContext(Context context) {

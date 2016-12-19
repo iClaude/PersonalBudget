@@ -1,14 +1,19 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.charts.piechart;
 
 import android.graphics.Color;
+import android.view.View;
+import android.widget.Toast;
 
 import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.utilita.UtilityVarious;
 
+import org.achartengine.GraphicalView;
 import org.achartengine.model.CategorySeries;
+import org.achartengine.model.SeriesSelection;
 import org.achartengine.renderer.DefaultRenderer;
 import org.achartengine.renderer.SimpleSeriesRenderer;
 
@@ -25,6 +30,10 @@ import java.util.Locale;
 public class SixElementsPieChartBuilder extends PieChartBuilder {
     private int colors[] = {Color.RED, Color.GREEN, Color.YELLOW, Color.BLUE, Color.MAGENTA, Color.GRAY};
     private double totalAmount;
+
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
 
     @Override
     public void prepareData(AmountAndLabel[] amountsAndLabels) {
@@ -96,6 +105,29 @@ public class SixElementsPieChartBuilder extends PieChartBuilder {
 
     @Override
     public void createOnClickListener() {
+        final GraphicalView pieChart = getPieChart();
+        pieChart.setOnClickListener(new View.OnClickListener() {
+            int evidPrec = 0;
+            NumberFormat nfPerc = NumberFormat.getPercentInstance(Locale.getDefault());
 
+            {
+                nfPerc.setMaximumFractionDigits(2);
+            }
+
+            @Override
+            public void onClick(View v) {
+                SeriesSelection seriesSelection = pieChart.getCurrentSeriesAndPoint();
+                if (seriesSelection != null) {
+                    int seriesIndex = seriesSelection.getPointIndex();
+
+                    getDefaultRenderer().getSeriesRendererAt(evidPrec).setHighlighted(false);
+                    getDefaultRenderer().getSeriesRendererAt(seriesIndex).setHighlighted(true);
+                    evidPrec = seriesIndex;
+                    pieChart.repaint();
+
+                    Toast.makeText(getContext(), getContext().getString(R.string.statistiche_voce) + ": " + getAmountsAndLabels()[seriesIndex].getLabel() + "\n" + getContext().getString(R.string.statistiche_importo) + ": " + UtilityVarious.getFormattedAmount(getAmountsAndLabels()[seriesIndex].getAmount(), getContext()) + "\n" + getContext().getString(R.string.statistiche_percentuale) + ": " + nfPerc.format(getAmountsAndLabels()[seriesIndex].getAmount() / totalAmount), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

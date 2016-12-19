@@ -569,4 +569,7 @@
     </plurals>
     <string name="budgets_maxmin">Max: %1$s - Min: %2$s</string>
     <string name="budgets_chart_scroll">Pull up for chart...</string>
+    <string name="budgets_chart_spent">spent</string>
+    <string name="budgets_chart_left">left</string>
+    <string name="budgets_chart_title">Budget</string>
 </resources>

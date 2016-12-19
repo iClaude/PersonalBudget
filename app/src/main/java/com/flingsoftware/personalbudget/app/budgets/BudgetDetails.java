@@ -44,6 +44,9 @@ import android.widget.ViewSwitcher;
 
 import com.flingsoftware.personalbudget.R;
 import com.flingsoftware.personalbudget.app.BudgetModifica;
+import com.flingsoftware.personalbudget.charts.piechart.AmountAndLabel;
+import com.flingsoftware.personalbudget.charts.piechart.BudgetPieChartBuilder;
+import com.flingsoftware.personalbudget.charts.piechart.PieChartBuilder;
 import com.flingsoftware.personalbudget.customviews.MioToast;
 import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
@@ -53,6 +56,8 @@ import com.flingsoftware.personalbudget.utilita.BlurBuilder;
 import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
 import com.flingsoftware.personalbudget.utilita.SoundEffectsManager;
 import com.flingsoftware.personalbudget.utilita.UtilityVarious;
+
+import org.achartengine.GraphicalView;
 
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiDettaglioVoce.OPERAZIONE_ELIMINAZIONE;
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiDettaglioVoce.TIPO_OPERAZIONE;
@@ -227,6 +232,7 @@ public class BudgetDetails extends AppCompatActivity {
 
         protected void onPostExecute(Void result) {
             displayDetailsActivity();
+            displayPieChart();
         }
     }
 
@@ -249,6 +255,19 @@ public class BudgetDetails extends AppCompatActivity {
         setRatingBar(perc);
         // Load main image in a separate thread.
         new LoadHeaderImageTask().execute(budget.getTag());
+    }
+
+    // Display pie chart in the bottom sheet.
+    private void displayPieChart() {
+        AmountAndLabel[] amountsAndLabels = new AmountAndLabel[2];
+        double expenses = budget.getExpenses() > budget.getAmount() ? budget.getAmount() : budget.getExpenses();
+        amountsAndLabels[0] = new AmountAndLabel(getString(R.string.budgets_chart_spent), expenses);
+        amountsAndLabels[1] = new AmountAndLabel(getString(R.string.budgets_chart_left), budget.getAmount());
+
+        PieChartBuilder pieChartBuilder = new BudgetPieChartBuilder();
+        pieChartBuilder.createNewPieChart(BudgetDetails.this, amountsAndLabels, getString(R.string.budgets_chart_title));
+        GraphicalView pieChart = pieChartBuilder.getPieChart();
+        bottomSheetViewgroup.addView(pieChart);
     }
 
     // Load header image in a separate thread.
