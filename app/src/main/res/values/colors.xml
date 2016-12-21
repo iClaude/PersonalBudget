@@ -27,4 +27,9 @@
     <color name="nav_drawer_sfondo">#f3f3f3</color>
     <color name="label_giorni_futuri">#969696</color>
     <color name="listview_sfondo_grigio">#dddddd</color>
+
+    <color name="progressbar_green_primary">#4CAF50</color>
+    <color name="progressbar_green_dark">#388E3C</color>
+    <color name="progressbar_red_primay">#F44336</color>
+    <color name="progressbar_red_dark">#D32F2F</color>
 </resources>

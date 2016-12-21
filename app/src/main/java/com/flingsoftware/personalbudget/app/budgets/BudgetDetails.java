@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -37,6 +37,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -87,6 +88,8 @@ public class BudgetDetails extends AppCompatActivity {
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private ConstraintLayout bottomSheetViewgroup;
+    private BottomSheetBehavior bottomSheetBehavior;
+    private LinearLayout llChart;
     // Budget details.
     private Fragment[] fragments;
     private Budget budget;
@@ -150,8 +153,11 @@ public class BudgetDetails extends AppCompatActivity {
         tvTagToolbar = (TextView) findViewById(R.id.toolbar_title);
         tvAmountToolbar = (TextView) findViewById(R.id.toolbar_subtitle);
         fabEdit = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        TextView tvHint = (TextView) findViewById(R.id.tvHint);
+        tvHint.setOnClickListener(ExpandCollapseListener);
+        llChart = (LinearLayout) findViewById(R.id.llChart);
         bottomSheetViewgroup = (ConstraintLayout) findViewById(R.id.clBottomSheet);
-        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetViewgroup);
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetViewgroup);
     }
 
     // Set up app bar layout and behavior.
@@ -259,15 +265,17 @@ public class BudgetDetails extends AppCompatActivity {
 
     // Display pie chart in the bottom sheet.
     private void displayPieChart() {
-        AmountAndLabel[] amountsAndLabels = new AmountAndLabel[2];
-        double expenses = budget.getExpenses() > budget.getAmount() ? budget.getAmount() : budget.getExpenses();
-        amountsAndLabels[0] = new AmountAndLabel(getString(R.string.budgets_chart_spent), expenses);
-        amountsAndLabels[1] = new AmountAndLabel(getString(R.string.budgets_chart_left), budget.getAmount());
+        int arrSize = budget.getExpenses() >= budget.getAmount() ? 1 : 2;
+        AmountAndLabel[] amountsAndLabels = new AmountAndLabel[arrSize];
+        amountsAndLabels[0] = new AmountAndLabel(getString(R.string.budgets_chart_spent), budget.getExpenses());
+        if (arrSize == 2) {
+            amountsAndLabels[1] = new AmountAndLabel(getString(R.string.budgets_chart_left), budget.getAmount() - budget.getExpenses());
+        }
 
         PieChartBuilder pieChartBuilder = new BudgetPieChartBuilder();
         pieChartBuilder.createNewPieChart(BudgetDetails.this, amountsAndLabels, getString(R.string.budgets_chart_title));
         GraphicalView pieChart = pieChartBuilder.getPieChart();
-        bottomSheetViewgroup.addView(pieChart);
+        llChart.addView(pieChart);
     }
 
     // Load header image in a separate thread.
@@ -384,9 +392,19 @@ public class BudgetDetails extends AppCompatActivity {
 
             return v;
         }
-
-
     }
+
+    private View.OnClickListener ExpandCollapseListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
+
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            } else {
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+        }
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -228,12 +228,12 @@ public class BudgetDetailsHistory extends Fragment {
                 }
 
                 int perc = (int) ((budget.getExpenses() * 100) / budget.getAmount());
-                holder.pbBudget.setProgress(perc);
                 if (perc >= 100) {
                     holder.pbBudget.setProgressDrawable(ContextCompat.getDrawable(context, R.drawable.progressbar_accent));
                 } else {
                     holder.pbBudget.setProgressDrawable(ContextCompat.getDrawable(context, R.drawable.progressbar_standard));
                 }
+                holder.pbBudget.setProgress(perc);
                 holder.tvAmount.setText(UtilityVarious.getFormattedAmount(budget.getAmount(), context));
                 holder.tvSpent.setText(UtilityVarious.getFormattedAmount(budget.getExpenses(), context));
                 holder.tvBudgetType.setText(budget.getBudgetType(context));

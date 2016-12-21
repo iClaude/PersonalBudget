@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  -->
+
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@android:id/background">
         <shape>
@@ -35,8 +39,8 @@
                 <corners
                     android:radius="5dip" />
                 <gradient
-                    android:startColor="@color/accent"
-                    android:endColor="@color/accent_dark"
+                    android:startColor="@color/progressbar_red_primay"
+                    android:endColor="@color/progressbar_red_dark"
                     android:angle="270" />
             </shape>
         </clip>

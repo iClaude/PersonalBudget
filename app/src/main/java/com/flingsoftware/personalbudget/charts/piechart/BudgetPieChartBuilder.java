@@ -1,8 +1,16 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.charts.piechart;
+
+import android.graphics.Color;
+
+import org.achartengine.renderer.DefaultRenderer;
+import org.achartengine.renderer.SimpleSeriesRenderer;
+
+import java.text.NumberFormat;
+import java.util.Locale;
 
 /**
  * Design patterns: this class plays the role of ConcreteBuilder.
@@ -20,5 +28,39 @@ public class BudgetPieChartBuilder extends SixElementsPieChartBuilder {
             total += amountAndLabel.getAmount();
         }
         setTotalAmount(total);
+    }
+
+    @Override
+    public DefaultRenderer createDefaultRenderer() {
+        AmountAndLabel[] amountsAndLabel = getAmountsAndLabels();
+        NumberFormat percentFormat = NumberFormat.getPercentInstance(Locale.getDefault());
+        float multText = getMultText();
+        final DefaultRenderer defaultRenderer = new DefaultRenderer();
+        for (int i = 0; i < amountsAndLabel.length; i++) {
+            SimpleSeriesRenderer seriesRenderer = new SimpleSeriesRenderer();
+            seriesRenderer.setColor(colors[i]);
+            seriesRenderer.setDisplayChartValues(true);
+            seriesRenderer.setChartValuesFormat(percentFormat);
+            seriesRenderer.setChartValuesSpacing(5);
+            if (i == 0) {
+                seriesRenderer.setHighlighted(true);
+            }
+
+            defaultRenderer.addSeriesRenderer(seriesRenderer);
+        }
+
+        defaultRenderer.setZoomEnabled(true);
+        defaultRenderer.setZoomButtonsVisible(true);
+        defaultRenderer.setPanEnabled(false);
+        defaultRenderer.setApplyBackgroundColor(true);
+        defaultRenderer.setBackgroundColor(Color.argb(255, 197, 202, 233));
+        defaultRenderer.setDisplayValues(true);
+        defaultRenderer.setLabelsTextSize(30 * multText);
+        defaultRenderer.setLabelsColor(Color.BLACK);
+        defaultRenderer.setLegendTextSize(35 * multText);
+        defaultRenderer.setClickEnabled(true);
+        defaultRenderer.setSelectableBuffer(10);
+
+        return defaultRenderer;
     }
 }

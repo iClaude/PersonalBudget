@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.charts.piechart;
@@ -28,7 +28,7 @@ import java.util.Locale;
  */
 
 public class SixElementsPieChartBuilder extends PieChartBuilder {
-    private int colors[] = {Color.RED, Color.GREEN, Color.YELLOW, Color.BLUE, Color.MAGENTA, Color.GRAY};
+    protected int colors[] = {Color.RED, Color.GREEN, Color.YELLOW, Color.BLUE, Color.MAGENTA, Color.GRAY};
     private double totalAmount;
 
     public void setTotalAmount(double totalAmount) {
@@ -125,7 +125,7 @@ public class SixElementsPieChartBuilder extends PieChartBuilder {
                     evidPrec = seriesIndex;
                     pieChart.repaint();
 
-                    Toast.makeText(getContext(), getContext().getString(R.string.statistiche_voce) + ": " + getAmountsAndLabels()[seriesIndex].getLabel() + "\n" + getContext().getString(R.string.statistiche_importo) + ": " + UtilityVarious.getFormattedAmount(getAmountsAndLabels()[seriesIndex].getAmount(), getContext()) + "\n" + getContext().getString(R.string.statistiche_percentuale) + ": " + nfPerc.format(getAmountsAndLabels()[seriesIndex].getAmount() / totalAmount), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getContext().getString(R.string.statistiche_importo) + ": " + UtilityVarious.getFormattedAmount(getAmountsAndLabels()[seriesIndex].getAmount(), getContext()) + "\n" + getContext().getString(R.string.statistiche_percentuale) + ": " + nfPerc.format(getAmountsAndLabels()[seriesIndex].getAmount() / totalAmount), Toast.LENGTH_SHORT).show();
                 }
             }
         });
