@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.charts.piechart;
@@ -49,6 +49,8 @@ public class BudgetPieChartBuilder extends SixElementsPieChartBuilder {
             defaultRenderer.addSeriesRenderer(seriesRenderer);
         }
 
+        defaultRenderer.setChartTitle("Budget\n\n");
+        defaultRenderer.setChartTitleTextSize(30 * multText);
         defaultRenderer.setZoomEnabled(true);
         defaultRenderer.setZoomButtonsVisible(true);
         defaultRenderer.setPanEnabled(false);
@@ -56,7 +58,7 @@ public class BudgetPieChartBuilder extends SixElementsPieChartBuilder {
         defaultRenderer.setBackgroundColor(Color.argb(255, 197, 202, 233));
         defaultRenderer.setDisplayValues(true);
         defaultRenderer.setLabelsTextSize(30 * multText);
-        defaultRenderer.setLabelsColor(Color.BLACK);
+        defaultRenderer.setLabelsColor(Color.argb(217, 66, 66, 66));
         defaultRenderer.setLegendTextSize(35 * multText);
         defaultRenderer.setClickEnabled(true);
         defaultRenderer.setSelectableBuffer(10);
