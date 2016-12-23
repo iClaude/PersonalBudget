@@ -14,13 +14,22 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
+import android.text.style.SuperscriptSpan;
 import android.view.Window;
 
 import com.flingsoftware.personalbudget.R;
 import com.flingsoftware.personalbudget.app.MainPersonalBudget;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Currency;
@@ -147,15 +156,39 @@ public class UtilityVarious {
     */
     public static String getFormattedAmount(double amount, Context context) {
         // Get the main currency from the preferences.
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-        String currCode = pref.getString(Constants.PREF_CURRENCY, Currency.getInstance(Locale.getDefault()).getCurrencyCode());
-        Currency prefCurrency = Currency.getInstance(currCode);
+        Currency prefCurrency = getPrefCurrency(context);
         // Create a formatter using the default Locale and the preferred currency.
         NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
         nf.setCurrency(prefCurrency);
         String amountFormatted = nf.format(amount);
 
         return amountFormatted;
+    }
+
+    /*
+    Given an amount returns a formatted String using the default Locale and the
+    main currency saved in the preferences.
+    The amount is rounded at the unity e the currency is superscript. Positive numbers have "+" prefix,
+    while negative numbers have "-" prefix.
+*/
+    public static Spannable getFormattedAmountBudgetSavings(double amount, Context context) {
+        int color = amount >= 0 ? R.color.green_dark : R.color.red_dark;
+        // Get the main currency from the preferences.
+        Currency prefCurrency = getPrefCurrency(context);
+        // Create a formatter using no decimal digits.
+        DecimalFormat df = new DecimalFormat("+ #,##0; - #,##0");
+        df.setMaximumFractionDigits(0);
+
+        String currSymbol = prefCurrency.getSymbol();
+        String amountStr = df.format(amount) + currSymbol;
+
+        Spannable spannable = new SpannableString(amountStr);
+        spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(context, color)), 0, spannable.length(), 0);
+        spannable.setSpan(new StyleSpan(Typeface.BOLD), 0, spannable.length() - 1, 0);
+        spannable.setSpan(new SuperscriptSpan(), spannable.length() - currSymbol.length(), spannable.length(), 0);
+        spannable.setSpan(new RelativeSizeSpan(0.9f), spannable.length() - currSymbol.length(), spannable.length(), 0);
+
+        return spannable;
     }
 
     // ***********************************************************************************

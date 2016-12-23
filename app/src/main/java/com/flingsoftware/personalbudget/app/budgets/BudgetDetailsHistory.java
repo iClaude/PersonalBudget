@@ -217,13 +217,14 @@ public class BudgetDetailsHistory extends Fragment {
                 holder.tvPeriod.setText(period);
                 holder.tvTag.setText(budget.getTag());
                 double saved = budget.getAmount() - budget.getExpenses();
+                holder.tvSaved.setText(UtilityVarious.getFormattedAmountBudgetSavings(saved, context), TextView.BufferType.SPANNABLE);
                 if (saved >= 0) {
                     holder.tvSaved.setTextColor(ContextCompat.getColor(context, android.R.color.holo_green_dark));
-                    holder.tvSaved.setText("+ " + UtilityVarious.getFormattedAmount(saved, context));
+                    //holder.tvSaved.setText("+ " + UtilityVarious.getFormattedAmount(saved, context));
                     holder.ivIcon.setImageBitmap(greenPig);
                 } else {
                     holder.tvSaved.setTextColor(ContextCompat.getColor(context, android.R.color.holo_red_dark));
-                    holder.tvSaved.setText(UtilityVarious.getFormattedAmount(saved, context));
+                    //holder.tvSaved.setText(UtilityVarious.getFormattedAmount(saved, context));
                     holder.ivIcon.setImageBitmap(redPig);
                 }
 

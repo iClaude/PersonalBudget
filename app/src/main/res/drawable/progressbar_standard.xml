@@ -39,8 +39,8 @@
                 <corners
                     android:radius="5dip" />
                 <gradient
-                    android:startColor="@color/progressbar_green_primary"
-                    android:endColor="@color/progressbar_green_dark"
+                    android:startColor="@color/green_dark"
+                    android:endColor="@color/green_dark_900"
                     android:angle="270" />
             </shape>
         </clip>

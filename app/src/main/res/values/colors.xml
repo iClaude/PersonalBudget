@@ -28,8 +28,12 @@
     <color name="label_giorni_futuri">#969696</color>
     <color name="listview_sfondo_grigio">#dddddd</color>
 
-    <color name="progressbar_green_primary">#4CAF50</color>
-    <color name="progressbar_green_dark">#388E3C</color>
-    <color name="progressbar_red_primay">#F44336</color>
-    <color name="progressbar_red_dark">#D32F2F</color>
+    <color name="green_primary">#4CAF50</color>
+    <color name="green_dark">#388E3C</color>
+    <color name="green_dark_900">#1B5E20</color>
+    <color name="red_primay">#F44336</color>
+    <color name="red_dark">#D32F2F</color>
+    <color name="red_dark_900">#B71C1C</color>
+
+
 </resources>
