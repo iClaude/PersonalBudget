@@ -8,11 +8,13 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -51,6 +53,7 @@ public class BudgetDetailsExpenses extends Fragment {
     // Constants.
     private static final String TAG = "BudgetDetailsExpenses";
     private static final String BUDGET_ID = "BUDGET_ID";
+    private final int[] tagsColors = {R.color.indigo_500, R.color.red_500, R.color.pink_500, R.color.purple_500, R.color.deep_purple_500, R.color.teal_500, R.color.orange_800, R.color.brown_500, R.color.green_600, R.color.cyan_900};
 
     private final List<ExpensesWithTag> list = new ArrayList<>();
     private Budget budget;
@@ -167,6 +170,10 @@ public class BudgetDetailsExpenses extends Fragment {
             public void bind(ExpensesWithTag expensesWithTag) {
                 // Diplay details of expenses grouped by tag.
                 iconeVeloci.loadBitmap(expensesWithTag.getIconId(), ivIcon, mPlaceHolderBitmap, 40, 40);
+                // Set the color of the tag dinamically preserving the rounded rectangle shape.
+                int tagColor = tagsColors[getAdapterPosition() % 10];
+                GradientDrawable bgShape = (GradientDrawable) tvTag.getBackground();
+                bgShape.setColor(ContextCompat.getColor(getActivity(), tagColor));
                 tvTag.setText(expensesWithTag.getTag());
                 tvTotal.setText(UtilityVarious.getFormattedAmount(expensesWithTag.getTotal(), getActivity()));
                 tvCount.setText(getResources().getQuantityString(R.plurals.budgets_num_expenses, expensesWithTag.getNumExpenses(), expensesWithTag.getNumExpenses()));

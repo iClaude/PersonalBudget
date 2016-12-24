@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -129,6 +129,7 @@ public class BudgetDetailsHistory extends Fragment {
             private final TextView tvPeriod;
             private final TextView tvTag;
             private final TextView tvSaved;
+            private final TextView tvPerc;
             private final ProgressBar pbBudget;
             private final TextView tvAmount;
             private final TextView tvSpent;
@@ -144,6 +145,7 @@ public class BudgetDetailsHistory extends Fragment {
                 tvPeriod = (TextView) view.findViewById(R.id.tvPeriod);
                 tvTag = (TextView) view.findViewById(R.id.tvTag);
                 tvSaved = (TextView) view.findViewById(R.id.tvSaved);
+                tvPerc = (TextView) view.findViewById(R.id.tvPerc);
                 pbBudget = (ProgressBar) view.findViewById(R.id.pbBudget);
                 tvAmount = (TextView) view.findViewById(R.id.tvAmount);
                 tvSpent = (TextView) view.findViewById(R.id.tvSpent);
@@ -228,7 +230,8 @@ public class BudgetDetailsHistory extends Fragment {
                     holder.ivIcon.setImageBitmap(redPig);
                 }
 
-                int perc = (int) ((budget.getExpenses() * 100) / budget.getAmount());
+                int perc = Math.min(((int) ((budget.getExpenses() * 100) / budget.getAmount())), 100);
+                holder.tvPerc.setText(getString(R.string.budget_dettaglio_speso) + ": " + perc + "%");
                 if (perc >= 100) {
                     holder.pbBudget.setProgressDrawable(ContextCompat.getDrawable(context, R.drawable.progressbar_accent));
                 } else {

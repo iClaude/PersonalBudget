@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  ~ Copyright (c) - Software developed by iClaude.
   -->
 
 <resources>
@@ -35,5 +35,16 @@
     <color name="red_dark">#D32F2F</color>
     <color name="red_dark_900">#B71C1C</color>
 
+    <!-- Colors for tags. -->
+    <color name="pink_500">#E91E63</color>
+    <color name="red_500">#F44336</color>
+    <color name="indigo_500">#3F51B5</color>
+    <color name="purple_500">#9C27B0</color>
+    <color name="deep_purple_500">#673AB7</color>
+    <color name="teal_500">#009688</color>
+    <color name="orange_800">#EF6C00</color>
+    <color name="brown_500">#795548</color>
+    <color name="green_600">#43A047</color>
+    <color name="cyan_900">#006064</color>
 
 </resources>
