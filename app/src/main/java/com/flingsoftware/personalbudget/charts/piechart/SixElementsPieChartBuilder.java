@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.charts.piechart;
@@ -28,13 +28,15 @@ import java.util.Locale;
  */
 
 public class SixElementsPieChartBuilder extends PieChartBuilder {
-    protected int colors[] = {Color.RED, Color.GREEN, Color.YELLOW, Color.BLUE, Color.MAGENTA, Color.GRAY};
-    private double totalAmount;
+    protected final int[] colors = {Color.RED, Color.GREEN, Color.YELLOW, Color.BLUE, Color.MAGENTA, Color.GRAY};
 
-    public void setTotalAmount(double totalAmount) {
-        this.totalAmount = totalAmount;
-    }
-
+    /*
+        In the SixElementPieChart we show only the 6 greatest elements, putting the remainder
+        in the 6th position under the tag "others".
+        First we sort the array, then create an array of 6 elements, copy the 5 greatest
+        elements in the first 5 position, and the rest is summed in the 6th position.
+        To do this we modify the array amountsAndLabels used by PieChartBuilder.
+     */
     @Override
     public void prepareData(AmountAndLabel[] amountsAndLabels) {
         Arrays.sort(amountsAndLabels);
@@ -47,7 +49,6 @@ public class SixElementsPieChartBuilder extends PieChartBuilder {
             } else {
                 newAmountsAndsLabels[i].setAmount(newAmountsAndsLabels[i].getAmount() + amountsAndLabels[i].getAmount());
             }
-            totalAmount = totalAmount + amountsAndLabels[i].getAmount();
         }
         if (amountsAndLabels.length > 6) {
             newAmountsAndsLabels[5].setLabel(getContext().getString(R.string.database_varie));
@@ -56,17 +57,19 @@ public class SixElementsPieChartBuilder extends PieChartBuilder {
         setAmountsAndLabels(newAmountsAndsLabels);
     }
 
+    // Special formatting for SixElementsPieChart.
     @Override
     public CategorySeries createCategorySeries() {
         AmountAndLabel[] amountsAndLabels = getAmountsAndLabels();
         CategorySeries distributionSeries = new CategorySeries("");
-        for (int i = 0; i < amountsAndLabels.length; i++) {
-            distributionSeries.add(amountsAndLabels[i].getLabel(), amountsAndLabels[i].getAmount() / totalAmount);
+        for (AmountAndLabel amountsAndLabel : amountsAndLabels) {
+            distributionSeries.add(amountsAndLabel.getLabel(), amountsAndLabel.getAmount() / getTotalAmount());
         }
 
         return distributionSeries;
     }
 
+    // Special formatting for SixElementsPieChart.
     @Override
     public DefaultRenderer createDefaultRenderer() {
         AmountAndLabel[] amountsAndLabel = getAmountsAndLabels();
@@ -103,12 +106,15 @@ public class SixElementsPieChartBuilder extends PieChartBuilder {
         return defaultRenderer;
     }
 
+    /*
+        Generic click listener for a pie chart: display the amount and percentage.
+     */
     @Override
     public void createOnClickListener() {
         final GraphicalView pieChart = getPieChart();
         pieChart.setOnClickListener(new View.OnClickListener() {
             int evidPrec = 0;
-            NumberFormat nfPerc = NumberFormat.getPercentInstance(Locale.getDefault());
+            final NumberFormat nfPerc = NumberFormat.getPercentInstance(Locale.getDefault());
 
             {
                 nfPerc.setMaximumFractionDigits(2);
@@ -125,7 +131,7 @@ public class SixElementsPieChartBuilder extends PieChartBuilder {
                     evidPrec = seriesIndex;
                     pieChart.repaint();
 
-                    Toast.makeText(getContext(), getContext().getString(R.string.statistiche_importo) + ": " + UtilityVarious.getFormattedAmount(getAmountsAndLabels()[seriesIndex].getAmount(), getContext()) + "\n" + getContext().getString(R.string.statistiche_percentuale) + ": " + nfPerc.format(getAmountsAndLabels()[seriesIndex].getAmount() / totalAmount), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getContext().getString(R.string.statistiche_importo) + ": " + UtilityVarious.getFormattedAmount(getAmountsAndLabels()[seriesIndex].getAmount(), getContext()) + "\n" + getContext().getString(R.string.statistiche_percentuale) + ": " + nfPerc.format(getAmountsAndLabels()[seriesIndex].getAmount() / getTotalAmount()), Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -22,14 +22,10 @@ public class BudgetPieChartBuilder extends SixElementsPieChartBuilder {
 
     @Override
     public void prepareData(AmountAndLabel[] amountsAndLabels) {
-        setAmountsAndLabels(amountsAndLabels);
-        double total = 0.0;
-        for (AmountAndLabel amountAndLabel : amountsAndLabels) {
-            total += amountAndLabel.getAmount();
-        }
-        setTotalAmount(total);
+        // the raw data is ok
     }
 
+    // Special formatting for BudgetPieChart (used in the BudgetDetails Activity.
     @Override
     public DefaultRenderer createDefaultRenderer() {
         AmountAndLabel[] amountsAndLabel = getAmountsAndLabels();

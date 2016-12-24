@@ -19,22 +19,29 @@ import org.achartengine.renderer.DefaultRenderer;
 public abstract class PieChartBuilder {
     // Variables.
     private GraphicalView pieChart;
+    private DefaultRenderer defaultRenderer;
     private AmountAndLabel amountsAndLabels[];
     private String title;
     private Context context;
-    private CategorySeries categorySeries;
-    private DefaultRenderer defaultRenderer;
+    private double totalAmount;
+
 
     public GraphicalView getPieChart() {
         return pieChart;
     }
 
+    /*
+        For BudgetPieChart the array amountsAndLabels consists of 2 elements: the amount spent and
+        the amount saved.
+     */
     public void createNewPieChart(Context context, AmountAndLabel[] amountsAndLabels, String title) {
-        this.context = context;
-        this.title = title;
+        setContext(context);
+        setTitle(title);
+        setAmountsAndLabels(amountsAndLabels);
 
+        setTotalAmount(calculateTotal(amountsAndLabels));
         prepareData(amountsAndLabels);
-        categorySeries = createCategorySeries();
+        CategorySeries categorySeries = createCategorySeries();
         defaultRenderer = createDefaultRenderer();
         pieChart = ChartFactory.getPieChartView(context, categorySeries, defaultRenderer);
         createOnClickListener();
@@ -53,8 +60,16 @@ public abstract class PieChartBuilder {
     public abstract void createOnClickListener();
 
     public float getMultText() {
-        float multText = getContext().getResources().getDisplayMetrics().density / 2;
-        return multText;
+        return getContext().getResources().getDisplayMetrics().density / 2;
+    }
+
+    private double calculateTotal(AmountAndLabel[] myAmountsAndLabels) {
+        double total = 0.0;
+        for (AmountAndLabel amountAndLabel : myAmountsAndLabels) {
+            total += amountAndLabel.getAmount();
+        }
+
+        return total;
     }
 
     // Setters and getters.
@@ -76,15 +91,23 @@ public abstract class PieChartBuilder {
         return defaultRenderer;
     }
 
-    public void setContext(Context context) {
+    public double getTotalAmount() {
+        return totalAmount;
+    }
+
+    private void setContext(Context context) {
         this.context = context;
     }
 
-    public void setTitle(String title) {
+    private void setTitle(String title) {
         this.title = title;
     }
 
     public void setAmountsAndLabels(AmountAndLabel[] amountsAndLabels) {
         this.amountsAndLabels = amountsAndLabels;
+    }
+
+    private void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
     }
 }

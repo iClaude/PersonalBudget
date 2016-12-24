@@ -1,8 +1,10 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.charts.piechart;
+
+import android.support.annotation.NonNull;
 
 /**
  * This class represents a couple of amount and corresponding label used in charts.
@@ -12,9 +14,6 @@ package com.flingsoftware.personalbudget.charts.piechart;
 public class AmountAndLabel implements Comparable<AmountAndLabel> {
     private double amount;
     private String label;
-
-    public AmountAndLabel() {
-    }
 
     public AmountAndLabel(String label, double amount) {
         this.label = label;
@@ -39,7 +38,7 @@ public class AmountAndLabel implements Comparable<AmountAndLabel> {
 
     // Implementation of Comparable interface (useful for ordering the arrays).
     @Override
-    public int compareTo(AmountAndLabel otherAmountAndLabel) {
+    public int compareTo(@NonNull AmountAndLabel otherAmountAndLabel) {
         return (int) (getAmount() - otherAmountAndLabel.getAmount());
     }
 }

@@ -19,5 +19,6 @@
 
     <!-- Others. -->
     <dimen name="tag_textview_marginright">4dp</dimen>
+    <dimen name="tag_textview_heigth">8dp</dimen>
 
 </resources>
