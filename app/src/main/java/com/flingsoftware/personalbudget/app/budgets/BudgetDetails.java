@@ -37,7 +37,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -114,8 +113,8 @@ public class BudgetDetails extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-            getWindow().setExitTransition(new Slide(Gravity.BOTTOM));
+            // When finish slide the Activity down with a transition.
+            getWindow().setReturnTransition(new Slide(Gravity.START));
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.budget_details);
@@ -423,7 +422,7 @@ public class BudgetDetails extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                supportFinishAfterTransition();
                 return true;
             case R.id.menu_budget_dettaglio_cancella:
                 delete();
@@ -495,7 +494,7 @@ public class BudgetDetails extends AppCompatActivity {
             Intent intRitorno = new Intent();
             intRitorno.putExtra(TIPO_OPERAZIONE, OPERAZIONE_ELIMINAZIONE);
             setResult(Activity.RESULT_OK, intRitorno);
-            finish();
+            supportFinishAfterTransition();
         }
 
         /*

@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  ~ Copyright (c) - Software developed by iClaude.
   -->
 
 <resources>
@@ -16,4 +16,8 @@
     <!-- Activity SpeseDettaglioVoce and EntrateDettaglioVoce. -->
     <dimen name="content_offset_y">100dp</dimen>
     <dimen name="cardview_horizontal_margin">8dp</dimen>
+
+    <!-- Others. -->
+    <dimen name="tag_textview_marginright">4dp</dimen>
+
 </resources>
