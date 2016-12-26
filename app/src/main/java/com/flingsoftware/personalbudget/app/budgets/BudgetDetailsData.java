@@ -128,4 +128,12 @@ public class BudgetDetailsData extends Fragment {
             llTags.addView(tvTag);
         }
     }
+
+    /*
+        Called from the BudgetDetails Activity when we have to reload data from the database (
+        when the budget has been edited).
+    */
+    public void reloadData() {
+        new GetBudgetDetailsTask().execute(budget.getId());
+    }
 }

@@ -776,7 +776,7 @@ public class BudgetModifica extends ActionBarActivity implements DatePickerFragm
 		
 		new AggiornaBudgetTask().execute((Object[]) null);
 		new AggiungiNuoveVociTask().execute((Object[]) null);
-		
+
 		conferma = true;
 		setResult(RESULT_OK);
 		finish();

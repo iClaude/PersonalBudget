@@ -328,4 +328,12 @@ public class BudgetDetailsExpenses extends Fragment {
             return expenses;
         }
     }
+
+    /*
+        Called from the BudgetDetails Activity when we have to reload data from the database (
+        when the budget has been edited).
+    */
+    public void reloadData() {
+        new GetExpensesTask().execute(budget.getId());
+    }
 }

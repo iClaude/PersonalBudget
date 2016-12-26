@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) - Software developed by iClaude.
+ */
+
 /**
  * NB. Le date del database sono memorizzate come campo INTEGER, in pratica valori long che rappresentano
  * il numero di secondi dal 1/1/1970.
@@ -6,18 +10,25 @@
 
 package com.flingsoftware.personalbudget.database;
 
-import static com.flingsoftware.personalbudget.database.StringheSQL.*;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
-import android.util.Log;
+import android.database.sqlite.SQLiteOpenHelper;
+
+import com.flingsoftware.personalbudget.R;
 
 import java.io.File;
 
-import com.flingsoftware.personalbudget.R;
+import static com.flingsoftware.personalbudget.database.StringheSQL.CREA_TABELLA_CONTI;
+import static com.flingsoftware.personalbudget.database.StringheSQL.CREA_TABELLA_ENTRATE_INC;
+import static com.flingsoftware.personalbudget.database.StringheSQL.CREA_TABELLA_ENTRATE_RIPET;
+import static com.flingsoftware.personalbudget.database.StringheSQL.CREA_TABELLA_ENTRATE_VOCI;
+import static com.flingsoftware.personalbudget.database.StringheSQL.CREA_TABELLA_SPESE_BUDGET;
+import static com.flingsoftware.personalbudget.database.StringheSQL.CREA_TABELLA_SPESE_RIPET;
+import static com.flingsoftware.personalbudget.database.StringheSQL.CREA_TABELLA_SPESE_SOST;
+import static com.flingsoftware.personalbudget.database.StringheSQL.CREA_TABELLA_SPESE_VOCI;
 
 
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
@@ -32,7 +43,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	
 	public DatabaseOpenHelper(Context context, String name, CursorFactory factory) {
 		super(context, name, factory, VERSIONE_APP);
-		
+
 		mioContext = context;
 	}
 			

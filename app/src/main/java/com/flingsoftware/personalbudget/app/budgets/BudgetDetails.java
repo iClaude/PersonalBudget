@@ -526,4 +526,15 @@ public class BudgetDetails extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RESULT_CODE_EDIT && resultCode == RESULT_OK) {
+            new GetBudgetDetailsTask().execute(id);
+            ((BudgetDetailsData) fragments[0]).reloadData();
+            ((BudgetDetailsExpenses) fragments[1]).reloadData();
+            ((BudgetDetailsHistory) fragments[2]).reloadData();
+        }
+    }
 }

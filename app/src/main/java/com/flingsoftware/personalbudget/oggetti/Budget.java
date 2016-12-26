@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.oggetti;
@@ -174,6 +174,7 @@ public class Budget implements Parcelable {
      */
     public static Budget makeBudgetFromCursor(Cursor cursor, Context context) {
         Budget budget = new Budget();
+        budget.setId(cursor.getLong(cursor.getColumnIndex("_id")));
         budget.setTag(cursor.getString(cursor.getColumnIndex("voce")));
         budget.setAmount(cursor.getDouble(cursor.getColumnIndex("importo_valprin")));
         budget.setRepetition(cursor.getString(cursor.getColumnIndex("ripetizione")));

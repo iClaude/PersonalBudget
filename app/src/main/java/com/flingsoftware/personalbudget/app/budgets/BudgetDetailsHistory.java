@@ -245,4 +245,12 @@ public class BudgetDetailsHistory extends Fragment {
             }
         }
     }
+
+    /*
+        Called from the BudgetDetails Activity when we have to reload data from the database (
+        when the budget has been edited).
+    */
+    public void reloadData() {
+        new GetBudgetHistoryTask().execute(budgetId);
+    }
 }
