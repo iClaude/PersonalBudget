@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.database;
@@ -10,7 +10,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import static com.flingsoftware.personalbudget.database.DatabaseOpenHelper.sDataLock;
+import static com.flingsoftware.personalbudget.database.DatabaseOpenHelperWrapper.sDataLock;
 
 /**
  * Abstract class for repeated expenses/earnings.
@@ -34,25 +34,25 @@ public abstract class DBCExpEarRepeatedAbs {
 
     // Variables.
     protected SQLiteDatabase mioSQLiteDatabase;
-    protected DatabaseOpenHelper mioDatabaseOpenHelper;
 
 
     public DBCExpEarRepeatedAbs(Context context) {
-        mioDatabaseOpenHelper = new DatabaseOpenHelper(context, DatabaseOpenHelper.NOME_DATABASE, null);
+
     }
 
     public void openModifica() throws SQLException {
-        mioSQLiteDatabase = mioDatabaseOpenHelper.getWritableDatabase();
+        mioSQLiteDatabase = DatabaseOpenHelperWrapper.getDatabase();
         mioSQLiteDatabase.execSQL("PRAGMA foreign_keys=ON;");
     }
 
     public void openLettura() throws SQLException {
-        mioSQLiteDatabase = mioDatabaseOpenHelper.getReadableDatabase();
+        mioSQLiteDatabase = DatabaseOpenHelperWrapper.getDatabase();
     }
 
     public void close() {
-        if (mioSQLiteDatabase != null)
-            mioSQLiteDatabase.close();
+        // Do nothing because Android closes the database automatically.
+        /*if (mioSQLiteDatabase != null)
+            mioSQLiteDatabase.close();*/
     }
 
 

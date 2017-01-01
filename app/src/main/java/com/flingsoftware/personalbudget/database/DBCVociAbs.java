@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.database;
@@ -16,28 +16,28 @@ import android.database.sqlite.SQLiteDatabase;
 public abstract class DBCVociAbs {
     // Variabili d'istanza (quelle protected sono utilizzabili anche dalle sottoclassi).
     protected SQLiteDatabase mioSQLiteDatabase;
-    protected DatabaseOpenHelper mioDatabaseOpenHelper;
 
 
     public DBCVociAbs(Context context) {
-        mioDatabaseOpenHelper = new DatabaseOpenHelper(context, DatabaseOpenHelper.NOME_DATABASE, null);
+
     }
 
 
     public void openModifica() throws SQLException {
-        mioSQLiteDatabase = mioDatabaseOpenHelper.getWritableDatabase();
+        mioSQLiteDatabase = DatabaseOpenHelperWrapper.getDatabase();
         mioSQLiteDatabase.execSQL("PRAGMA foreign_keys=ON;"); // bisogna abilitare le foreign keys qui
     }
 
 
     public void openLettura() throws SQLException {
-        mioSQLiteDatabase = mioDatabaseOpenHelper.getReadableDatabase();
+        mioSQLiteDatabase = DatabaseOpenHelperWrapper.getDatabase();
     }
 
 
     public void close() {
-        if (mioSQLiteDatabase != null)
-            mioSQLiteDatabase.close();
+        // Android closes the database automatically for you.
+/*        if (mioSQLiteDatabase != null)
+            mioSQLiteDatabase.close();*/
     }
 
 

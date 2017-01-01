@@ -273,6 +273,7 @@ public class BudgetDetailsExpenses extends Fragment {
             String queryParent = createQueryForParent();
             dbcSpeseSostenute.openLettura();
             Cursor parentCursor = dbcSpeseSostenute.getSpeseSostenuteIntervalloSpeseXYZTotaliPerDataOVoce(queryParent, null);
+            list.clear();
             ((ArrayList) list).ensureCapacity(parentCursor.getCount());
             while (parentCursor.moveToNext()) {
                 String tag = parentCursor.getString(parentCursor.getColumnIndex("voce"));

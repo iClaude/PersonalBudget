@@ -48,21 +48,21 @@ public class FunzioniAggiornamento {
 	
 	public FunzioniAggiornamento(Context context) {
 		this.mioContext = context;
-		mioDatabaseOpenHelper = new DatabaseOpenHelper(mioContext, DatabaseOpenHelper.NOME_DATABASE, null);
 	}
 	
 	public void openModifica() throws SQLException {
-		mioSQLiteDatabase = mioDatabaseOpenHelper.getWritableDatabase();
+		mioSQLiteDatabase = DatabaseOpenHelperWrapper.getDatabase();
 		mioSQLiteDatabase.execSQL("PRAGMA foreign_keys=ON;"); // bisogna abilitare le foreign keys qui
 	}
 	
 	public void openLettura() throws SQLException {
-		mioSQLiteDatabase = mioDatabaseOpenHelper.getReadableDatabase();
+		mioSQLiteDatabase = DatabaseOpenHelperWrapper.getDatabase();
 	}
 	
 	public void close() {
-		if(mioSQLiteDatabase != null)
-			mioSQLiteDatabase.close();
+		// Android closes the database automatically for you.
+		/*if(mioSQLiteDatabase != null)
+			mioSQLiteDatabase.close();*/
 	}
 	
 	
@@ -769,7 +769,6 @@ public class FunzioniAggiornamento {
 		
 	// variabili d'istanza
 	private SQLiteDatabase mioSQLiteDatabase;
-	private DatabaseOpenHelper mioDatabaseOpenHelper;
 	private Context mioContext;
 	private Long oggi;
 }

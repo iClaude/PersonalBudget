@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.database;
@@ -9,7 +9,7 @@ import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import static com.flingsoftware.personalbudget.database.DatabaseOpenHelper.sDataLock;
+import static com.flingsoftware.personalbudget.database.DatabaseOpenHelperWrapper.sDataLock;
 
 
 /**
@@ -21,25 +21,25 @@ public abstract class DBCExpEarAbs {
 
     // Variables.
     protected SQLiteDatabase mioSQLiteDatabase;
-    protected DatabaseOpenHelper mioDatabaseOpenHelper;
 
 
     public DBCExpEarAbs(Context context) {
-        mioDatabaseOpenHelper = new DatabaseOpenHelper(context, DatabaseOpenHelper.NOME_DATABASE, null);
+
     }
 
     public void openModifica() throws SQLException {
-        mioSQLiteDatabase = mioDatabaseOpenHelper.getWritableDatabase();
+        mioSQLiteDatabase = DatabaseOpenHelperWrapper.getDatabase();
         mioSQLiteDatabase.execSQL("PRAGMA foreign_keys=ON;");
     }
 
     public void openLettura() throws SQLException {
-        mioSQLiteDatabase = mioDatabaseOpenHelper.getReadableDatabase();
+        mioSQLiteDatabase = DatabaseOpenHelperWrapper.getDatabase();
     }
 
     public void close() {
-        if (mioSQLiteDatabase != null)
-            mioSQLiteDatabase.close();
+        // Do nothing because Android closes the database automatically for you.
+        /*if (mioSQLiteDatabase != null)
+            mioSQLiteDatabase.close();*/
     }
 
 
@@ -72,6 +72,7 @@ public abstract class DBCExpEarAbs {
         nuovoContact.put("ripetizione_id", repetitionId);
         nuovoContact.put("conto", account);
         nuovoContact.put("favorite", favorite);
+
 
         synchronized (sDataLock) {
             openModifica();

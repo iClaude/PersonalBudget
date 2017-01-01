@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 /**
@@ -15,7 +15,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-import static com.flingsoftware.personalbudget.database.DatabaseOpenHelper.sDataLock;
+import static com.flingsoftware.personalbudget.database.DatabaseOpenHelperWrapper.sDataLock;
 import static com.flingsoftware.personalbudget.database.StringheSQL.ENTRATE_VOCI_VOCI_CONTENENTI_STRINGA;
 
 

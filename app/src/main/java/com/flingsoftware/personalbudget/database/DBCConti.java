@@ -1,36 +1,41 @@
+/*
+ * Copyright (c) - Software developed by iClaude.
+ */
+
 package com.flingsoftware.personalbudget.database;
 
-import static com.flingsoftware.personalbudget.database.DatabaseOpenHelper.sDataLock;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import static com.flingsoftware.personalbudget.database.DatabaseOpenHelperWrapper.sDataLock;
+
 
 public class DBCConti {
 
 	// variabili d'istanza
 	private SQLiteDatabase mioSQLiteDatabase;
-	private DatabaseOpenHelper mioDatabaseOpenHelper;
-	
+
 	
 	public DBCConti(Context context) {
-		mioDatabaseOpenHelper = new DatabaseOpenHelper(context, DatabaseOpenHelper.NOME_DATABASE, null);
+
 	}
 	
 	public void openModifica() throws SQLException {
-		mioSQLiteDatabase = mioDatabaseOpenHelper.getWritableDatabase();
+		mioSQLiteDatabase = DatabaseOpenHelperWrapper.getDatabase();
 		mioSQLiteDatabase.execSQL("PRAGMA foreign_keys=ON;"); // bisogna abilitare le foreign keys qui
 	}
 	
 	public void openLettura() throws SQLException {
-		mioSQLiteDatabase = mioDatabaseOpenHelper.getReadableDatabase();
+		mioSQLiteDatabase = DatabaseOpenHelperWrapper.getDatabase();
 	}
 	
 	public void close() {
-		if(mioSQLiteDatabase != null)
-			mioSQLiteDatabase.close();
+		// Do nothing, because Android closes the database automatically for you.
+/*		if(mioSQLiteDatabase != null)
+			mioSQLiteDatabase.close();*/
 	}
 	
 	/**

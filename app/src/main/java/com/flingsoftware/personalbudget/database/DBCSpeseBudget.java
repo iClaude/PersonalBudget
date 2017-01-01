@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) - Software developed by iClaude.
+ */
+
 /**
  * Gestione tabella spese_budget
  * Funzionamento del database:
@@ -7,39 +11,52 @@
  */
 package com.flingsoftware.personalbudget.database;
 
-import static com.flingsoftware.personalbudget.database.DatabaseOpenHelper.sDataLock;
-import static com.flingsoftware.personalbudget.database.StringheSQL.*;
-
-import java.util.StringTokenizer;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.StringTokenizer;
+
+import static com.flingsoftware.personalbudget.database.DatabaseOpenHelperWrapper.sDataLock;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_BUDGET_ELENCO_ANNUALE;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_BUDGET_ELENCO_BISETTIMANALE;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_BUDGET_ELENCO_BUDGET_ANALOGHI;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_BUDGET_ELENCO_BUDGET_CONTENENTI_VOCE;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_BUDGET_ELENCO_BUDGET_SCADUTI_O_QUASI;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_BUDGET_ELENCO_COMPLETO;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_BUDGET_ELENCO_COMPLETO_GREZZO;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_BUDGET_ELENCO_GIORNALIERO;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_BUDGET_ELENCO_MENSILE;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_BUDGET_ELENCO_NON_SCADUTI;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_BUDGET_ELENCO_NON_SCADUTI_FILTRATO;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_BUDGET_ELENCO_SETTIMANALE;
+import static com.flingsoftware.personalbudget.database.StringheSQL.SPESE_BUDGET_ELENCO_UNA_TANTUM;
+
 
 public class DBCSpeseBudget {
 	
 	public DBCSpeseBudget(Context context) {
-		mioDatabaseOpenHelper = new DatabaseOpenHelper(context, DatabaseOpenHelper.NOME_DATABASE, null);
+
 	}
 	
 	
 	public void openModifica() throws SQLException {
-		mioSQLiteDatabase = mioDatabaseOpenHelper.getWritableDatabase();
+		mioSQLiteDatabase = DatabaseOpenHelperWrapper.getDatabase();
 		mioSQLiteDatabase.execSQL("PRAGMA foreign_keys=ON;"); // bisogna abilitare le foreign keys qui
 	}
 	
 	
 	public void openLettura() throws SQLException {
-		mioSQLiteDatabase = mioDatabaseOpenHelper.getReadableDatabase();
+		mioSQLiteDatabase = DatabaseOpenHelperWrapper.getDatabase();
 	}
 	
 	
 	public void close() {
-		if(mioSQLiteDatabase != null)
-			mioSQLiteDatabase.close();
+		// No need to close the database because Android does that automatically for you.
+		/*if(mioSQLiteDatabase != null)
+			mioSQLiteDatabase.close();*/
 	}
 	
 	
@@ -409,6 +426,5 @@ public class DBCSpeseBudget {
 	
 	// variabili d'istanza
 	private SQLiteDatabase mioSQLiteDatabase;
-	private DatabaseOpenHelper mioDatabaseOpenHelper;
 }
 

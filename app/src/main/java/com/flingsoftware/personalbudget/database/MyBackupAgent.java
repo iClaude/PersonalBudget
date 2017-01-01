@@ -1,16 +1,20 @@
+/*
+ * Copyright (c) - Software developed by iClaude.
+ */
+
 package com.flingsoftware.personalbudget.database;
+
+import android.app.backup.BackupAgentHelper;
+import android.app.backup.BackupDataInput;
+import android.app.backup.BackupDataOutput;
+import android.app.backup.FileBackupHelper;
+import android.os.ParcelFileDescriptor;
 
 import java.io.File;
 import java.io.IOException;
 
-import android.app.backup.BackupAgentHelper;
-import android.app.backup.FileBackupHelper;
-import android.app.backup.BackupDataOutput;
-import android.app.backup.BackupDataInput;
-import android.os.ParcelFileDescriptor;
-
-import static com.flingsoftware.personalbudget.database.DatabaseOpenHelper.NOME_DATABASE;
-import static com.flingsoftware.personalbudget.database.DatabaseOpenHelper.sDataLock;
+import static com.flingsoftware.personalbudget.database.DatabaseOpenHelperWrapper.NOME_DATABASE;
+import static com.flingsoftware.personalbudget.database.DatabaseOpenHelperWrapper.sDataLock;
 
 
 public class MyBackupAgent extends BackupAgentHelper {
