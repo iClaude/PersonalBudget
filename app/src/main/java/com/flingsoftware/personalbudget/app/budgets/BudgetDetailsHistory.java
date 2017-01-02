@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -16,6 +16,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,9 +40,10 @@ import java.util.List;
  * Fragment used to display the history of budgets of the same type of this one.
  */
 
-public class BudgetDetailsHistory extends Fragment {
+public class BudgetDetailsHistory extends Fragment implements BudgetDetails.ReloadingData {
 
     // Constants.
+    private static final String TAG = "BUDGETS";
     private static final String BUDGET_ID = "BUDGET_ID";
 
     // Variables.
@@ -75,6 +77,7 @@ public class BudgetDetailsHistory extends Fragment {
         View view = inflater.inflate(R.layout.budget_history, container, false);
 
         // Get the budgets' history.
+        Log.d(TAG, "Fragment History reload data");
         new GetBudgetHistoryTask().execute(budgetId);
 
         // Set up RecyclerView.
@@ -250,7 +253,9 @@ public class BudgetDetailsHistory extends Fragment {
         Called from the BudgetDetails Activity when we have to reload data from the database (
         when the budget has been edited).
     */
+    @Override
     public void reloadData() {
+        Log.d(TAG, "Fragment History reload data");
         new GetBudgetHistoryTask().execute(budgetId);
     }
 }

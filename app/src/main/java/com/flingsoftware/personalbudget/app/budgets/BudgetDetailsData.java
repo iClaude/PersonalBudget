@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,9 +30,10 @@ import java.util.List;
 /**
  * Fragment used to display data in the Activity of budget details.
  */
-public class BudgetDetailsData extends Fragment {
+public class BudgetDetailsData extends Fragment implements BudgetDetails.ReloadingData {
 
     // Constants.
+    private static final String TAG = "BUDGETS";
     private static final String KEY_ID = "KEY_ID";
 
     // Variables.
@@ -68,6 +70,7 @@ public class BudgetDetailsData extends Fragment {
         tvDate = (TextView) view.findViewById(R.id.tvDate);
         ivAddSavings = (ImageView) view.findViewById(R.id.ivAddSavings);
 
+        Log.d(TAG, "Fragment Data reload data");
         new GetBudgetDetailsTask().execute(id);
 
         return view;
@@ -133,7 +136,9 @@ public class BudgetDetailsData extends Fragment {
         Called from the BudgetDetails Activity when we have to reload data from the database (
         when the budget has been edited).
     */
+    @Override
     public void reloadData() {
+        Log.d(TAG, "Fragment Data reload data");
         new GetBudgetDetailsTask().execute(budget.getId());
     }
 }

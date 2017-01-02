@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -18,6 +18,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,10 +49,10 @@ import java.util.List;
  * Activity.
  */
 
-public class BudgetDetailsExpenses extends Fragment {
+public class BudgetDetailsExpenses extends Fragment implements BudgetDetails.ReloadingData {
 
     // Constants.
-    private static final String TAG = "BudgetDetailsExpenses";
+    private static final String TAG = "BUDGETS";
     private static final String BUDGET_ID = "BUDGET_ID";
     private final int[] tagsColors = {R.color.indigo_500, R.color.red_500, R.color.pink_500, R.color.purple_500, R.color.deep_purple_500, R.color.teal_500, R.color.orange_800, R.color.brown_500, R.color.green_600, R.color.cyan_900};
 
@@ -83,6 +84,7 @@ public class BudgetDetailsExpenses extends Fragment {
         iconeVeloci = new ListViewIconeVeloce(getActivity());
         new PlaceHolderWorkerTask().execute(R.drawable.tag_0);
         //endregion
+        Log.d(TAG, "Fragments Expenses reload data");
         new GetExpensesTask().execute(budgetId);
     }
 
@@ -334,7 +336,9 @@ public class BudgetDetailsExpenses extends Fragment {
         Called from the BudgetDetails Activity when we have to reload data from the database (
         when the budget has been edited).
     */
+    @Override
     public void reloadData() {
+        Log.d(TAG, "Fragment Expenses reload data");
         new GetExpensesTask().execute(budget.getId());
     }
 }

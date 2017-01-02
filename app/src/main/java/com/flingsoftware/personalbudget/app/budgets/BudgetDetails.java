@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -31,6 +31,7 @@ import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.transition.Slide;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -74,7 +75,7 @@ import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVa
 public class BudgetDetails extends AppCompatActivity {
 
     // Constants.
-    private static final String TAG = "BudgetDetails";
+    private static final String TAG = "BUDGETS";
     private static final String KEY_ID = "KEY_ID";
     public static final String KEY_BUDGET = "KEY_BUDGET";
     private static final int RESULT_CODE_EDIT = 0;
@@ -101,6 +102,14 @@ public class BudgetDetails extends AppCompatActivity {
     private boolean fabVisible = true;
     private boolean appbarExpanded = true;
 
+
+    /*
+        Fragments in this Activity must implement this interface which is used to reload data
+        from this Activity when a budget is edited.
+     */
+    public interface ReloadingData {
+        void reloadData();
+    }
 
     // Factory method to create an Intent to start this Activity.
     public static Intent makeIntent(Context context, long id) {
@@ -531,10 +540,13 @@ public class BudgetDetails extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RESULT_CODE_EDIT && resultCode == RESULT_OK) {
+            Log.d(TAG, "Activity reload data");
             new GetBudgetDetailsTask().execute(id);
-            ((BudgetDetailsData) fragments[0]).reloadData();
-            ((BudgetDetailsExpenses) fragments[1]).reloadData();
-            ((BudgetDetailsHistory) fragments[2]).reloadData();
+            // Update only active Fragments (one to the left, one to the right.
+            int currFrag = viewPager.getCurrentItem();
+            ((ReloadingData) fragments[currFrag]).reloadData();
+            if ((currFrag + 1) <= 2) ((ReloadingData) fragments[currFrag + 1]).reloadData();
+            if ((currFrag - 1) >= 0) ((ReloadingData) fragments[currFrag - 1]).reloadData();
         }
     }
 }

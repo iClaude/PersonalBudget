@@ -1,12 +1,4 @@
-Sistemare budget analoghi:
-- dettagli budget (altra scheda): la seconda icona ha qualche bug di visualizzazione
-
-Elenco spese incluse (fragment 2):
-0) layout parent e child (vedi foglio appunti)
-1) struttura classi per usare expandablerecyclerview: continua da 2ndo view holder
-2) codice per scaricare i dati dal database
-3) codice per visualizzare i dati
-
-Altro:
-- passare da singoli parametri a POJO in: magari anche in spese/entrate dettagli
+Sistemare:
+- riverificare aggiornamento budget: thread lanciati e vari tipi di modifiche
+- layout budget quando non ci sono dati (history)
 
