@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -18,7 +18,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,7 +83,6 @@ public class BudgetDetailsExpenses extends Fragment implements BudgetDetails.Rel
         iconeVeloci = new ListViewIconeVeloce(getActivity());
         new PlaceHolderWorkerTask().execute(R.drawable.tag_0);
         //endregion
-        Log.d(TAG, "Fragments Expenses reload data");
         new GetExpensesTask().execute(budgetId);
     }
 
@@ -338,7 +336,6 @@ public class BudgetDetailsExpenses extends Fragment implements BudgetDetails.Rel
     */
     @Override
     public void reloadData() {
-        Log.d(TAG, "Fragment Expenses reload data");
         new GetExpensesTask().execute(budget.getId());
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -11,7 +11,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +69,6 @@ public class BudgetDetailsData extends Fragment implements BudgetDetails.Reloadi
         tvDate = (TextView) view.findViewById(R.id.tvDate);
         ivAddSavings = (ImageView) view.findViewById(R.id.ivAddSavings);
 
-        Log.d(TAG, "Fragment Data reload data");
         new GetBudgetDetailsTask().execute(id);
 
         return view;
@@ -118,6 +116,7 @@ public class BudgetDetailsData extends Fragment implements BudgetDetails.Reloadi
     private void displayTags() {
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         List<String> tags = UtilityVarious.createTagsList(budget.getTag());
+        llTags.removeAllViews();
         for (int i = 0; i < tags.size(); i++) {
             TextView tvTag = (TextView) inflater.inflate(R.layout.tag_text_view, null);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -138,7 +137,6 @@ public class BudgetDetailsData extends Fragment implements BudgetDetails.Reloadi
     */
     @Override
     public void reloadData() {
-        Log.d(TAG, "Fragment Data reload data");
         new GetBudgetDetailsTask().execute(budget.getId());
     }
 }

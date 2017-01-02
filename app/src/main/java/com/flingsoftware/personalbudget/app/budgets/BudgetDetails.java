@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -31,7 +31,6 @@ import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.transition.Slide;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -97,6 +96,7 @@ public class BudgetDetails extends AppCompatActivity {
     private Budget budget;
     private long id;
     private String budgetType;
+    private long imageDisplayedId = -1; // currently displayed image
     // Graphics and multimedia.
     private SoundEffectsManager soundEffectsManager;
     private boolean fabVisible = true;
@@ -286,6 +286,7 @@ public class BudgetDetails extends AppCompatActivity {
         PieChartBuilder pieChartBuilder = new BudgetPieChartBuilder();
         pieChartBuilder.createNewPieChart(BudgetDetails.this, amountsAndLabels, getString(R.string.budgets_chart_title));
         GraphicalView pieChart = pieChartBuilder.getPieChart();
+        llChart.removeAllViews();
         llChart.addView(pieChart);
     }
 
@@ -309,6 +310,10 @@ public class BudgetDetails extends AppCompatActivity {
             curVoci.close();
             dbcVociAbs.close();
 
+            if (iconaId == imageDisplayedId)
+                return null; // the image has not changed after a budget's update
+            imageDisplayedId = iconaId; // update currently displayed image id
+
             // Create a blurred image representing the icon.
             Bitmap origBitmap = ListViewIconeVeloce.decodeSampledBitmapFromResource(getResources(), iconaIdDef, 128, 128);
             Bitmap blurredBitmap = BlurBuilder.blur(BudgetDetails.this, origBitmap);
@@ -320,12 +325,15 @@ public class BudgetDetails extends AppCompatActivity {
         }
 
         protected void onPostExecute(Bitmap myBitmap) {
-            ImageView ivHeader = (ImageView) findViewById(R.id.appbar_image2);
+            if (myBitmap == null) return;
+
+            ViewSwitcher viewSwitcher = (ViewSwitcher) findViewById(R.id.vsHeader);
+            int imageViewId = viewSwitcher.getDisplayedChild() == 0 ? R.id.appbar_image2 : R.id.appbar_image1;
+            ImageView ivHeader = (ImageView) findViewById(imageViewId);
             ivHeader.setImageBitmap(myBitmap);
             ivHeader.setBackgroundColor(Color.rgb(Color.red(backgroundColor), Color.green(backgroundColor), Color.blue(backgroundColor)));
 
             // Show the header image with a fadein-fadeout animation.
-            ViewSwitcher viewSwitcher = (ViewSwitcher) findViewById(R.id.vsHeader);
             viewSwitcher.showNext();
         }
     }
@@ -540,8 +548,8 @@ public class BudgetDetails extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RESULT_CODE_EDIT && resultCode == RESULT_OK) {
-            Log.d(TAG, "Activity reload data");
             new GetBudgetDetailsTask().execute(id);
+            displayPieChart();
             // Update only active Fragments (one to the left, one to the right.
             int currFrag = viewPager.getCurrentItem();
             ((ReloadingData) fragments[currFrag]).reloadData();
