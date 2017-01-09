@@ -159,7 +159,7 @@ public class BudgetDetailsHistory extends Fragment implements BudgetDetails.Relo
                 tvBudgetType = (TextView) view.findViewById(R.id.tvBudgetType);
                 tvEndDate = (TextView) view.findViewById(R.id.tvEndDate);
                 tvShowHide = (TextView) view.findViewById(R.id.tvShowHide);
-                vExpandedContent = view.findViewById(R.id.data_expanded);
+                vExpandedContent = view.findViewById(R.id.layout_expanded);
                 vExpandedContent.setVisibility(View.GONE);
                 ivIcon = (ImageView) view.findViewById(R.id.ivIcon);
 
@@ -224,7 +224,8 @@ public class BudgetDetailsHistory extends Fragment implements BudgetDetails.Relo
                 String period = dateFormat.format
                         (new Date(budget.getDateStart())) + " - " + dateFormat.format(new Date(budget.getDateEnd()));
                 holder.tvPeriod.setText(period);
-                holder.tvTag.setText(budget.getTag());
+                String tag = budget.getTag().contains(",") ? getString(R.string.budgets_history_multiple) : budget.getTag();
+                holder.tvTag.setText(tag);
                 double saved = budget.getAmount() - budget.getExpenses();
                 holder.tvSaved.setText(UtilityVarious.getFormattedAmountBudgetSavings(saved, context), TextView.BufferType.SPANNABLE);
                 if (saved >= 0) {

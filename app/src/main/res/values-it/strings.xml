@@ -576,4 +576,5 @@
     <string name="budgets_chart_spent">speso</string>
     <string name="budgets_chart_left">resto</string>
     <string name="budgets_chart_title">Budget</string>
+    <string name="budgets_history_multiple">multipli</string>
 </resources>
