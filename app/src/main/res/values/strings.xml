@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) - Software developed by iClaude.
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
   -->
 
 <resources>
@@ -12,6 +12,7 @@
     <!-- Generici -->
     <string name="elimina">Delete</string>
     <string name="di">of</string>
+    <string name="generic_loading_data">caricamento...</string>
 
     <!-- Not yet classified -->
     <string name="app_name">Personal Budget</string>

@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) - Software developed by iClaude.
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
   -->
 
 <resources>
@@ -9,9 +9,10 @@
     <string name="miv_mod1_title">MARSHMALLOW</string>
     <string name="miv_mod1_text">Supporto ad Android 6 Marshmallow: nuova gestione permessi, backup automatico delle preferenze e del database.</string>
 
-    <!-- Generici -->
+    <!-- Generic -->
     <string name="elimina">Elimina</string>
     <string name="di">di</string>
+    <string name="generic_loading_data">loading data...</string>
 
     <!-- Not yet classified -->
     <string name="app_name">Personal Budget</string>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) - Software developed by iClaude.
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -8,11 +8,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:text="@string/generic_loading_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvLoading"
+        android:textAlignment="center"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:visibility="visible" />
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
         android:id="@+id/rvBudgets"
         tools:listitem="@layout/budget_history_item"
-        android:layout_margin="4dp" />
+        android:layout_margin="4dp"
+        android:visibility="gone" />
 </LinearLayout>

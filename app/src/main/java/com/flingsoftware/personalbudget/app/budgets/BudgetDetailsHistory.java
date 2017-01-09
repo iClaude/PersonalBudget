@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -51,6 +51,7 @@ public class BudgetDetailsHistory extends Fragment implements BudgetDetails.Relo
     private Bitmap greenPig;
 
     // Widgets and layout.
+    private TextView tvLoading;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
 
@@ -78,6 +79,7 @@ public class BudgetDetailsHistory extends Fragment implements BudgetDetails.Relo
         // Get the budgets' history.
         new GetBudgetHistoryTask().execute(budgetId);
 
+        tvLoading = (TextView) view.findViewById(R.id.tvLoading);
         // Set up RecyclerView.
         recyclerView = (RecyclerView) view.findViewById(R.id.rvBudgets);
         recyclerView.setHasFixedSize(true);
@@ -118,7 +120,11 @@ public class BudgetDetailsHistory extends Fragment implements BudgetDetails.Relo
         }
 
         protected void onPostExecute(Void nothing) {
-            ((BudgetAdapter) adapter).setList(listBudget);
+            if (listBudget.size() > 0) {
+                recyclerView.setVisibility(View.VISIBLE);
+                tvLoading.setVisibility(View.GONE);
+                ((BudgetAdapter) adapter).setList(listBudget);
+            }
         }
     }
 
