@@ -162,7 +162,6 @@ public class BudgetDetailsHistory extends Fragment implements BudgetDetails.Relo
                 vExpandedContent = view.findViewById(R.id.layout_expanded);
                 vExpandedContent.setVisibility(View.GONE);
                 ivIcon = (ImageView) view.findViewById(R.id.ivIcon);
-
                 ibShowHide = (ImageButton) view.findViewById(R.id.ibShowHide);
                 ibShowHide.setOnClickListener(new View.OnClickListener() {
                                                   boolean collapsed = true;

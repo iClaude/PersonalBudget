@@ -12,7 +12,7 @@
     android:layout_height="wrap_content"
     android:paddingTop="8dp"
     android:paddingBottom="8dp"
-    android:background="@color/primary_light">
+    android:background="@drawable/background_primarylight_roundcorners">
 
     <ImageView
         android:src="@drawable/ic_action_view_as_list"
@@ -23,10 +23,9 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginStart="12dp"
-        android:layout_marginLeft="12dp"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="" />
+        android:contentDescription=""
+        android:layout_marginTop="4dp" />
 
     <TextView
         android:text="@string/budget_dettaglio_importo"
@@ -43,8 +42,8 @@
         android:text="@string/provv_importoValutaZero"
         app:layout_constraintTop_toTopOf="@+id/textView18"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginEnd="12dp"
-        android:layout_marginRight="12dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -69,8 +68,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvSpent"
-        android:layout_marginEnd="12dp"
-        android:layout_marginRight="12dp" />
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp" />
 
     <TextView
         android:text="@string/budget_dettaglio_tipoBudget"
@@ -87,8 +86,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/tvBudgetType"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginEnd="12dp"
-        android:layout_marginRight="12dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
         app:layout_constraintTop_toTopOf="@+id/textView22" />
 
     <TextView
@@ -107,8 +106,8 @@
         android:id="@+id/tvEndDate"
         app:layout_constraintTop_toTopOf="@+id/textView24"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginEnd="12dp"
-        android:layout_marginRight="12dp" />
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp" />
 
 
 </android.support.constraint.ConstraintLayout>
