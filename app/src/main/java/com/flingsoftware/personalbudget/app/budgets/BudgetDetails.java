@@ -140,6 +140,9 @@ public class BudgetDetails extends AppCompatActivity {
         // Fragments.
         setupFragments();
 
+        // BottomSheet.
+        setupBottomSheet();
+
         // Get expense/earning details and display them.
         getDetails();
 
@@ -166,9 +169,6 @@ public class BudgetDetails extends AppCompatActivity {
         fabEdit = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         TextView tvHint = (TextView) findViewById(R.id.tvHint);
         tvHint.setOnClickListener(ExpandCollapseListener);
-        llChart = (LinearLayout) findViewById(R.id.llChart);
-        bottomSheetViewgroup = (ConstraintLayout) findViewById(R.id.clBottomSheet);
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetViewgroup);
     }
 
     // Set up app bar layout and behavior.
@@ -191,29 +191,6 @@ public class BudgetDetails extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         BudgetFragmentPagerAdapter fragmentAdapter = new BudgetFragmentPagerAdapter(getSupportFragmentManager(), this);
         viewPager.setAdapter(fragmentAdapter);
-        // Hide the FAB when showing the expenses and history fragments.
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (position == 0) {
-                    if (appbarExpanded && !fabVisible) {
-                        fabEdit.show();
-                        fabVisible = true;
-                    }
-                } else {
-                    fabEdit.hide();
-                    fabVisible = false;
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });
         // Give the TabLayout the ViewPager
         tabLayout = (TabLayout) findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
@@ -223,6 +200,27 @@ public class BudgetDetails extends AppCompatActivity {
             TabLayout.Tab tab = tabLayout.getTabAt(i);
             tab.setCustomView(fragmentAdapter.getTabView(i));
         }
+    }
+
+    // Setup BottomSheet and related actions.
+    private void setupBottomSheet() {
+        llChart = (LinearLayout) findViewById(R.id.llChart);
+        bottomSheetViewgroup = (ConstraintLayout) findViewById(R.id.clBottomSheet);
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetViewgroup);
+
+        // Shrink the FAB when the BottomSheet slides up, and viceversa.
+        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(View bottomSheet, int newState) {
+            }
+
+            @Override
+            public void onSlide(View bottomSheet, float slideOffset) {
+                if (slideOffset >= 0) {
+                    fabEdit.animate().scaleX(1 - slideOffset).scaleY(1 - slideOffset).setDuration(0).start();
+                }
+            }
+        });
     }
 
     // Get budget details using the id stored in the Intent that launched this Activity.
