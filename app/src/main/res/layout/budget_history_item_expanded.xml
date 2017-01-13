@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  ~ Copyright (c) - Software developed by iClaude.
   -->
 
 
@@ -34,8 +34,8 @@
         android:id="@+id/textView18"
         app:layout_constraintTop_toTopOf="@+id/imageView3"
         app:layout_constraintLeft_toRightOf="@+id/imageView3"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp" />
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp" />
 
     <TextView
         android:id="@+id/tvAmount"

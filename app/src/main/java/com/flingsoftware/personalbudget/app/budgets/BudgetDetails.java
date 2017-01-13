@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -19,12 +19,14 @@ import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
@@ -208,12 +210,22 @@ public class BudgetDetails extends AppCompatActivity {
         bottomSheetViewgroup = (ConstraintLayout) findViewById(R.id.clBottomSheet);
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetViewgroup);
 
-        // Shrink the FAB when the BottomSheet slides up, and viceversa.
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            /*
+            When the BottomSheet is hidden, remove the FAB's anchor to it, so that the FAB
+            can be shown/hidden when the app bar gets expanded/collapsed.
+             */
             @Override
             public void onStateChanged(View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) fabEdit.getLayoutParams();
+                    lp.setAnchorId(View.NO_ID);
+                    lp.gravity = Gravity.BOTTOM | GravityCompat.END;
+                    fabEdit.setLayoutParams(lp);
+                }
             }
 
+            // Shrink the FAB when the BottomSheet slides up, and viceversa.
             @Override
             public void onSlide(View bottomSheet, float slideOffset) {
                 if (slideOffset >= 0) {
@@ -350,7 +362,7 @@ public class BudgetDetails extends AppCompatActivity {
 
             appbarExpanded = percentage <= 0.9;
 
-            if (viewPager.getCurrentItem() == 0) {
+            if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN) {
                 if (!appbarExpanded && fabVisible) {
                     fabEdit.hide();
                     fabVisible = false;
