@@ -4,7 +4,6 @@
 
 package com.flingsoftware.personalbudget.app;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -308,11 +307,7 @@ public class FragmentBudget extends ListFragment implements SharedPreferences.On
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 			Intent intent = BudgetDetails.makeIntent(getActivity(), arg3);
 
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-				getActivity().startActivityForResult(intent, ACTIVITY_BUDGET_DETTAGLIOVOCE, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
-			} else {
-				getActivity().startActivityForResult(intent, ACTIVITY_BUDGET_DETTAGLIOVOCE);
-			}
+			getActivity().startActivityForResult(intent, ACTIVITY_BUDGET_DETTAGLIOVOCE);
 		}
 	};
 	

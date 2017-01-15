@@ -1,3 +1,3 @@
-Sistemare:
-- fab edit eliminare il codice per nasconderlo, oppure vedere perch? non funziona
-
+Da fare:
+- dal widget dei budget lanciare la nuova activity dei budget
+- nuovo layout per lista budget nel fragment dei budget
