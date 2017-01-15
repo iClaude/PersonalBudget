@@ -223,7 +223,7 @@ public class FragmentEntrate extends Fragment implements SharedPreferences.OnSha
 					view.setSelected(true);
 					
 					//icona
-					ImageView ivIcona = (ImageView) (((View) (view.getParent())).findViewById(R.id.menu_esporta_ivFormato));
+					ImageView ivIcona = (ImageView) (((View) (view.getParent())).findViewById(R.id.ivIcon));
 					Integer icona = hmIcone.get(voceChild);
 					if(icona == null) {
 						ivIcona.setImageBitmap(mPlaceHolderBitmapEntrate);
@@ -279,7 +279,7 @@ public class FragmentEntrate extends Fragment implements SharedPreferences.OnSha
 					((TextView) view).setText(mioSdf.format(new Date(dataDatabaseMillis)));
 					
 					//icona spese
-					((ImageView) ((RelativeLayout) view.getParent()).findViewById(R.id.menu_esporta_ivFormato)).setImageDrawable(getResources().getDrawable(R.drawable.img_entrate));
+					((ImageView) ((RelativeLayout) view.getParent()).findViewById(R.id.ivIcon)).setImageDrawable(getResources().getDrawable(R.drawable.img_entrate));
 					
 					return true;
 				case R.id.fragment_spese_tvImportoGruppo:
@@ -319,7 +319,7 @@ public class FragmentEntrate extends Fragment implements SharedPreferences.OnSha
 					}
 					
 					//icona entrate
-					((ImageView) ((RelativeLayout) view.getParent()).findViewById(R.id.menu_esporta_ivFormato)).setImageDrawable(getResources().getDrawable(R.drawable.img_entrate));
+					((ImageView) ((RelativeLayout) view.getParent()).findViewById(R.id.ivIcon)).setImageDrawable(getResources().getDrawable(R.drawable.img_entrate));
 					
 					return true;		
 				case R.id.tvVoceGruppo:
@@ -333,7 +333,7 @@ public class FragmentEntrate extends Fragment implements SharedPreferences.OnSha
 				case R.id.fragment_spese_entrate_child_item_tvVoce:
 					//icona
 					String voce = cursor.getString(columnIndex);
-					ImageView ivIcona = (ImageView) (((View) (view.getParent())).findViewById(R.id.menu_esporta_ivFormato));
+					ImageView ivIcona = (ImageView) (((View) (view.getParent())).findViewById(R.id.ivIcon));
 					Integer icona = hmIcone.get(voce);
 					if(icona == null) {
 						ivIcona.setImageBitmap(mPlaceHolderBitmapEntrate);

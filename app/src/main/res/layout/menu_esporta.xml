@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) - Software developed by iClaude.
+  -->
+
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -183,7 +187,7 @@
         </android.support.v7.widget.CardView>
 
            <ImageView
-               android:id="@+id/menu_esporta_ivFormato"
+               android:id="@+id/ivIcon"
                android:contentDescription="@string/provv_contenutoImmagini"
                android:layout_width="110dp"
                android:layout_height="110dp"

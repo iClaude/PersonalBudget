@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.utilita;
@@ -179,7 +179,7 @@ public class UtilityVarious {
         DecimalFormat df = new DecimalFormat("+ #,##0; - #,##0");
         df.setMaximumFractionDigits(0);
 
-        String currSymbol = prefCurrency.getSymbol();
+        String currSymbol = prefCurrency.getSymbol().substring(0, 1);
         String amountStr = df.format(amount) + currSymbol;
 
         Spannable spannable = new SpannableString(amountStr);

@@ -14,28 +14,31 @@
     android:background="?android:attr/selectableItemBackground">
 
     <RelativeLayout
-        android:id="@+id/fragment_budget_listview_item_rlPadre"
+        android:id="@+id/rlParent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:descendantFocusability="blocksDescendants"
         android:padding="4dp">
 
         <ImageView
-            android:id="@+id/menu_esporta_ivFormato"
+            android:id="@+id/ivIcon"
             android:contentDescription="@string/provv_contenutoImmagini"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:src="@drawable/img_budget" />
+            android:src="@drawable/img_budget"
+            android:background="@drawable/back_round_primarylight"
+            android:padding="8dp"
+            android:scaleType="centerInside"
+            android:layout_width="48dp"
+            android:layout_height="48dp" />
 
         <TextView
-            android:id="@+id/fragment_budget_listview_item_tvComodoSpesaSost"
+            android:id="@+id/tvSpentInvisible"
             android:layout_width="40dp"
             android:layout_height="20dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@id/menu_esporta_ivFormato"
+            android:layout_below="@id/ivIcon"
             android:layout_marginBottom="4dp"
             android:layout_marginLeft="4dp"
             android:layout_marginStart="8dp"
@@ -50,23 +53,24 @@
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/fragment_budget_listview_item_tvTipoBudget"
+            android:id="@+id/tvBudgetType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
-            android:layout_toRightOf="@id/menu_esporta_ivFormato"
-            android:layout_toEndOf="@id/menu_esporta_ivFormato"
+            android:layout_toRightOf="@id/ivIcon"
+            android:layout_toEndOf="@id/ivIcon"
             android:text="@string/provv_lorem_ipsum"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/text_primary"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:ellipsize="end"
-            android:layout_toLeftOf="@+id/fragment_budget_listview_item_tvImportoBudget" />
+            android:layout_toLeftOf="@+id/tvSaved"
+            android:textStyle="normal|bold" />
 
         <TextView
-            android:id="@+id/fragment_budget_listview_item_tvImportoBudget"
+            android:id="@+id/tvSaved"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -74,44 +78,51 @@
             android:layout_marginTop="4dp"
             android:gravity="right"
             android:text="@string/provv_importoValutaZero"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/text_primary"
-            android:textSize="16sp"
-            android:layout_marginLeft="8dp" />
+            android:layout_marginLeft="8dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/fragment_budget_listview_item_tvComodoDataFine"
+            android:id="@+id/tvDateEndInvisible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/fragment_budget_listview_item_tvValuta"
+            android:id="@+id/tvTag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/fragment_budget_listview_item_tvImportoBudget"
+            android:layout_below="@id/tvBudgetType"
             android:layout_marginLeft="8dp"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/fragment_budget_listview_item_tvVoci"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/fragment_budget_listview_item_tvTipoBudget"
-            android:layout_marginLeft="8dp"
-            android:layout_toLeftOf="@id/fragment_budget_listview_item_tvValuta"
-            android:layout_toRightOf="@id/menu_esporta_ivFormato"
-            android:ellipsize="marquee"
+            android:layout_toRightOf="@id/ivIcon"
             android:scrollHorizontally="true"
-            android:text="@string/provv_lorem_ipsum_2"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/text_secondary"
-            android:textSize="16sp" />
+            android:text="@string/provv_lorem_ipsum"
+            android:background="@drawable/back_textview_tag"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:maxLength="25"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:ellipsize="middle"
+            android:fontFamily="sans-serif"
+            android:textColor="@android:color/white"
+            android:maxLines="1"
+            android:layout_marginTop="4dp" />
+
+        <ImageView
+            android:src="@drawable/ic_visibility_black_24dp"
+            android:id="@+id/imageView4"
+            android:alpha="0.5"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@id/tvPerc"
+            android:layout_below="@id/tvTag"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="-3dp" />
 
         <ProgressBar
-            android:id="@+id/fragment_budget_listview_item_pbProgresso"
+            android:id="@+id/pbBudget"
             style="@style/tallerBarStyle"
             android:layout_width="match_parent"
             android:layout_height="12dp"
@@ -119,26 +130,21 @@
             android:max="100"
             android:minHeight="8dp"
             android:progress="70"
-            android:layout_below="@+id/menu_esporta_ivFormato"
+            android:layout_below="@+id/tvPerc"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp" />
 
-        <ProgressBar
-            android:id="@+id/fragment_budget_listview_item_pbProgressoFull"
-            style="@style/tallerBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="12dp"
-            android:layout_marginTop="8dp"
-            android:max="100"
-            android:minHeight="8dp"
-            android:progress="100"
-            android:layout_below="@+id/menu_esporta_ivFormato"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:progressDrawable="@drawable/progressbar_accent"
-            android:visibility="invisible" />
+        <TextView
+            android:text="Spent: 75,65%"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvPerc"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp"
+            android:layout_below="@+id/tvTag"
+            android:layout_alignLeft="@+id/tvTag"
+            android:layout_alignStart="@+id/tvTag" />
 
     </RelativeLayout>
 

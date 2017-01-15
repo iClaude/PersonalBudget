@@ -1,13 +1,8 @@
+/*
+ * Copyright (c) - Software developed by iClaude.
+ */
+
 package com.flingsoftware.personalbudget.app;
-
-import com.flingsoftware.personalbudget.R;
-import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiNotifiche;
-import com.flingsoftware.personalbudget.customviews.MioToast;
-import com.flingsoftware.personalbudget.esporta.MenuEsportaIntentService;
-import com.flingsoftware.personalbudget.utilita.UtilityVarious;
-
-import static com.flingsoftware.personalbudget.esporta.MenuEsportaIntentService.CostantiIntentService.*;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.*;
 
 import android.Manifest;
 import android.app.Activity;
@@ -21,6 +16,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,7 +27,18 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
-import android.support.v7.app.ActionBarActivity;
+
+import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiNotifiche;
+import com.flingsoftware.personalbudget.customviews.MioToast;
+import com.flingsoftware.personalbudget.esporta.MenuEsportaIntentService;
+import com.flingsoftware.personalbudget.utilita.UtilityVarious;
+
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.DATA_FINE;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.DATA_INIZIO;
+import static com.flingsoftware.personalbudget.esporta.MenuEsportaIntentService.CostantiIntentService.AZIONE_CSV;
+import static com.flingsoftware.personalbudget.esporta.MenuEsportaIntentService.CostantiIntentService.AZIONE_PDF;
+import static com.flingsoftware.personalbudget.esporta.MenuEsportaIntentService.CostantiIntentService.AZIONE_XLS;
 
 
 public class MenuEsporta extends ActionBarActivity {
@@ -116,22 +123,22 @@ public class MenuEsporta extends ActionBarActivity {
 	        case R.id.menu_esporta_rbTesto:
 	            if (checked) {
 	            	formatoExport = AZIONE_CSV;
-	            	((ImageView) findViewById(R.id.menu_esporta_ivFormato)).setImageDrawable(getResources().getDrawable(R.drawable.img_formato_csv));
-	            }
+					((ImageView) findViewById(R.id.ivIcon)).setImageDrawable(getResources().getDrawable(R.drawable.img_formato_csv));
+				}
 	            
 	            break;
 	        case R.id.menu_esporta_rbExcel:
 	            if (checked){
 	            	formatoExport = AZIONE_XLS;
-	            	((ImageView) findViewById(R.id.menu_esporta_ivFormato)).setImageDrawable(getResources().getDrawable(R.drawable.img_formato_xls));
-	            }
+					((ImageView) findViewById(R.id.ivIcon)).setImageDrawable(getResources().getDrawable(R.drawable.img_formato_xls));
+				}
 	                
 	            break;
 	        case R.id.menu_esporta_rbPdf:
 	            if (checked){
 	            	formatoExport = AZIONE_PDF;
-	            	((ImageView) findViewById(R.id.menu_esporta_ivFormato)).setImageDrawable(getResources().getDrawable(R.drawable.img_formato_pdf));
-	            }
+					((ImageView) findViewById(R.id.ivIcon)).setImageDrawable(getResources().getDrawable(R.drawable.img_formato_pdf));
+				}
 	                
 	            break;
 	    }

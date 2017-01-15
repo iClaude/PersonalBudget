@@ -230,7 +230,7 @@ public class FragmentSpese extends Fragment implements SharedPreferences.OnShare
 					view.setSelected(true);
 					
 					//icona
-					ImageView ivIcona = (ImageView) (((View) (view.getParent())).findViewById(R.id.menu_esporta_ivFormato));
+					ImageView ivIcona = (ImageView) (((View) (view.getParent())).findViewById(R.id.ivIcon));
 					Integer icona = hmIcone.get(voceChild);
 					if(icona == null) {
 						ivIcona.setImageBitmap(mPlaceHolderBitmapSpese);
@@ -345,7 +345,7 @@ public class FragmentSpese extends Fragment implements SharedPreferences.OnShare
 				case R.id.fragment_spese_entrate_child_item_tvVoce:
 					//icona
 					String voce = cursor.getString(columnIndex);
-					ImageView ivIcona = (ImageView) (((View) (view.getParent())).findViewById(R.id.menu_esporta_ivFormato));
+					ImageView ivIcona = (ImageView) (((View) (view.getParent())).findViewById(R.id.ivIcon));
 					Integer icona = hmIcone.get(voce);
 					if(icona == null) {
 						ivIcona.setImageBitmap(mPlaceHolderBitmapSpese);

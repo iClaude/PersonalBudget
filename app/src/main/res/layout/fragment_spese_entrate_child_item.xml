@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) - Software developed by iClaude.
+  -->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rlListViewElemento"
     android:layout_width="match_parent"
@@ -7,7 +11,7 @@
     android:background="@drawable/selector_explistview_child" >
 
     <ImageView
-        android:id="@+id/menu_esporta_ivFormato"
+        android:id="@+id/ivIcon"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginLeft="30dp"
@@ -34,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="8dp"
-        android:layout_toRightOf="@id/menu_esporta_ivFormato"
+        android:layout_toRightOf="@id/ivIcon"
         android:scrollHorizontally="true"
         android:text="@string/provv_lorem_ipsum"
         android:textAppearance="?android:attr/textAppearanceMedium"

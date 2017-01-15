@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ListFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
@@ -37,6 +38,7 @@ import com.flingsoftware.personalbudget.app.budgets.BudgetDetails;
 import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
 import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
+import com.flingsoftware.personalbudget.utilita.UtilityVarious;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -98,8 +100,8 @@ public class FragmentBudget extends ListFragment implements SharedPreferences.On
 		}
 		
 		//collegamento ListView - database
-		String from[] = new String[] {"voce_budget", "importo_valprin", "spesa_sost", "data_fine"};
-		int to[] = {R.id.fragment_budget_listview_item_tvTipoBudget, R.id.fragment_budget_listview_item_tvImportoBudget, R.id.fragment_budget_listview_item_tvComodoSpesaSost, R.id.fragment_budget_listview_item_tvComodoDataFine};
+		String from[] = new String[]{"voce_budget", "risparmio", "spesa_sost", "data_fine"};
+		int to[] = {R.id.tvBudgetType, R.id.tvSaved, R.id.fragment_budget_listview_item_tvComodoSpesaSost, R.id.fragment_budget_listview_item_tvComodoDataFine};
 		budgetAdapter = new SimpleCursorAdapter(getActivity(), R.layout.fragment_budget_listview_item, null, from, to);
 		final NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
 		final DecimalFormat nfRidotto = new DecimalFormat("#,##0.00");
@@ -111,22 +113,19 @@ public class FragmentBudget extends ListFragment implements SharedPreferences.On
 			public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
 				
 				switch(view.getId()) {
-				case R.id.fragment_budget_listview_item_tvImportoBudget:
-					double budget = cursor.getDouble(columnIndex);
-					
-					if(!valutaAlternativa) {
-						String budgetFormattato = nf.format(budget);
-						((TextView) view).setText(budgetFormattato);
-						((ProgressBar) ((View) (view.getParent())).findViewById(R.id.fragment_budget_listview_item_pbProgresso)).setMax((int) budget);
-						((TextView) ((View) (view.getParent())).findViewById(R.id.fragment_budget_listview_item_tvValuta)).setText("");
+					case R.id.tvSaved:
+						double saved = cursor.getDouble(columnIndex);
+						double amount = cursor.getDouble(cursor.getColumnIndex("importo_valprin"));
+						((TextView) view).setText(UtilityVarious.getFormattedAmountBudgetSavings(saved, getActivity()), TextView.BufferType.SPANNABLE);
+						if (saved >= 0) {
+							((TextView) view).setTextColor(ContextCompat.getColor(getActivity(), android.R.color.holo_green_dark));
 					}
 					else {
-						String budgetFormattato = nfRidotto.format(budget);
-						((TextView) view).setText(budgetFormattato);
-						((ProgressBar) ((View) (view.getParent())).findViewById(R.id.fragment_budget_listview_item_pbProgresso)).setMax((int) budget);
-						((TextView) ((View) (view.getParent())).findViewById(R.id.fragment_budget_listview_item_tvValuta)).setText("(" + currValuta.getSymbol() + ")");
+							((TextView) view).setTextColor(ContextCompat.getColor(getActivity(), android.R.color.holo_red_dark));
 					}
-					
+
+						((ProgressBar) ((View) (view.getParent())).findViewById(R.id.fragment_budget_listview_item_pbProgresso)).setMax((int) amount);
+
 					return true;	
 					
 				case R.id.fragment_budget_listview_item_tvComodoSpesaSost:
@@ -149,7 +148,7 @@ public class FragmentBudget extends ListFragment implements SharedPreferences.On
 					
 					return true;
 
-				case R.id.fragment_budget_listview_item_tvTipoBudget:
+					case R.id.tvBudgetType:
 					String voceGrezza = cursor.getString(columnIndex);
 					if(voceGrezza.endsWith(",")) {
 						voceGrezza = voceGrezza.substring(0, voceGrezza.length() - 1);
@@ -178,14 +177,14 @@ public class FragmentBudget extends ListFragment implements SharedPreferences.On
 					((TextView) view).setText(tipoBudget);
 										
 					//testo scorrevole sulle voci del budget
-					((TextView) ((View) (view.getParent())).findViewById(R.id.fragment_budget_listview_item_tvVoci)).setText(vociInteressate);
-					((TextView) ((View) (view.getParent())).findViewById(R.id.fragment_budget_listview_item_tvVoci)).setEllipsize(TextUtils.TruncateAt.MARQUEE);
-					((TextView) ((View) (view.getParent())).findViewById(R.id.fragment_budget_listview_item_tvVoci)).setSingleLine(true);
-					((TextView) ((View) (view.getParent())).findViewById(R.id.fragment_budget_listview_item_tvVoci)).setMarqueeRepeatLimit(5);
-					((View) (view.getParent())).findViewById(R.id.fragment_budget_listview_item_tvVoci).setSelected(true);
+						((TextView) ((View) (view.getParent())).findViewById(R.id.tvTag)).setText(vociInteressate);
+						((TextView) ((View) (view.getParent())).findViewById(R.id.tvTag)).setEllipsize(TextUtils.TruncateAt.MARQUEE);
+						((TextView) ((View) (view.getParent())).findViewById(R.id.tvTag)).setSingleLine(true);
+						((TextView) ((View) (view.getParent())).findViewById(R.id.tvTag)).setMarqueeRepeatLimit(5);
+						((View) (view.getParent())).findViewById(R.id.tvTag).setSelected(true);
 					
 					//icona
-					ImageView ivIcona = (ImageView) (((View) (view.getParent())).findViewById(R.id.menu_esporta_ivFormato));
+						ImageView ivIcona = (ImageView) (((View) (view.getParent())).findViewById(R.id.ivIcon));
 					Integer icona = hmIcone.get(vociInteressate);
 					if(icona == null) {
 						ivIcona.setImageBitmap(mPlaceHolderBitmap);
@@ -252,7 +251,6 @@ public class FragmentBudget extends ListFragment implements SharedPreferences.On
 	private void ricavaValuta(SharedPreferences prefValuta) {
 		String valuta = prefValuta.getString(VALUTA_PRINCIPALE, Currency.getInstance(Locale.getDefault()).getCurrencyCode());
 		currValuta = Currency.getInstance(valuta);
-		valutaAlternativa = !currValuta.getCurrencyCode().equals(Currency.getInstance(Locale.getDefault()).getCurrencyCode());
 	}
 
 	
@@ -282,7 +280,6 @@ public class FragmentBudget extends ListFragment implements SharedPreferences.On
 		else if(key.equals(CostantiPreferenze.VALUTA_PRINCIPALE)) {
 				String valuta = sharedPreferences.getString(VALUTA_PRINCIPALE, Currency.getInstance(Locale.getDefault()).getCurrencyCode());
 				currValuta = Currency.getInstance(valuta);
-			valutaAlternativa = !currValuta.getCurrencyCode().equals(Currency.getInstance(Locale.getDefault()).getCurrencyCode());
 				lvBudget.invalidateViews();
 		}
 	}
@@ -405,8 +402,7 @@ public class FragmentBudget extends ListFragment implements SharedPreferences.On
 	private GregorianCalendar dataFine = new GregorianCalendar();
 	private CursorAdapter budgetAdapter;
 	private Currency currValuta;
-	private boolean valutaAlternativa;
-	
+
 	private ListView lvBudget;
 	private ImageView ivWallet;
 	private TextView tvToccaPiu;
