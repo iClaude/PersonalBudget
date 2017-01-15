@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  ~ Copyright (c) - Software developed by iClaude.
   -->
 
 <android.support.design.widget.CoordinatorLayout
@@ -123,7 +123,7 @@
                         android:padding="12dp"
                         android:contentDescription="@string/provv_contenutoImmagini"
                         android:scaleType="centerInside"
-                        android:background="@drawable/background_tondo"
+                        android:background="@drawable/back_round_primarylight_border"
                         android:visibility="invisible"
                         android:layout_gravity="center_vertical" />
 
@@ -179,7 +179,7 @@
         android:padding="12dp"
         app:layout_anchor="@id/main_framelayout_title"
         app:layout_anchorGravity="top|center_horizontal"
-        android:background="@drawable/background_tondo"
+        android:background="@drawable/back_round_primarylight_border"
         android:src="@drawable/tag_17"
         android:visibility="visible"
         android:elevation="4dp" />

@@ -156,11 +156,11 @@ public class FragmentSpese extends Fragment implements SharedPreferences.OnShare
 
                     // Date future con label grigia.
                     if(dataDatabaseMillis > oggi.getTimeInMillis()) {
-                        tvGiorno.setBackgroundResource(R.drawable.background_tondo_grigio);
-                    }
+						tvGiorno.setBackgroundResource(R.drawable.back_round_gray);
+					}
                     else {
-                        tvGiorno.setBackgroundResource(R.drawable.background_tondo_primary);
-                    }
+						tvGiorno.setBackgroundResource(R.drawable.back_round_primary);
+					}
 
 					if(oggi.getTimeInMillis() == dataDatabaseMillis) {
 						((TextView) view).setText(getResources().getString(R.string.generale_oggi));

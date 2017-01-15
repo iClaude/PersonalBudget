@@ -18,7 +18,7 @@
         <ImageView
             android:id="@+id/ivValuta"
             android:src="@drawable/ic_action_view_as_list"
-            android:background="@drawable/background_tondo_primary"
+            android:background="@drawable/back_round_primary"
             android:padding="12dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -85,7 +85,7 @@
             android:id="@+id/sedv_tvB"
             android:layout_width="48dp"
             android:src="@drawable/ic_action_refresh"
-            android:background="@drawable/background_tondo_primary"
+            android:background="@drawable/back_round_primary"
             android:padding="12dp"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_height="48dp"
@@ -156,7 +156,7 @@
         <ImageView
             android:id="@+id/sedv_tvC"
             android:src="@drawable/ic_device_access_network_cell"
-            android:background="@drawable/background_tondo_primary"
+            android:background="@drawable/back_round_primary"
             android:padding="12dp"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="16dp"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  ~ Copyright (c) - Software developed by iClaude.
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -86,7 +86,7 @@
             android:id="@+id/ivValuta"
             android:layout_marginTop="8dp"
             android:src="@drawable/ic_action_cloud"
-            android:background="@drawable/background_tondo_primary"
+            android:background="@drawable/back_round_primary"
             android:padding="12dp" />
 
     </RelativeLayout>
@@ -208,7 +208,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/ic_action_view_as_list"
-            android:background="@drawable/background_tondo_primary"
+            android:background="@drawable/back_round_primary"
             android:padding="12dp"
             android:layout_alignTop="@+id/sedv_tvContoTitolo"
             android:layout_alignParentLeft="true"
@@ -291,7 +291,7 @@
             android:id="@+id/sedv_tvC"
             android:layout_marginTop="8dp"
             android:src="@drawable/ic_action_refresh"
-            android:background="@drawable/background_tondo_primary"
+            android:background="@drawable/back_round_primary"
             android:padding="12dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"

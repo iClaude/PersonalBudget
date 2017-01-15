@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) - Software developed by iClaude.
+  -->
+
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -112,7 +116,7 @@
                         android:textColor="@android:color/white"
                         android:textSize="40sp"
                         android:gravity="center"
-                        android:background="@drawable/background_tondo_accent" />
+						android:background="@drawable/back_round_accent" />
 
                     <TextView
                         android:id="@+id/tvVersionName"

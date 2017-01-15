@@ -20,7 +20,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@drawable/background_tondo"
+        android:background="@drawable/back_round_primarylight"
         android:scaleType="centerInside" />
 
     <TextView
@@ -38,7 +38,7 @@
         android:layout_marginLeft="16dp"
         android:layout_height="23dp"
         android:maxLength="25"
-        android:background="@drawable/background_textview_tag"
+        android:background="@drawable/back_textview_tag"
         android:gravity="center" />
 
     <TextView

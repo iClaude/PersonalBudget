@@ -12,11 +12,11 @@
     android:layout_height="wrap_content"
     android:paddingTop="8dp"
     android:paddingBottom="8dp"
-    android:background="@drawable/background_primarylight_roundcorners">
+    android:background="@drawable/back_rect_primarylight_roundcorners">
 
     <ImageView
         android:src="@drawable/ic_action_view_as_list"
-        android:background="@drawable/background_tondo_grigio"
+        android:background="@drawable/back_round_gray"
         android:padding="12dp"
         android:elevation="6dp"
         android:id="@+id/imageView3"

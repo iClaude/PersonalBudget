@@ -1,12 +1,40 @@
+/*
+ * Copyright (c) - Software developed by iClaude.
+ */
+
 package com.flingsoftware.personalbudget.app;
 
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.CONTO_DEFAULT;
+import android.app.Activity;
+import android.app.ActivityOptions;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Color;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
+import android.transition.Explode;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.flingsoftware.personalbudget.R;
 import com.flingsoftware.personalbudget.database.DBCConti;
-import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
 import com.flingsoftware.personalbudget.database.DBCEntrateIncassate;
+import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -16,32 +44,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v7.widget.Toolbar;
-import android.transition.Explode;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
-import android.widget.ListView;
-import android.graphics.Color;
-import android.content.Intent;
-import android.widget.AdapterView.OnItemClickListener;
-import android.support.v7.app.ActionBarActivity;
-import android.view.Window;
-import android.app.ActivityOptions;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.CONTO_DEFAULT;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
 
 
 public class ContiElenco extends ActionBarActivity {
@@ -239,10 +243,10 @@ public class ContiElenco extends ActionBarActivity {
 			
 			ContoDettaglio contoDettaglio = lstConti.get(position);
 			if(contoDettaglio.getContoDefault()) { // conto di default con label evidenziata
-				viewHolder.tvLetteraIniz.setBackgroundResource(R.drawable.background_tondo_accent);
+				viewHolder.tvLetteraIniz.setBackgroundResource(R.drawable.back_round_accent);
 			}
 			else {
-				viewHolder.tvLetteraIniz.setBackgroundResource(R.drawable.background_tondo_primary);
+				viewHolder.tvLetteraIniz.setBackgroundResource(R.drawable.back_round_primary);
 			}
 			viewHolder.tvLetteraIniz.setText(contoDettaglio.getConto().substring(0, 1).toUpperCase(Locale.getDefault()));
 			viewHolder.tvConto.setText(contoDettaglio.getConto());

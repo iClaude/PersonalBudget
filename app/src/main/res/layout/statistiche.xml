@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) - Software developed by iClaude.
+  -->
+
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -97,7 +101,7 @@
                         android:id="@+id/s_tvA"
                         android:textSize="40sp"
                         android:gravity="center"
-                        android:background="@drawable/background_tondo_primary"
+                        android:background="@drawable/back_round_primary"
                         android:textColor="@android:color/white"
                         android:layout_marginLeft="8dp"
                         android:layout_marginTop="8dp"
@@ -153,7 +157,7 @@
                         android:id="@+id/s_tvB"
                         android:textColor="@android:color/white"
                         android:textSize="40sp"
-                        android:background="@drawable/background_tondo_primary"
+                        android:background="@drawable/back_round_primary"
                         android:gravity="center"
                         android:layout_marginTop="8dp"
                         android:layout_marginLeft="8dp"
@@ -226,7 +230,7 @@
                         android:textSize="40sp"
                         android:textColor="@android:color/white"
                         android:gravity="center"
-                        android:background="@drawable/background_tondo_primary"
+                        android:background="@drawable/back_round_primary"
                         android:layout_marginTop="8dp"
                         android:layout_marginLeft="8dp" />
 
@@ -293,7 +297,7 @@
                         android:id="@+id/s_tvC"
                         android:textSize="40sp"
                         android:textColor="@android:color/white"
-                        android:background="@drawable/background_tondo_primary"
+                        android:background="@drawable/back_round_primary"
                         android:gravity="center"
                         android:layout_marginLeft="8dp"
                         android:layout_marginTop="8dp" />
