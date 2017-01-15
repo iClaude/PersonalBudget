@@ -1,23 +1,25 @@
+/*
+ * Copyright (c) - Software developed by iClaude.
+ */
+
 package com.flingsoftware.personalbudget.widget;
-
-import com.flingsoftware.personalbudget.R;
-import com.flingsoftware.personalbudget.app.BudgetDettaglio;
-import com.flingsoftware.personalbudget.app.MainPersonalBudget;
-import com.flingsoftware.personalbudget.app.Preferiti;
-import com.flingsoftware.personalbudget.app.SpeseAggiungi;
-import com.flingsoftware.personalbudget.app.FragmentBudget;
-
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiActivity.ACTIVITY_MAIN;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.WIDGET_AGGIORNA;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.RemoteViews;
 import android.net.Uri;
-import android.content.ComponentName;
+import android.widget.RemoteViews;
+
+import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.app.MainPersonalBudget;
+import com.flingsoftware.personalbudget.app.Preferiti;
+import com.flingsoftware.personalbudget.app.SpeseAggiungi;
+import com.flingsoftware.personalbudget.app.budgets.BudgetDetails;
+
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.WIDGET_AGGIORNA;
 
 
 public class WidgetGrande extends AppWidgetProvider {
@@ -77,14 +79,12 @@ public class WidgetGrande extends AppWidgetProvider {
 	    }
 	    else if(action.equals(BUDGET_ACTION)) {
 	    	long budgetId = intent.getLongExtra(EXTRA_ITEM, 0);
-	    	
-	    	Intent dettaglioBudget = new Intent(context, BudgetDettaglio.class);
-			dettaglioBudget.putExtra(FragmentBudget.ROW_ID, budgetId);
-			dettaglioBudget.putExtra(FragmentBudget.CHIAMANTE, ACTIVITY_MAIN);
-			dettaglioBudget.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			
-			context.startActivity(dettaglioBudget);
-	    }
+
+            Intent intBudget = BudgetDetails.makeIntent(context, budgetId);
+            intBudget.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            context.startActivity(intBudget);
+        }
 	    else 
 	    {
 	        super.onReceive(context, intent);
