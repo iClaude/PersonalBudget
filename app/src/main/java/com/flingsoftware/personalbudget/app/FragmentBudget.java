@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app;
@@ -100,9 +100,9 @@ public class FragmentBudget extends ListFragment implements SharedPreferences.On
 		}
 		
 		//collegamento ListView - database
-		String from[] = new String[]{"voce_budget", "risparmio", "spesa_sost", "data_fine"};
-		int to[] = {R.id.tvBudgetType, R.id.tvSaved, R.id.fragment_budget_listview_item_tvComodoSpesaSost, R.id.fragment_budget_listview_item_tvComodoDataFine};
-		budgetAdapter = new SimpleCursorAdapter(getActivity(), R.layout.fragment_budget_listview_item, null, from, to);
+        String from[] = new String[]{"ripetizione", "voce", "risparmio", "spesa_sost"};
+        int to[] = {R.id.tvBudgetType, R.id.tvTag, R.id.tvSaved, R.id.tvPerc};
+        budgetAdapter = new SimpleCursorAdapter(getActivity(), R.layout.fragment_budget_listview_item, null, from, to);
 		final NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
 		final DecimalFormat nfRidotto = new DecimalFormat("#,##0.00");
 		
@@ -113,88 +113,87 @@ public class FragmentBudget extends ListFragment implements SharedPreferences.On
 			public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
 				
 				switch(view.getId()) {
-					case R.id.tvSaved:
+                    // Repetition (budget type).
+                    case R.id.tvBudgetType:
+                        String tipoBudget = cursor.getString(columnIndex);
+
+                        if (tipoBudget.equals("una_tantum")) {
+                            tipoBudget = tipiBudget[0];
+                        } else if (tipoBudget.equals("giornaliero")) {
+                            tipoBudget = tipiBudget[1];
+                        } else if (tipoBudget.equals("settimanale")) {
+                            tipoBudget = tipiBudget[2];
+                        } else if (tipoBudget.equals("bisettimanale")) {
+                            tipoBudget = tipiBudget[3];
+                        } else if (tipoBudget.equals("mensile")) {
+                            tipoBudget = tipiBudget[4];
+                        } else if (tipoBudget.equals("annuale")) {
+                            tipoBudget = tipiBudget[5];
+                        }
+                        ((TextView) view).setText(tipoBudget);
+
+                        return true;
+
+                    // Tags and icon.
+                    case R.id.tvTag:
+                        String voceGrezza = cursor.getString(columnIndex);
+                        if (voceGrezza.endsWith(",")) {
+                            voceGrezza = voceGrezza.substring(0, voceGrezza.length() - 1);
+                        }
+                        String vociInteressate = voceGrezza.substring(voceGrezza.indexOf(' ') + 1);
+
+                        //testo scorrevole sulle voci del budget
+                        ((TextView) ((View) (view.getParent())).findViewById(R.id.tvTag)).setText(vociInteressate);
+                        ((TextView) ((View) (view.getParent())).findViewById(R.id.tvTag)).setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                        ((TextView) ((View) (view.getParent())).findViewById(R.id.tvTag)).setSingleLine(true);
+                        ((TextView) ((View) (view.getParent())).findViewById(R.id.tvTag)).setMarqueeRepeatLimit(5);
+                        ((View) (view.getParent())).findViewById(R.id.tvTag).setSelected(true);
+
+                        //icona
+                        ImageView ivIcona = (ImageView) (((View) (view.getParent())).findViewById(R.id.ivIcon));
+                        Integer icona = hmIcone.get(vociInteressate);
+                        if (icona == null) {
+                            ivIcona.setImageBitmap(mPlaceHolderBitmap);
+                        } else {
+                            iconeVeloci.loadBitmap(icona, ivIcona, mPlaceHolderBitmap, 48, 48);
+                        }
+
+                        return true;
+
+                    // Amount saved.
+                    case R.id.tvSaved:
 						double saved = cursor.getDouble(columnIndex);
-						double amount = cursor.getDouble(cursor.getColumnIndex("importo_valprin"));
 						((TextView) view).setText(UtilityVarious.getFormattedAmountBudgetSavings(saved, getActivity()), TextView.BufferType.SPANNABLE);
 						if (saved >= 0) {
 							((TextView) view).setTextColor(ContextCompat.getColor(getActivity(), android.R.color.holo_green_dark));
-					}
-					else {
-							((TextView) view).setTextColor(ContextCompat.getColor(getActivity(), android.R.color.holo_red_dark));
-					}
+                        } else {
+                            ((TextView) view).setTextColor(ContextCompat.getColor(getActivity(), android.R.color.holo_red_dark));
+                        }
 
-						((ProgressBar) ((View) (view.getParent())).findViewById(R.id.fragment_budget_listview_item_pbProgresso)).setMax((int) amount);
+                        //((ProgressBar) ((View) (view.getParent())).findViewById(R.id.fragment_budget_listview_item_pbProgresso)).setMax((int) amount);
 
-					return true;	
-					
-				case R.id.fragment_budget_listview_item_tvComodoSpesaSost:
-					double spesaSost = cursor.getDouble(columnIndex);
-					double importoBudget = cursor.getDouble(cursor.getColumnIndex("importo_valprin"));
+                        return true;
 
-                    ProgressBar mProgressBar = (ProgressBar) ((View) (view.getParent())).findViewById(R.id.fragment_budget_listview_item_pbProgresso);
-                    if(spesaSost>=importoBudget) {
-                        mProgressBar.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar_accent));
-                    }
-                    else {
-                        mProgressBar.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar_standard));
-                    }
-					mProgressBar.setProgress((int) spesaSost);
+                    // Percentage of budget spent and ProgressBar.
+                    case R.id.tvPerc:
+                        double spent = cursor.getDouble(columnIndex);
+                        double budgetAmount = cursor.getDouble(cursor.getColumnIndex("importo_valprin"));
+                        int perc = Math.min(((int) ((spent * 100) / budgetAmount)), 100);
 
-					return true;
-					
-				case R.id.fragment_budget_listview_item_tvComodoDataFine:
-					//long dataFineBudget = cursor.getLong(columnIndex);
-					
-					return true;
+                        // Percentage spent.
+                        ((TextView) view).setText(getString(R.string.budget_dettaglio_speso) + ": " + perc + "%");
 
-					case R.id.tvBudgetType:
-					String voceGrezza = cursor.getString(columnIndex);
-					if(voceGrezza.endsWith(",")) {
-						voceGrezza = voceGrezza.substring(0, voceGrezza.length() - 1);
-					}
-					
-					String tipoBudget = voceGrezza.substring(0, voceGrezza.indexOf(' '));
-					String vociInteressate = voceGrezza.substring(voceGrezza.indexOf(' ') + 1);
-					if(tipoBudget.equals("una_tantum")) {
-						tipoBudget = tipiBudget[0];
-					}
-					else if(tipoBudget.equals("giornaliero")) {
-						tipoBudget = tipiBudget[1];
-					}
-					else if(tipoBudget.equals("settimanale")) {
-						tipoBudget = tipiBudget[2];
-					}
-					else if(tipoBudget.equals("bisettimanale")) {
-						tipoBudget = tipiBudget[3];
-					}
-					else if(tipoBudget.equals("mensile")) {
-						tipoBudget = tipiBudget[4];
-					}
-					else if(tipoBudget.equals("annuale")) {
-						tipoBudget = tipiBudget[5];
-					}
-					((TextView) view).setText(tipoBudget);
-										
-					//testo scorrevole sulle voci del budget
-						((TextView) ((View) (view.getParent())).findViewById(R.id.tvTag)).setText(vociInteressate);
-						((TextView) ((View) (view.getParent())).findViewById(R.id.tvTag)).setEllipsize(TextUtils.TruncateAt.MARQUEE);
-						((TextView) ((View) (view.getParent())).findViewById(R.id.tvTag)).setSingleLine(true);
-						((TextView) ((View) (view.getParent())).findViewById(R.id.tvTag)).setMarqueeRepeatLimit(5);
-						((View) (view.getParent())).findViewById(R.id.tvTag).setSelected(true);
-					
-					//icona
-						ImageView ivIcona = (ImageView) (((View) (view.getParent())).findViewById(R.id.ivIcon));
-					Integer icona = hmIcone.get(vociInteressate);
-					if(icona == null) {
-						ivIcona.setImageBitmap(mPlaceHolderBitmap);
-					}
-					else {
-						iconeVeloci.loadBitmap(icona, ivIcona, mPlaceHolderBitmap, 50, 50);
-					}
-					
-					return true;
-				}
+                        // ProgressBar.
+                        ProgressBar mProgressBar = (ProgressBar) ((View) (view.getParent())).findViewById(R.id.pbBudget);
+                        if (spent >= budgetAmount) {
+                            mProgressBar.setProgressDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.progressbar_accent));
+                        } else {
+                            mProgressBar.setProgressDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.progressbar_standard));
+                        }
+                        mProgressBar.setProgress(perc);
+
+                        return true;
+                }
 				
 				return false;
 			}

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.database;
@@ -81,7 +81,7 @@ public interface StringheSQL {
 	String SPESE_BUDGET_ELENCO_COMPLETO_GREZZO = "SELECT * FROM spese_budget";
 	String SPESE_BUDGET_ELENCO_COMPLETO = "SELECT _id, ripetizione||' '||voce AS voce_budget, importo_valprin, data_inizio, data_fine, aggiungere_rimanenza, spesa_sost, risparmio, budget_iniziale, ultimo_aggiunto FROM spese_budget";
 	String SPESE_BUDGET_ELENCO_NON_SCADUTI = "SELECT _id, ripetizione||' '||voce AS voce_budget, importo_valprin, data_inizio, data_fine, aggiungere_rimanenza, spesa_sost, risparmio, budget_iniziale, ultimo_aggiunto FROM spese_budget WHERE ?<=data_fine ORDER BY voce_budget ASC";
-	String SPESE_BUDGET_ELENCO_NON_SCADUTI_FILTRATO = "SELECT _id, ripetizione||' '||voce AS voce_budget, importo_valprin, data_inizio, data_fine, aggiungere_rimanenza, spesa_sost, risparmio, budget_iniziale, ultimo_aggiunto FROM spese_budget WHERE ?<=data_fine AND voce LIKE ? ORDER BY voce_budget ASC";
+	String SPESE_BUDGET_ELENCO_NON_SCADUTI_FILTRATO = "SELECT * FROM spese_budget WHERE ?<=data_fine AND voce LIKE ? ORDER BY ripetizione ASC";
 	String SPESE_BUDGET_ELENCO_ANNUALE = "SELECT _id, ripetizione||' '||voce AS voce_budget, importo_valprin, data_inizio, data_fine, aggiungere_rimanenza, spesa_sost, risparmio FROM spese_budget WHERE ripetizione = 'annuale'";
 	String SPESE_BUDGET_ELENCO_MENSILE = "SELECT _id, ripetizione||' '||voce AS voce_budget, importo_valprin, data_inizio, data_fine, aggiungere_rimanenza, spesa_sost, risparmio FROM spese_budget WHERE ripetizione = 'mensile'";
 	String SPESE_BUDGET_ELENCO_BISETTIMANALE = "SELECT _id, ripetizione||' '||voce AS voce_budget, importo_valprin, data_inizio, data_fine, aggiungere_rimanenza, spesa_sost, risparmio FROM spese_budget WHERE ripetizione = 'bisettimanale'";
