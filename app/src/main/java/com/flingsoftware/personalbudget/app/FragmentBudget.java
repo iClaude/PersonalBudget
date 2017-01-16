@@ -102,8 +102,8 @@ public class FragmentBudget extends ListFragment implements SharedPreferences.On
 		//collegamento ListView - database
         String from[] = new String[]{"ripetizione", "voce", "risparmio", "spesa_sost"};
         int to[] = {R.id.tvBudgetType, R.id.tvTag, R.id.tvSaved, R.id.tvPerc};
-        budgetAdapter = new SimpleCursorAdapter(getActivity(), R.layout.fragment_budget_listview_item, null, from, to);
-		final NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
+        budgetAdapter = new SimpleCursorAdapter(getActivity(), R.layout.fragment_budget_listview_item_test, null, from, to);
+        final NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
 		final DecimalFormat nfRidotto = new DecimalFormat("#,##0.00");
 		
 		//ViewBinder associato all'Adapter per personalizzare la vista di ogni elemento
@@ -155,7 +155,7 @@ public class FragmentBudget extends ListFragment implements SharedPreferences.On
                         if (icona == null) {
                             ivIcona.setImageBitmap(mPlaceHolderBitmap);
                         } else {
-                            iconeVeloci.loadBitmap(icona, ivIcona, mPlaceHolderBitmap, 48, 48);
+                            iconeVeloci.loadBitmap(icona, ivIcona, mPlaceHolderBitmap, 56, 56);
                         }
 
                         return true;

@@ -1,2 +1,4 @@
 Da fare:
-- nuovo layout per lista budget nel fragment dei budget
+- fare layout singoli elementi lista budget con constraint layout
+- migliorare layout
+- tag multipli con diversi colori?

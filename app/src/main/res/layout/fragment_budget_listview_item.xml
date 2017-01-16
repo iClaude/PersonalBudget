@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (c) - Software developed by iClaude.
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
   -->
 
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -70,20 +70,6 @@
             android:textStyle="normal|bold" />
 
         <TextView
-            android:id="@+id/tvSaved"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="4dp"
-            android:gravity="right"
-            android:text="@string/provv_importoValutaZero"
-            android:layout_marginLeft="8dp"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@android:color/holo_green_dark"
-            android:textSize="18sp" />
-
-        <TextView
             android:id="@+id/tvDateEndInvisible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -145,6 +131,19 @@
             android:layout_below="@+id/tvTag"
             android:layout_alignLeft="@+id/tvTag"
             android:layout_alignStart="@+id/tvTag" />
+
+        <TextView
+            android:id="@+id/tvSaved"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="@string/provv_importoValutaZero"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="18sp"
+            android:layout_alignTop="@+id/tvBudgetType"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 
