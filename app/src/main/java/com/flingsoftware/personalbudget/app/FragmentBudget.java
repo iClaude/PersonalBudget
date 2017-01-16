@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app;
@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ import android.widget.TextView;
 import com.flingsoftware.personalbudget.R;
 import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze;
 import com.flingsoftware.personalbudget.app.budgets.BudgetDetails;
+import com.flingsoftware.personalbudget.app.utility.TagsColors;
 import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
 import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
@@ -102,7 +104,7 @@ public class FragmentBudget extends ListFragment implements SharedPreferences.On
 		//collegamento ListView - database
         String from[] = new String[]{"ripetizione", "voce", "risparmio", "spesa_sost"};
         int to[] = {R.id.tvBudgetType, R.id.tvTag, R.id.tvSaved, R.id.tvPerc};
-        budgetAdapter = new SimpleCursorAdapter(getActivity(), R.layout.fragment_budget_listview_item_test, null, from, to);
+        budgetAdapter = new SimpleCursorAdapter(getActivity(), R.layout.fragment_budget_listview_item, null, from, to);
         final NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
 		final DecimalFormat nfRidotto = new DecimalFormat("#,##0.00");
 		
@@ -136,22 +138,30 @@ public class FragmentBudget extends ListFragment implements SharedPreferences.On
 
                     // Tags and icon.
                     case R.id.tvTag:
+                        TextView tvTag = (TextView) view;
+
                         String voceGrezza = cursor.getString(columnIndex);
                         if (voceGrezza.endsWith(",")) {
                             voceGrezza = voceGrezza.substring(0, voceGrezza.length() - 1);
                         }
-                        String vociInteressate = voceGrezza.substring(voceGrezza.indexOf(' ') + 1);
 
-                        //testo scorrevole sulle voci del budget
-                        ((TextView) ((View) (view.getParent())).findViewById(R.id.tvTag)).setText(vociInteressate);
-                        ((TextView) ((View) (view.getParent())).findViewById(R.id.tvTag)).setEllipsize(TextUtils.TruncateAt.MARQUEE);
-                        ((TextView) ((View) (view.getParent())).findViewById(R.id.tvTag)).setSingleLine(true);
-                        ((TextView) ((View) (view.getParent())).findViewById(R.id.tvTag)).setMarqueeRepeatLimit(5);
-                        ((View) (view.getParent())).findViewById(R.id.tvTag).setSelected(true);
+                        // Change the color of the tag's background.
+                        int tagColor = TagsColors.getInstance().getRandomColor(cursor.getPosition());
+                        GradientDrawable bgShape = (GradientDrawable) tvTag.getBackground();
+                        bgShape.setColor(ContextCompat.getColor(getActivity(), tagColor));
+
+                        tvTag.setText(voceGrezza);
+                        // Running text.
+                        if (voceGrezza.length() > 25) {
+                            tvTag.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                            tvTag.setSingleLine(true);
+                            tvTag.setMarqueeRepeatLimit(5);
+                            tvTag.setSelected(true);
+                        }
 
                         //icona
                         ImageView ivIcona = (ImageView) (((View) (view.getParent())).findViewById(R.id.ivIcon));
-                        Integer icona = hmIcone.get(vociInteressate);
+                        Integer icona = hmIcone.get(voceGrezza);
                         if (icona == null) {
                             ivIcona.setImageBitmap(mPlaceHolderBitmap);
                         } else {

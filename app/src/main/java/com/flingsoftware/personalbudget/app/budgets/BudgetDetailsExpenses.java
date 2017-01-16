@@ -30,6 +30,7 @@ import com.bignerdranch.expandablerecyclerview.Model.ParentListItem;
 import com.bignerdranch.expandablerecyclerview.ViewHolder.ChildViewHolder;
 import com.bignerdranch.expandablerecyclerview.ViewHolder.ParentViewHolder;
 import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.app.utility.TagsColors;
 import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
 import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
@@ -53,7 +54,6 @@ public class BudgetDetailsExpenses extends Fragment implements BudgetDetails.Rel
     // Constants.
     private static final String TAG = "BUDGETS";
     private static final String BUDGET_ID = "BUDGET_ID";
-    private final int[] tagsColors = {R.color.indigo_500, R.color.red_500, R.color.pink_500, R.color.purple_500, R.color.deep_purple_500, R.color.teal_500, R.color.orange_800, R.color.brown_500, R.color.green_600, R.color.cyan_900};
 
     private final List<ExpensesWithTag> list = new ArrayList<>();
     private Budget budget;
@@ -171,7 +171,7 @@ public class BudgetDetailsExpenses extends Fragment implements BudgetDetails.Rel
                 // Diplay details of expenses grouped by tag.
                 iconeVeloci.loadBitmap(expensesWithTag.getIconId(), ivIcon, mPlaceHolderBitmap, 40, 40);
                 // Set the color of the tag dinamically preserving the rounded rectangle shape.
-                int tagColor = tagsColors[getAdapterPosition() % 10];
+                int tagColor = TagsColors.getInstance().getRandomColor(getAdapterPosition());
                 GradientDrawable bgShape = (GradientDrawable) tvTag.getBackground();
                 bgShape.setColor(ContextCompat.getColor(getActivity(), tagColor));
                 tvTag.setText(expensesWithTag.getTag());
