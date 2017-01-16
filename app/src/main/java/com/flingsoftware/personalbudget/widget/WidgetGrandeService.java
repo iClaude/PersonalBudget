@@ -1,8 +1,30 @@
+/*
+ * Copyright (c) - Software developed by iClaude.
+ */
+
 package com.flingsoftware.personalbudget.widget;
 
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.GradientDrawable;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.RemoteViews;
+import android.widget.RemoteViewsService;
 
+import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.app.FunzioniComuni;
+import com.flingsoftware.personalbudget.app.utility.TagsColors;
 import com.flingsoftware.personalbudget.database.AggiornamentoDatabaseIntentService;
+import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
 import com.flingsoftware.personalbudget.database.FunzioniAggiornamento;
 
@@ -13,23 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import com.flingsoftware.personalbudget.R;
-import com.flingsoftware.personalbudget.app.FunzioniComuni;
-import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
-
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.view.View;
-import android.widget.RemoteViews;
-import android.widget.RemoteViewsService;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
 
 
 public class WidgetGrandeService extends RemoteViewsService {
@@ -181,14 +187,32 @@ public class WidgetGrandeService extends RemoteViewsService {
 		@Override
 		public RemoteViews getViewAt(int position)
 		{
-			String ripetizione = lstBudgetAperti.get(position).getRipetizione();
-			String voce = lstBudgetAperti.get(position).getVoce();
-			double importoValPrin = lstBudgetAperti.get(position).getImportoValprin();
-			double spesaSost = lstBudgetAperti.get(position).getSpesaSost();
+            String budgetType = lstBudgetAperti.get(position).getRipetizione();
+            String tag = lstBudgetAperti.get(position).getVoce();
+            double budgetAmount = lstBudgetAperti.get(position).getImportoValprin();
+            double spent = lstBudgetAperti.get(position).getSpesaSost();
+            double saved = budgetAmount - spent;
+            int perc = Math.min(((int) ((spent * 100) / budgetAmount)), 100);
 
-			RemoteViews remoteView = new RemoteViews(mioContext.getPackageName(), R.layout.fragment_budget_listview_item2);
-		    remoteView.setTextViewText(R.id.fragment_budget_listview_item_tvTipoBudget2, ripetizione);
-		    remoteView.setTextViewText(R.id.fragment_budget_listview_item_tvVoci2, voce);
+            RemoteViews remoteView = new RemoteViews(mioContext.getPackageName(), R.layout.fragment_budget_listview_item);
+            // Budget type.
+            remoteView.setTextViewText(R.id.tvBudgetType, budgetType);
+            // Tag.
+            remoteView.setTextViewText(R.id.tvTag, tag);
+
+
+            int tagColor = TagsColors.getInstance().getRandomColor(position);
+            GradientDrawable bgShape = (GradientDrawable) tvTag.getBackground();
+            bgShape.setColor(ContextCompat.getColor(getActivity(), tagColor));
+
+            tvTag.setText(voceGrezza);
+            // Running text.
+            if (voceGrezza.length() > 25) {
+                tvTag.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                tvTag.setSingleLine(true);
+                tvTag.setMarqueeRepeatLimit(5);
+                tvTag.setSelected(true);
+
 		    remoteView.setBoolean(R.id.fragment_budget_listview_item_tvVoci2, "setSingleLine", true);
 		    if(spesaSost<importoValPrin) {
 		    	remoteView.setViewVisibility(R.id.fragment_budget_listview_item_pbProgressoFull2, View.INVISIBLE);
@@ -201,19 +225,19 @@ public class WidgetGrandeService extends RemoteViewsService {
 		    }
 		    remoteView.setTextViewText(R.id.fragment_budget_listview_item_tvImportoBudget2, nf.format(importoValPrin));
 
-		   
-		    Integer icona = hmIcone.get(voce);
-		    Bitmap miaBitmap;
+
+                Integer icona = hmIcone.get(tag);
+                Bitmap miaBitmap;
 		    if(icona != null) {
-		    	miaBitmap = decodeSampledBitmapFromResource(mioContext.getResources(), arrIconeId[icona], 50 , 50);
-		    }
+                miaBitmap = decodeSampledBitmapFromResource(mioContext.getResources(), arrIconeId[icona], 56, 56);
+            }
 		    else {
-		    	miaBitmap = decodeSampledBitmapFromResource(mioContext.getResources(), R.drawable.img_budget, 50 , 50);
-		    }
-		    remoteView.setImageViewBitmap(R.id.menu_esporta_ivFormato2, miaBitmap);
-		    
-		    
-		    //singoli elementi della ListView cliccabili
+                miaBitmap = decodeSampledBitmapFromResource(mioContext.getResources(), R.drawable.img_budget, 56, 56);
+            }
+                remoteView.setImageViewBitmap(R.id.ivIcon, miaBitmap);
+
+
+                //singoli elementi della ListView cliccabili
 		    Bundle extras = new Bundle();
 		    extras.putLong(WidgetGrande.EXTRA_ITEM, lstBudgetAperti.get(position).getBudgetId());
 		    Intent fillInIntent = new Intent();
