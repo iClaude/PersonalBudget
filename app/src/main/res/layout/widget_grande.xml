@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) - Software developed by iClaude.
+  -->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_grande_rlBudgets"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CCFFFFFF">
+    android:background="#FFFFFFFF">
 
     <RelativeLayout
         android:id="@+id/widget_grande_rlTitolo"
@@ -98,9 +102,8 @@
             android:id="@+id/widget_grande_lvBudget"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="#CCFFFFFF"
+            android:divider="@android:color/darker_gray"
             android:dividerHeight="1dp"
-            android:paddingBottom="4dp"
             android:paddingTop="4dp"
             android:visibility="invisible" >
         </ListView>

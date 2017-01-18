@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.widget;
@@ -195,7 +195,7 @@ public class WidgetGrandeService extends RemoteViewsService {
             double spent = lstBudgetAperti.get(position).getSpesaSost();
             double saved = budgetAmount - spent;
             int perc = Math.min(((int) ((spent * 100) / budgetAmount)), 100);
-            RemoteViews remoteView = new RemoteViews(mioContext.getPackageName(), R.layout.widget_big_listview_item);
+			RemoteViews remoteView = new RemoteViews(mioContext.getPackageName(), R.layout.widget_big_listview_item2);
 
             // Budget type.
             remoteView.setTextViewText(R.id.tvBudgetType, budgetType);
@@ -205,12 +205,12 @@ public class WidgetGrandeService extends RemoteViewsService {
             int tagColor = TagsColors.getInstance().getRandomColor(position);
             remoteView.setInt(R.id.tvTag, "setBackgroundColor", ContextCompat.getColor(mioContext, tagColor));
             // Running text.
-            if (tag.length() > 25) {
-                //tvTag.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+/*            if (tag.length() > 25) {
+				//tvTag.setEllipsize(TextUtils.TruncateAt.MARQUEE);
                 remoteView.setBoolean(R.id.tvTag, "setSingleLine", true);
                 remoteView.setInt(R.id.tvTag, "setMarqueeRepeatLimit", 5);
                 remoteView.setBoolean(R.id.tvTag, "setSelected", true);
-            }
+            }*/
 
             // Percentage spent.
             remoteView.setTextViewText(R.id.tvPerc, getString(R.string.budget_dettaglio_speso) + ": " + perc + "%");
@@ -251,7 +251,7 @@ public class WidgetGrandeService extends RemoteViewsService {
 		    extras.putLong(WidgetGrande.EXTRA_ITEM, lstBudgetAperti.get(position).getBudgetId());
 		    Intent fillInIntent = new Intent();
 		    fillInIntent.putExtras(extras);
-            remoteView.setOnClickFillInIntent(R.id.clParent, fillInIntent);
+			remoteView.setOnClickFillInIntent(R.id.rlParent, fillInIntent);
 
             return remoteView;
 		}
