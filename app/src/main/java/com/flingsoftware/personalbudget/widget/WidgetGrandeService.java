@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.widget;
@@ -11,11 +11,9 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
@@ -27,6 +25,7 @@ import com.flingsoftware.personalbudget.database.AggiornamentoDatabaseIntentServ
 import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
 import com.flingsoftware.personalbudget.database.FunzioniAggiornamento;
+import com.flingsoftware.personalbudget.utilita.UtilityVarious;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -49,8 +48,8 @@ public class WidgetGrandeService extends RemoteViewsService {
 
 		public WidgetGrandeRemoteViewsFactory(Context context, Intent intent) {
 		    this.mioContext = context;
-		    lstBudgetAperti = new ArrayList<BudgetAperto>();
-		}
+            lstBudgetAperti = new ArrayList<>();
+        }
 		
 		
 		@Override
@@ -125,26 +124,28 @@ public class WidgetGrandeService extends RemoteViewsService {
 				}		
 				String tipoBudget = voceGrezza.substring(0, voceGrezza.indexOf(' '));
 				String vociInteressate = voceGrezza.substring(voceGrezza.indexOf(' ') + 1);
-				if(tipoBudget.equals("una_tantum")) {
-					tipoBudget = tipiBudget[0];
-				}
-				else if(tipoBudget.equals("giornaliero")) {
-					tipoBudget = tipiBudget[1];
-				}
-				else if(tipoBudget.equals("settimanale")) {
-					tipoBudget = tipiBudget[2];
-				}
-				else if(tipoBudget.equals("bisettimanale")) {
-					tipoBudget = tipiBudget[3];
-				}
-				else if(tipoBudget.equals("mensile")) {
-					tipoBudget = tipiBudget[4];
-				}
-				else if(tipoBudget.equals("annuale")) {
-					tipoBudget = tipiBudget[5];
-				}
-				
-				budgetAperto.setBudgetId(curBudgetAperti.getLong(curBudgetAperti.getColumnIndex("_id")));
+                switch (tipoBudget) {
+                    case "una_tantum":
+                        tipoBudget = tipiBudget[0];
+                        break;
+                    case "giornaliero":
+                        tipoBudget = tipiBudget[1];
+                        break;
+                    case "settimanale":
+                        tipoBudget = tipiBudget[2];
+                        break;
+                    case "bisettimanale":
+                        tipoBudget = tipiBudget[3];
+                        break;
+                    case "mensile":
+                        tipoBudget = tipiBudget[4];
+                        break;
+                    case "annuale":
+                        tipoBudget = tipiBudget[5];
+                        break;
+                }
+
+                budgetAperto.setBudgetId(curBudgetAperti.getLong(curBudgetAperti.getColumnIndex("_id")));
 				budgetAperto.setRipetizione(tipoBudget);
 				budgetAperto.setVoce(vociInteressate);
 				budgetAperto.setImportoValprin(curBudgetAperti.getDouble(curBudgetAperti.getColumnIndex("importo_valprin")));
@@ -187,64 +188,72 @@ public class WidgetGrandeService extends RemoteViewsService {
 		@Override
 		public RemoteViews getViewAt(int position)
 		{
+            // Get details to display and RemoteViews object.
             String budgetType = lstBudgetAperti.get(position).getRipetizione();
             String tag = lstBudgetAperti.get(position).getVoce();
             double budgetAmount = lstBudgetAperti.get(position).getImportoValprin();
             double spent = lstBudgetAperti.get(position).getSpesaSost();
             double saved = budgetAmount - spent;
             int perc = Math.min(((int) ((spent * 100) / budgetAmount)), 100);
+            RemoteViews remoteView = new RemoteViews(mioContext.getPackageName(), R.layout.widget_big_listview_item);
 
-            RemoteViews remoteView = new RemoteViews(mioContext.getPackageName(), R.layout.fragment_budget_listview_item);
             // Budget type.
             remoteView.setTextViewText(R.id.tvBudgetType, budgetType);
+
             // Tag.
             remoteView.setTextViewText(R.id.tvTag, tag);
-
-
             int tagColor = TagsColors.getInstance().getRandomColor(position);
-            GradientDrawable bgShape = (GradientDrawable) tvTag.getBackground();
-            bgShape.setColor(ContextCompat.getColor(getActivity(), tagColor));
-
-            tvTag.setText(voceGrezza);
+            remoteView.setInt(R.id.tvTag, "setBackgroundColor", ContextCompat.getColor(mioContext, tagColor));
             // Running text.
-            if (voceGrezza.length() > 25) {
-                tvTag.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-                tvTag.setSingleLine(true);
-                tvTag.setMarqueeRepeatLimit(5);
-                tvTag.setSelected(true);
+            if (tag.length() > 25) {
+                //tvTag.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                remoteView.setBoolean(R.id.tvTag, "setSingleLine", true);
+                remoteView.setInt(R.id.tvTag, "setMarqueeRepeatLimit", 5);
+                remoteView.setBoolean(R.id.tvTag, "setSelected", true);
+            }
 
-		    remoteView.setBoolean(R.id.fragment_budget_listview_item_tvVoci2, "setSingleLine", true);
-		    if(spesaSost<importoValPrin) {
-		    	remoteView.setViewVisibility(R.id.fragment_budget_listview_item_pbProgressoFull2, View.INVISIBLE);
-                remoteView.setViewVisibility(R.id.fragment_budget_listview_item_pbProgresso2, View.VISIBLE);
-                remoteView.setProgressBar(R.id.fragment_budget_listview_item_pbProgresso2, (int) importoValPrin, (int) spesaSost, false);
-		    }
+            // Percentage spent.
+            remoteView.setTextViewText(R.id.tvPerc, getString(R.string.budget_dettaglio_speso) + ": " + perc + "%");
+
+            // Amount saved (still to spend).
+            remoteView.setTextViewText(R.id.tvSaved, UtilityVarious.getFormattedAmountBudgetSavings(saved, mioContext));
+            if (saved >= 0) {
+                remoteView.setTextColor(R.id.tvSaved, ContextCompat.getColor(mioContext, android.R.color.holo_green_dark));
+            } else {
+                remoteView.setTextColor(R.id.tvSaved, ContextCompat.getColor(mioContext, android.R.color.holo_red_dark));
+            }
+
+            // ProgressBar.
+            if (spent < budgetAmount) {
+                remoteView.setViewVisibility(R.id.pbBudgetFull, View.INVISIBLE);
+                remoteView.setViewVisibility(R.id.pbBudget, View.VISIBLE);
+                remoteView.setProgressBar(R.id.pbBudget, 100, perc, false);
+            }
 		    else {
-                remoteView.setViewVisibility(R.id.fragment_budget_listview_item_pbProgressoFull2, View.VISIBLE);
-                remoteView.setViewVisibility(R.id.fragment_budget_listview_item_pbProgresso2, View.INVISIBLE);
-		    }
-		    remoteView.setTextViewText(R.id.fragment_budget_listview_item_tvImportoBudget2, nf.format(importoValPrin));
+                remoteView.setViewVisibility(R.id.pbBudgetFull, View.VISIBLE);
+                remoteView.setViewVisibility(R.id.pbBudget, View.INVISIBLE);
+            }
 
-
-                Integer icona = hmIcone.get(tag);
-                Bitmap miaBitmap;
-		    if(icona != null) {
+            // Icon.
+            Integer icona = hmIcone.get(tag);
+            Bitmap miaBitmap;
+            if(icona != null) {
                 miaBitmap = decodeSampledBitmapFromResource(mioContext.getResources(), arrIconeId[icona], 56, 56);
             }
 		    else {
                 miaBitmap = decodeSampledBitmapFromResource(mioContext.getResources(), R.drawable.img_budget, 56, 56);
             }
-                remoteView.setImageViewBitmap(R.id.ivIcon, miaBitmap);
+            remoteView.setImageViewBitmap(R.id.ivIcon, miaBitmap);
 
 
-                //singoli elementi della ListView cliccabili
-		    Bundle extras = new Bundle();
+            //singoli elementi della ListView cliccabili
+            Bundle extras = new Bundle();
 		    extras.putLong(WidgetGrande.EXTRA_ITEM, lstBudgetAperti.get(position).getBudgetId());
 		    Intent fillInIntent = new Intent();
 		    fillInIntent.putExtras(extras);
-		    remoteView.setOnClickFillInIntent(R.id.fragment_budget_listview_item_rlPadre2, fillInIntent);
-		    
-		    return remoteView;
+            remoteView.setOnClickFillInIntent(R.id.clParent, fillInIntent);
+
+            return remoteView;
 		}
 		
 		
@@ -391,13 +400,13 @@ public class WidgetGrandeService extends RemoteViewsService {
 			
 		
 		//variabili di istanza
-		private Context mioContext;
-		private List<BudgetAperto> lstBudgetAperti;
-		private NumberFormat nf;
+        private final Context mioContext;
+        private final List<BudgetAperto> lstBudgetAperti;
+        private NumberFormat nf;
 		private String[] tipiBudget;
-		
-		private HashMap<String,Integer> hmIcone = new HashMap<String,Integer>();
-		private final Integer[] arrIconeId = new Integer[] {R.drawable.tag_0, R.drawable.tag_1, R.drawable.tag_2, R.drawable.tag_3, R.drawable.tag_4, R.drawable.tag_5, R.drawable.tag_6, R.drawable.tag_7, R.drawable.tag_8, R.drawable.tag_9,
+
+        private final HashMap<String, Integer> hmIcone = new HashMap<>();
+        private final Integer[] arrIconeId = new Integer[] {R.drawable.tag_0, R.drawable.tag_1, R.drawable.tag_2, R.drawable.tag_3, R.drawable.tag_4, R.drawable.tag_5, R.drawable.tag_6, R.drawable.tag_7, R.drawable.tag_8, R.drawable.tag_9,
 			R.drawable.tag_10, R.drawable.tag_11, R.drawable.tag_12, R.drawable.tag_13, R.drawable.tag_14, R.drawable.tag_15, R.drawable.tag_16, R.drawable.tag_17, R.drawable.tag_18, R.drawable.tag_19,
 			R.drawable.tag_20, R.drawable.tag_21, R.drawable.tag_22, R.drawable.tag_23, R.drawable.tag_24, R.drawable.tag_25, R.drawable.tag_26, R.drawable.tag_27, R.drawable.tag_28, R.drawable.tag_29,
 			R.drawable.tag_30, R.drawable.tag_31, R.drawable.tag_32, R.drawable.tag_33, R.drawable.tag_34, R.drawable.tag_35, R.drawable.tag_36, R.drawable.tag_37, R.drawable.tag_38, R.drawable.tag_39,
