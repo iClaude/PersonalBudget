@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) - Software developed by iClaude.
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
   -->
 
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="23dp"
-    android:layout_width="wrap_content"
     android:text="@string/provv_lorem_ipsum"
     android:id="@+id/tvTag"
-    android:textSize="14sp"
-    android:textColor="@android:color/white"
-    android:textStyle="normal|bold"
-    android:fontFamily="sans-serif-light"
-    android:ellipsize="end"
-    android:maxLength="20"
-    android:background="@drawable/back_textview_tag"
-    android:gravity="center">
+    style="@style/textview_tag_big">
 
 </TextView>

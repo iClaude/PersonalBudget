@@ -205,7 +205,6 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-		//requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_personal_budget);
 

@@ -66,22 +66,15 @@
 
         <TextView
             android:id="@+id/tvTag"
-            android:layout_width="wrap_content"
-            android:layout_height="18dp"
+            style="@style/textview_tag_small"
             android:scrollHorizontally="true"
             android:text="@string/provv_lorem_ipsum"
-            android:background="@drawable/back_textview_tag"
-            android:textSize="12sp"
-            android:gravity="center"
-            android:maxLength="25"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:ellipsize="middle"
             android:fontFamily="sans-serif"
-            android:textColor="@android:color/white"
-            android:maxLines="1"
             card_view:layout_constraintTop_toBottomOf="@+id/tvBudgetType"
             card_view:layout_constraintLeft_toLeftOf="@+id/tvBudgetType"
-            android:layout_marginTop="4dp" />
+            android:layout_marginTop="4dp"
+            android:layout_height="0dp"
+            android:layout_width="0dp" />
 
         <ImageView
             android:src="@drawable/ic_visibility_black_24dp"
