@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.widget;
@@ -195,7 +195,7 @@ public class WidgetGrandeService extends RemoteViewsService {
             double spent = lstBudgetAperti.get(position).getSpesaSost();
             double saved = budgetAmount - spent;
             int perc = Math.min(((int) ((spent * 100) / budgetAmount)), 100);
-			RemoteViews remoteView = new RemoteViews(mioContext.getPackageName(), R.layout.widget_big_listview_item2);
+			RemoteViews remoteView = new RemoteViews(mioContext.getPackageName(), R.layout.widget_big_listview_item);
 
             // Budget type.
             remoteView.setTextViewText(R.id.tvBudgetType, budgetType);
@@ -203,9 +203,8 @@ public class WidgetGrandeService extends RemoteViewsService {
             // Tag.
             remoteView.setTextViewText(R.id.tvTag, tag);
             int tagColor = TagsColors.getInstance().getRandomColor(position);
-			//android.graphics.drawable.Drawable background = ContextCompat.getDrawable(mioContext, R.drawable.back_textview_tag);
-			remoteView.setInt(R.id.tvTag, "setBackgroundColor", ContextCompat.getColor(mioContext, tagColor));
-			remoteView.setInt(R.id.tvTag, "setBackgroundResource", R.drawable.back_textview_tag);
+			int color = ContextCompat.getColor(mioContext, tagColor);
+			remoteView.setInt(R.id.tvTag, "setBackgroundColorPreserveBackground", color);
 			// Running text.
 /*            if (tag.length() > 25) {
 				//tvTag.setEllipsize(TextUtils.TruncateAt.MARQUEE);
