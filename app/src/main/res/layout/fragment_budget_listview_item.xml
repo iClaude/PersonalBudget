@@ -69,12 +69,9 @@
             style="@style/textview_tag_small"
             android:scrollHorizontally="true"
             android:text="@string/provv_lorem_ipsum"
-            android:fontFamily="sans-serif"
             card_view:layout_constraintTop_toBottomOf="@+id/tvBudgetType"
             card_view:layout_constraintLeft_toLeftOf="@+id/tvBudgetType"
-            android:layout_marginTop="4dp"
-            android:layout_height="0dp"
-            android:layout_width="0dp" />
+            android:layout_marginTop="4dp" />
 
         <ImageView
             android:src="@drawable/ic_visibility_black_24dp"
