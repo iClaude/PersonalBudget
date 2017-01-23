@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.widget;
@@ -20,7 +20,6 @@ import android.widget.RemoteViewsService;
 
 import com.flingsoftware.personalbudget.R;
 import com.flingsoftware.personalbudget.app.FunzioniComuni;
-import com.flingsoftware.personalbudget.app.utility.TagsColors;
 import com.flingsoftware.personalbudget.database.AggiornamentoDatabaseIntentService;
 import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
@@ -202,16 +201,7 @@ public class WidgetGrandeService extends RemoteViewsService {
 
             // Tag.
             remoteView.setTextViewText(R.id.tvTag, tag);
-            int tagColor = TagsColors.getInstance().getRandomColor(position);
-			int color = ContextCompat.getColor(mioContext, tagColor);
-			remoteView.setInt(R.id.tvTag, "setBackgroundColorPreserveBackground", color);
-			// Running text.
-/*            if (tag.length() > 25) {
-				//tvTag.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-                remoteView.setBoolean(R.id.tvTag, "setSingleLine", true);
-                remoteView.setInt(R.id.tvTag, "setMarqueeRepeatLimit", 5);
-                remoteView.setBoolean(R.id.tvTag, "setSelected", true);
-            }*/
+            remoteView.setInt(R.id.tvTag, "setBackgroundResource", tagsDrawables[position % 10]);
 
             // Percentage spent.
             remoteView.setTextViewText(R.id.tvPerc, getString(R.string.budget_dettaglio_speso) + ": " + perc + "%");
@@ -413,5 +403,8 @@ public class WidgetGrandeService extends RemoteViewsService {
 			R.drawable.tag_30, R.drawable.tag_31, R.drawable.tag_32, R.drawable.tag_33, R.drawable.tag_34, R.drawable.tag_35, R.drawable.tag_36, R.drawable.tag_37, R.drawable.tag_38, R.drawable.tag_39,
 			R.drawable.tag_40, R.drawable.tag_41, R.drawable.tag_42, R.drawable.tag_43, R.drawable.tag_44, R.drawable.tag_45, R.drawable.tag_46, R.drawable.tag_47, R.drawable.tag_48, R.drawable.tag_49,
 			R.drawable.tag_50, R.drawable.tag_51, R.drawable.tag_52, R.drawable.tag_53, R.drawable.tag_54, R.drawable.tag_55, R.drawable.tag_56, R.drawable.tag_57};
-	}
+
+        // Tags' colors drawables.
+        private final int[] tagsDrawables = {R.drawable.back_textview_tag_01, R.drawable.back_textview_tag_02, R.drawable.back_textview_tag_03, R.drawable.back_textview_tag_04, R.drawable.back_textview_tag_05, R.drawable.back_textview_tag_06, R.drawable.back_textview_tag_07, R.drawable.back_textview_tag_08, R.drawable.back_textview_tag_09, R.drawable.back_textview_tag_10};
+    }
 }

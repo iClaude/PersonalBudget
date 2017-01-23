@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app;
@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,6 +36,7 @@ import com.flingsoftware.personalbudget.R;
 import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze;
 import com.flingsoftware.personalbudget.app.budgets.BudgetDetails;
 import com.flingsoftware.personalbudget.app.utility.TagsColors;
+import com.flingsoftware.personalbudget.customviews.TextViewWithBackground;
 import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
 import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
@@ -138,7 +138,7 @@ public class FragmentBudget extends ListFragment implements SharedPreferences.On
 
                     // Tags and icon.
                     case R.id.tvTag:
-                        TextView tvTag = (TextView) view;
+						TextViewWithBackground tvTag = (TextViewWithBackground) view;
 
                         String voceGrezza = cursor.getString(columnIndex);
                         if (voceGrezza.endsWith(",")) {
@@ -147,8 +147,9 @@ public class FragmentBudget extends ListFragment implements SharedPreferences.On
 
                         // Change the color of the tag's background.
                         int tagColor = TagsColors.getInstance().getRandomColor(cursor.getPosition());
-                        GradientDrawable bgShape = (GradientDrawable) tvTag.getBackground();
-                        bgShape.setColor(ContextCompat.getColor(getActivity(), tagColor));
+						/*GradientDrawable bgShape = (GradientDrawable) tvTag.getBackground();
+                        bgShape.setColor(ContextCompat.getColor(getActivity(), tagColor));*/
+						tvTag.setBackgroundColorPreserveBackground(ContextCompat.getColor(getActivity(), tagColor));
 
                         tvTag.setText(voceGrezza);
                         // Running text.

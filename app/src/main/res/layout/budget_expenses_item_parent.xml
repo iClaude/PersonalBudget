@@ -23,12 +23,14 @@
         android:background="@drawable/back_round_primarylight"
         android:scaleType="centerInside" />
 
-    <TextView
+    <com.flingsoftware.personalbudget.customviews.TextViewWithBackground
         android:text="@string/provv_lorem_ipsum"
         android:id="@+id/tvTag"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/ivIcon"
-        style="@style/textview_tag_big" />
+        style="@style/textview_tag_small"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp" />
 
     <TextView
         android:text="@string/provv_importoValutaZero"

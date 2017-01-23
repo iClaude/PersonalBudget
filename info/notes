@@ -1,2 +1,3 @@
 Da fare:
 - widget grande con tag colorati e della forma giusta (creare una TextView custom?)
+- usare la textview custom anche per altre classi che la usano

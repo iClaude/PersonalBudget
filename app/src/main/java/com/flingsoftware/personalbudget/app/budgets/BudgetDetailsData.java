@@ -1,12 +1,11 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.customviews.TextViewWithBackground;
 import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
 import com.flingsoftware.personalbudget.oggetti.Budget;
 import com.flingsoftware.personalbudget.utilita.UtilityVarious;
@@ -38,7 +38,7 @@ public class BudgetDetailsData extends Fragment implements BudgetDetails.Reloadi
     // Variables.
     private Budget budget;
     // Graphic.
-    private final int[] tagsColors = {R.color.indigo_500, R.color.red_500, R.color.pink_500, R.color.purple_500, R.color.deep_purple_500, R.color.teal_500, R.color.orange_800, R.color.brown_500, R.color.green_600, R.color.cyan_900};
+    private final int[] tagsColors = {R.color.tag_color_01, R.color.tag_color_03, R.color.tag_color_02, R.color.tag_color_04, R.color.tag_color_05, R.color.tag_color_06, R.color.tag_color_07, R.color.tag_color_08, R.color.tag_color_09, R.color.tag_color_10};
     // Widgets' references.
     private LinearLayout llTags;
     private TextView tvAmount;
@@ -118,14 +118,13 @@ public class BudgetDetailsData extends Fragment implements BudgetDetails.Reloadi
         List<String> tags = UtilityVarious.createTagsList(budget.getTag());
         llTags.removeAllViews();
         for (int i = 0; i < tags.size(); i++) {
-            TextView tvTag = (TextView) inflater.inflate(R.layout.tag_text_view, null);
+            TextViewWithBackground tvTag = (TextViewWithBackground) inflater.inflate(R.layout.tag_text_view, null);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             params.setMargins(0, 0, getResources().getDimensionPixelSize(R.dimen.tag_textview_marginright), 0);
             tvTag.setLayoutParams(params);
             // Set the color of the tag dinamically preserving the rounded rectangle shape.
             int tagColor = tagsColors[i % 10];
-            GradientDrawable bgShape = (GradientDrawable) tvTag.getBackground();
-            bgShape.setColor(ContextCompat.getColor(getActivity(), tagColor));
+            tvTag.setBackgroundColorPreserveBackground(ContextCompat.getColor(getActivity(), tagColor));
             tvTag.setText(tags.get(i));
             llTags.addView(tvTag);
         }

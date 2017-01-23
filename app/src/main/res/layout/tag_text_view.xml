@@ -2,9 +2,9 @@
   ~ Copyright (c) This code was written by iClaude. All rights reserved.
   -->
 
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.flingsoftware.personalbudget.customviews.TextViewWithBackground xmlns:android="http://schemas.android.com/apk/res/android"
     android:text="@string/provv_lorem_ipsum"
     android:id="@+id/tvTag"
     style="@style/textview_tag_big">
 
-</TextView>
+</com.flingsoftware.personalbudget.customviews.TextViewWithBackground>

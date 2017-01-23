@@ -64,7 +64,7 @@
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp" />
 
-        <TextView
+        <com.flingsoftware.personalbudget.customviews.TextViewWithBackground
             android:id="@+id/tvTag"
             style="@style/textview_tag_small"
             android:scrollHorizontally="true"

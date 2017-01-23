@@ -155,15 +155,15 @@
             app:layout_constraintVertical_bias="0.39" />
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
             app:srcCompat="@drawable/ic_visibility_black_24dp"
             android:id="@+id/imageView4"
             android:alpha="0.5"
             app:layout_constraintTop_toBottomOf="@+id/tvTag"
             android:layout_marginStart="4dp"
             app:layout_constraintLeft_toRightOf="@+id/tvPerc"
-            android:layout_marginLeft="4dp" />
+            android:layout_marginLeft="4dp"
+            android:layout_width="18dp"
+            android:layout_height="18dp" />
 
     </android.support.constraint.ConstraintLayout>
 

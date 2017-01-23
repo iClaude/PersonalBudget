@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  -->
+
+<resources>
+
+    <style name="textview_tag_small">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:background">@drawable/back_textview_tag_01</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLength">25</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_height">18dp</item>
+    </style>
+
+    <style name="textview_tag_big">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">normal|bold</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_height">23dp</item>
+        <item name="android:maxLength">25</item>
+        <item name="android:background">@drawable/back_textview_tag_01</item>
+        <item name="android:gravity">center</item>
+    </style>
+</resources>

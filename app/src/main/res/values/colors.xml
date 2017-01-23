@@ -38,15 +38,15 @@
     <color name="red_dark_900">#B71C1C</color>
 
     <!-- Colors for tags. -->
-    <color name="pink_500">#E91E63</color>
-    <color name="red_500">#F44336</color>
-    <color name="indigo_500">#3F51B5</color>
-    <color name="purple_500">#9C27B0</color>
-    <color name="deep_purple_500">#673AB7</color>
-    <color name="teal_500">#009688</color>
-    <color name="orange_800">#EF6C00</color>
-    <color name="brown_500">#795548</color>
-    <color name="green_600">#43A047</color>
-    <color name="cyan_900">#006064</color>
+    <color name="tag_color_01">#3F51B5</color>
+    <color name="tag_color_02">#E91E63</color>
+    <color name="tag_color_03">#F44336</color>
+    <color name="tag_color_04">#9C27B0</color>
+    <color name="tag_color_05">#673AB7</color>
+    <color name="tag_color_06">#009688</color>
+    <color name="tag_color_07">#EF6C00</color>
+    <color name="tag_color_08">#795548</color>
+    <color name="tag_color_09">#43A047</color>
+    <color name="tag_color_10">#006064</color>
 
 </resources>

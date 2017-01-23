@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) - Software developed by iClaude.
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -8,7 +8,7 @@
     android:layout_height="wrap_content"
     android:descendantFocusability="blocksDescendants"
     android:background="?android:attr/selectableItemBackground"
-    android:paddingBottom="8dp">
+    android:paddingBottom="4dp">
 
     <ImageView
         android:id="@+id/ivIcon"
@@ -39,6 +39,7 @@
         android:textSize="18sp"
         android:ellipsize="end"
         android:layout_toLeftOf="@+id/tvSaved"
+        android:layout_toStartOf="@+id/tvSaved"
         android:fontFamily="sans-serif"
         android:textColor="@color/text_primary" />
 
@@ -49,7 +50,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="8dp"
-        android:gravity="right"
+        android:gravity="end"
         android:text="@string/provv_importoValutaZero"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@android:color/holo_green_dark"
@@ -59,19 +60,20 @@
         android:bufferType="spannable"
         android:layout_marginEnd="8dp" />
 
-    <com.flingsoftware.personalbudget.customviews.TextViewWithBackground
+    <TextView
         android:id="@+id/tvTag"
         style="@style/textview_tag_small"
         android:layout_below="@id/tvBudgetType"
         android:layout_marginLeft="8dp"
         android:layout_toRightOf="@id/ivIcon"
+        android:layout_toEndOf="@id/ivIcon"
         android:scrollHorizontally="true"
         android:text="@string/provv_lorem_ipsum"
         android:layout_marginStart="12dp"
         android:layout_marginTop="4dp" />
 
     <TextView
-        android:text="Spent: 75,65%"
+        android:text="@string/provv_lorem_ipsum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvPerc"
@@ -79,12 +81,14 @@
         android:textSize="12sp"
         android:layout_below="@id/tvTag"
         android:layout_toRightOf="@id/ivIcon"
+        android:layout_toEndOf="@id/ivIcon"
         android:layout_marginTop="4dp"
         android:layout_marginLeft="12dp"
         android:layout_marginStart="12dp" />
 
     <ImageView
         android:src="@drawable/ic_visibility_black_24dp"
+        android:contentDescription="@string/provv_contenutoImmagini"
         android:id="@+id/imageView4"
         android:alpha="0.5"
         android:layout_width="17dp"

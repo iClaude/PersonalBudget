@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -8,7 +8,6 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -31,6 +30,7 @@ import com.bignerdranch.expandablerecyclerview.ViewHolder.ChildViewHolder;
 import com.bignerdranch.expandablerecyclerview.ViewHolder.ParentViewHolder;
 import com.flingsoftware.personalbudget.R;
 import com.flingsoftware.personalbudget.app.utility.TagsColors;
+import com.flingsoftware.personalbudget.customviews.TextViewWithBackground;
 import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
 import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
@@ -140,7 +140,7 @@ public class BudgetDetailsExpenses extends Fragment implements BudgetDetails.Rel
         // Parent ViewHolder.
         public class ExpensesWithTagViewHolder extends ParentViewHolder {
             private final ImageView ivIcon;
-            private final TextView tvTag;
+            private final TextViewWithBackground tvTag;
             private final TextView tvTotal;
             private final TextView tvCount;
             private final TextView tvStat;
@@ -149,7 +149,7 @@ public class BudgetDetailsExpenses extends Fragment implements BudgetDetails.Rel
             public ExpensesWithTagViewHolder(View itemView) {
                 super(itemView);
                 ivIcon = (ImageView) itemView.findViewById(R.id.ivIcon);
-                tvTag = (TextView) itemView.findViewById(R.id.tvTag);
+                tvTag = (TextViewWithBackground) itemView.findViewById(R.id.tvTag);
                 tvTotal = (TextView) itemView.findViewById(R.id.tvTotal);
                 tvCount = (TextView) itemView.findViewById(R.id.tvCount);
                 tvStat = (TextView) itemView.findViewById(R.id.tvStat);
@@ -172,8 +172,7 @@ public class BudgetDetailsExpenses extends Fragment implements BudgetDetails.Rel
                 iconeVeloci.loadBitmap(expensesWithTag.getIconId(), ivIcon, mPlaceHolderBitmap, 40, 40);
                 // Set the color of the tag dinamically preserving the rounded rectangle shape.
                 int tagColor = TagsColors.getInstance().getRandomColor(getAdapterPosition());
-                GradientDrawable bgShape = (GradientDrawable) tvTag.getBackground();
-                bgShape.setColor(ContextCompat.getColor(getActivity(), tagColor));
+                tvTag.setBackgroundColorPreserveBackground(ContextCompat.getColor(getActivity(), tagColor));
                 tvTag.setText(expensesWithTag.getTag());
                 tvTotal.setText(UtilityVarious.getFormattedAmount(expensesWithTag.getTotal(), getActivity()));
                 tvCount.setText(getResources().getQuantityString(R.plurals.budgets_num_expenses, expensesWithTag.getNumExpenses(), expensesWithTag.getNumExpenses()));
