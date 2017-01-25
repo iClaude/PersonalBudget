@@ -1,35 +1,41 @@
+/*
+ * Copyright (c) This code was written by iClaude. All rights reserved.
+ */
+
 package com.flingsoftware.personalbudget.app;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
 
-import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze;
-import com.flingsoftware.personalbudget.database.*;
-
-import java.text.DateFormat;
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
-import java.util.Currency;
-import java.util.GregorianCalendar;
-import java.util.Locale;
-import java.util.Date;
-
-import com.flingsoftware.personalbudget.R;
-
-import android.support.v4.app.Fragment;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v7.widget.SearchView;
-import android.widget.TextView;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze;
+import com.flingsoftware.personalbudget.database.DBCConti;
+import com.flingsoftware.personalbudget.database.DBCEntrateIncassate;
+import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
+
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Currency;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
 
 
 public class FragmentSaldo extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -328,7 +334,7 @@ public class FragmentSaldo extends Fragment implements SharedPreferences.OnShare
 			else {
 				tvSaldoGeneraleLabel.setVisibility(View.VISIBLE);
 				tvSaldoGenerale.setVisibility(View.VISIBLE);
-				tvSaldoGeneraleLabel.setText(getString(R.string.fragment_saldo_saldoFinale) + " " + MainPersonalBudget.conto + ":");
+				tvSaldoGeneraleLabel.setText(getString(R.string.frag_balance_balance) + " " + MainPersonalBudget.conto + ":");
 				if(risultati[3] >= 0) {
 					tvSaldoGenerale.setTextColor(Color.argb(255, 0, 128, 0));
 				}

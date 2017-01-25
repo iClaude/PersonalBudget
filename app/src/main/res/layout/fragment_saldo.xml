@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  -->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/preferenze_voci_listview_item_rlPadre"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="4dp" >
+    android:padding="4dp">
 
     <FrameLayout
         android:layout_width="1600dp"
@@ -77,7 +80,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/fragment_saldo_bilancio"
+                    android:text="@string/frag_balance_title"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/text_primary"
                     android:textSize="22sp" />
@@ -178,7 +181,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="@string/fragment_saldo_entrateFuture"
+                            android:text="@string/frag_balance_future_earnings"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textColor="@color/text_primary" />
 
@@ -203,7 +206,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="@string/fragment_saldo_speseFuture"
+                            android:text="@string/frag_balance_future_expenses"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textColor="@color/text_primary" />
 
@@ -229,7 +232,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="@string/fragment_saldo_saldoPrevisto"
+                            android:text="@string/frag_balance_estimated_balance"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textStyle="bold"
                             android:textColor="@color/accent" />
@@ -277,7 +280,7 @@
         android:layout_below="@id/fragment_saldo_svScheda"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
-        android:text="@string/fragment_saldo_saldoFinale"
+        android:text="@string/frag_balance_balance"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="18sp"
         android:textStyle="bold"

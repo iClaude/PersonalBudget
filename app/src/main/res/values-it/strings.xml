@@ -14,6 +14,15 @@
     <string name="di">di</string>
     <string name="generic_loading_data">loading data...</string>
 
+    <!-- Fragment balance -->
+    <string name="frag_balance_title">Saldo periodo</string>
+    <string name="frag_balance_balance">Saldo</string>
+    <string name="frag_balance_earnings">Entrate</string>
+    <string name="frag_balance_expenses">Spese</string>
+    <string name="frag_balance_future_earnings">Entrate future</string>
+    <string name="frag_balance_future_expenses">Spese future</string>
+    <string name="frag_balance_chart_title">Entrate/Spese</string>
+
     <!-- Not yet classified -->
     <string name="app_name">Personal Budget</string>
     <string name="action_settings">Impostazioni</string>
@@ -245,14 +254,6 @@
     <string name="menu_esporta_guadagni">Entrate</string>
     <string name="menu_periodo_meseIniziaDa">Giorno inizio mese:</string>
     <string name="menu_periodo_timeline">Timeline:</string>
-    <string name="fragment_saldo_bilancio">Saldo periodo</string>
-    <string name="fragment_saldo_entrateFuture">Entrate future</string>
-    <string name="fragment_saldo_speseFuture">Spese future</string>
-    <string name="fragment_saldo_saldoPrevisto">Saldo previsto</string>
-    <string-array name="fragment_saldo_piechartNomeFette">
-        <item >Entrate</item>
-        <item >Spese</item>
-    </string-array>
         <string name="menu_visualizzaStats">Grafici</string>
     <string name="budget_dettaglio_tipoBudget">Tipo budget</string>
     <string name="budget_dettaglio_importo">Importo</string>
@@ -531,7 +532,6 @@
 	<string name="conti_tutti">tutti</string>
 	<string name="main_conto">C/</string>
 	<string name="drawer_gestioneConti">Gestione conti</string>
-	<string name="fragment_saldo_saldoFinale">Saldo</string>
 	<string name="voce_giroconto">giroconto</string>
 	<string name="preferenze_voci_modificaNonPermessa">Questa voce non può essere modificata!</string>
     <string name="provv_ora">14:55:56</string>

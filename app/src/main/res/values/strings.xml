@@ -14,6 +14,15 @@
     <string name="di">of</string>
     <string name="generic_loading_data">caricamento...</string>
 
+    <!-- Fragment balance -->
+    <string name="frag_balance_title">Overview</string>
+    <string name="frag_balance_balance">Balance</string>
+    <string name="frag_balance_earnings">Earnings</string>
+    <string name="frag_balance_expenses">Expenses</string>
+    <string name="frag_balance_future_earnings">Future earnings</string>
+    <string name="frag_balance_future_expenses">Future expenses</string>
+    <string name="frag_balance_chart_title">Income/Expense</string>
+
     <!-- Not yet classified -->
     <string name="app_name">Personal Budget</string>
     <string name="action_settings">Settings</string>
@@ -240,11 +249,6 @@
     <string name="menu_esporta_guadagni">Earnings</string>
     <string name="menu_periodo_meseIniziaDa">Month starts at day:</string>
     <string name="menu_periodo_timeline">Timeline:</string>
-    <string name="fragment_saldo_bilancio">Balance timespan</string>
-    <string-array name="fragment_saldo_piechartNomeFette" translation_description="translation description">
-        <item>Earnings</item>
-        <item>Expenses</item>
-    </string-array>
     <string name="menu_visualizzaStats">Charts</string>
     <string name="budget_dettaglio_tipoBudget">Budget type</string>
     <string name="budget_dettaglio_importo">Amount</string>
@@ -495,10 +499,6 @@
     <string name="dettagli_voce_conto">Account</string>
     <string name="menu_esporta_tabellaPdf_colonnaConto">ACCOUNT</string>
     <string name="menu_conti">Accounts</string>
-    <string name="fragment_saldo_saldoFinale">Balance</string>
-    <string name="fragment_saldo_entrateFuture">Future earnings</string>
-    <string name="fragment_saldo_speseFuture">Future expenses</string>
-    <string name="fragment_saldo_saldoPrevisto">Est. balance</string>
     <string name="conti_gestioneConti">Accounts manager</string>
     <string name="conti_totaleGenerale">General total:</string>
     <string name="menu_contielenco_trasferimento">Transfer</string>
