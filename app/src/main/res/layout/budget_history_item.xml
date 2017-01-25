@@ -24,8 +24,8 @@
             app:layout_constraintTop_toTopOf="parent"
             android:padding="12dp"
             android:background="@drawable/back_round_primarylight_border"
-            android:layout_width="56dp"
-            android:layout_height="57dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             app:layout_constraintBottom_toTopOf="@+id/pbBudget" />
 
         <ProgressBar
@@ -63,7 +63,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="8dp" />
 
-        <TextView
+        <com.flingsoftware.personalbudget.customviews.TextViewWithBackground
             android:id="@+id/tvTag"
             android:text="@string/provv_lorem_ipsum"
             app:layout_constraintTop_toBottomOf="@+id/tvPeriod"

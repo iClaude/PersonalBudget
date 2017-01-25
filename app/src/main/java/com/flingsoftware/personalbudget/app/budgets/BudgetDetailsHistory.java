@@ -25,7 +25,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.customviews.TextViewWithBackground;
 import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
+import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
+import com.flingsoftware.personalbudget.database.DBCVociAbs;
 import com.flingsoftware.personalbudget.oggetti.Budget;
 import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
 import com.flingsoftware.personalbudget.utilita.UtilityVarious;
@@ -47,8 +50,7 @@ public class BudgetDetailsHistory extends Fragment implements BudgetDetails.Relo
 
     // Variables.
     private long budgetId;
-    private Bitmap redPig;
-    private Bitmap greenPig;
+    private Bitmap iconBitmap;
 
     // Widgets and layout.
     private TextView tvLoading;
@@ -94,6 +96,7 @@ public class BudgetDetailsHistory extends Fragment implements BudgetDetails.Relo
     // Retrieve the history of budgets of the same type, passing the id of this budget.
     private class GetBudgetHistoryTask extends AsyncTask<Long, Object, Void> {
         private final List<Budget> listBudget = new ArrayList<>(10);
+        private final DBCVociAbs dbcVociAbs = new DBCSpeseVoci(getActivity());
 
         protected Void doInBackground(Long... params) {
             // Get the history of budgets.
@@ -112,9 +115,22 @@ public class BudgetDetailsHistory extends Fragment implements BudgetDetails.Relo
             cursor.close();
             dbcSpeseBudget.close();
 
-            // Get bitmaps for budgets (red pig or green pig).
-            redPig = ListViewIconeVeloce.decodeSampledBitmapFromResource(getResources(), R.drawable.img_maiale_rosso, 256, 256);
-            greenPig = ListViewIconeVeloce.decodeSampledBitmapFromResource(getResources(), R.drawable.img_maiale_verde, 256, 256);
+            if (listBudget.size() == 0) return null;
+
+            // Get the bitmap for the icon.
+            // Get the icon id from the tag.
+            dbcVociAbs.openLettura();
+            Cursor curVoci = dbcVociAbs.getTutteLeVociFiltrato(listBudget.get(0).getTag()); // all budgets are of the same type, so the icon is the same
+            int iconaId = R.drawable.tag_1;
+            if (curVoci.moveToFirst()) {
+                int icona = curVoci.getInt(curVoci.getColumnIndex("icona"));
+                iconaId = ListViewIconeVeloce.arrIconeId[icona];
+            }
+            final int iconaIdDef = iconaId;
+            curVoci.close();
+            dbcVociAbs.close();
+            // Create the bitmap.
+            iconBitmap = ListViewIconeVeloce.decodeSampledBitmapFromResource(getResources(), iconaIdDef, 56, 56);
 
             return null;
         }
@@ -191,8 +207,10 @@ public class BudgetDetailsHistory extends Fragment implements BudgetDetails.Relo
 
         // BudgetsAdapter class.
         private List<Budget> listBudget = new ArrayList<>();
+        private int tagColor;
 
         public BudgetAdapter() {
+            tagColor = ContextCompat.getColor(getActivity(), R.color.tag_color_01);
         }
 
 
@@ -219,22 +237,19 @@ public class BudgetDetailsHistory extends Fragment implements BudgetDetails.Relo
             if (budget != null) {
                 Context context = getActivity();
                 // Show budget's details in the layout.
+                holder.ivIcon.setImageBitmap(iconBitmap);
                 DateFormat dateFormat = UtilityVarious.getDateFormatShort();
-                String period = dateFormat.format
-                        (new Date(budget.getDateStart())) + " - " + dateFormat.format(new Date(budget.getDateEnd()));
+                String period = dateFormat.format(new Date(budget.getDateStart())) + " - " + dateFormat.format(new Date(budget.getDateEnd()));
                 holder.tvPeriod.setText(period);
                 String tag = budget.getTag().contains(",") ? getString(R.string.budgets_history_multiple) : budget.getTag();
                 holder.tvTag.setText(tag);
+                ((TextViewWithBackground) holder.tvTag).setBackgroundColorPreserveBackground(tagColor);
                 double saved = budget.getAmount() - budget.getExpenses();
                 holder.tvSaved.setText(UtilityVarious.getFormattedAmountBudgetSavings(saved, context), TextView.BufferType.SPANNABLE);
                 if (saved >= 0) {
                     holder.tvSaved.setTextColor(ContextCompat.getColor(context, android.R.color.holo_green_dark));
-                    //holder.tvSaved.setText("+ " + UtilityVarious.getFormattedAmount(saved, context));
-                    holder.ivIcon.setImageBitmap(greenPig);
                 } else {
                     holder.tvSaved.setTextColor(ContextCompat.getColor(context, android.R.color.holo_red_dark));
-                    //holder.tvSaved.setText(UtilityVarious.getFormattedAmount(saved, context));
-                    holder.ivIcon.setImageBitmap(redPig);
                 }
 
                 int perc = Math.min(((int) ((budget.getExpenses() * 100) / budget.getAmount())), 100);
