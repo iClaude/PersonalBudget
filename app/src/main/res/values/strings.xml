@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  ~ Copyright (c) - Software developed by iClaude.
   -->
 
 <resources>
@@ -22,6 +22,7 @@
     <string name="frag_balance_future_earnings">Future earnings</string>
     <string name="frag_balance_future_expenses">Future expenses</string>
     <string name="frag_balance_chart_title">Income/Expense</string>
+    <string name="frag_balance_estimated_balance">Estimated balance</string>
 
     <!-- Not yet classified -->
     <string name="app_name">Personal Budget</string>

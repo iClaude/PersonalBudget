@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  ~ Copyright (c) - Software developed by iClaude.
   -->
 
 <resources>
@@ -32,10 +32,10 @@
 
     <color name="green_primary">#4CAF50</color>
     <color name="green_dark">#388E3C</color>
-    <color name="green_dark_900">#1B5E20</color>
+    <color name="green_dark_900">#1b5e20</color>
     <color name="red_primay">#F44336</color>
     <color name="red_dark">#D32F2F</color>
-    <color name="red_dark_900">#B71C1C</color>
+    <color name="red_dark_900">#b71c1c</color>
 
     <!-- Colors for tags. -->
     <color name="tag_color_01">#3F51B5</color>

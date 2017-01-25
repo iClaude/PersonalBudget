@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  ~ Copyright (c) - Software developed by iClaude.
   -->
 
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/tvEarnings"
         android:textSize="24sp"
-        android:textColor="?android:attr/textColorPrimary"
+        android:textColor="@color/green_dark_900"
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/textView9"
         android:layout_marginStart="16dp"
@@ -80,7 +80,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/tvExpenses"
         app:layout_constraintLeft_toLeftOf="@+id/tvExpenses"
-        android:textColor="?android:attr/textColorPrimary"
+        android:textColor="@color/red_dark_900"
         android:textSize="24sp" />
 
     <android.support.constraint.Guideline
@@ -120,7 +120,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView16"
-        android:textColor="?android:attr/textColorPrimary"
+        android:textColor="@color/green_dark_900"
         android:textSize="24sp"
         tools:layout_editor_absoluteY="186dp"
         tools:layout_editor_absoluteX="16dp" />
@@ -135,7 +135,7 @@
         app:layout_constraintLeft_toLeftOf="@+id/guideline2"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:textColor="?android:attr/textColorPrimary"
+        android:textColor="@color/red_dark_900"
         android:textSize="24sp" />
 
     <TextView
@@ -178,5 +178,20 @@
         android:layout_marginRight="16dp"
         android:layout_marginTop="24dp"
         app:layout_constraintTop_toBottomOf="@+id/tvChartTitle"></LinearLayout>
+
+    <TextView
+        android:text="+ 250,00"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvBalance"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        android:textColor="@color/green_dark_900"
+        android:textSize="30sp"
+        android:fontFamily="sans-serif"
+        android:textStyle="normal|bold" />
 
 </android.support.constraint.ConstraintLayout>
