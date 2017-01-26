@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app;
@@ -40,6 +40,7 @@ import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPr
 
 public class FragmentSaldo extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
+	// Test task.
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
