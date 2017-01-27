@@ -274,7 +274,7 @@ public class BudgetDetails extends AppCompatActivity {
         tvTagAppbar.setMarqueeRepeatLimit(5);
         tvTagAppbar.setSelected(true);
         // Amount formatted in main currency.
-        String amountFormatted = UtilityVarious.getFormattedAmount(budget.getAmount(), this);
+        String amountFormatted = UtilityVarious.formatAmountCurrency(budget.getAmount(), this);
         tvAmountToolbar.setText(amountFormatted + " (" + budgetType + ")");
         tvAmountAppbar.setText(amountFormatted + " / " + budgetType);
         // Rating bar.

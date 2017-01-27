@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -103,7 +103,7 @@ public class BudgetDetailsData extends Fragment implements BudgetDetails.Reloadi
         // Now display data.
         displayTags();
         //tvTag.setText(budget.getTagWithoutComma());
-        tvAmount.setText(UtilityVarious.getFormattedAmount(budget.getExpenses(), getActivity()) + " " + getString(R.string.di) + " " + UtilityVarious.getFormattedAmount(budget.getAmount(), getActivity()));
+        tvAmount.setText(UtilityVarious.formatAmountCurrency(budget.getExpenses(), getActivity()) + " " + getString(R.string.di) + " " + UtilityVarious.formatAmountCurrency(budget.getAmount(), getActivity()));
         tvBudgetType.setText(budget.getBudgetType(getActivity()));
         tvDate.setText(UtilityVarious.getDateFormatShort().format(new Date(budget.getDateEnd())));
         int imageId = budget.getAddRest() == 0 ? R.drawable.cross : R.drawable.check;

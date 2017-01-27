@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app;
@@ -175,7 +175,7 @@ public class FragmentBudget extends ListFragment implements SharedPreferences.On
                     // Amount saved.
                     case R.id.tvSaved:
 						double saved = cursor.getDouble(columnIndex);
-                        ((TextView) view).setText(UtilityVarious.getFormattedAmountCurrencySuperscript(saved, getActivity()), TextView.BufferType.SPANNABLE);
+						((TextView) view).setText(UtilityVarious.formatAmountColorCurrencySuperscript(saved, getActivity()), TextView.BufferType.SPANNABLE);
 
                         return true;
 

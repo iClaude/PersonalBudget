@@ -131,7 +131,7 @@ public class SixElementsPieChartBuilder extends PieChartBuilder {
                     evidPrec = seriesIndex;
                     pieChart.repaint();
 
-                    Toast.makeText(getContext(), getContext().getString(R.string.statistiche_importo) + ": " + UtilityVarious.getFormattedAmount(getAmountsAndLabels()[seriesIndex].getAmount(), getContext()) + "\n" + getContext().getString(R.string.statistiche_percentuale) + ": " + nfPerc.format(getAmountsAndLabels()[seriesIndex].getAmount() / getTotalAmount()), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getContext().getString(R.string.statistiche_importo) + ": " + UtilityVarious.formatAmountCurrency(getAmountsAndLabels()[seriesIndex].getAmount(), getContext()) + "\n" + getContext().getString(R.string.statistiche_percentuale) + ": " + nfPerc.format(getAmountsAndLabels()[seriesIndex].getAmount() / getTotalAmount()), Toast.LENGTH_SHORT).show();
                 }
             }
         });

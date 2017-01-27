@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  ~ Copyright (c) - Software developed by iClaude.
   -->
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:layout_marginBottom="16dp">
+    android:layout_height="wrap_content">
 
     <include layout="@layout/fragment_balance_content"></include>
 
-</ScrollView>
+</android.support.v4.widget.NestedScrollView>

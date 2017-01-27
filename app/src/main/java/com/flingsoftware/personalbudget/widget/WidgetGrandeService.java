@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.widget;
@@ -206,7 +206,7 @@ public class WidgetGrandeService extends RemoteViewsService {
             remoteView.setTextViewText(R.id.tvPerc, getString(R.string.budget_dettaglio_speso) + ": " + perc + "%");
 
             // Amount saved (still to spend).
-			remoteView.setTextViewText(R.id.tvSaved, UtilityVarious.getFormattedAmountCurrencySuperscript(saved, mioContext));
+			remoteView.setTextViewText(R.id.tvSaved, UtilityVarious.formatAmountColorCurrencySuperscript(saved, mioContext));
 
             // ProgressBar.
             if (spent < budgetAmount) {

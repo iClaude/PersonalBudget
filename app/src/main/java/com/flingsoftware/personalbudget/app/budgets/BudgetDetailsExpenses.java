@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -174,9 +174,9 @@ public class BudgetDetailsExpenses extends Fragment implements BudgetDetails.Rel
                 int tagColor = TagsColors.getInstance().getRandomColor(getAdapterPosition());
                 tvTag.setBackgroundColorPreserveBackground(ContextCompat.getColor(getActivity(), tagColor));
                 tvTag.setText(expensesWithTag.getTag());
-                tvTotal.setText(UtilityVarious.getFormattedAmount(expensesWithTag.getTotal(), getActivity()));
+                tvTotal.setText(UtilityVarious.formatAmountCurrency(expensesWithTag.getTotal(), getActivity()));
                 tvCount.setText(getResources().getQuantityString(R.plurals.budgets_num_expenses, expensesWithTag.getNumExpenses(), expensesWithTag.getNumExpenses()));
-                tvStat.setText(getString(R.string.budgets_maxmin, UtilityVarious.getFormattedAmount(expensesWithTag.getMaxExpense(), getActivity()), UtilityVarious.getFormattedAmount(expensesWithTag.getMinExpense(), getActivity())));
+                tvStat.setText(getString(R.string.budgets_maxmin, UtilityVarious.formatAmountCurrency(expensesWithTag.getMaxExpense(), getActivity()), UtilityVarious.formatAmountCurrency(expensesWithTag.getMinExpense(), getActivity())));
                 // Set correct rotation of ibExpand according to the expanded state.
                 float rotation = isExpanded() ? 180.0f : 0.0f;
                 ibExpand.setRotation(rotation);
@@ -220,7 +220,7 @@ public class BudgetDetailsExpenses extends Fragment implements BudgetDetails.Rel
                 tvDate.setText(dateFormat.format(new Date(expense.getData())));
                 tvDesc.setText(expense.getDescrizione());
                 tvAccount.setText(expense.getConto());
-                tvAmount.setText(UtilityVarious.getFormattedAmount(expense.getImportoValprin(), getActivity()));
+                tvAmount.setText(UtilityVarious.formatAmountCurrency(expense.getImportoValprin(), getActivity()));
             }
         }
     }

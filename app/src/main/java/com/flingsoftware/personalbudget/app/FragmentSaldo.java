@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app;
@@ -17,14 +17,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.flingsoftware.personalbudget.R;
 import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze;
+import com.flingsoftware.personalbudget.charts.piechart.AmountAndLabel;
+import com.flingsoftware.personalbudget.charts.piechart.BalancePieChartBuilder;
+import com.flingsoftware.personalbudget.charts.piechart.PieChartBuilder;
 import com.flingsoftware.personalbudget.database.DBCConti;
 import com.flingsoftware.personalbudget.database.DBCEntrateIncassate;
 import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
 import com.flingsoftware.personalbudget.utilita.UtilityVarious;
+
+import org.achartengine.GraphicalView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -58,6 +64,7 @@ public class FragmentSaldo extends Fragment implements SharedPreferences.OnShare
 		tvSpeseFuture = (TextView) rootView.findViewById(R.id.tvExpensesFut);
 		tvSaldoPrevisto = (TextView) rootView.findViewById(R.id.tvBalance);
 		tvSaldoGenerale = (TextView) rootView.findViewById(R.id.tvBalanceFinal);
+        llChart = (LinearLayout) rootView.findViewById(R.id.llChart);
 
 		//aggiorno tvPeriodo con il periodo iniziale e registro l'ascoltatore per il cambio preferenze
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -283,23 +290,11 @@ public class FragmentSaldo extends Fragment implements SharedPreferences.OnShare
 
 		protected void onPostExecute(Double[] risultati) {
 			// Sezione saldo periodo.
-			tvEntrate.setText(UtilityVarious.getFormattedAmountWithoutCurrency(risultati[0]));
-			tvSpese.setText(UtilityVarious.getFormattedAmountWithoutCurrency(risultati[1]));
-
-			// Sezione entrate/spese future.
-			if(dataFine.getTimeInMillis() > System.currentTimeMillis()) {
-				getActivity().findViewById(R.id.tvEarningsFut).setVisibility(View.VISIBLE);
-				getActivity().findViewById(R.id.tvExpensesFut).setVisibility(View.VISIBLE);
-				getActivity().findViewById(R.id.tvBalance).setVisibility(View.VISIBLE);
-				tvEntrateFuture.setText(UtilityVarious.getFormattedAmountWithoutCurrency(risultati[4]));
-				tvSpeseFuture.setText(UtilityVarious.getFormattedAmountWithoutCurrency(risultati[5]));
-				tvSaldoPrevisto.setText(UtilityVarious.getFormattedAmountCurrencySuperscript(risultati[6], getActivity()));
-			}
-			else {
-				getActivity().findViewById(R.id.tvEarningsFut).setVisibility(View.GONE);
-				getActivity().findViewById(R.id.tvExpensesFut).setVisibility(View.GONE);
-				getActivity().findViewById(R.id.tvBalance).setVisibility(View.GONE);
-			}
+            tvEntrate.setText(UtilityVarious.formatAmountNoCurrency(risultati[0]));
+            tvSpese.setText(UtilityVarious.formatAmountNoCurrency(risultati[1]));
+            tvEntrateFuture.setText(UtilityVarious.formatAmountNoCurrency(risultati[4]));
+            tvSpeseFuture.setText(UtilityVarious.formatAmountNoCurrency(risultati[5]));
+            tvSaldoPrevisto.setText(UtilityVarious.formatAmountColorNoCurrency(risultati[6], getActivity()));
 
 			// Sezione saldo finale.
 			if(MainPersonalBudget.conto.equals("%")) {
@@ -307,10 +302,26 @@ public class FragmentSaldo extends Fragment implements SharedPreferences.OnShare
 			}
 			else {
 				tvSaldoGenerale.setVisibility(View.VISIBLE);
-				tvSaldoGenerale.setText("(= " + UtilityVarious.getFormattedAmountWithoutCurrency(risultati[3]) + ")");
-			}
-		}
+                tvSaldoGenerale.setText("(= " + UtilityVarious.formatAmountNoCurrency(risultati[3]) + ")");
+            }
+
+            // Pie chart.
+            displayPieChart(risultati[0] + risultati[4], risultati[1] + risultati[5]);
+        }
 	}
+
+    // Display pie chart of earnings/expenses.
+    private void displayPieChart(double earnings, double expenses) {
+        AmountAndLabel[] amountsAndLabels = new AmountAndLabel[2];
+        amountsAndLabels[0] = new AmountAndLabel(getString(R.string.frag_balance_expenses), expenses);
+        amountsAndLabels[1] = new AmountAndLabel(getString(R.string.frag_balance_earnings), earnings);
+
+        PieChartBuilder pieChartBuilder = new BalancePieChartBuilder();
+        pieChartBuilder.createNewPieChart(getActivity(), amountsAndLabels, "");
+        GraphicalView pieChart = pieChartBuilder.getPieChart();
+        llChart.removeAllViews();
+        llChart.addView(pieChart);
+    }
 
 
 	//variabili di istanza
@@ -327,4 +338,5 @@ public class FragmentSaldo extends Fragment implements SharedPreferences.OnShare
 	private TextView tvSpeseFuture;
 	private TextView tvSaldoPrevisto;
 	private TextView tvSaldoGenerale;
+    private LinearLayout llChart;
 }
