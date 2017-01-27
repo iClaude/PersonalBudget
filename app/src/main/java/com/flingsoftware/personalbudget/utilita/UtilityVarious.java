@@ -150,46 +150,6 @@ public class UtilityVarious {
         return pref.getBoolean(MainPersonalBudget.CostantiPreferenze.SUONI_ABILITATI, false);
     }
 
-    /*
-        Given an amount returns a formatted String using the default Locale and the
-        main currency saved in the preferences.
-    */
-    public static String getFormattedAmount(double amount, Context context) {
-        // Get the main currency from the preferences.
-        Currency prefCurrency = getPrefCurrency(context);
-        // Create a formatter using the default Locale and the preferred currency.
-        NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
-        nf.setCurrency(prefCurrency);
-        String amountFormatted = nf.format(amount);
-
-        return amountFormatted;
-    }
-
-    /*
-    Given an amount returns a formatted String using the default Locale and the
-    main currency saved in the preferences.
-    The amount is rounded at the unity e the currency is superscript. Positive numbers have "+" prefix,
-    while negative numbers have "-" prefix.
-*/
-    public static Spannable getFormattedAmountBudgetSavings(double amount, Context context) {
-        int color = amount > 0 ? R.color.green_dark : R.color.red_dark;
-        // Get the main currency from the preferences.
-        Currency prefCurrency = getPrefCurrency(context);
-        // Create a formatter using no decimal digits.
-        DecimalFormat df = new DecimalFormat("+ #,##0; - #,##0");
-        df.setMaximumFractionDigits(0);
-
-        String currSymbol = prefCurrency.getSymbol().substring(0, 1);
-        String amountStr = df.format(amount) + currSymbol;
-
-        Spannable spannable = new SpannableString(amountStr);
-        spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(context, color)), 0, spannable.length(), 0);
-        spannable.setSpan(new StyleSpan(Typeface.BOLD), 0, spannable.length() - 1, 0);
-        spannable.setSpan(new SuperscriptSpan(), spannable.length() - currSymbol.length(), spannable.length(), 0);
-        spannable.setSpan(new RelativeSizeSpan(0.9f), spannable.length() - currSymbol.length(), spannable.length(), 0);
-
-        return spannable;
-    }
 
     // ***********************************************************************************
     // Others
@@ -250,5 +210,61 @@ public class UtilityVarious {
         }
 
         return tags;
+    }
+
+    /*
+       Given an amount returns a formatted String using the default Locale and the
+       main currency saved in the preferences.
+   */
+    public static String getFormattedAmount(double amount, Context context) {
+        // Get the main currency from the preferences.
+        Currency prefCurrency = getPrefCurrency(context);
+        // Create a formatter using the default Locale and the preferred currency.
+        NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
+        nf.setCurrency(prefCurrency);
+        String amountFormatted = nf.format(amount);
+
+        return amountFormatted;
+    }
+
+    /*
+    Given an amount returns a formatted String using the default Locale and the
+    main currency saved in the preferences.
+    The amount is rounded at the unity e the currency is superscript. Positive numbers have "+" prefix,
+    while negative numbers have "-" prefix.
+*/
+    public static Spannable getFormattedAmountCurrencySuperscript(double amount, Context context) {
+        int color = amount > 0 ? R.color.green_dark : R.color.red_dark;
+        // Get the main currency from the preferences.
+        Currency prefCurrency = getPrefCurrency(context);
+        // Create a formatter using no decimal digits.
+        DecimalFormat df = new DecimalFormat("+ #,##0; - #,##0");
+        df.setMaximumFractionDigits(0);
+
+        String currSymbol = prefCurrency.getSymbol().substring(0, 1);
+        String amountStr = df.format(amount) + currSymbol;
+
+        Spannable spannable = new SpannableString(amountStr);
+        spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(context, color)), 0, spannable.length(), 0);
+        spannable.setSpan(new StyleSpan(Typeface.BOLD), 0, spannable.length() - 1, 0);
+        spannable.setSpan(new SuperscriptSpan(), spannable.length() - currSymbol.length(), spannable.length(), 0);
+        spannable.setSpan(new RelativeSizeSpan(0.9f), spannable.length() - currSymbol.length(), spannable.length(), 0);
+
+        return spannable;
+    }
+
+    /*
+Given an amount returns a formatted String using the default Locale and the
+main currency saved in the preferences.
+The amount is rounded at the unity e the currency is superscript. Positive numbers have "+" prefix,
+while negative numbers have "-" prefix.
+*/
+    public static String getFormattedAmountWithoutCurrency(double amount) {
+        // Create a formatter using no decimal digits.
+        DecimalFormat df = new DecimalFormat("#,##0.00; - #,##0.00");
+        df.setMaximumFractionDigits(2);
+        String amountStr = df.format(amount);
+
+        return amountStr;
     }
 }

@@ -1,2 +1,3 @@
 Fragment saldo:
 - controllare stringhe utilizzate e cancellare quelle inutilizzate
+- formattatori per numeri e date: design patterns al posto di funzioni globali?

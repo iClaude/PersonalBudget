@@ -206,7 +206,7 @@ public class WidgetGrandeService extends RemoteViewsService {
             remoteView.setTextViewText(R.id.tvPerc, getString(R.string.budget_dettaglio_speso) + ": " + perc + "%");
 
             // Amount saved (still to spend).
-            remoteView.setTextViewText(R.id.tvSaved, UtilityVarious.getFormattedAmountBudgetSavings(saved, mioContext));
+			remoteView.setTextViewText(R.id.tvSaved, UtilityVarious.getFormattedAmountCurrencySuperscript(saved, mioContext));
 
             // ProgressBar.
             if (spent < budgetAmount) {

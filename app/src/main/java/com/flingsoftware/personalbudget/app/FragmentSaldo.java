@@ -1,12 +1,11 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app;
 
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -18,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.flingsoftware.personalbudget.R;
@@ -26,16 +24,13 @@ import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenz
 import com.flingsoftware.personalbudget.database.DBCConti;
 import com.flingsoftware.personalbudget.database.DBCEntrateIncassate;
 import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
+import com.flingsoftware.personalbudget.utilita.UtilityVarious;
 
 import java.text.DateFormat;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.Currency;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
-
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
 
 
 public class FragmentSaldo extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -53,25 +48,21 @@ public class FragmentSaldo extends Fragment implements SharedPreferences.OnShare
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_saldo, container, false);
+		View rootView = inflater.inflate(R.layout.fragment_balance, container, false);
 
 		//ottengo i reference ai vari componenti
-		tvPeriodo = (TextView) rootView.findViewById(R.id.fs_tvPeriodo);
-		tvEntrate = (TextView) rootView.findViewById(R.id.fragment_saldo_tvEntrate);
-		tvSpese = (TextView) rootView.findViewById(R.id.fragment_saldo_tvSpese);
-		tvSaldo = (TextView) rootView.findViewById(R.id.fragment_saldo_tvSaldo);
-		tvEntrateFuture = (TextView) rootView.findViewById(R.id.fragment_saldo_tvEntrateFuture);
-		tvSpeseFuture = (TextView) rootView.findViewById(R.id.fragment_saldo_tvSpeseFuture);
-		tvSaldoPrevisto = (TextView) rootView.findViewById(R.id.fragment_saldo_tvSaldoPrevisto);
-		ivMaiale = (ImageView) rootView.findViewById(R.id.fs_ivMaiale);
-		tvSaldoGeneraleLabel = (TextView) rootView.findViewById(R.id.fs_tvSaldoGeneraleLabel);
-		tvSaldoGenerale = (TextView) rootView.findViewById(R.id.fs_tvSaldoGenerale);
+		tvPeriodo = (TextView) rootView.findViewById(R.id.tvTime);
+		tvEntrate = (TextView) rootView.findViewById(R.id.tvEarnings);
+		tvSpese = (TextView) rootView.findViewById(R.id.tvExpenses);
+		tvEntrateFuture = (TextView) rootView.findViewById(R.id.tvEarningsFut);
+		tvSpeseFuture = (TextView) rootView.findViewById(R.id.tvExpensesFut);
+		tvSaldoPrevisto = (TextView) rootView.findViewById(R.id.tvBalance);
+		tvSaldoGenerale = (TextView) rootView.findViewById(R.id.tvBalanceFinal);
 
 		//aggiorno tvPeriodo con il periodo iniziale e registro l'ascoltatore per il cambio preferenze
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
 		pref.registerOnSharedPreferenceChangeListener(this);
 		ricavaPeriodo(pref);
-		ricavaValuta(pref);
 		aggiornaTextViewPeriodo();
 
 		//aggiorno i totali con i dati contenuti nel database in un thread separato
@@ -134,14 +125,6 @@ public class FragmentSaldo extends Fragment implements SharedPreferences.OnShare
 	}
 
 
-	/*
-	 * Ricavo il codice e il simbolo della valuta principale.
-	 */
-	private void ricavaValuta(SharedPreferences prefValuta) {
-		String valuta = prefValuta.getString(VALUTA_PRINCIPALE, Currency.getInstance(Locale.getDefault()).getCurrencyCode());
-		currValuta = Currency.getInstance(valuta);
-	}
-
 	private void aggiornaTextViewPeriodo() {
 		if(tvPeriodo != null) {
 			DateFormat df =  new SimpleDateFormat("dd/MMM/yyyy", miaLocale);
@@ -174,11 +157,6 @@ public class FragmentSaldo extends Fragment implements SharedPreferences.OnShare
 			}
 
 			aggiornaTextViewPeriodo();
-		}
-		else if(key.equals(CostantiPreferenze.VALUTA_PRINCIPALE)) {
-				String valuta = sharedPreferences.getString(VALUTA_PRINCIPALE, Currency.getInstance(Locale.getDefault()).getCurrencyCode());
-				currValuta = Currency.getInstance(valuta);
-				aggiornaCursor();
 		}
 	}
 
@@ -304,53 +282,32 @@ public class FragmentSaldo extends Fragment implements SharedPreferences.OnShare
 		}
 
 		protected void onPostExecute(Double[] risultati) {
-			NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
-			nf.setCurrency(currValuta);
-
 			// Sezione saldo periodo.
-			tvEntrate.setText(nf.format(risultati[0]));
-			tvSpese.setText(nf.format(risultati[1]));
-			tvSaldo.setText(nf.format(risultati[2]));
+			tvEntrate.setText(UtilityVarious.getFormattedAmountWithoutCurrency(risultati[0]));
+			tvSpese.setText(UtilityVarious.getFormattedAmountWithoutCurrency(risultati[1]));
 
 			// Sezione entrate/spese future.
 			if(dataFine.getTimeInMillis() > System.currentTimeMillis()) {
-				getActivity().findViewById(R.id.fragment_saldo_trEntrateFuture).setVisibility(View.VISIBLE);
-				getActivity().findViewById(R.id.fragment_saldo_trSpeseFuture).setVisibility(View.VISIBLE);
-				getActivity().findViewById(R.id.fragment_saldo_trSaldoPrevisto).setVisibility(View.VISIBLE);
-				tvEntrateFuture.setText(nf.format(risultati[4]));
-				tvSpeseFuture.setText(nf.format(risultati[5]));
-				tvSaldoPrevisto.setText(nf.format(risultati[6]));
+				getActivity().findViewById(R.id.tvEarningsFut).setVisibility(View.VISIBLE);
+				getActivity().findViewById(R.id.tvExpensesFut).setVisibility(View.VISIBLE);
+				getActivity().findViewById(R.id.tvBalance).setVisibility(View.VISIBLE);
+				tvEntrateFuture.setText(UtilityVarious.getFormattedAmountWithoutCurrency(risultati[4]));
+				tvSpeseFuture.setText(UtilityVarious.getFormattedAmountWithoutCurrency(risultati[5]));
+				tvSaldoPrevisto.setText(UtilityVarious.getFormattedAmountCurrencySuperscript(risultati[6], getActivity()));
 			}
 			else {
-				getActivity().findViewById(R.id.fragment_saldo_trEntrateFuture).setVisibility(View.GONE);
-				getActivity().findViewById(R.id.fragment_saldo_trSpeseFuture).setVisibility(View.GONE);
-				getActivity().findViewById(R.id.fragment_saldo_trSaldoPrevisto).setVisibility(View.GONE);
+				getActivity().findViewById(R.id.tvEarningsFut).setVisibility(View.GONE);
+				getActivity().findViewById(R.id.tvExpensesFut).setVisibility(View.GONE);
+				getActivity().findViewById(R.id.tvBalance).setVisibility(View.GONE);
 			}
 
 			// Sezione saldo finale.
 			if(MainPersonalBudget.conto.equals("%")) {
-				tvSaldoGeneraleLabel.setVisibility(View.GONE);
 				tvSaldoGenerale.setVisibility(View.GONE);
 			}
 			else {
-				tvSaldoGeneraleLabel.setVisibility(View.VISIBLE);
 				tvSaldoGenerale.setVisibility(View.VISIBLE);
-				tvSaldoGeneraleLabel.setText(getString(R.string.frag_balance_balance) + " " + MainPersonalBudget.conto + ":");
-				if(risultati[3] >= 0) {
-					tvSaldoGenerale.setTextColor(Color.argb(255, 0, 128, 0));
-				}
-				else {
-					tvSaldoGenerale.setTextColor(Color.RED);
-				}
-				tvSaldoGenerale.setText(nf.format(risultati[3]));
-			}
-
-			// Immagine.
-			if(risultati[6] >= 0) {
-				ivMaiale.setImageResource(R.drawable.img_maiale_verde);
-			}
-			else {
-				ivMaiale.setImageResource(R.drawable.img_maiale_rosso);
+				tvSaldoGenerale.setText("(= " + UtilityVarious.getFormattedAmountWithoutCurrency(risultati[3]) + ")");
 			}
 		}
 	}
@@ -361,17 +318,13 @@ public class FragmentSaldo extends Fragment implements SharedPreferences.OnShare
 	private GregorianCalendar dataFine = new GregorianCalendar();
 	private DBCEntrateIncassate dbcEntrateIncassate;
 	private DBCSpeseSostenute dbcSpeseSostenute;
-	private Currency currValuta;
 	Locale miaLocale = (Locale.getDefault().getDisplayLanguage().equals("italiano") ? Locale.getDefault() : Locale.UK);
 
 	private TextView tvPeriodo;
 	private TextView tvEntrate;
 	private TextView tvSpese;
-	private TextView tvSaldo;
 	private TextView tvEntrateFuture;
 	private TextView tvSpeseFuture;
 	private TextView tvSaldoPrevisto;
-	private ImageView ivMaiale;
-	private TextView tvSaldoGeneraleLabel;
 	private TextView tvSaldoGenerale;
 }
