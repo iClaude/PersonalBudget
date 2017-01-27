@@ -13,7 +13,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
@@ -208,11 +207,6 @@ public class WidgetGrandeService extends RemoteViewsService {
 
             // Amount saved (still to spend).
             remoteView.setTextViewText(R.id.tvSaved, UtilityVarious.getFormattedAmountBudgetSavings(saved, mioContext));
-            if (saved >= 0) {
-                remoteView.setTextColor(R.id.tvSaved, ContextCompat.getColor(mioContext, android.R.color.holo_green_dark));
-            } else {
-                remoteView.setTextColor(R.id.tvSaved, ContextCompat.getColor(mioContext, android.R.color.holo_red_dark));
-            }
 
             // ProgressBar.
             if (spent < budgetAmount) {

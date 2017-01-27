@@ -246,11 +246,6 @@ public class BudgetDetailsHistory extends Fragment implements BudgetDetails.Relo
                 ((TextViewWithBackground) holder.tvTag).setBackgroundColorPreserveBackground(tagColor);
                 double saved = budget.getAmount() - budget.getExpenses();
                 holder.tvSaved.setText(UtilityVarious.getFormattedAmountBudgetSavings(saved, context), TextView.BufferType.SPANNABLE);
-                if (saved >= 0) {
-                    holder.tvSaved.setTextColor(ContextCompat.getColor(context, android.R.color.holo_green_dark));
-                } else {
-                    holder.tvSaved.setTextColor(ContextCompat.getColor(context, android.R.color.holo_red_dark));
-                }
 
                 int perc = Math.min(((int) ((budget.getExpenses() * 100) / budget.getAmount())), 100);
                 holder.tvPerc.setText(getString(R.string.budget_dettaglio_speso) + ": " + perc + "%");

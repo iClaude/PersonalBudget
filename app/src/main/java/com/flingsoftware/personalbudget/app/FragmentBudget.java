@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app;
@@ -59,8 +59,9 @@ public class FragmentBudget extends ListFragment implements SharedPreferences.On
 	//costanti
 	public static final String ROW_ID = "row_id";
 	public static final String CHIAMANTE = "chiamante";
-	
-	
+    private static final String TAG = "ICLAUDE_FRAGMENT_BUDGET";
+
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -175,13 +176,6 @@ public class FragmentBudget extends ListFragment implements SharedPreferences.On
                     case R.id.tvSaved:
 						double saved = cursor.getDouble(columnIndex);
 						((TextView) view).setText(UtilityVarious.getFormattedAmountBudgetSavings(saved, getActivity()), TextView.BufferType.SPANNABLE);
-						if (saved >= 0) {
-							((TextView) view).setTextColor(ContextCompat.getColor(getActivity(), android.R.color.holo_green_dark));
-                        } else {
-                            ((TextView) view).setTextColor(ContextCompat.getColor(getActivity(), android.R.color.holo_red_dark));
-                        }
-
-                        //((ProgressBar) ((View) (view.getParent())).findViewById(R.id.fragment_budget_listview_item_pbProgresso)).setMax((int) amount);
 
                         return true;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.utilita;
@@ -172,7 +172,7 @@ public class UtilityVarious {
     while negative numbers have "-" prefix.
 */
     public static Spannable getFormattedAmountBudgetSavings(double amount, Context context) {
-        int color = amount >= 0 ? R.color.green_dark : R.color.red_dark;
+        int color = amount > 0 ? R.color.green_dark : R.color.red_dark;
         // Get the main currency from the preferences.
         Currency prefCurrency = getPrefCurrency(context);
         // Create a formatter using no decimal digits.
