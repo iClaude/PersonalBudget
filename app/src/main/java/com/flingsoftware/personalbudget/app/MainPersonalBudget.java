@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 /*
@@ -392,8 +392,8 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 					fabFav.setVisibility(View.GONE);
 					fabAgg.setVisibility(View.GONE);
    					if(fragSel == TAB_SALDO) {
-						fab.setImageResource(R.drawable.ic_action_copy);
-                    }
+						fab.setImageResource(R.drawable.ic_pie_chart_outlined_white_24dp);
+					}
                 }
             }
 		});
@@ -903,7 +903,7 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 	public void animateFab(View v) {
 		switch (fragSel) {
 			case 2:
-				Intent intent = new Intent(MainPersonalBudget.this, ContiElenco.class);
+				Intent intent = new Intent(MainPersonalBudget.this, Statistiche.class);
 				startActivityForResult(intent, CostantiActivity.ACTIVITY_CONTIELENCO);
 				break;
 			case 3:
@@ -1055,10 +1055,6 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 			case 1:
 				attivaLocalBroadcastReceiverUpdateDatabaseInserimentoVoci();
 				((FragmentEntrate) entrateFragment).aggiungi();
-				break;
-			case 2:
-				Intent intent = new Intent(MainPersonalBudget.this, ContiElenco.class);
-				startActivityForResult(intent, CostantiActivity.ACTIVITY_CONTIELENCO);
 				break;
 			case 3:
 				((FragmentBudget) budgetFragment).aggiungi();

@@ -32,8 +32,6 @@ import com.flingsoftware.personalbudget.utilita.UtilityVarious;
 
 import org.achartengine.GraphicalView;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
@@ -57,7 +55,6 @@ public class FragmentSaldo extends Fragment implements SharedPreferences.OnShare
 		View rootView = inflater.inflate(R.layout.fragment_balance, container, false);
 
 		//ottengo i reference ai vari componenti
-		tvPeriodo = (TextView) rootView.findViewById(R.id.tvTime);
 		tvEntrate = (TextView) rootView.findViewById(R.id.tvEarnings);
 		tvSpese = (TextView) rootView.findViewById(R.id.tvExpenses);
 		tvEntrateFuture = (TextView) rootView.findViewById(R.id.tvEarningsFut);
@@ -70,7 +67,6 @@ public class FragmentSaldo extends Fragment implements SharedPreferences.OnShare
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
 		pref.registerOnSharedPreferenceChangeListener(this);
 		ricavaPeriodo(pref);
-		aggiornaTextViewPeriodo();
 
 		//aggiorno i totali con i dati contenuti nel database in un thread separato
 		new RefreshBalanceTask().execute((Object[]) null);
@@ -131,15 +127,6 @@ public class FragmentSaldo extends Fragment implements SharedPreferences.OnShare
 		}
 	}
 
-
-	private void aggiornaTextViewPeriodo() {
-		if(tvPeriodo != null) {
-			DateFormat df =  new SimpleDateFormat("dd/MMM/yyyy", miaLocale);
-			tvPeriodo.setText(df.format(dataInizio.getTime()) + " - " + df.format(dataFine.getTime()));
-		}
-	}
-
-
 	/*
 	 * Listener per il cambio delle preferenze.
 	 * @see android.content.SharedPreferences.OnSharedPreferenceChangeListener#onSharedPreferenceChanged(android.content.SharedPreferences, java.lang.String)
@@ -162,8 +149,6 @@ public class FragmentSaldo extends Fragment implements SharedPreferences.OnShare
 				long dataFineLong = sharedPreferences.getLong(CostantiPreferenze.DATA_FINE, dataComodo.getTimeInMillis());
 				dataFine.setTimeInMillis(dataFineLong);
 			}
-
-			aggiornaTextViewPeriodo();
 		}
 	}
 
@@ -312,7 +297,12 @@ public class FragmentSaldo extends Fragment implements SharedPreferences.OnShare
 
     // Display pie chart of earnings/expenses.
     private void displayPieChart(double earnings, double expenses) {
-        AmountAndLabel[] amountsAndLabels = new AmountAndLabel[2];
+		// aChart engine does not supporto all amounts equal to zero.
+		if (earnings == 0 && expenses == 0) {
+			earnings = 0.000001;
+			expenses = 0.000001;
+		}
+		AmountAndLabel[] amountsAndLabels = new AmountAndLabel[2];
         amountsAndLabels[0] = new AmountAndLabel(getString(R.string.frag_balance_expenses), expenses);
         amountsAndLabels[1] = new AmountAndLabel(getString(R.string.frag_balance_earnings), earnings);
 
