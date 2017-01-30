@@ -46,7 +46,8 @@
         app:layout_constraintTop_toBottomOf="@+id/view"
         android:layout_marginStart="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="16dp" />
+        android:layout_marginLeft="16dp"
+        android:fontFamily="sans-serif-light" />
 
     <TextView
         android:text="0,00"
@@ -69,7 +70,8 @@
         app:layout_constraintLeft_toLeftOf="@+id/guideline2"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        app:layout_constraintTop_toTopOf="@+id/textView9" />
+        app:layout_constraintTop_toTopOf="@+id/textView9"
+        android:fontFamily="sans-serif-light" />
 
     <TextView
         android:text="0,00"
@@ -100,7 +102,8 @@
         app:layout_constraintTop_toBottomOf="@+id/tvEarnings"
         android:layout_marginStart="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="16dp" />
+        android:layout_marginLeft="16dp"
+        android:fontFamily="sans-serif-light" />
 
     <TextView
         android:text="@string/frag_balance_future_expenses"
@@ -111,7 +114,8 @@
         app:layout_constraintTop_toTopOf="@+id/textView14"
         app:layout_constraintLeft_toLeftOf="@+id/guideline2"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp" />
+        android:layout_marginLeft="16dp"
+        android:fontFamily="sans-serif-light" />
 
     <TextView
         android:text="0,00"
@@ -148,7 +152,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="16dp"
         android:textColor="?android:attr/textColorPrimary"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:fontFamily="sans-serif" />
 
     <View
         android:layout_width="0dp"
