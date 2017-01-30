@@ -1,4 +1,2 @@
 Fragment saldo:
-- controllare stringhe utilizzate e cancellare quelle inutilizzate
-- cancellare layout fragment_saldo.xml
 - formattatori per numeri e date: design patterns al posto di funzioni globali?

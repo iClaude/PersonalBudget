@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) - Software developed by iClaude.
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
   -->
 
 <resources>
@@ -16,13 +16,11 @@
 
     <!-- Fragment balance -->
     <string name="frag_balance_title">Overview</string>
-    <string name="frag_balance_balance">Balance</string>
     <string name="frag_balance_earnings">Earnings</string>
     <string name="frag_balance_expenses">Expenses</string>
     <string name="frag_balance_future_earnings">Future earnings</string>
     <string name="frag_balance_future_expenses">Future expenses</string>
     <string name="frag_balance_chart_title">Income/Expense</string>
-    <string name="frag_balance_estimated_balance">Estimated balance</string>
 
     <!-- Not yet classified -->
     <string name="app_name">Personal Budget</string>
