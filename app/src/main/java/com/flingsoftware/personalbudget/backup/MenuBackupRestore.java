@@ -1,28 +1,12 @@
+/*
+ * Copyright (c) This code was written by iClaude. All rights reserved.
+ */
+
 /**
  * Questa classe gestisce l'Activity per la scelta del backup/restore del database.
  */
 
 package com.flingsoftware.personalbudget.backup;
-
-import com.dropbox.client2.DropboxAPI;
-import com.dropbox.client2.android.AndroidAuthSession;
-import com.dropbox.client2.session.AppKeyPair;
-
-import com.flingsoftware.personalbudget.R;
-import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiNotifiche;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.DROPBOX_TOKEN;
-
-import com.flingsoftware.personalbudget.customviews.MioToast;
-import com.flingsoftware.personalbudget.utilita.UtilityVarious;
-
-import static com.flingsoftware.personalbudget.backup.BackupRestoreIntentService.CostantiBackupRestore.*;
-
-import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-import java.util.Date;
-import java.util.ArrayList;
 
 import android.Manifest;
 import android.app.Activity;
@@ -32,6 +16,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -40,24 +25,48 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.RadioButton;
-import android.widget.TextView;
-import android.widget.Spinner;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.content.SharedPreferences;
-import android.util.Log;
-import android.support.v7.app.ActionBarActivity;
+
+import com.dropbox.client2.DropboxAPI;
+import com.dropbox.client2.android.AndroidAuthSession;
+import com.dropbox.client2.session.AppKeyPair;
+import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiNotifiche;
+import com.flingsoftware.personalbudget.customviews.MioToast;
+import com.flingsoftware.personalbudget.utility.UtilityVarious;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.DROPBOX_TOKEN;
+import static com.flingsoftware.personalbudget.backup.BackupRestoreIntentService.CostantiBackupRestore.ACTION_BACKUP_AUTO;
+import static com.flingsoftware.personalbudget.backup.BackupRestoreIntentService.CostantiBackupRestore.ACTION_BACKUP_DROPBOX;
+import static com.flingsoftware.personalbudget.backup.BackupRestoreIntentService.CostantiBackupRestore.ACTION_RESTORE_AUTO;
+import static com.flingsoftware.personalbudget.backup.BackupRestoreIntentService.CostantiBackupRestore.ACTION_RESTORE_DROPBOX;
+import static com.flingsoftware.personalbudget.backup.BackupRestoreIntentService.CostantiBackupRestore.AZIONE_BACKUP;
+import static com.flingsoftware.personalbudget.backup.BackupRestoreIntentService.CostantiBackupRestore.AZIONE_RESTORE;
+import static com.flingsoftware.personalbudget.backup.BackupRestoreIntentService.CostantiBackupRestore.EXTRA_CHIUSURA_APP;
+import static com.flingsoftware.personalbudget.backup.BackupRestoreIntentService.CostantiBackupRestore.EXTRA_RESTORE_FILE_PATH;
 
 
 public class MenuBackupRestore extends ActionBarActivity {

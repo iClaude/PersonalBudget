@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -56,10 +56,10 @@ import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
 import com.flingsoftware.personalbudget.database.DBCVociAbs;
 import com.flingsoftware.personalbudget.oggetti.Budget;
-import com.flingsoftware.personalbudget.utilita.BlurBuilder;
-import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
-import com.flingsoftware.personalbudget.utilita.SoundEffectsManager;
-import com.flingsoftware.personalbudget.utilita.UtilityVarious;
+import com.flingsoftware.personalbudget.utility.BlurBuilder;
+import com.flingsoftware.personalbudget.utility.ListViewIconeVeloce;
+import com.flingsoftware.personalbudget.utility.NumberFormatter;
+import com.flingsoftware.personalbudget.utility.SoundEffectsManager;
 
 import org.achartengine.GraphicalView;
 
@@ -274,7 +274,7 @@ public class BudgetDetails extends AppCompatActivity {
         tvTagAppbar.setMarqueeRepeatLimit(5);
         tvTagAppbar.setSelected(true);
         // Amount formatted in main currency.
-        String amountFormatted = UtilityVarious.formatAmountCurrency(budget.getAmount(), this);
+        String amountFormatted = NumberFormatter.formatAmountMainCurrency(budget.getAmount(), this);
         tvAmountToolbar.setText(amountFormatted + " (" + budgetType + ")");
         tvAmountAppbar.setText(amountFormatted + " / " + budgetType);
         // Rating bar.

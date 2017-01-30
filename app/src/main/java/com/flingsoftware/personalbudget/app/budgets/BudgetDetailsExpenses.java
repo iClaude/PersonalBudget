@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -36,8 +36,9 @@ import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
 import com.flingsoftware.personalbudget.oggetti.Budget;
 import com.flingsoftware.personalbudget.oggetti.ExpenseEarning;
-import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
-import com.flingsoftware.personalbudget.utilita.UtilityVarious;
+import com.flingsoftware.personalbudget.utility.ListViewIconeVeloce;
+import com.flingsoftware.personalbudget.utility.NumberFormatter;
+import com.flingsoftware.personalbudget.utility.UtilityVarious;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -174,9 +175,9 @@ public class BudgetDetailsExpenses extends Fragment implements BudgetDetails.Rel
                 int tagColor = TagsColors.getInstance().getRandomColor(getAdapterPosition());
                 tvTag.setBackgroundColorPreserveBackground(ContextCompat.getColor(getActivity(), tagColor));
                 tvTag.setText(expensesWithTag.getTag());
-                tvTotal.setText(UtilityVarious.formatAmountCurrency(expensesWithTag.getTotal(), getActivity()));
+                tvTotal.setText(NumberFormatter.formatAmountMainCurrency(expensesWithTag.getTotal(), getActivity()));
                 tvCount.setText(getResources().getQuantityString(R.plurals.budgets_num_expenses, expensesWithTag.getNumExpenses(), expensesWithTag.getNumExpenses()));
-                tvStat.setText(getString(R.string.budgets_maxmin, UtilityVarious.formatAmountCurrency(expensesWithTag.getMaxExpense(), getActivity()), UtilityVarious.formatAmountCurrency(expensesWithTag.getMinExpense(), getActivity())));
+                tvStat.setText(getString(R.string.budgets_maxmin, NumberFormatter.formatAmountMainCurrency(expensesWithTag.getMaxExpense(), getActivity()), NumberFormatter.formatAmountMainCurrency(expensesWithTag.getMinExpense(), getActivity())));
                 // Set correct rotation of ibExpand according to the expanded state.
                 float rotation = isExpanded() ? 180.0f : 0.0f;
                 ibExpand.setRotation(rotation);
@@ -220,7 +221,7 @@ public class BudgetDetailsExpenses extends Fragment implements BudgetDetails.Rel
                 tvDate.setText(dateFormat.format(new Date(expense.getData())));
                 tvDesc.setText(expense.getDescrizione());
                 tvAccount.setText(expense.getConto());
-                tvAmount.setText(UtilityVarious.formatAmountCurrency(expense.getImportoValprin(), getActivity()));
+                tvAmount.setText(NumberFormatter.formatAmountMainCurrency(expense.getImportoValprin(), getActivity()));
             }
         }
     }

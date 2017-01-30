@@ -37,7 +37,7 @@ import com.flingsoftware.personalbudget.database.DBCEntrateVoci;
 import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
 import com.flingsoftware.personalbudget.database.FunzioniAggiornamento;
-import com.flingsoftware.personalbudget.utilita.SoundEffectsManager;
+import com.flingsoftware.personalbudget.utility.SoundEffectsManager;
 
 import java.util.ArrayList;
 import java.util.Currency;

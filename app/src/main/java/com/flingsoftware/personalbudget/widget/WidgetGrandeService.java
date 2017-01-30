@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.widget;
@@ -23,7 +23,7 @@ import com.flingsoftware.personalbudget.database.AggiornamentoDatabaseIntentServ
 import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
 import com.flingsoftware.personalbudget.database.FunzioniAggiornamento;
-import com.flingsoftware.personalbudget.utilita.UtilityVarious;
+import com.flingsoftware.personalbudget.utility.NumberFormatter;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -206,7 +206,7 @@ public class WidgetGrandeService extends RemoteViewsService {
             remoteView.setTextViewText(R.id.tvPerc, getString(R.string.budget_dettaglio_speso) + ": " + perc + "%");
 
             // Amount saved (still to spend).
-			remoteView.setTextViewText(R.id.tvSaved, UtilityVarious.formatAmountColorCurrencySuperscript(saved, mioContext));
+			remoteView.setTextViewText(R.id.tvSaved, NumberFormatter.formatAmountColorCurrencySuperscript(saved, mioContext));
 
             // ProgressBar.
             if (spent < budgetAmount) {

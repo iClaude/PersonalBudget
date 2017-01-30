@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app;
@@ -28,7 +28,7 @@ import com.flingsoftware.personalbudget.charts.piechart.PieChartBuilder;
 import com.flingsoftware.personalbudget.database.DBCConti;
 import com.flingsoftware.personalbudget.database.DBCEntrateIncassate;
 import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
-import com.flingsoftware.personalbudget.utilita.UtilityVarious;
+import com.flingsoftware.personalbudget.utility.NumberFormatter;
 
 import org.achartengine.GraphicalView;
 
@@ -275,11 +275,11 @@ public class FragmentSaldo extends Fragment implements SharedPreferences.OnShare
 
 		protected void onPostExecute(Double[] risultati) {
 			// Sezione saldo periodo.
-            tvEntrate.setText(UtilityVarious.formatAmountNoCurrency(risultati[0]));
-            tvSpese.setText(UtilityVarious.formatAmountNoCurrency(risultati[1]));
-            tvEntrateFuture.setText(UtilityVarious.formatAmountNoCurrency(risultati[4]));
-            tvSpeseFuture.setText(UtilityVarious.formatAmountNoCurrency(risultati[5]));
-            tvSaldoPrevisto.setText(UtilityVarious.formatAmountColorNoCurrency(risultati[6], getActivity()));
+			tvEntrate.setText(NumberFormatter.formatAmountNoCurrency(risultati[0]));
+			tvSpese.setText(NumberFormatter.formatAmountNoCurrency(risultati[1]));
+			tvEntrateFuture.setText(NumberFormatter.formatAmountNoCurrency(risultati[4]));
+			tvSpeseFuture.setText(NumberFormatter.formatAmountNoCurrency(risultati[5]));
+			tvSaldoPrevisto.setText(NumberFormatter.formatAmountColorNoCurrency(risultati[6], getActivity()));
 
 			// Sezione saldo finale.
 			if(MainPersonalBudget.conto.equals("%")) {
@@ -287,8 +287,8 @@ public class FragmentSaldo extends Fragment implements SharedPreferences.OnShare
 			}
 			else {
 				tvSaldoGenerale.setVisibility(View.VISIBLE);
-                tvSaldoGenerale.setText("(= " + UtilityVarious.formatAmountNoCurrency(risultati[3]) + ")");
-            }
+				tvSaldoGenerale.setText("(= " + NumberFormatter.formatAmountNoCurrency(risultati[3]) + ")");
+			}
 
             // Pie chart.
             displayPieChart(risultati[0] + risultati[4], risultati[1] + risultati[5]);

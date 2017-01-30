@@ -1,51 +1,54 @@
+/*
+ * Copyright (c) This code was written by iClaude. All rights reserved.
+ */
+
 package com.flingsoftware.personalbudget.preferenze;
 
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.WIDGET_AGGIORNA;
-import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA;
-
-import com.flingsoftware.personalbudget.R;
-import com.flingsoftware.personalbudget.customviews.MioToast;
-import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
-import com.flingsoftware.personalbudget.database.DBCEntrateVoci;
-import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
-import com.flingsoftware.personalbudget.database.FunzioniAggiornamento;
-import com.flingsoftware.personalbudget.preferenze.ModificaVoce;
-import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
-
 import android.app.Activity;
+import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.MergeCursor;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.transition.Explode;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.widget.ArrayAdapter;
-import android.database.MergeCursor;
-import android.widget.AdapterView;
-import android.graphics.Bitmap;
-import android.widget.ImageView;
-import android.support.v7.app.ActionBarActivity;
-import android.view.Window;
-import android.app.ActivityOptions;
 
-import java.util.StringTokenizer;
-import java.util.GregorianCalendar;
+import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.customviews.MioToast;
+import com.flingsoftware.personalbudget.database.DBCEntrateVoci;
+import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
+import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
+import com.flingsoftware.personalbudget.database.FunzioniAggiornamento;
+import com.flingsoftware.personalbudget.utility.ListViewIconeVeloce;
+
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.StringTokenizer;
+
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.WIDGET_AGGIORNA;
+import static com.flingsoftware.personalbudget.database.StringheSQL.ESTRAI_BUDGET_PER_AGGIUNTA_ELIMINAZIONE_SPESA;
 
 
 public class PreferenzeVoci extends ActionBarActivity {

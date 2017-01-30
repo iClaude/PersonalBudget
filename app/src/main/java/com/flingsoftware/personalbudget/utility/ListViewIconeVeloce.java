@@ -1,9 +1,10 @@
-package com.flingsoftware.personalbudget.utilita;
+/*
+ * Copyright (c) This code was written by iClaude. All rights reserved.
+ */
 
-import java.lang.ref.WeakReference;
+package com.flingsoftware.personalbudget.utility;
 
-import com.flingsoftware.personalbudget.R;
-
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,7 +12,10 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.widget.ImageView;
-import android.content.Context;
+
+import com.flingsoftware.personalbudget.R;
+
+import java.lang.ref.WeakReference;
 
 
 public class ListViewIconeVeloce {

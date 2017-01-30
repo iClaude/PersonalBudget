@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app;
@@ -36,7 +36,7 @@ import com.flingsoftware.personalbudget.database.DBCEntrateVoci;
 import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
 import com.flingsoftware.personalbudget.oggetti.ExpenseEarning;
-import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
+import com.flingsoftware.personalbudget.utility.ListViewIconeVeloce;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;

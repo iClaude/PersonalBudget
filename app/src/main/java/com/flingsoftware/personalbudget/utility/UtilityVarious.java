@@ -1,8 +1,8 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
-package com.flingsoftware.personalbudget.utilita;
+package com.flingsoftware.personalbudget.utility;
 
 
 import android.app.Activity;
@@ -14,23 +14,13 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.preference.PreferenceManager;
-import android.support.v4.content.ContextCompat;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
-import android.text.style.SuperscriptSpan;
 import android.view.Window;
 
 import com.flingsoftware.personalbudget.R;
 import com.flingsoftware.personalbudget.app.MainPersonalBudget;
 
 import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
@@ -210,69 +200,6 @@ public class UtilityVarious {
         }
 
         return tags;
-    }
-
-    /*
-       Given an amount returns a formatted String using the default Locale and the
-       main currency saved in the preferences.
-   */
-    public static String formatAmountCurrency(double amount, Context context) {
-        // Get the main currency from the preferences.
-        Currency prefCurrency = getPrefCurrency(context);
-        // Create a formatter using the default Locale and the preferred currency.
-        NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
-        nf.setCurrency(prefCurrency);
-        String amountFormatted = nf.format(amount);
-
-        return amountFormatted;
-    }
-
-    public static String formatAmountNoCurrency(double amount) {
-        // Create a formatter using no decimal digits.
-        DecimalFormat df = new DecimalFormat("#,##0.00; - #,##0.00");
-        df.setMaximumFractionDigits(2);
-        String amountStr = df.format(amount);
-
-        return amountStr;
-    }
-
-    /*
-    Given an amount returns a formatted String using the default Locale and the
-    main currency saved in the preferences.
-    The amount is rounded at the unity e the currency is superscript. Positive numbers have "+" prefix,
-    while negative numbers have "-" prefix.
-*/
-    public static Spannable formatAmountColorCurrencySuperscript(double amount, Context context) {
-        int color = amount > 0 ? R.color.green_dark : R.color.red_dark;
-        // Get the main currency from the preferences.
-        Currency prefCurrency = getPrefCurrency(context);
-        // Create a formatter using no decimal digits.
-        DecimalFormat df = new DecimalFormat("+ #,##0; - #,##0");
-        df.setMaximumFractionDigits(0);
-
-        String currSymbol = prefCurrency.getSymbol().substring(0, 1);
-        String amountStr = df.format(amount) + currSymbol;
-
-        Spannable spannable = new SpannableString(amountStr);
-        spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(context, color)), 0, spannable.length(), 0);
-        spannable.setSpan(new StyleSpan(Typeface.BOLD), 0, spannable.length() - 1, 0);
-        spannable.setSpan(new SuperscriptSpan(), spannable.length() - currSymbol.length(), spannable.length(), 0);
-        spannable.setSpan(new RelativeSizeSpan(0.9f), spannable.length() - currSymbol.length(), spannable.length(), 0);
-
-        return spannable;
-    }
-
-    public static Spannable formatAmountColorNoCurrency(double amount, Context context) {
-        int color = amount > 0 ? R.color.green_dark : R.color.red_dark;
-        // Create a formatter using no decimal digits.
-        DecimalFormat df = new DecimalFormat("+ #,##0.00; - #,##0.00");
-        df.setMaximumFractionDigits(0);
-        String amountStr = df.format(amount);
-
-        Spannable spannable = new SpannableString(amountStr);
-        spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(context, color)), 0, spannable.length(), 0);
-
-        return spannable;
     }
 
 

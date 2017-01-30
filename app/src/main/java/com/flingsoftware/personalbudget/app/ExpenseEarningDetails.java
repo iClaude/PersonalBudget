@@ -42,10 +42,10 @@ import com.flingsoftware.personalbudget.customviews.MioToast;
 import com.flingsoftware.personalbudget.database.DBCExpEarAbs;
 import com.flingsoftware.personalbudget.database.DBCExpEarRepeatedAbs;
 import com.flingsoftware.personalbudget.database.DBCVociAbs;
-import com.flingsoftware.personalbudget.utilita.BlurBuilder;
-import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
-import com.flingsoftware.personalbudget.utilita.SoundEffectsManager;
-import com.flingsoftware.personalbudget.utilita.UtilityVarious;
+import com.flingsoftware.personalbudget.utility.BlurBuilder;
+import com.flingsoftware.personalbudget.utility.ListViewIconeVeloce;
+import com.flingsoftware.personalbudget.utility.SoundEffectsManager;
+import com.flingsoftware.personalbudget.utility.UtilityVarious;
 
 import java.text.DateFormat;
 import java.text.NumberFormat;

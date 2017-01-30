@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app;
@@ -39,8 +39,8 @@ import com.flingsoftware.personalbudget.app.utility.TagsColors;
 import com.flingsoftware.personalbudget.customviews.TextViewWithBackground;
 import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
-import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
-import com.flingsoftware.personalbudget.utilita.UtilityVarious;
+import com.flingsoftware.personalbudget.utility.ListViewIconeVeloce;
+import com.flingsoftware.personalbudget.utility.NumberFormatter;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -175,7 +175,7 @@ public class FragmentBudget extends ListFragment implements SharedPreferences.On
                     // Amount saved.
                     case R.id.tvSaved:
 						double saved = cursor.getDouble(columnIndex);
-						((TextView) view).setText(UtilityVarious.formatAmountColorCurrencySuperscript(saved, getActivity()), TextView.BufferType.SPANNABLE);
+						((TextView) view).setText(NumberFormatter.formatAmountColorCurrencySuperscript(saved, getActivity()), TextView.BufferType.SPANNABLE);
 
                         return true;
 

@@ -16,7 +16,7 @@ import android.util.Log;
 
 import com.flingsoftware.personalbudget.R;
 import com.flingsoftware.personalbudget.app.MainPersonalBudget;
-import com.flingsoftware.personalbudget.utilita.SoundEffectsManager;
+import com.flingsoftware.personalbudget.utility.SoundEffectsManager;
 
 
 public class PreferenzeFragment extends PreferenceFragment implements  OnSharedPreferenceChangeListener {

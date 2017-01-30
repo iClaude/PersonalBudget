@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.charts.piechart;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.flingsoftware.personalbudget.R;
-import com.flingsoftware.personalbudget.utilita.UtilityVarious;
+import com.flingsoftware.personalbudget.utility.NumberFormatter;
 
 import org.achartengine.GraphicalView;
 import org.achartengine.model.CategorySeries;
@@ -131,7 +131,7 @@ public class SixElementsPieChartBuilder extends PieChartBuilder {
                     evidPrec = seriesIndex;
                     pieChart.repaint();
 
-                    Toast.makeText(getContext(), getContext().getString(R.string.statistiche_importo) + ": " + UtilityVarious.formatAmountCurrency(getAmountsAndLabels()[seriesIndex].getAmount(), getContext()) + "\n" + getContext().getString(R.string.statistiche_percentuale) + ": " + nfPerc.format(getAmountsAndLabels()[seriesIndex].getAmount() / getTotalAmount()), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getContext().getString(R.string.statistiche_importo) + ": " + NumberFormatter.formatAmountMainCurrency(getAmountsAndLabels()[seriesIndex].getAmount(), getContext()) + "\n" + getContext().getString(R.string.statistiche_percentuale) + ": " + nfPerc.format(getAmountsAndLabels()[seriesIndex].getAmount() / getTotalAmount()), Toast.LENGTH_SHORT).show();
                 }
             }
         });

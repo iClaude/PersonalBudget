@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -30,8 +30,9 @@ import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
 import com.flingsoftware.personalbudget.database.DBCVociAbs;
 import com.flingsoftware.personalbudget.oggetti.Budget;
-import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
-import com.flingsoftware.personalbudget.utilita.UtilityVarious;
+import com.flingsoftware.personalbudget.utility.ListViewIconeVeloce;
+import com.flingsoftware.personalbudget.utility.NumberFormatter;
+import com.flingsoftware.personalbudget.utility.UtilityVarious;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -245,7 +246,7 @@ public class BudgetDetailsHistory extends Fragment implements BudgetDetails.Relo
                 holder.tvTag.setText(tag);
                 ((TextViewWithBackground) holder.tvTag).setBackgroundColorPreserveBackground(tagColor);
                 double saved = budget.getAmount() - budget.getExpenses();
-                holder.tvSaved.setText(UtilityVarious.formatAmountColorCurrencySuperscript(saved, context), TextView.BufferType.SPANNABLE);
+                holder.tvSaved.setText(NumberFormatter.formatAmountColorCurrencySuperscript(saved, context), TextView.BufferType.SPANNABLE);
 
                 int perc = Math.min(((int) ((budget.getExpenses() * 100) / budget.getAmount())), 100);
                 holder.tvPerc.setText(getString(R.string.budget_dettaglio_speso) + ": " + perc + "%");
@@ -255,8 +256,8 @@ public class BudgetDetailsHistory extends Fragment implements BudgetDetails.Relo
                     holder.pbBudget.setProgressDrawable(ContextCompat.getDrawable(context, R.drawable.progressbar_standard));
                 }
                 holder.pbBudget.setProgress(perc);
-                holder.tvAmount.setText(UtilityVarious.formatAmountCurrency(budget.getAmount(), context));
-                holder.tvSpent.setText(UtilityVarious.formatAmountCurrency(budget.getExpenses(), context));
+                holder.tvAmount.setText(NumberFormatter.formatAmountMainCurrency(budget.getAmount(), context));
+                holder.tvSpent.setText(NumberFormatter.formatAmountMainCurrency(budget.getExpenses(), context));
                 holder.tvBudgetType.setText(budget.getBudgetType(context));
                 holder.tvEndDate.setText(dateFormat.format(new Date(budget.getDateEnd())));
             }

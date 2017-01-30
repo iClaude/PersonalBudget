@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 /*
@@ -83,8 +83,8 @@ import com.flingsoftware.personalbudget.preferenze.BudgetStatusService;
 import com.flingsoftware.personalbudget.preferenze.PreferenzeActivity;
 import com.flingsoftware.personalbudget.preferenze.ReminderService;
 import com.flingsoftware.personalbudget.ricvoc.RiconoscimentoVocale;
-import com.flingsoftware.personalbudget.utilita.SoundEffectsManager;
-import com.flingsoftware.personalbudget.utilita.ZoomOutPageTransformer;
+import com.flingsoftware.personalbudget.utility.SoundEffectsManager;
+import com.flingsoftware.personalbudget.utility.ZoomOutPageTransformer;
 
 import java.io.File;
 import java.util.ArrayList;

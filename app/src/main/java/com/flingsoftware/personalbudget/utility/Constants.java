@@ -1,8 +1,8 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
-package com.flingsoftware.personalbudget.utilita;
+package com.flingsoftware.personalbudget.utility;
 
 /**
  * Global constants used in the whole app.

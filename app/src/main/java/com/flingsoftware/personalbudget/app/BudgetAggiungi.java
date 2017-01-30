@@ -50,8 +50,8 @@ import com.flingsoftware.personalbudget.customviews.MioToast;
 import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
 import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
-import com.flingsoftware.personalbudget.utilita.Animazioni;
-import com.flingsoftware.personalbudget.utilita.SoundEffectsManager;
+import com.flingsoftware.personalbudget.utility.Animazioni;
+import com.flingsoftware.personalbudget.utility.SoundEffectsManager;
 import com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche;
 import com.flingsoftware.personalbudget.valute.ElencoValute;
 

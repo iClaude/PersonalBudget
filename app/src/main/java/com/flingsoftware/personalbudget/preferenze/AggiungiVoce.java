@@ -1,16 +1,15 @@
-package com.flingsoftware.personalbudget.preferenze;
+/*
+ * Copyright (c) This code was written by iClaude. All rights reserved.
+ */
 
-import com.flingsoftware.personalbudget.R;
-import com.flingsoftware.personalbudget.customviews.MioToast;
-import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
-import com.flingsoftware.personalbudget.database.DBCEntrateVoci;
-import com.flingsoftware.personalbudget.utilita.ListViewIconeVeloce;
+package com.flingsoftware.personalbudget.preferenze;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,7 +19,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Toast;
-import android.support.v7.app.ActionBarActivity;
+
+import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.customviews.MioToast;
+import com.flingsoftware.personalbudget.database.DBCEntrateVoci;
+import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
+import com.flingsoftware.personalbudget.utility.ListViewIconeVeloce;
 
 
 public class AggiungiVoce extends ActionBarActivity {

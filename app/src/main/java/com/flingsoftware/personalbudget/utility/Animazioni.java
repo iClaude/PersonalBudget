@@ -1,4 +1,8 @@
-package com.flingsoftware.personalbudget.utilita;
+/*
+ * Copyright (c) This code was written by iClaude. All rights reserved.
+ */
+
+package com.flingsoftware.personalbudget.utility;
 
 import android.animation.ObjectAnimator;
 import android.view.View;
