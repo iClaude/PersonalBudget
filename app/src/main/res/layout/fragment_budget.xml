@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) - Software developed by iClaude.
+  -->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/preferenze_voci_listview_item_rlPadre"
     android:layout_width="match_parent"
@@ -64,8 +68,8 @@
     <ImageView
         android:id="@+id/fragment_budget_ivWallet"
         android:contentDescription="@string/provv_contenutoImmagini"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_centerInParent="true"
         android:src="@drawable/img_wallet"
         android:visibility="invisible" />
