@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rlParent"
+    android:layout_width="match_parent"
+    android:layout_height="250dp">
+
+    <LinearLayout
+        android:id="@+id/llTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="4dp">
+
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/provv_contenutoImmagini"
+            android:src="@drawable/img_wallet" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@id/ivLogo"
+            android:text="@string/app_name"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/ivFavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="4dp"
+            android:background="@drawable/selector_immagine_cliccabile"
+            android:contentDescription="@string/provv_contenutoImmagini"
+            android:src="@drawable/ic_action_important" />
+
+        <ImageView
+            android:id="@+id/ivAddEarning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_toLeftOf="@+id/ivFavorite"
+            android:background="@drawable/selector_immagine_cliccabile"
+            android:contentDescription="@string/provv_contenutoImmagini"
+            android:src="@drawable/ic_action_good" />
+
+        <ImageView
+            android:id="@+id/ivAddExpense"
+            android:contentDescription="@string/provv_contenutoImmagini"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/ivAddEarning"
+            android:background="@drawable/selector_immagine_cliccabile"
+            android:src="@drawable/ic_action_bad" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/ivBalance"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/darker_gray"
+        android:id="@+id/vLine" />
+
+
+    <TextView
+        android:text="@string/generic_loading_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="false"
+        android:layout_centerHorizontal="false"
+        android:id="@+id/tvLoading"
+        android:textSize="14sp"
+        android:textColor="?android:attr/textColorSecondary"
+        android:layout_alignParentRight="false"
+        android:layout_centerVertical="false"
+        android:layout_centerInParent="true"
+        android:visibility="invisible" />
+
+    <ImageView
+        app:srcCompat="@drawable/img_maiale_verde"
+        android:layout_below="@+id/llTitle"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:id="@+id/ivBalance"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_width="48dp"
+        android:layout_height="48dp" />
+
+    <TextView
+        android:text="@string/widget_small_balance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/ivBalance"
+        android:layout_toRightOf="@+id/ivBalance"
+        android:layout_toEndOf="@+id/ivBalance"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="8dp"
+        android:id="@+id/tvBalanceLabel"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="18sp"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/provv_intervalloDate"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="14sp"
+        android:layout_alignLeft="@+id/tvBalanceLabel"
+        android:layout_alignStart="@+id/tvBalanceLabel"
+        android:layout_below="@id/tvBalanceLabel"
+        android:layout_alignBottom="@id/ivBalance" />
+
+    <TextView
+        android:text="@string/provv_importoValutaZero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        android:id="@+id/tvBalance"
+        android:textColor="@color/green_dark_900"
+        android:layout_alignTop="@+id/tvBalanceLabel"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textSize="18sp" />
+
+
+    <ImageView
+        android:id="@+id/ivEarnings"
+        android:contentDescription="@string/provv_contenutoImmagini"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:background="@drawable/back_round_primarylight"
+        android:padding="8dp"
+        android:scaleType="centerInside"
+        android:layout_marginTop="8dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/img_budget"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_below="@id/vLine" />
+
+    <TextView
+        android:text="@string/generic_earning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/ivEarnings"
+        android:layout_alignRight="@+id/tvBalanceLabel"
+        android:layout_alignEnd="@+id/tvBalanceLabel"
+        android:id="@+id/tvEarningsLabel"
+        android:textColor="?android:attr/textColorSecondary"
+        android:layout_toRightOf="@id/ivEarnings"
+        android:layout_toStartOf="@id/ivEarnings"
+        android:layout_toLeftOf="@id/ivEarnings"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp" />
+
+    <TextView
+        android:text="@string/provv_importoValutaZero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvEarningsLabel"
+        android:layout_alignLeft="@+id/tvEarningsLabel"
+        android:layout_alignStart="@+id/tvEarningsLabel"
+        android:id="@+id/tvEarnings" />
+
+    <ProgressBar
+        android:id="@+id/pbEarnings"
+        style="@style/tallerBarStyle"
+        android:layout_width="200dp"
+        android:layout_height="10dp"
+        android:max="100"
+        android:progress="70"
+        android:progressDrawable="@drawable/progressbar_standard"
+        android:layout_below="@+id/tvEarnings"
+        android:layout_alignLeft="@+id/tvEarnings"
+        android:layout_alignStart="@+id/tvEarnings"
+        android:layout_marginTop="4dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/ivEarnings"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/darker_gray"
+        android:id="@+id/vLine2" />
+
+    <ImageView
+        android:id="@+id/ivExpenses"
+        android:contentDescription="@string/provv_contenutoImmagini"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:background="@drawable/back_round_primarylight"
+        android:padding="8dp"
+        android:scaleType="centerInside"
+        android:layout_marginTop="8dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/img_budget"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_below="@id/vLine2" />
+
+    <TextView
+        android:text="@string/generic_earning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/ivExpenses"
+        android:layout_alignRight="@+id/tvBalanceLabel"
+        android:layout_alignEnd="@+id/tvBalanceLabel"
+        android:id="@+id/tvExpensesLabel"
+        android:textColor="?android:attr/textColorSecondary"
+        android:layout_toRightOf="@id/ivEarnings"
+        android:layout_toStartOf="@id/ivEarnings"
+        android:layout_toLeftOf="@id/ivEarnings"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp" />
+
+    <TextView
+        android:text="@string/provv_importoValutaZero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvExpensesLabel"
+        android:layout_alignLeft="@+id/tvEarningsLabel"
+        android:layout_alignStart="@+id/tvEarningsLabel"
+        android:id="@+id/tvExpenses" />
+
+    <ProgressBar
+        android:id="@+id/pbExpenses"
+        style="@style/tallerBarStyle"
+        android:layout_width="200dp"
+        android:layout_height="10dp"
+        android:max="100"
+        android:progress="70"
+        android:progressDrawable="@drawable/progressbar_accent"
+        android:layout_below="@+id/tvExpenses"
+        android:layout_alignLeft="@+id/tvExpenses"
+        android:layout_alignStart="@+id/tvExpenses"
+        android:layout_marginTop="4dp" />
+
+</RelativeLayout>

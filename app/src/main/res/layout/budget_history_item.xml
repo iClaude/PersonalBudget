@@ -26,10 +26,10 @@
             android:background="@drawable/back_round_primarylight_border"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            app:layout_constraintBottom_toTopOf="@+id/pbBudget" />
+            app:layout_constraintBottom_toTopOf="@+id/pbEarnings" />
 
         <ProgressBar
-            android:id="@+id/pbBudget"
+            android:id="@+id/pbEarnings"
             style="@style/tallerBarStyle"
             android:layout_width="0dp"
             android:layout_height="12dp"
@@ -86,7 +86,7 @@
         <include
             layout="@layout/budget_history_item_expanded"
             android:id="@+id/layout_expanded"
-            app:layout_constraintTop_toBottomOf="@+id/pbBudget"
+            app:layout_constraintTop_toBottomOf="@+id/pbEarnings"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:visibility="visible"

@@ -170,7 +170,7 @@ public class BudgetDetailsHistory extends Fragment implements BudgetDetails.Relo
                 tvTag = (TextView) view.findViewById(R.id.tvTag);
                 tvSaved = (TextView) view.findViewById(R.id.tvSaved);
                 tvPerc = (TextView) view.findViewById(R.id.tvPerc);
-                pbBudget = (ProgressBar) view.findViewById(R.id.pbBudget);
+                pbBudget = (ProgressBar) view.findViewById(R.id.pbEarnings);
                 tvAmount = (TextView) view.findViewById(R.id.tvAmount);
                 tvSpent = (TextView) view.findViewById(R.id.tvSpent);
                 tvBudgetType = (TextView) view.findViewById(R.id.tvBudgetType);
