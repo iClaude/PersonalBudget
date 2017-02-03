@@ -153,10 +153,10 @@
         android:background="@drawable/back_round_primarylight"
         android:padding="8dp"
         android:scaleType="centerInside"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:src="@drawable/img_budget"
+        android:src="@drawable/tag_41"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_below="@id/vLine" />
@@ -169,12 +169,12 @@
         android:layout_alignRight="@+id/tvBalanceLabel"
         android:layout_alignEnd="@+id/tvBalanceLabel"
         android:id="@+id/tvEarningsLabel"
-        android:textColor="?android:attr/textColorSecondary"
+        android:textColor="?android:attr/textColorPrimary"
         android:layout_toRightOf="@id/ivEarnings"
         android:layout_toStartOf="@id/ivEarnings"
         android:layout_toLeftOf="@id/ivEarnings"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp" />
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp" />
 
     <TextView
         android:text="@string/provv_importoValutaZero"
@@ -183,29 +183,8 @@
         android:layout_below="@id/tvEarningsLabel"
         android:layout_alignLeft="@+id/tvEarningsLabel"
         android:layout_alignStart="@+id/tvEarningsLabel"
-        android:id="@+id/tvEarnings" />
-
-    <ProgressBar
-        android:id="@+id/pbEarnings"
-        style="@style/tallerBarStyle"
-        android:layout_width="200dp"
-        android:layout_height="10dp"
-        android:max="100"
-        android:progress="70"
-        android:progressDrawable="@drawable/progressbar_standard"
-        android:layout_below="@+id/tvEarnings"
-        android:layout_alignLeft="@+id/tvEarnings"
-        android:layout_alignStart="@+id/tvEarnings"
-        android:layout_marginTop="4dp" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/ivEarnings"
-        android:layout_marginTop="8dp"
-        android:background="@android:color/darker_gray"
-        android:id="@+id/vLine2" />
+        android:id="@+id/tvEarnings"
+        android:textColor="@color/green_dark_900" />
 
     <ImageView
         android:id="@+id/ivExpenses"
@@ -215,13 +194,13 @@
         android:background="@drawable/back_round_primarylight"
         android:padding="8dp"
         android:scaleType="centerInside"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:src="@drawable/img_budget"
+        android:src="@drawable/tag_55"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:layout_below="@id/vLine2" />
+        android:layout_below="@id/ivEarnings" />
 
     <TextView
         android:text="@string/generic_earning"
@@ -231,12 +210,12 @@
         android:layout_alignRight="@+id/tvBalanceLabel"
         android:layout_alignEnd="@+id/tvBalanceLabel"
         android:id="@+id/tvExpensesLabel"
-        android:textColor="?android:attr/textColorSecondary"
+        android:textColor="?android:attr/textColorPrimary"
         android:layout_toRightOf="@id/ivEarnings"
         android:layout_toStartOf="@id/ivEarnings"
         android:layout_toLeftOf="@id/ivEarnings"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp" />
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp" />
 
     <TextView
         android:text="@string/provv_importoValutaZero"
@@ -245,19 +224,24 @@
         android:layout_below="@id/tvExpensesLabel"
         android:layout_alignLeft="@+id/tvEarningsLabel"
         android:layout_alignStart="@+id/tvEarningsLabel"
-        android:id="@+id/tvExpenses" />
+        android:id="@+id/tvExpenses"
+        android:textColor="@color/red_dark_900" />
 
-    <ProgressBar
-        android:id="@+id/pbExpenses"
-        style="@style/tallerBarStyle"
-        android:layout_width="200dp"
-        android:layout_height="10dp"
-        android:max="100"
-        android:progress="70"
-        android:progressDrawable="@drawable/progressbar_accent"
-        android:layout_below="@+id/tvExpenses"
-        android:layout_alignLeft="@+id/tvExpenses"
-        android:layout_alignStart="@+id/tvExpenses"
-        android:layout_marginTop="4dp" />
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:srcCompat="@drawable/ic_action_news"
+        android:layout_below="@+id/tvEarnings"
+        android:layout_alignLeft="@+id/tvEarnings"
+        android:layout_alignStart="@+id/tvEarnings"
+        android:id="@+id/imageView7" />
+
+    <TextView
+        android:text="65%"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvPercEar"
+        android:layout_toRightOf="@+id/imageView7"
+        android:layout_toEndOf="@+id/imageView7" />
 
 </RelativeLayout>
