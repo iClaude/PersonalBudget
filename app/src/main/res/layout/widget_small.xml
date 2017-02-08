@@ -8,7 +8,7 @@
     android:id="@+id/llParent"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="250dp">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/llTitle"
@@ -115,19 +115,6 @@
                 android:layout_marginTop="4dp" />
 
             <TextView
-                android:id="@+id/tvTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/provv_intervalloDate"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="?android:attr/textColorSecondary"
-                android:textSize="14sp"
-                android:layout_alignLeft="@+id/tvBalanceLabel"
-                android:layout_alignStart="@+id/tvBalanceLabel"
-                android:layout_below="@id/tvBalanceLabel"
-                android:layout_alignBottom="@id/ivBalance" />
-
-            <TextView
                 android:text="@string/provv_importoValutaZero"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -138,7 +125,8 @@
                 android:layout_alignTop="@+id/tvBalanceLabel"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:bufferType="spannable" />
 
             <View
                 android:layout_width="match_parent"
@@ -273,6 +261,18 @@
                 android:id="@+id/tvPercExp"
                 android:layout_alignTop="@id/imageView6"
                 android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/provv_intervalloDate"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="14sp"
+                android:layout_below="@+id/tvBalanceLabel"
+                android:layout_alignLeft="@+id/tvBalanceLabel"
+                android:layout_alignStart="@+id/tvBalanceLabel" />
 
         </RelativeLayout>
 
