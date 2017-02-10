@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.widget;
@@ -32,7 +32,7 @@ import com.flingsoftware.personalbudget.database.FunzioniAggiornamento;
 import com.flingsoftware.personalbudget.utility.NumberFormatter;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.text.NumberFormat;
 import java.util.Currency;
 import java.util.GregorianCalendar;
 import java.util.Locale;
@@ -54,12 +54,14 @@ public class WidgetPiccolo extends AppWidgetProvider {
 		double saldo = entrate - spese + entrateFuture - speseFuture;
 		for(int i=0; i<appWidgetIds.length; i++) {
 			RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.widget_small);
+            rv.setViewVisibility(R.id.tvLoading, View.INVISIBLE);
+            rv.setViewVisibility(R.id.llContent, View.VISIBLE);
 
             //icone cliccabili sul titolo del widget
             Intent intMain = new Intent(context, MainPersonalBudget.class);
             PendingIntent pintMain = PendingIntent.getActivity(context, 0, intMain, 0);
 			rv.setOnClickPendingIntent(R.id.ivLogo, pintMain);
-			rv.setOnClickPendingIntent(R.id.rlContent, pintMain);
+            rv.setOnClickPendingIntent(R.id.llContent, pintMain);
 
 			Intent intSpese = new Intent(context, SpeseAggiungi.class);
             PendingIntent pintSpese = PendingIntent.getActivity(context, 0, intSpese, 0);
@@ -74,23 +76,24 @@ public class WidgetPiccolo extends AppWidgetProvider {
 			rv.setOnClickPendingIntent(R.id.ivFavorite, pintPreferiti);
 
 
-			//scrivo i dati sul widget
-			rv.setViewVisibility(R.id.tvLoading, View.INVISIBLE);
-			rv.setViewVisibility(R.id.rlContent, View.VISIBLE);
-			if(saldo <= 0) {
-				rv.setImageViewResource(R.id.ivBalance, R.drawable.img_maiale_rosso);
-			}
-            else {
-				rv.setImageViewResource(R.id.ivBalance, R.drawable.img_maiale_verde);
-			}
-            DateFormat df =  new SimpleDateFormat("dd/MMM/yyyy", miaLocale);
-			rv.setTextViewText(R.id.tvTime, df.format(dataInizio.getTime()) + " - " + df.format(dataFine.getTime()));
-			rv.setTextViewText(R.id.tvBalance, NumberFormatter.formatAmountColorCurrencySuperscript(earnings - expenses, mioContext));
-			rv.setTextViewText(R.id.tvEarnings, NumberFormatter.formatAmountMainCurrency(earnings, mioContext));
-			rv.setTextViewText(R.id.tvExpenses, NumberFormatter.formatAmountMainCurrency(expenses, mioContext));
+            // Display data on the widget.
+            // Timespan.
+            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, miaLocale);
+            rv.setTextViewText(R.id.tvTime, df.format(dataInizio.getTime()) + " - " + df.format(dataFine.getTime()));
+            // Earnings and expenses.
+            rv.setTextViewText(R.id.tvEarnings, NumberFormatter.formatAmountMainCurrency(earnings, mioContext));
+            rv.setTextViewText(R.id.tvExpenses, NumberFormatter.formatAmountMainCurrency(expenses, mioContext));
+            // Percentages.
+            double percEar = (earnings == 0 && expenses == 0) ? 0.0 : (earnings / (earnings + expenses));
+            double percExp = (earnings == 0 && expenses == 0) ? 0.0 : (expenses / (earnings + expenses));
+            NumberFormat percForm = NumberFormat.getPercentInstance();
+            rv.setTextViewText(R.id.tvPercEar, percForm.format(percEar));
+            rv.setTextViewText(R.id.tvPercExp, percForm.format(percExp));
+            // Balance.
+            rv.setTextViewText(R.id.tvBalance, NumberFormatter.formatAmountColorCurrencySuperscript(earnings - expenses, mioContext));
 
 
-			appWidgetManager.updateAppWidget(appWidgetIds[i], rv);
+            appWidgetManager.updateAppWidget(appWidgetIds[i], rv);
         }
 		
 		super.onUpdate(context, appWidgetManager, appWidgetIds);

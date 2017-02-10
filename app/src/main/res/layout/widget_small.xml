@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) - Software developed by iClaude.
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/llParent"
-    android:orientation="vertical"
+    android:id="@+id/rlParent"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFFFF">
 
     <LinearLayout
         android:id="@+id/llTitle"
@@ -83,100 +83,58 @@
             android:visibility="invisible"
             android:gravity="center" />
 
-        <RelativeLayout
-            android:id="@+id/rlContent"
+        <LinearLayout
+            android:id="@+id/llContent"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="visible">
 
-            <TextView
-                android:id="@+id/tvTime"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/llTime"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/provv_intervalloDate"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="?android:attr/textColorSecondary"
-                android:textSize="14sp"
-                android:layout_below="@+id/tvBalanceLabel"
-                android:layout_alignLeft="@+id/tvBalanceLabel"
-                android:layout_alignStart="@+id/tvBalanceLabel" />
+                android:layout_marginTop="4dp">
 
-            <ImageView
-                app:srcCompat="@drawable/img_maiale_verde"
-                android:contentDescription="@string/provv_contenutoImmagini"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:id="@+id/ivBalance"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_width="48dp"
-                android:layout_height="48dp" />
+                <FrameLayout
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="1dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@android:color/darker_gray" />
 
-            <TextView
-                android:text="@string/widget_small_balance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/ivBalance"
-                android:layout_toRightOf="@+id/ivBalance"
-                android:layout_toEndOf="@+id/ivBalance"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="8dp"
-                android:id="@+id/tvBalanceLabel"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="18sp"
-                android:layout_marginTop="4dp"
-                android:layout_toLeftOf="@id/tvBalance"
-                android:layout_toStartOf="@id/tvBalance" />
+                <TextView
+                    android:id="@+id/tvTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/temp_timespan_short"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="14sp" />
 
-            <TextView
-                android:text="@string/provv_importoValutaZero"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                android:layout_marginEnd="8dp"
-                android:id="@+id/tvBalance"
-                android:textColor="@color/green_dark_900"
-                android:layout_alignTop="@+id/tvBalanceLabel"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:textSize="18sp"
-                android:bufferType="spannable" />
+                <FrameLayout
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginRight="6dp"
+                    android:background="@android:color/darker_gray" />
+            </LinearLayout>
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_below="@id/ivBalance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:baselineAligned="false">
-
-                <LinearLayout
-                    android:id="@+id/llExpenses"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:text="@string/generic_expenses"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tvExpensesLabel"
-                        android:textColor="@android:color/white"
-                        android:background="@drawable/back_textview_tag_02"
-                        android:layout_marginTop="12dp"
-                        android:layout_gravity="center_horizontal" />
-
-                    <TextView
-                        android:text="@string/provv_importoValutaZero"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tvExpenses"
-                        android:textColor="@color/red_dark_900"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="8dp" />
-
-                </LinearLayout>
+                android:baselineAligned="false"
+                android:layout_marginTop="12dp">
 
                 <LinearLayout
                     android:id="@+id/llEarnings"
@@ -192,8 +150,8 @@
                         android:id="@+id/tvEarningsLabel"
                         android:textColor="@android:color/white"
                         android:background="@drawable/back_textview_tag_01"
-                        android:layout_marginTop="12dp"
-                        android:layout_gravity="center_horizontal" />
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:text="@string/provv_importoValutaZero"
@@ -202,13 +160,139 @@
                         android:id="@+id/tvEarnings"
                         android:textColor="@color/green_dark_900"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="8dp" />
+                        android:layout_marginTop="4dp"
+                        android:textSize="18sp" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal">
+
+                        <TextView
+                            android:text="@string/provv_percentuale_zero"
+                            android:gravity="center_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:id="@+id/tvPercEar"
+                            android:layout_gravity="center_horizontal"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:contentDescription="@string/provv_contenutoImmagini"
+                            android:gravity="center_vertical"
+                            app:srcCompat="@drawable/ic_visibility_black_24dp"
+                            android:id="@+id/ivImg1"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:alpha="0.5" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llExpenses"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:text="@string/generic_expenses"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvExpensesLabel"
+                        android:textColor="@android:color/white"
+                        android:background="@drawable/back_textview_tag_02"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:text="@string/provv_importoValutaZero"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvExpenses"
+                        android:textColor="@color/red_dark_900"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="4dp"
+                        android:textSize="18sp" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal">
+
+                        <TextView
+                            android:text="@string/provv_percentuale_zero"
+                            android:gravity="center_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:id="@+id/tvPercExp"
+                            android:layout_gravity="center_horizontal"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:contentDescription="@string/provv_contenutoImmagini"
+                            android:gravity="center_vertical"
+                            app:srcCompat="@drawable/ic_visibility_black_24dp"
+                            android:id="@+id/ivImg2"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:alpha="0.5" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
 
-        </RelativeLayout>
+            <FrameLayout
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="16dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp">
+
+                <TextView
+                    android:text="@string/widget_small_balance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView12"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif"
+                    android:textSize="24sp"
+                    android:textColor="@color/text_secondary"
+                    android:textAllCaps="false" />
+
+                <TextView
+                    android:text="@string/provv_importoValutaZero"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:id="@+id/tvBalance"
+                    android:textColor="@color/green_dark_900"
+                    android:textSize="24sp"
+                    android:bufferType="spannable" />
+            </LinearLayout>
+
+        </LinearLayout>
 
     </FrameLayout>
 
