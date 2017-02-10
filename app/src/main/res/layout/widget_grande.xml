@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (c) - Software developed by iClaude.
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -59,7 +59,7 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/widget_grande_tvPeriodo"
+        android:id="@+id/tvTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/widget_grande_rlTitolo"
@@ -80,7 +80,7 @@
         android:layout_below="@id/widget_grande_rlTitolo"
         android:layout_marginLeft="6dp"
         android:layout_marginTop="10dp"
-        android:layout_toLeftOf="@id/widget_grande_tvPeriodo"
+        android:layout_toLeftOf="@id/tvTime"
         android:background="@android:color/darker_gray" />
 
     <FrameLayout
@@ -90,13 +90,13 @@
         android:layout_below="@id/widget_grande_rlTitolo"
         android:layout_marginRight="6dp"
         android:layout_marginTop="10dp"
-        android:layout_toRightOf="@id/widget_grande_tvPeriodo"
+        android:layout_toRightOf="@id/tvTime"
         android:background="@android:color/darker_gray" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/widget_grande_tvPeriodo" >
+        android:layout_below="@id/tvTime">
 
         <ListView
             android:id="@+id/widget_grande_lvBudget"
