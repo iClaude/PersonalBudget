@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (c) - Software developed by iClaude.
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -8,7 +8,7 @@
     android:id="@+id/llParent"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/llTitle"
@@ -31,8 +31,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
-            android:layout_toRightOf="@id/ivLogo"
             android:text="@string/app_name"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@android:color/white"
@@ -42,8 +42,8 @@
             android:id="@+id/ivFavorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
             android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
             android:background="@drawable/selector_immagine_cliccabile"
             android:contentDescription="@string/provv_contenutoImmagini"
             android:src="@drawable/ic_action_important" />
@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
-            android:layout_toLeftOf="@+id/ivFavorite"
+            android:layout_marginStart="4dp"
             android:background="@drawable/selector_immagine_cliccabile"
             android:contentDescription="@string/provv_contenutoImmagini"
             android:src="@drawable/ic_action_good" />
@@ -63,7 +63,6 @@
             android:contentDescription="@string/provv_contenutoImmagini"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/ivAddEarning"
             android:background="@drawable/selector_immagine_cliccabile"
             android:src="@drawable/ic_action_bad" />
 
@@ -71,7 +70,8 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
 
         <TextView
             android:text="@string/generic_loading_data"
@@ -103,6 +103,7 @@
 
             <ImageView
                 app:srcCompat="@drawable/img_maiale_verde"
+                android:contentDescription="@string/provv_contenutoImmagini"
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
@@ -124,7 +125,9 @@
                 android:id="@+id/tvBalanceLabel"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="18sp"
-                android:layout_marginTop="4dp" />
+                android:layout_marginTop="4dp"
+                android:layout_toLeftOf="@id/tvBalance"
+                android:layout_toStartOf="@id/tvBalance" />
 
             <TextView
                 android:text="@string/provv_importoValutaZero"
@@ -140,52 +143,12 @@
                 android:textSize="18sp"
                 android:bufferType="spannable" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@id/ivBalance"
-                android:layout_marginTop="4dp"
-                android:background="@android:color/darker_gray"
-                android:id="@+id/vLine" />
-
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_below="@id/vLine"
+                android:layout_below="@id/ivBalance"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-
-                <LinearLayout
-                    android:id="@+id/llEarnings"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_toLeftOf="@id/llExpenses">
-
-                    <TextView
-                        android:text="@string/generic_earning"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tvEarningsLabel"
-                        android:textColor="@android:color/white"
-                        android:background="@drawable/back_textview_tag_01"
-                        android:layout_below="@id/vLine"
-                        android:layout_marginTop="12dp"
-                        android:layout_gravity="center_horizontal" />
-
-                    <TextView
-                        android:text="@string/provv_importoValutaZero"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tvEarnings"
-                        android:textColor="@color/green_dark_900"
-                        android:layout_below="@id/tvEarningsLabel"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="8dp" />
-
-                </LinearLayout>
+                android:layout_height="wrap_content"
+                android:baselineAligned="false">
 
                 <LinearLayout
                     android:id="@+id/llExpenses"
@@ -201,7 +164,6 @@
                         android:id="@+id/tvExpensesLabel"
                         android:textColor="@android:color/white"
                         android:background="@drawable/back_textview_tag_02"
-                        android:layout_below="@+id/vLine"
                         android:layout_marginTop="12dp"
                         android:layout_gravity="center_horizontal" />
 
@@ -210,8 +172,35 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/tvExpenses"
-                        android:layout_below="@id/tvExpensesLabel"
                         android:textColor="@color/red_dark_900"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="8dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llEarnings"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:text="@string/generic_earning"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvEarningsLabel"
+                        android:textColor="@android:color/white"
+                        android:background="@drawable/back_textview_tag_01"
+                        android:layout_marginTop="12dp"
+                        android:layout_gravity="center_horizontal" />
+
+                    <TextView
+                        android:text="@string/provv_importoValutaZero"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvEarnings"
+                        android:textColor="@color/green_dark_900"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="8dp" />
 

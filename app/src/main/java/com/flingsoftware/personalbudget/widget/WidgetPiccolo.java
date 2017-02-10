@@ -32,7 +32,6 @@ import com.flingsoftware.personalbudget.database.FunzioniAggiornamento;
 import com.flingsoftware.personalbudget.utility.NumberFormatter;
 
 import java.text.DateFormat;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Currency;
 import java.util.GregorianCalendar;
@@ -60,7 +59,7 @@ public class WidgetPiccolo extends AppWidgetProvider {
             Intent intMain = new Intent(context, MainPersonalBudget.class);
             PendingIntent pintMain = PendingIntent.getActivity(context, 0, intMain, 0);
 			rv.setOnClickPendingIntent(R.id.ivLogo, pintMain);
-			rv.setOnClickPendingIntent(R.id.llParent, pintMain);
+			rv.setOnClickPendingIntent(R.id.rlContent, pintMain);
 
 			Intent intSpese = new Intent(context, SpeseAggiungi.class);
             PendingIntent pintSpese = PendingIntent.getActivity(context, 0, intSpese, 0);
@@ -73,6 +72,7 @@ public class WidgetPiccolo extends AppWidgetProvider {
 			Intent intPreferiti = new Intent(context, Preferiti.class);
             PendingIntent pintPreferiti = PendingIntent.getActivity(context, 0, intPreferiti, 0);
 			rv.setOnClickPendingIntent(R.id.ivFavorite, pintPreferiti);
+
 
 			//scrivo i dati sul widget
 			rv.setViewVisibility(R.id.tvLoading, View.INVISIBLE);
@@ -88,13 +88,9 @@ public class WidgetPiccolo extends AppWidgetProvider {
 			rv.setTextViewText(R.id.tvBalance, NumberFormatter.formatAmountColorCurrencySuperscript(earnings - expenses, mioContext));
 			rv.setTextViewText(R.id.tvEarnings, NumberFormatter.formatAmountMainCurrency(earnings, mioContext));
 			rv.setTextViewText(R.id.tvExpenses, NumberFormatter.formatAmountMainCurrency(expenses, mioContext));
-			double percEar = (earnings == 0 && expenses == 0) ? 0.0 : earnings / (earnings + expenses);
-			double percExp = (earnings == 0 && expenses == 0) ? 0.0 : expenses / (earnings + expenses);
-			NumberFormat percForm = NumberFormat.getPercentInstance();
-			rv.setTextViewText(R.id.tvPercEar, percForm.format(percEar));
-			rv.setTextViewText(R.id.tvPercExp, percForm.format(percExp));
 
-            appWidgetManager.updateAppWidget(appWidgetIds[i], rv);
+
+			appWidgetManager.updateAppWidget(appWidgetIds[i], rv);
         }
 		
 		super.onUpdate(context, appWidgetManager, appWidgetIds);
