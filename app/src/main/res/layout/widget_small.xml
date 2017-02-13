@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) - Software developed by iClaude.
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rlParent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="190dp"
     android:orientation="vertical"
     android:background="#FFFFFFFF">
 
@@ -70,8 +70,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white">
+        android:layout_height="match_parent">
 
         <TextView
             android:text="@string/generic_loading_data"
@@ -134,13 +133,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:baselineAligned="false"
-                android:layout_marginTop="12dp">
+                android:layout_marginTop="16dp">
 
                 <LinearLayout
                     android:id="@+id/llEarnings"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <TextView
@@ -151,7 +150,7 @@
                         android:textColor="@android:color/white"
                         android:background="@drawable/back_textview_tag_01"
                         android:layout_gravity="center_horizontal"
-                        android:textSize="18sp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:text="@string/provv_importoValutaZero"
@@ -175,19 +174,18 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:id="@+id/tvPercEar"
-                            android:layout_gravity="center_horizontal"
-                            android:textSize="14sp" />
+                            android:textSize="12sp"
+                            android:textColor="@color/text_secondary" />
 
                         <ImageView
                             android:contentDescription="@string/provv_contenutoImmagini"
                             android:gravity="center_vertical"
-                            app:srcCompat="@drawable/ic_visibility_black_24dp"
+                            app:srcCompat="@drawable/ic_action_news"
                             android:id="@+id/ivImg1"
                             android:layout_marginLeft="4dp"
                             android:layout_marginStart="4dp"
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:alpha="0.5" />
+                            android:layout_width="18dp"
+                            android:layout_height="18dp" />
 
                     </LinearLayout>
 
@@ -197,7 +195,7 @@
                     android:id="@+id/llExpenses"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <TextView
@@ -208,7 +206,7 @@
                         android:textColor="@android:color/white"
                         android:background="@drawable/back_textview_tag_02"
                         android:layout_gravity="center_horizontal"
-                        android:textSize="18sp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:text="@string/provv_importoValutaZero"
@@ -232,19 +230,18 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:id="@+id/tvPercExp"
-                            android:layout_gravity="center_horizontal"
-                            android:textSize="14sp" />
+                            android:textSize="12sp"
+                            android:textColor="@color/text_secondary" />
 
                         <ImageView
                             android:contentDescription="@string/provv_contenutoImmagini"
                             android:gravity="center_vertical"
-                            app:srcCompat="@drawable/ic_visibility_black_24dp"
+                            app:srcCompat="@drawable/ic_action_news"
                             android:id="@+id/ivImg2"
                             android:layout_marginLeft="4dp"
                             android:layout_marginStart="4dp"
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:alpha="0.5" />
+                            android:layout_width="18dp"
+                            android:layout_height="18dp" />
 
                     </LinearLayout>
 
@@ -257,17 +254,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@android:color/darker_gray"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginStart="6dp" />
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:layout_marginStart="8dp">
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp">
 
                 <TextView
                     android:text="@string/widget_small_balance"
@@ -276,9 +277,10 @@
                     android:id="@+id/textView12"
                     android:layout_weight="1"
                     android:fontFamily="sans-serif"
-                    android:textSize="24sp"
+                    android:textSize="18sp"
                     android:textColor="@color/text_secondary"
-                    android:textAllCaps="false" />
+                    android:textAllCaps="false"
+                    android:textStyle="normal|bold" />
 
                 <TextView
                     android:text="@string/provv_importoValutaZero"
@@ -288,7 +290,7 @@
                     android:layout_marginEnd="8dp"
                     android:id="@+id/tvBalance"
                     android:textColor="@color/green_dark_900"
-                    android:textSize="24sp"
+                    android:textSize="18sp"
                     android:bufferType="spannable" />
             </LinearLayout>
 

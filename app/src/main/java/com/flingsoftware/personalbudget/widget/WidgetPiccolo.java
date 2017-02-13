@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.widget;
@@ -89,8 +89,11 @@ public class WidgetPiccolo extends AppWidgetProvider {
             NumberFormat percForm = NumberFormat.getPercentInstance();
             rv.setTextViewText(R.id.tvPercEar, percForm.format(percEar));
             rv.setTextViewText(R.id.tvPercExp, percForm.format(percExp));
-            // Balance.
-            rv.setTextViewText(R.id.tvBalance, NumberFormatter.formatAmountColorCurrencySuperscript(earnings - expenses, mioContext));
+			// Icons for percentages.
+			rv.setImageViewResource(R.id.ivImg1, R.drawable.ic_action_news);
+			rv.setImageViewResource(R.id.ivImg2, R.drawable.ic_action_news);
+			// Balance.
+			rv.setTextViewText(R.id.tvBalance, NumberFormatter.formatAmountColorCurrencySuperscript(earnings - expenses, mioContext));
 
 
             appWidgetManager.updateAppWidget(appWidgetIds[i], rv);

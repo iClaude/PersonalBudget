@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (c) - Software developed by iClaude.
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
   -->
 
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:minWidth="250dp"
-    android:minHeight="110dp"
+    android:minWidth="@dimen/widget_small_minwidth"
+    android:minHeight="@dimen/widget_small_minheigth"
+    android:resizeMode="horizontal|vertical"
     android:initialLayout="@layout/widget_small"
     android:updatePeriodMillis="10800000"
     android:previewImage="@drawable/img_widget_piccolo_preview"
