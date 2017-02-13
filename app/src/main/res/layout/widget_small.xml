@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  ~ Copyright (c) - Software developed by iClaude.
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rlParent"
     android:layout_width="match_parent"
-    android:layout_height="190dp"
     android:orientation="vertical"
-    android:background="#FFFFFFFF">
+    android:background="#FFFFFFFF"
+    android:layout_height="@dimen/widget_small_height">
 
     <LinearLayout
         android:id="@+id/llTitle"
@@ -254,7 +254,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@android:color/darker_gray"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="6dp"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"

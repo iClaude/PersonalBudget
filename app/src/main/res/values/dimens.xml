@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  ~ Copyright (c) - Software developed by iClaude.
   -->
 
 <resources>
@@ -18,8 +18,9 @@
     <dimen name="cardview_horizontal_margin">8dp</dimen>
 
     <!-- Widget small min width and height. -->
+    <dimen name="widget_small_height">200dp</dimen>
     <dimen name="widget_small_minwidth">250dp</dimen>
-    <dimen name="widget_small_minheigth">110dp</dimen>
+    <dimen name="widget_small_minheight">110dp</dimen>
 
     <!-- Others. -->
     <dimen name="tag_textview_marginright">4dp</dimen>

@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  ~ Copyright (c) - Software developed by iClaude.
   -->
 
 <resources>
@@ -25,7 +25,7 @@
     <string name="frag_balance_chart_title">Entrate/Spese</string>
 
     <!-- Widget small -->
-    <string name="widget_small_balance">Balance</string>
+    <string name="widget_small_balance">Saldo</string>
 
     <!-- Temporary -->
     <string name="temp_timespan_short">01/01/17 - 31/01/17</string>
