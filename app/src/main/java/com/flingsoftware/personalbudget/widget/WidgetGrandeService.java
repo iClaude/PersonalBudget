@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.widget;
@@ -213,8 +213,7 @@ public class WidgetGrandeService extends RemoteViewsService {
                 remoteView.setViewVisibility(R.id.pbBudgetFull, View.INVISIBLE);
 				remoteView.setViewVisibility(R.id.pbEarnings, View.VISIBLE);
 				remoteView.setProgressBar(R.id.pbEarnings, 100, perc, false);
-			}
-		    else {
+			} else {
                 remoteView.setViewVisibility(R.id.pbBudgetFull, View.VISIBLE);
 				remoteView.setViewVisibility(R.id.pbEarnings, View.INVISIBLE);
 			}

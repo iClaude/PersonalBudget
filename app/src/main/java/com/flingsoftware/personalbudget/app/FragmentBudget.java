@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app;
@@ -191,7 +191,7 @@ public class FragmentBudget extends ListFragment implements SharedPreferences.On
                         // ProgressBar.
 						ProgressBar mProgressBar = (ProgressBar) ((View) (view.getParent())).findViewById(R.id.pbEarnings);
 						if (spent >= budgetAmount) {
-                            mProgressBar.setProgressDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.progressbar_accent));
+							mProgressBar.setProgressDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.progressbar_accent));
                         } else {
                             mProgressBar.setProgressDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.progressbar_standard));
                         }

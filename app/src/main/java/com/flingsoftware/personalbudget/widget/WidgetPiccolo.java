@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.widget;
@@ -52,43 +52,43 @@ public class WidgetPiccolo extends AppWidgetProvider {
 		aggiornaDatabase();
 		aggiornaDati();	
 		double saldo = entrate - spese + entrateFuture - speseFuture;
-		for(int i=0; i<appWidgetIds.length; i++) {
+		for (int i = 0; i < appWidgetIds.length; i++) {
 			RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.widget_small);
-            rv.setViewVisibility(R.id.tvLoading, View.INVISIBLE);
-            rv.setViewVisibility(R.id.llContent, View.VISIBLE);
+			rv.setViewVisibility(R.id.tvLoading, View.INVISIBLE);
+			rv.setViewVisibility(R.id.llContent, View.VISIBLE);
 
             //icone cliccabili sul titolo del widget
             Intent intMain = new Intent(context, MainPersonalBudget.class);
             PendingIntent pintMain = PendingIntent.getActivity(context, 0, intMain, 0);
 			rv.setOnClickPendingIntent(R.id.ivLogo, pintMain);
-            rv.setOnClickPendingIntent(R.id.llContent, pintMain);
+			rv.setOnClickPendingIntent(R.id.llContent, pintMain);
 
 			Intent intSpese = new Intent(context, SpeseAggiungi.class);
-            PendingIntent pintSpese = PendingIntent.getActivity(context, 0, intSpese, 0);
+			PendingIntent pintSpese = PendingIntent.getActivity(context, 0, intSpese, 0);
 			rv.setOnClickPendingIntent(R.id.ivAddExpense, pintSpese);
 
 			Intent intEntrate = new Intent(context, EntrateAggiungi.class);
-            PendingIntent pintEntrate = PendingIntent.getActivity(context, 0, intEntrate, 0);
+			PendingIntent pintEntrate = PendingIntent.getActivity(context, 0, intEntrate, 0);
 			rv.setOnClickPendingIntent(R.id.ivAddEarning, pintEntrate);
 
 			Intent intPreferiti = new Intent(context, Preferiti.class);
-            PendingIntent pintPreferiti = PendingIntent.getActivity(context, 0, intPreferiti, 0);
+			PendingIntent pintPreferiti = PendingIntent.getActivity(context, 0, intPreferiti, 0);
 			rv.setOnClickPendingIntent(R.id.ivFavorite, pintPreferiti);
 
 
-            // Display data on the widget.
-            // Timespan.
-            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, miaLocale);
-            rv.setTextViewText(R.id.tvTime, df.format(dataInizio.getTime()) + " - " + df.format(dataFine.getTime()));
-            // Earnings and expenses.
-            rv.setTextViewText(R.id.tvEarnings, NumberFormatter.formatAmountMainCurrency(earnings, mioContext));
-            rv.setTextViewText(R.id.tvExpenses, NumberFormatter.formatAmountMainCurrency(expenses, mioContext));
-            // Percentages.
-            double percEar = (earnings == 0 && expenses == 0) ? 0.0 : (earnings / (earnings + expenses));
-            double percExp = (earnings == 0 && expenses == 0) ? 0.0 : (expenses / (earnings + expenses));
-            NumberFormat percForm = NumberFormat.getPercentInstance();
-            rv.setTextViewText(R.id.tvPercEar, percForm.format(percEar));
-            rv.setTextViewText(R.id.tvPercExp, percForm.format(percExp));
+			// Display data on the widget.
+			// Timespan.
+			DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, miaLocale);
+			rv.setTextViewText(R.id.tvTime, df.format(dataInizio.getTime()) + " - " + df.format(dataFine.getTime()));
+			// Earnings and expenses.
+			rv.setTextViewText(R.id.tvEarnings, NumberFormatter.formatAmountMainCurrency(earnings, mioContext));
+			rv.setTextViewText(R.id.tvExpenses, NumberFormatter.formatAmountMainCurrency(expenses, mioContext));
+			// Percentages.
+			double percEar = (earnings == 0 && expenses == 0) ? 0.0 : (earnings / (earnings + expenses));
+			double percExp = (earnings == 0 && expenses == 0) ? 0.0 : (expenses / (earnings + expenses));
+			NumberFormat percForm = NumberFormat.getPercentInstance();
+			rv.setTextViewText(R.id.tvPercEar, percForm.format(percEar));
+			rv.setTextViewText(R.id.tvPercExp, percForm.format(percExp));
 			// Icons for percentages.
 			rv.setImageViewResource(R.id.ivImg1, R.drawable.ic_action_news);
 			rv.setImageViewResource(R.id.ivImg2, R.drawable.ic_action_news);
