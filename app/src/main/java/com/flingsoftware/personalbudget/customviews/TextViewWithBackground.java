@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.customviews;
@@ -10,7 +10,10 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 /**
- * TODO commentare classe
+ * This class wraps a TextView with a custom background (for example, a rectangle with rounded
+ * corners).
+ * It exposes a method, setBackgroundColorPreserveBackground, that changes the background color
+ * of the TextView while preserving the shape of it.
  */
 
 public class TextViewWithBackground extends TextView {

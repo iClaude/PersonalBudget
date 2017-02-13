@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) - Software developed by iClaude.
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rlParent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFFFF"
+    android:layout_height="@dimen/widget_small_height">
+
+    <LinearLayout
+        android:id="@+id/llTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="4dp">
+
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/provv_contenutoImmagini"
+            android:src="@drawable/img_wallet" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/app_name"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/ivFavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/selector_immagine_cliccabile"
+            android:contentDescription="@string/provv_contenutoImmagini"
+            android:src="@drawable/ic_action_important" />
+
+        <ImageView
+            android:id="@+id/ivAddEarning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/selector_immagine_cliccabile"
+            android:contentDescription="@string/provv_contenutoImmagini"
+            android:src="@drawable/ic_action_good" />
+
+        <ImageView
+            android:id="@+id/ivAddExpense"
+            android:contentDescription="@string/provv_contenutoImmagini"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_immagine_cliccabile"
+            android:src="@drawable/ic_action_bad" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:text="@string/generic_loading_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tvLoading"
+            android:textSize="14sp"
+            android:textColor="?android:attr/textColorSecondary"
+            android:visibility="invisible"
+            android:gravity="center" />
+
+        <LinearLayout
+            android:id="@+id/llContent"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:id="@+id/llTime"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp">
+
+                <FrameLayout
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="1dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@android:color/darker_gray" />
+
+                <TextView
+                    android:id="@+id/tvTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/temp_timespan_short"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="14sp" />
+
+                <FrameLayout
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginRight="6dp"
+                    android:background="@android:color/darker_gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:layout_marginTop="16dp">
+
+                <LinearLayout
+                    android:id="@+id/llEarnings"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:text="@string/generic_earning"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvEarningsLabel"
+                        android:textColor="@android:color/white"
+                        android:background="@drawable/back_textview_tag_01"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:text="@string/provv_importoValutaZero"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvEarnings"
+                        android:textColor="@color/green_dark_900"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="4dp"
+                        android:textSize="18sp" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal">
+
+                        <TextView
+                            android:text="@string/provv_percentuale_zero"
+                            android:gravity="center_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:id="@+id/tvPercEar"
+                            android:textSize="12sp"
+                            android:textColor="@color/text_secondary" />
+
+                        <ImageView
+                            android:contentDescription="@string/provv_contenutoImmagini"
+                            android:gravity="center_vertical"
+                            app:srcCompat="@drawable/ic_action_news"
+                            android:id="@+id/ivImg1"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llExpenses"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:text="@string/generic_expenses"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvExpensesLabel"
+                        android:textColor="@android:color/white"
+                        android:background="@drawable/back_textview_tag_02"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:text="@string/provv_importoValutaZero"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvExpenses"
+                        android:textColor="@color/red_dark_900"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="4dp"
+                        android:textSize="18sp" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal">
+
+                        <TextView
+                            android:text="@string/provv_percentuale_zero"
+                            android:gravity="center_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:id="@+id/tvPercExp"
+                            android:textSize="12sp"
+                            android:textColor="@color/text_secondary" />
+
+                        <ImageView
+                            android:contentDescription="@string/provv_contenutoImmagini"
+                            android:gravity="center_vertical"
+                            app:srcCompat="@drawable/ic_action_news"
+                            android:id="@+id/ivImg2"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginStart="6dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp">
+
+                <TextView
+                    android:text="@string/widget_small_balance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView12"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif"
+                    android:textSize="18sp"
+                    android:textColor="@color/text_secondary"
+                    android:textAllCaps="false"
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:text="@string/provv_importoValutaZero"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:id="@+id/tvBalance"
+                    android:textColor="@color/green_dark_900"
+                    android:textSize="18sp"
+                    android:bufferType="spannable" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

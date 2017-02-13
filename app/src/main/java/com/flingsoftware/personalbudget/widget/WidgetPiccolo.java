@@ -1,44 +1,46 @@
+/*
+ * Copyright (c) This code was written by iClaude. All rights reserved.
+ */
+
 package com.flingsoftware.personalbudget.widget;
 
-import java.text.DateFormat;
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
-import java.util.Currency;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
+import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
+import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.preference.PreferenceManager;
+import android.support.v4.content.LocalBroadcastManager;
+import android.view.View;
+import android.widget.RemoteViews;
 
 import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.app.EntrateAggiungi;
 import com.flingsoftware.personalbudget.app.FunzioniComuni;
 import com.flingsoftware.personalbudget.app.MainPersonalBudget;
+import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze;
 import com.flingsoftware.personalbudget.app.Preferiti;
 import com.flingsoftware.personalbudget.app.SpeseAggiungi;
-import com.flingsoftware.personalbudget.app.EntrateAggiungi;
-import com.flingsoftware.personalbudget.app.BudgetAggiungi;
-import com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze;
 import com.flingsoftware.personalbudget.database.AggiornamentoDatabaseIntentService;
 import com.flingsoftware.personalbudget.database.DBCEntrateIncassate;
 import com.flingsoftware.personalbudget.database.DBCSpeseSostenute;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
 import com.flingsoftware.personalbudget.database.FunzioniAggiornamento;
+import com.flingsoftware.personalbudget.utility.NumberFormatter;
+
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.util.Currency;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.LOCAL_BROADCAST_UPDATE_VOCI_RIPETUTE;
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.WIDGET_AGGIORNA;
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.WIDGET_PICCOLO_AGGIORNA;
-import android.app.PendingIntent;
-import android.appwidget.AppWidgetManager;
-import android.appwidget.AppWidgetProvider;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.v4.content.LocalBroadcastManager;
-import android.view.View;
-import android.widget.RemoteViews;
-import android.content.ComponentName;
-import android.database.Cursor;
-import android.graphics.Color;
 
 
 public class WidgetPiccolo extends AppWidgetProvider {
@@ -50,49 +52,50 @@ public class WidgetPiccolo extends AppWidgetProvider {
 		aggiornaDatabase();
 		aggiornaDati();	
 		double saldo = entrate - spese + entrateFuture - speseFuture;
-		for(int i=0; i<appWidgetIds.length; i++) {		
-            RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.widget_piccolo);
-            
+		for(int i=0; i<appWidgetIds.length; i++) {
+			RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.widget_small);
+            rv.setViewVisibility(R.id.tvLoading, View.INVISIBLE);
+            rv.setViewVisibility(R.id.llContent, View.VISIBLE);
+
             //icone cliccabili sul titolo del widget
             Intent intMain = new Intent(context, MainPersonalBudget.class);
             PendingIntent pintMain = PendingIntent.getActivity(context, 0, intMain, 0);
-            rv.setOnClickPendingIntent(R.id.widget_piccolo_ivLogo, pintMain);
-            rv.setOnClickPendingIntent(R.id.widget_piccolo_rlContenuto, pintMain);
-            
-            Intent intSpese = new Intent(context, SpeseAggiungi.class);
+			rv.setOnClickPendingIntent(R.id.ivLogo, pintMain);
+            rv.setOnClickPendingIntent(R.id.llContent, pintMain);
+
+			Intent intSpese = new Intent(context, SpeseAggiungi.class);
             PendingIntent pintSpese = PendingIntent.getActivity(context, 0, intSpese, 0);
-            rv.setOnClickPendingIntent(R.id.widget_piccolo_ivAggiungiSpesa, pintSpese);
-            
-            Intent intEntrate = new Intent(context, EntrateAggiungi.class);
+			rv.setOnClickPendingIntent(R.id.ivAddExpense, pintSpese);
+
+			Intent intEntrate = new Intent(context, EntrateAggiungi.class);
             PendingIntent pintEntrate = PendingIntent.getActivity(context, 0, intEntrate, 0);
-            rv.setOnClickPendingIntent(R.id.widget_piccolo_ivAggiungiEntrata, pintEntrate);
-            
-            Intent intPreferiti = new Intent(context, Preferiti.class);
+			rv.setOnClickPendingIntent(R.id.ivAddEarning, pintEntrate);
+
+			Intent intPreferiti = new Intent(context, Preferiti.class);
             PendingIntent pintPreferiti = PendingIntent.getActivity(context, 0, intPreferiti, 0);
-            rv.setOnClickPendingIntent(R.id.ivPreferiti, pintPreferiti);
-            
-            //scrivo i dati sul widget
-            rv.setViewVisibility(R.id.widget_piccolo_tvCaricamento, View.INVISIBLE);
-            rv.setViewVisibility(R.id.widget_piccolo_rlContenuto, View.VISIBLE);
-            if(saldo <= 0) {
-            	rv.setImageViewResource(R.id.widget_piccolo_iv_Maialino, R.drawable.img_maiale_rosso);
-            	rv.setTextColor(R.id.widget_piccolo_tvSaldo, Color.RED);
-            }
-            else {
-            	rv.setImageViewResource(R.id.widget_piccolo_iv_Maialino, R.drawable.img_maiale_verde);
-            	rv.setTextColor(R.id.widget_piccolo_tvSaldo, Color.argb(255, 0, 128, 0));
-            }
-            DateFormat df =  new SimpleDateFormat("dd/MMM/yyyy", miaLocale);
-            rv.setTextViewText(R.id.widget_piccolo_tvPeriodo, df.format(dataInizio.getTime()) + " - " + df.format(dataFine.getTime()));
-			NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
-            NumberFormat nfSaldo = NumberFormat.getInstance(Locale.getDefault());
-			nf.setCurrency(currValuta);	
-			rv.setTextViewText(R.id.widget_piccolo_tvEntrate, mioContext.getResources().getString(R.string.preferenze_voci_EAR) + " " + nf.format(entrate));
-			rv.setTextViewText(R.id.widget_piccolo_tvSpese, mioContext.getResources().getString(R.string.preferenze_voci_EXP) + " " + nf.format(spese));
-			rv.setTextViewText(R.id.widget_piccolo_tvEntrateFuture, mioContext.getResources().getString(R.string.widget_piccolo_stimato) + " " + nf.format(entrateFuture));
-			rv.setTextViewText(R.id.widget_piccolo_tvSpeseFuture, mioContext.getResources().getString(R.string.widget_piccolo_stimato) + " " + nf.format(speseFuture));
-			rv.setTextViewText(R.id.widget_piccolo_tvSaldo, nfSaldo.format(saldo));
-            
+			rv.setOnClickPendingIntent(R.id.ivFavorite, pintPreferiti);
+
+
+            // Display data on the widget.
+            // Timespan.
+            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, miaLocale);
+            rv.setTextViewText(R.id.tvTime, df.format(dataInizio.getTime()) + " - " + df.format(dataFine.getTime()));
+            // Earnings and expenses.
+            rv.setTextViewText(R.id.tvEarnings, NumberFormatter.formatAmountMainCurrency(earnings, mioContext));
+            rv.setTextViewText(R.id.tvExpenses, NumberFormatter.formatAmountMainCurrency(expenses, mioContext));
+            // Percentages.
+            double percEar = (earnings == 0 && expenses == 0) ? 0.0 : (earnings / (earnings + expenses));
+            double percExp = (earnings == 0 && expenses == 0) ? 0.0 : (expenses / (earnings + expenses));
+            NumberFormat percForm = NumberFormat.getPercentInstance();
+            rv.setTextViewText(R.id.tvPercEar, percForm.format(percEar));
+            rv.setTextViewText(R.id.tvPercExp, percForm.format(percExp));
+			// Icons for percentages.
+			rv.setImageViewResource(R.id.ivImg1, R.drawable.ic_action_news);
+			rv.setImageViewResource(R.id.ivImg2, R.drawable.ic_action_news);
+			// Balance.
+			rv.setTextViewText(R.id.tvBalance, NumberFormatter.formatAmountColorCurrencySuperscript(earnings - expenses, mioContext));
+
+
             appWidgetManager.updateAppWidget(appWidgetIds[i], rv);
         }
 		
@@ -235,6 +238,9 @@ public class WidgetPiccolo extends AppWidgetProvider {
 
 		dbcEntrateIncassate.close();
 		dbcSpeseSostenute.close();
+
+		earnings = entrate + entrateFuture;
+		expenses = spese + speseFuture;
 	}
 	
 	
@@ -268,6 +274,8 @@ public class WidgetPiccolo extends AppWidgetProvider {
   	private double spese;
 	private double entrateFuture;
 	private double speseFuture;
+	private double earnings;
+	private double expenses;
   	Locale miaLocale = (Locale.getDefault().getDisplayLanguage().equals("italiano") ? Locale.getDefault() : Locale.UK);
 }
 

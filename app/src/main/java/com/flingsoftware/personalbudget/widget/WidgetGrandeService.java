@@ -211,13 +211,13 @@ public class WidgetGrandeService extends RemoteViewsService {
             // ProgressBar.
             if (spent < budgetAmount) {
                 remoteView.setViewVisibility(R.id.pbBudgetFull, View.INVISIBLE);
-                remoteView.setViewVisibility(R.id.pbBudget, View.VISIBLE);
-                remoteView.setProgressBar(R.id.pbBudget, 100, perc, false);
-            }
+				remoteView.setViewVisibility(R.id.pbEarnings, View.VISIBLE);
+				remoteView.setProgressBar(R.id.pbEarnings, 100, perc, false);
+			}
 		    else {
                 remoteView.setViewVisibility(R.id.pbBudgetFull, View.VISIBLE);
-                remoteView.setViewVisibility(R.id.pbBudget, View.INVISIBLE);
-            }
+				remoteView.setViewVisibility(R.id.pbEarnings, View.INVISIBLE);
+			}
 
             // Icon.
             Integer icona = hmIcone.get(tag);

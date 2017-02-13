@@ -28,7 +28,7 @@
             android:layout_marginTop="4dp"
             card_view:layout_constraintTop_toTopOf="parent"
             card_view:layout_constraintLeft_toLeftOf="parent"
-            card_view:layout_constraintBottom_toTopOf="@+id/pbBudget"
+            card_view:layout_constraintBottom_toTopOf="@+id/pbEarnings"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="4dp"
             android:layout_marginStart="4dp"
@@ -86,7 +86,7 @@
             android:layout_marginLeft="4dp" />
 
         <ProgressBar
-            android:id="@+id/pbBudget"
+            android:id="@+id/pbEarnings"
             style="@style/tallerBarStyle"
             android:layout_width="0dp"
             android:layout_height="10dp"

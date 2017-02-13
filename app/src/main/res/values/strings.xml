@@ -10,9 +10,11 @@
     <string name="miv_mod1_text">Support to Android 6 Marshmallow: new permission system, autobackup of app\'s preferences and database.</string>
 
     <!-- Generici -->
-    <string name="elimina">Delete</string>
-    <string name="di">of</string>
+    <string name="generic_delete">Delete</string>
+    <string name="generic_of">of</string>
     <string name="generic_loading_data">caricamento...</string>
+    <string name="generic_expenses">Expenses</string>
+    <string name="generic_earning">Earnings</string>
 
     <!-- Fragment balance -->
     <string name="frag_balance_title">Overview</string>
@@ -21,6 +23,12 @@
     <string name="frag_balance_future_earnings">Future earnings</string>
     <string name="frag_balance_future_expenses">Future expenses</string>
     <string name="frag_balance_chart_title">Income/Expense</string>
+
+    <!-- Widget small -->
+    <string name="widget_small_balance">Balance</string>
+
+    <!-- Temporary -->
+    <string name="temp_timespan_short">01/01/17 - 31/01/17</string>
 
     <!-- Not yet classified -->
     <string name="app_name">Personal Budget</string>

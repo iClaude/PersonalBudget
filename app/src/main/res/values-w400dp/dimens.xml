@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) - Software developed by iClaude.
+  -->
+
+<resources>
+    <!-- Widget small min width and height. -->
+    <dimen name="widget_small_minwidth">320dp</dimen>
+    <dimen name="widget_small_minheight">180dp</dimen>
+</resources>

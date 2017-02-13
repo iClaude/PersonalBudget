@@ -189,8 +189,8 @@ public class FragmentBudget extends ListFragment implements SharedPreferences.On
                         ((TextView) view).setText(getString(R.string.budget_dettaglio_speso) + ": " + perc + "%");
 
                         // ProgressBar.
-                        ProgressBar mProgressBar = (ProgressBar) ((View) (view.getParent())).findViewById(R.id.pbBudget);
-                        if (spent >= budgetAmount) {
+						ProgressBar mProgressBar = (ProgressBar) ((View) (view.getParent())).findViewById(R.id.pbEarnings);
+						if (spent >= budgetAmount) {
                             mProgressBar.setProgressDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.progressbar_accent));
                         } else {
                             mProgressBar.setProgressDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.progressbar_standard));
