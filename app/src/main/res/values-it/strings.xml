@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) - Software developed by iClaude.
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
   -->
 
 <resources>
@@ -579,7 +579,7 @@
         <item quantity="other">%d spese</item>
     </plurals>
     <string name="budget_maxmin">Max: %1$s - Min: %2$s</string>
-    <string name="budgets_chart_scroll">Scorri per il grafico...</string>
+    <string name="budgets_chart_scroll">Tocca per il grafico...</string>
     <string name="budgets_chart_spent">speso</string>
     <string name="budgets_chart_left">resto</string>
     <string name="budgets_chart_title">Budget</string>

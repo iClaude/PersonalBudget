@@ -4,7 +4,6 @@ Da fare:
 - pubblicare su play store
 
 Sistemare API 19:
-- margini fab activity principale
 - budget: altezza iniziale bottom sheet
 - budget: margini fab e ancoramento al bottom sheet
 - budget: history, se ne apro uno se ne aprono anche sotto

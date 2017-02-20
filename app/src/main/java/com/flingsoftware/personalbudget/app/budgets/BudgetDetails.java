@@ -63,6 +63,7 @@ import com.flingsoftware.personalbudget.utility.SoundEffectsManager;
 
 import org.achartengine.GraphicalView;
 
+import static android.support.design.widget.BottomSheetBehavior.STATE_EXPANDED;
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiDettaglioVoce.OPERAZIONE_ELIMINAZIONE;
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiDettaglioVoce.TIPO_OPERAZIONE;
 import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.WIDGET_AGGIORNA;
@@ -233,6 +234,7 @@ public class BudgetDetails extends AppCompatActivity {
                 }
             }
         });
+
     }
 
     // Get budget details using the id stored in the Intent that launched this Activity.
@@ -428,7 +430,7 @@ public class BudgetDetails extends AppCompatActivity {
         public void onClick(View view) {
             if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
 
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                bottomSheetBehavior.setState(STATE_EXPANDED);
             } else {
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
             }
