@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app.utility;
@@ -9,9 +9,7 @@ import android.content.res.TypedArray;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import com.flingsoftware.personalbudget.R;
@@ -19,7 +17,7 @@ import com.flingsoftware.personalbudget.R;
 /**
  * Created by Claudio on 27/07/2016.
  */
-public class RidimensionaFABBehavior extends CoordinatorLayout.Behavior<FloatingActionButton> {
+public class RidimensionaFABBehavior extends FloatingActionButton.Behavior {
     private static final String TAG = "RidimensionaFABBehavior";
     private int mActionBarSize;
 

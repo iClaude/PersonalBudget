@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<!--
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  -->
+
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
@@ -84,7 +88,9 @@
             android:layout_gravity="bottom|end"
             app:elevation="6dp"
             app:pressedTranslationZ="6dp"
-            android:layout_margin="16dp"
+            android:layout_marginRight="@dimen/fab_margin_right"
+            android:layout_marginEnd="@dimen/fab_margin_right"
+            android:layout_marginBottom="@dimen/fab_margin_bottom"
             android:onClick="animateFab"
             app:layout_behavior="com.flingsoftware.personalbudget.app.utility.RidimensionaFABBehavior"/>
 
@@ -99,9 +105,11 @@
             app:elevation="6dp"
             app:pressedTranslationZ="6dp"
             app:backgroundTint="@color/primary"
-            android:layout_margin="16dp"
+            android:layout_marginRight="@dimen/fab_margin_right"
+            android:layout_marginEnd="@dimen/fab_margin_right"
+            android:layout_marginBottom="@dimen/fab_margin_bottom"
             android:onClick="launchFav"
-            android:alpha="0"/>
+            android:alpha="0" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabMic"
@@ -114,9 +122,11 @@
             app:elevation="6dp"
             app:pressedTranslationZ="6dp"
             app:backgroundTint="@color/primary"
-            android:layout_margin="16dp"
+            android:layout_marginRight="@dimen/fab_margin_right"
+            android:layout_marginEnd="@dimen/fab_margin_right"
+            android:layout_marginBottom="@dimen/fab_margin_bottom"
             android:onClick="launchVocRec"
-            android:alpha="0"/>
+            android:alpha="0" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabAgg"
@@ -129,7 +139,9 @@
             app:elevation="6dp"
             app:pressedTranslationZ="6dp"
             app:backgroundTint="@color/primary"
-            android:layout_margin="16dp"
+            android:layout_marginRight="@dimen/fab_margin_right"
+            android:layout_marginEnd="@dimen/fab_margin_right"
+            android:layout_marginBottom="@dimen/fab_margin_bottom"
             android:onClick="aggiungi"
             android:alpha="0" />
 

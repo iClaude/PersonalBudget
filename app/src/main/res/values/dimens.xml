@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) - Software developed by iClaude.
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
   -->
 
 <resources>
@@ -10,8 +10,8 @@
     <dimen name="gridview_imageview_size">85dp</dimen>
 
     <!-- FloatingActionButton margins for compatibility. -->
-    <dimen name="fab_margin_right">10dp</dimen>
-    <dimen name="fab_margin_bottom">0dp</dimen>
+    <dimen name="fab_margin_right">16dp</dimen>
+    <dimen name="fab_margin_bottom">16dp</dimen>
 
     <!-- Activity SpeseDettaglioVoce and EntrateDettaglioVoce. -->
     <dimen name="content_offset_y">100dp</dimen>
