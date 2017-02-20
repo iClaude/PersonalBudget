@@ -162,21 +162,27 @@
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:src="@drawable/ic_content_edit"
-        app:fabSize="normal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/fab_margin_right"
-        android:layout_marginBottom="@dimen/fab_margin_right"
-        android:id="@+id/floatingActionButton"
-        android:elevation="6dp"
-        app:pressedTranslationZ="6dp"
-        android:onClick="edit"
-        app:layout_anchor="@id/clBottomSheet"
-        app:layout_anchorGravity="top|right|end" />
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/clBottom">
 
-    <!-- Bottom Sheet -->
-    <include layout="@layout/budget_chart_bottom" />
+        <!-- Bottom Sheet -->
+        <include layout="@layout/budget_chart_bottom" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:src="@drawable/ic_content_edit"
+            app:fabSize="normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:useCompatPadding="true"
+            android:id="@+id/floatingActionButton"
+            android:elevation="6dp"
+            app:pressedTranslationZ="6dp"
+            android:onClick="edit"
+            app:layout_anchor="@id/clBottomSheet"
+            app:layout_anchorGravity="top|right|end" />
+
+    </android.support.design.widget.CoordinatorLayout>
 
 </android.support.design.widget.CoordinatorLayout>

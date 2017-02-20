@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -220,9 +220,11 @@ public class BudgetDetails extends AppCompatActivity {
             public void onStateChanged(View bottomSheet, int newState) {
                 if (newState == BottomSheetBehavior.STATE_HIDDEN) {
                     CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) fabEdit.getLayoutParams();
-                    lp.setAnchorId(View.NO_ID);
+                    //lp.setAnchorId(View.NO_ID);
+                    lp.setAnchorId(viewPager.getId());
                     lp.gravity = Gravity.BOTTOM | GravityCompat.END;
                     fabEdit.setLayoutParams(lp);
+                    fabEdit.setUseCompatPadding(true);
                 }
             }
 
