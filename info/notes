@@ -4,6 +4,5 @@ Da fare:
 - pubblicare su play store
 
 Sistemare API 19:
-- budget: altezza iniziale bottom sheet
-- budget: margini fab e ancoramento al bottom sheet
+- budget: status bar colore bianco
 - budget: history, se ne apro uno se ne aprono anche sotto
