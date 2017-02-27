@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 
@@ -81,6 +81,8 @@ dependencies {
     compile "com.android.support:palette-v7:$libraryVersion"
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
     compile 'com.bignerdranch.android:expandablerecyclerview:2.1.1' // ExpandableRecyclerView
+    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    // tint the status bar in API 19
 
     compile fileTree(include: ['*.jar'], dir: 'libs')
 }

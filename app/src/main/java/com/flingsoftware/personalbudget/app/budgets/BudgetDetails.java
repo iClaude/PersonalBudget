@@ -60,6 +60,7 @@ import com.flingsoftware.personalbudget.utility.BlurBuilder;
 import com.flingsoftware.personalbudget.utility.ListViewIconeVeloce;
 import com.flingsoftware.personalbudget.utility.NumberFormatter;
 import com.flingsoftware.personalbudget.utility.SoundEffectsManager;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import org.achartengine.GraphicalView;
 
@@ -130,6 +131,9 @@ public class BudgetDetails extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.budget_details);
+
+        // Compatibility features for specific Android versions.
+        setupCompatibilityFeatures();
 
         // First get the budget id from the Intent that launched this Activity and create the Fragments.
         getBudgetIdAndCreateFragments();
@@ -577,5 +581,22 @@ public class BudgetDetails extends AppCompatActivity {
             if ((currFrag + 1) <= 2) ((ReloadingData) fragments[currFrag + 1]).reloadData();
             if ((currFrag - 1) >= 0) ((ReloadingData) fragments[currFrag - 1]).reloadData();
         }
+    }
+
+    // Set up specific features for compatibility related to specific Android versions.
+    private void setupCompatibilityFeatures() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setupAPI19CompatibilityFeatures();
+        }
+    }
+
+    /*
+        API 19 compatibility features.
+        Tint the status bar.
+     */
+    private void setupAPI19CompatibilityFeatures() {
+        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setStatusBarTintColor(R.color.primary);
     }
 }
