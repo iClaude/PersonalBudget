@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -85,6 +85,7 @@ public class BudgetDetails extends AppCompatActivity {
 
     // Variables.
     // Widgets.
+    private Toolbar toolbar;
     private TextView tvTagAppbar;
     private TextView tvAmountAppbar;
     private TextView tvTagToolbar;
@@ -132,9 +133,6 @@ public class BudgetDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.budget_details);
 
-        // Compatibility features for specific Android versions.
-        setupCompatibilityFeatures();
-
         // First get the budget id from the Intent that launched this Activity and create the Fragments.
         getBudgetIdAndCreateFragments();
 
@@ -143,6 +141,9 @@ public class BudgetDetails extends AppCompatActivity {
 
         // App bar.
         setUpAppbar();
+
+        // Compatibility features for specific Android versions.
+        setupCompatibilityFeatures();
 
         // Fragments.
         setupFragments();
@@ -181,7 +182,7 @@ public class BudgetDetails extends AppCompatActivity {
     // Set up app bar layout and behavior.
     private void setUpAppbar() {
         // Toolbar for options menu.
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -585,7 +586,7 @@ public class BudgetDetails extends AppCompatActivity {
 
     // Set up specific features for compatibility related to specific Android versions.
     private void setupCompatibilityFeatures() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
             setupAPI19CompatibilityFeatures();
         }
     }
@@ -597,6 +598,7 @@ public class BudgetDetails extends AppCompatActivity {
     private void setupAPI19CompatibilityFeatures() {
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
-        tintManager.setStatusBarTintColor(R.color.primary);
+        //tintManager.setStatusBarTintColor(ContextCompat.getColor(this, R.color.primary_dark));
+        tintManager.setTintColor(Color.parseColor("#80303F9F"));
     }
 }
