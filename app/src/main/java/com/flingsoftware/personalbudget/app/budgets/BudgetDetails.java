@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -60,7 +60,6 @@ import com.flingsoftware.personalbudget.utility.BlurBuilder;
 import com.flingsoftware.personalbudget.utility.ListViewIconeVeloce;
 import com.flingsoftware.personalbudget.utility.NumberFormatter;
 import com.flingsoftware.personalbudget.utility.SoundEffectsManager;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import org.achartengine.GraphicalView;
 
@@ -596,9 +595,12 @@ public class BudgetDetails extends AppCompatActivity {
         Tint the status bar.
      */
     private void setupAPI19CompatibilityFeatures() {
-        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+/*        SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
         //tintManager.setStatusBarTintColor(ContextCompat.getColor(this, R.color.primary_dark));
-        tintManager.setTintColor(Color.parseColor("#80303F9F"));
+        tintManager.setTintColor(Color.parseColor("#80303F9F"));*/
+
+        // Set padding to the Toolbar to match the Status Bar height.
+        //toolbar.setPadding(0, UtilityVarious.getStatusBarHeight2(BudgetDetails.this), 0, 0);
     }
 }
