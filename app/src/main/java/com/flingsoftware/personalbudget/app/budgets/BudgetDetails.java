@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -51,8 +51,6 @@ import com.flingsoftware.personalbudget.app.BudgetModifica;
 import com.flingsoftware.personalbudget.charts.piechart.AmountAndLabel;
 import com.flingsoftware.personalbudget.charts.piechart.BudgetPieChartBuilder;
 import com.flingsoftware.personalbudget.charts.piechart.PieChartBuilder;
-import com.flingsoftware.personalbudget.compatibility.ApiFeaturesFactory;
-import com.flingsoftware.personalbudget.compatibility.CompatibilityFeatures;
 import com.flingsoftware.personalbudget.customviews.MioToast;
 import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
@@ -142,9 +140,6 @@ public class BudgetDetails extends AppCompatActivity {
 
         // App bar.
         setUpAppbar();
-
-        // Compatibility features for specific Android versions.
-        setupCompatibilityFeatures();
 
         // Fragments.
         setupFragments();
@@ -582,15 +577,6 @@ public class BudgetDetails extends AppCompatActivity {
             ((ReloadingData) fragments[currFrag]).reloadData();
             if ((currFrag + 1) <= 2) ((ReloadingData) fragments[currFrag + 1]).reloadData();
             if ((currFrag - 1) >= 0) ((ReloadingData) fragments[currFrag - 1]).reloadData();
-        }
-    }
-
-    // Set up specific features for compatibility related to specific Android versions.
-    private void setupCompatibilityFeatures() {
-        ApiFeaturesFactory apiFeaturesFactory = new ApiFeaturesFactory();
-        CompatibilityFeatures compatFeat = apiFeaturesFactory.getApiFeatures();
-        if (compatFeat != null) {
-            compatFeat.setActivityFeatures(this);
         }
     }
 }
