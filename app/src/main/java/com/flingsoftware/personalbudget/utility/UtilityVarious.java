@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.utility;
@@ -122,15 +122,6 @@ public class UtilityVarious {
         return statusBarHeight;
     }
 
-    // A method to find height of the status bar
-    public static int getStatusBarHeight2(Context context) {
-        int result = 0;
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = context.getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
 
     // ***********************************************************************************
     // Shared preferences.
