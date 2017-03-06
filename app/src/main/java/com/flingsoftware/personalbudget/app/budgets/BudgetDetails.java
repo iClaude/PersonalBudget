@@ -51,6 +51,8 @@ import com.flingsoftware.personalbudget.app.BudgetModifica;
 import com.flingsoftware.personalbudget.charts.piechart.AmountAndLabel;
 import com.flingsoftware.personalbudget.charts.piechart.BudgetPieChartBuilder;
 import com.flingsoftware.personalbudget.charts.piechart.PieChartBuilder;
+import com.flingsoftware.personalbudget.compatibility.ApiFeaturesFactory;
+import com.flingsoftware.personalbudget.compatibility.CompatibilityFeatures;
 import com.flingsoftware.personalbudget.customviews.MioToast;
 import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
 import com.flingsoftware.personalbudget.database.DBCSpeseVoci;
@@ -60,7 +62,6 @@ import com.flingsoftware.personalbudget.utility.BlurBuilder;
 import com.flingsoftware.personalbudget.utility.ListViewIconeVeloce;
 import com.flingsoftware.personalbudget.utility.NumberFormatter;
 import com.flingsoftware.personalbudget.utility.SoundEffectsManager;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import org.achartengine.GraphicalView;
 
@@ -586,18 +587,10 @@ public class BudgetDetails extends AppCompatActivity {
 
     // Set up specific features for compatibility related to specific Android versions.
     private void setupCompatibilityFeatures() {
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
-            setupAPI19CompatibilityFeatures();
+        ApiFeaturesFactory apiFeaturesFactory = new ApiFeaturesFactory();
+        CompatibilityFeatures compatFeat = apiFeaturesFactory.getApiFeatures();
+        if (compatFeat != null) {
+            compatFeat.setActivityFeatures(this);
         }
-    }
-
-    /*
-        API 19 compatibility features.
-        Tint the status bar.
-     */
-    private void setupAPI19CompatibilityFeatures() {
-        SystemBarTintManager tintManager = new SystemBarTintManager(this);
-        tintManager.setStatusBarTintEnabled(true);
-        tintManager.setStatusBarTintColor(ContextCompat.getColor(this, R.color.primary_dark));
     }
 }

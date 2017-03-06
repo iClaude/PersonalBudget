@@ -70,6 +70,8 @@ import com.flingsoftware.personalbudget.app.FragmentEntrate.EarningsDeletedListe
 import com.flingsoftware.personalbudget.app.FragmentSpese.ExpensesDeletedListener;
 import com.flingsoftware.personalbudget.backup.BackupRestoreIntentService.CostantiBackupRestore;
 import com.flingsoftware.personalbudget.backup.MenuBackupRestore;
+import com.flingsoftware.personalbudget.compatibility.ApiFeaturesFactory;
+import com.flingsoftware.personalbudget.compatibility.CompatibilityFeatures;
 import com.flingsoftware.personalbudget.customviews.MioToast;
 import com.flingsoftware.personalbudget.database.AggiornamentoDatabaseIntentService;
 import com.flingsoftware.personalbudget.database.Conto;
@@ -212,6 +214,9 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+		// Compatibility features for specific Android versions.
+		setupCompatibilityFeatures();
+
 		// Floating action buttons.
 		fab = (FloatingActionButton) findViewById(R.id.fab);
 		fabMic = (FloatingActionButton) findViewById(R.id.fabMic);
@@ -310,7 +315,15 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
 		preferencesEditor.putInt(CostantiPreferenze.PRIMO_AVVIO_APP, 1);
 		preferencesEditor.apply();
 	}
-	
+
+	// Set up specific features for compatibility related to specific Android versions.
+	private void setupCompatibilityFeatures() {
+		ApiFeaturesFactory apiFeaturesFactory = new ApiFeaturesFactory();
+		CompatibilityFeatures compatFeat = apiFeaturesFactory.getApiFeatures();
+		if (compatFeat != null) {
+			compatFeat.setActivityFeatures(this);
+		}
+	}
 	
 	// Navigation Drawer
 	@Override
