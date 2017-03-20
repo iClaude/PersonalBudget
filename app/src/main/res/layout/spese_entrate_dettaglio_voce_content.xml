@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (c) - Software developed by iClaude.
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -39,7 +39,7 @@
                 android:textStyle="bold"
                 android:textColor="@color/text_primary"
                 android:layout_marginTop="4dp"
-                android:fontFamily="sans-serif-light"
+                android:fontFamily="sans-serif"
                 android:textSize="18sp" />
 
             <TextView
@@ -60,7 +60,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textStyle="bold"
                 android:textColor="@color/text_primary"
-                android:fontFamily="sans-serif-light"
+                android:fontFamily="sans-serif"
                 android:textSize="18sp" />
 
             <TextView
@@ -111,7 +111,7 @@
             android:textColor="@color/text_primary"
             android:layout_toRightOf="@+id/sedv_tvB"
             android:layout_marginLeft="16dp"
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="sans-serif"
             android:textSize="18sp" />
 
         <TextView
@@ -143,7 +143,7 @@
             android:textColor="@color/text_primary"
             android:layout_toRightOf="@+id/sedv_tvB"
             android:layout_marginLeft="16dp"
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="sans-serif"
             android:textSize="18sp" />
 
         <TextView
@@ -175,7 +175,7 @@
             android:textColor="@color/text_primary"
             android:layout_toRightOf="@+id/sedv_tvB"
             android:layout_marginLeft="16dp"
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="sans-serif"
             android:textSize="18sp" />
 
         <TextView
@@ -241,7 +241,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textStyle="bold"
                 android:textColor="@color/text_primary"
-                android:fontFamily="sans-serif-light"
+                android:fontFamily="sans-serif"
                 android:textSize="18sp" />
 
             <TextView
@@ -263,7 +263,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textStyle="bold"
                 android:textColor="@color/text_primary"
-                android:fontFamily="sans-serif-light"
+                android:fontFamily="sans-serif"
                 android:textSize="18sp" />
 
             <TextView
