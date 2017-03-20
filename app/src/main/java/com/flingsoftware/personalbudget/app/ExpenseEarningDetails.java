@@ -1,9 +1,10 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -38,6 +39,7 @@ import android.widget.ViewSwitcher;
 
 import com.flingsoftware.personalbudget.R;
 import com.flingsoftware.personalbudget.app.utility.AvatarImageBehavior;
+import com.flingsoftware.personalbudget.app.utility.FABHighShowHideBehavior;
 import com.flingsoftware.personalbudget.customviews.MioToast;
 import com.flingsoftware.personalbudget.database.DBCExpEarAbs;
 import com.flingsoftware.personalbudget.database.DBCExpEarRepeatedAbs;
@@ -488,16 +490,49 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
         float offset = getResources().getDimensionPixelSize(R.dimen.content_offset_y);
         Interpolator interpolator = new LinearOutSlowInInterpolator(); // this code works for API <= 19
         contentView.setVisibility(View.VISIBLE);
-        fabAlto.setVisibility(View.VISIBLE);
         contentView.setTranslationY(offset);
-        contentView.setAlpha(0.3f);
+        contentView.setAlpha(0f);
         contentView.animate()
                 .translationY(0f)
                 .alpha(1f)
                 .setInterpolator(interpolator)
                 .setDuration(500L)
                 .setStartDelay(startDelay)
+                .setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+                        // Set custom layout behavior on FAB.
+                        FABHighShowHideBehavior fabBehavior = new FABHighShowHideBehavior();
+                        CoordinatorLayout.LayoutParams params =
+                                (CoordinatorLayout.LayoutParams) fabAlto.getLayoutParams();
+                        params.setBehavior(fabBehavior);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animator) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animator) {
+
+                    }
+                })
                 .start();
+
+        fabAlto.setAlpha(0f);
+        fabAlto.setVisibility(View.VISIBLE);
+        fabAlto.animate()
+                .alpha(1f)
+                .setStartDelay(startDelay)
+                .setDuration(500l)
+                .start();
+
         firstTimeIn = false;
     }
 

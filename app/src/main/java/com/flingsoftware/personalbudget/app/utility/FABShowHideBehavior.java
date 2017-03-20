@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app.utility;
@@ -21,7 +21,7 @@ import java.lang.reflect.Method;
  * AppBarLayout. This class tells when the AppBarLayout is collapsed.
  * Subclasses can hide/show the FAB accordingly.
  */
-public class FABShowHideBehavior extends CoordinatorLayout.Behavior<FloatingActionButton> {
+public class FABShowHideBehavior extends FloatingActionButton.Behavior {
     private Rect mTmpRect;
 
     public FABShowHideBehavior() {
