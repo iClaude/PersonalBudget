@@ -19,6 +19,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
@@ -28,7 +29,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.AlphaAnimation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -204,10 +204,11 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
     }
 
 
+
     /*
-        Used to detect when the app bar is collapsed or expanded, in order to show the FAB and the
-        title accordingly.
-    */
+            Used to detect when the app bar is collapsed or expanded, in order to show the FAB and the
+            title accordingly.
+        */
     private class AppBarStateChangeListener implements AppBarLayout.OnOffsetChangedListener {
         @Override
         public final void onOffsetChanged(AppBarLayout appBarLayout, int i) {
@@ -329,6 +330,14 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
             findViewById(R.id.spese_entrate_dettaglio_voce_rlRipetizione).setVisibility(View.GONE);
         } else {
             new LoadRepetitionDetails().execute(ripetizione_id);
+        }
+
+        /*
+        API 19 and lower don't have the method onEnterAnimationComplete. So we call the animation
+        of the content here with a delay of 500 ms.
+         */
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
+            animateContent(500);
         }
     }
 
@@ -460,19 +469,24 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
     public abstract DBCVociAbs getDBCExpEarTags();
 
 
-    /*
-        Enter animation. NestedScrollView, which contains a CardView representing the main content,
-        is moved upwards with an animation.
-    */
     @Override
     public void onEnterAnimationComplete() {
         super.onEnterAnimationComplete();
 
+        // Animate in the content when the enter animation has finished.
+        animateContent(0);
+    }
+
+    /*
+        Enter animation. NestedScrollView, which contains a CardView representing the main content,
+        is moved upwards with an animation.
+    */
+    private void animateContent(long startDelay) {
         if (!firstTimeIn) return;
 
         View contentView = findViewById(R.id.nsv_main_content);
         float offset = getResources().getDimensionPixelSize(R.dimen.content_offset_y);
-        Interpolator interpolator = AnimationUtils.loadInterpolator(this, android.R.interpolator.linear_out_slow_in);
+        Interpolator interpolator = new LinearOutSlowInInterpolator(); // this code works for API <= 19
         contentView.setVisibility(View.VISIBLE);
         fabAlto.setVisibility(View.VISIBLE);
         contentView.setTranslationY(offset);
@@ -482,6 +496,7 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
                 .alpha(1f)
                 .setInterpolator(interpolator)
                 .setDuration(500L)
+                .setStartDelay(startDelay)
                 .start();
         firstTimeIn = false;
     }
