@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) - Software developed by iClaude.
+  -->
+
+<resources>
+    <!-- Activity SpeseDettaglioVoce and EntrateDettaglioVoce. -->
+    <dimen name="eed_fab_margin_right">8dp</dimen>
+</resources>
