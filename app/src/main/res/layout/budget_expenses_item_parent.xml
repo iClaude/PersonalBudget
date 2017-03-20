@@ -39,7 +39,7 @@
         android:id="@+id/tvTotal"
         android:textSize="14sp"
         android:textStyle="normal|bold"
-        android:fontFamily="sans-serif-light"
+        android:fontFamily="sans-serif"
         android:textColor="?android:attr/textColorPrimary"
         app:layout_constraintTop_toTopOf="@+id/tvTag"
         app:layout_constraintRight_toLeftOf="@+id/ibExpand"
