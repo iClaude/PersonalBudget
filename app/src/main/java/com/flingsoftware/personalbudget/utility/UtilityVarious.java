@@ -14,6 +14,7 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.view.Window;
 
@@ -114,6 +115,14 @@ public class UtilityVarious {
 
     // Get the status bar height.
     public static int getStatusBarHeight(Activity mActivity) {
+        /*
+            For Android versions 19 Kitkat and lower return 0 (status bar is not considered part
+            of the window.
+         */
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
+            return 0;
+        }
+
         Rect rectangle = new Rect();
         Window window = mActivity.getWindow();
         window.getDecorView().getWindowVisibleDisplayFrame(rectangle);

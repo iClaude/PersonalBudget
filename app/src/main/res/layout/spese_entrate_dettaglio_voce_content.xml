@@ -51,32 +51,11 @@
                 android:textColor="@color/text_primary"
                 android:fontFamily="sans-serif-light" />
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:text="@string/dettaglio_voce_tassoCambio"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:fontFamily="sans-serif"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/tvTassoCambio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/generici_trattino"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/text_primary"
-                android:fontFamily="sans-serif-light" />
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="3dp"
-                android:background="@android:color/darker_gray"/>
+                android:layout_marginTop="8dp"
+                android:background="@android:color/darker_gray" />
 
         </LinearLayout>
 
@@ -96,7 +75,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginTop="12dp">
+        android:layout_marginTop="16dp">
 
         <TextView
             android:id="@+id/sedv_tvContoTitolo"

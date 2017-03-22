@@ -157,6 +157,7 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<ImageView> {
         }
 
         if (finalY == 0) {
+            //finalY = UtilityVarious.getStatusBarHeight(mActivity) + (toolbarHeight - finalSize) / 2;
             finalY = UtilityVarious.getStatusBarHeight(mActivity) + (toolbarHeight - finalSize) / 2;
         }
     }

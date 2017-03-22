@@ -24,6 +24,25 @@
     <string name="frag_balance_future_expenses">Future expenses</string>
     <string name="frag_balance_chart_title">Income/Expense</string>
 
+    <!-- Expenses/earnings details -->
+    <string name="eed_exchange">exc</string>
+
+    <!-- Budgets -->
+    <string name="transitionName">transitionIcon</string>
+    <string name="budgets_show">show...</string>
+    <string name="budgets_hide">hide...</string>
+    <string name="budgets_no_expenses">no expenses</string>
+    <plurals name="budgets_num_expenses">
+        <item quantity="one">%d expense</item>
+        <item quantity="other">%d expenses</item>
+    </plurals>
+    <string name="budgets_maxmin">Max: %1$s - Min: %2$s</string>
+    <string name="budgets_chart_scroll">Touch to show\/hide...</string>
+    <string name="budgets_chart_spent">spent</string>
+    <string name="budgets_chart_left">left</string>
+    <string name="budgets_chart_title">Budget</string>
+    <string name="budgets_history_multiple">multiple</string>
+
     <!-- Widget small -->
     <string name="widget_small_balance">Balance</string>
 
@@ -566,19 +585,4 @@
     <string name="preferiti_entrate">Favorite earnings</string>
     <string name="seleziona_conto">select the account...</string>
 
-    <!-- Budgets -->
-    <string name="transitionName">transitionIcon</string>
-    <string name="budgets_show">show...</string>
-    <string name="budgets_hide">hide...</string>
-    <string name="budgets_no_expenses">no expenses</string>
-    <plurals name="budgets_num_expenses">
-        <item quantity="one">%d expense</item>
-        <item quantity="other">%d expenses</item>
-    </plurals>
-    <string name="budgets_maxmin">Max: %1$s - Min: %2$s</string>
-    <string name="budgets_chart_scroll">Touch to show\/hide...</string>
-    <string name="budgets_chart_spent">spent</string>
-    <string name="budgets_chart_left">left</string>
-    <string name="budgets_chart_title">Budget</string>
-    <string name="budgets_history_multiple">multiple</string>
 </resources>

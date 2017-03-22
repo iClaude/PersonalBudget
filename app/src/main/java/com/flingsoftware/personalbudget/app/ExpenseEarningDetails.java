@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app;
@@ -310,8 +310,8 @@ public abstract class ExpenseEarningDetails extends AppCompatActivity implements
             nfExchangeRate.setMaximumFractionDigits(4);
 
             float cambio = (float) (importoValprin / importo);
-            ((TextView) findViewById(R.id.tvImportoOriginale)).setText(nfCurrency.format(importo) + " " + Currency.getInstance(valuta).getSymbol());
-            ((TextView) findViewById(R.id.tvTassoCambio)).setText(nfCurrency.format(cambio));
+            String originalAmount = nfCurrency.format(importo) + " " + Currency.getInstance(valuta).getSymbol() + " - " + getString(R.string.eed_exchange) + ": " + nfCurrency.format(cambio);
+            ((TextView) findViewById(R.id.tvImportoOriginale)).setText(originalAmount);
         } else {
             findViewById(R.id.spese_entrate_dettaglio_voce_rlImporto).setVisibility(View.GONE);
         }

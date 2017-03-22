@@ -24,6 +24,25 @@
     <string name="frag_balance_future_expenses">Spese future</string>
     <string name="frag_balance_chart_title">Entrate/Spese</string>
 
+    <!-- Expenses/earnings details -->
+    <string name="eed_exchange">cambio</string>
+
+    <!-- Budgets -->
+    <string name="transitionName">transitionIcon</string>
+    <string name="budgets_show">mostra...</string>
+    <string name="budgets_hide">nascondi...</string>
+    <string name="budgets_no_expenses">nessuna spesa</string>
+    <plurals name="budgets_num_expenses">
+        <item quantity="one">%d spesa</item>
+        <item quantity="other">%d spese</item>
+    </plurals>
+    <string name="budget_maxmin">Max: %1$s - Min: %2$s</string>
+    <string name="budgets_chart_scroll">Tocca per il grafico...</string>
+    <string name="budgets_chart_spent">speso</string>
+    <string name="budgets_chart_left">resto</string>
+    <string name="budgets_chart_title">Budget</string>
+    <string name="budgets_history_multiple">multipli</string>
+
     <!-- Widget small -->
     <string name="widget_small_balance">Saldo</string>
 
@@ -569,20 +588,5 @@
     <string name="preferiti_entrate">Preferiti entrate</string>
     <string name="seleziona_conto">seleziona il conto...</string>
 
-    <!-- Budgets -->
-    <string name="transitionName">transitionIcon</string>
-    <string name="budgets_show">mostra...</string>
-    <string name="budgets_hide">nascondi...</string>
-    <string name="budgets_no_expenses">nessuna spesa</string>
-    <plurals name="budgets_num_expenses">
-        <item quantity="one">%d spesa</item>
-        <item quantity="other">%d spese</item>
-    </plurals>
-    <string name="budget_maxmin">Max: %1$s - Min: %2$s</string>
-    <string name="budgets_chart_scroll">Tocca per il grafico...</string>
-    <string name="budgets_chart_spent">speso</string>
-    <string name="budgets_chart_left">resto</string>
-    <string name="budgets_chart_title">Budget</string>
-    <string name="budgets_history_multiple">multipli</string>
 
 </resources>
