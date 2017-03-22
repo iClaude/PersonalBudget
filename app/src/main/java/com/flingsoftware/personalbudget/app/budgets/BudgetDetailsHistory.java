@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.app.budgets;
@@ -199,7 +199,9 @@ public class BudgetDetailsHistory extends Fragment implements BudgetDetails.Relo
                                                           vExpandedContent.setVisibility(View.GONE);
                                                           collapsed = true;
                                                       }
-                                                      //notifyDataSetChanged();
+
+                                                      int pos = getAdapterPosition();
+                                                      expandeds[pos] = !expandeds[pos];
                                                   }
                                               }
                 );
@@ -209,6 +211,7 @@ public class BudgetDetailsHistory extends Fragment implements BudgetDetails.Relo
         // BudgetsAdapter class.
         private List<Budget> listBudget = new ArrayList<>();
         private int tagColor;
+        private boolean[] expandeds;
 
         public BudgetAdapter() {
             tagColor = ContextCompat.getColor(getActivity(), R.color.tag_color_01);
@@ -217,6 +220,7 @@ public class BudgetDetailsHistory extends Fragment implements BudgetDetails.Relo
 
         public void setList(List<Budget> listBudget) {
             this.listBudget = listBudget;
+            expandeds = new boolean[listBudget.size()];
             notifyDataSetChanged();
         }
 
@@ -260,6 +264,18 @@ public class BudgetDetailsHistory extends Fragment implements BudgetDetails.Relo
                 holder.tvSpent.setText(NumberFormatter.formatAmountMainCurrency(budget.getExpenses(), context));
                 holder.tvBudgetType.setText(budget.getBudgetType(context));
                 holder.tvEndDate.setText(dateFormat.format(new Date(budget.getDateEnd())));
+
+                /* This item's view could be recycled. So I check if the current item is expanded
+                or recycled and show or hide the details. */
+                if (expandeds[position]) {
+                    holder.ibShowHide.setImageResource(R.drawable.ic_navigation_collapse);
+                    holder.tvShowHide.setText(getString(R.string.budgets_hide));
+                    holder.vExpandedContent.setVisibility(View.VISIBLE);
+                } else {
+                    holder.ibShowHide.setImageResource(R.drawable.ic_navigation_expand);
+                    holder.tvShowHide.setText(getString(R.string.budgets_show));
+                    holder.vExpandedContent.setVisibility(View.GONE);
+                }
             }
         }
     }
