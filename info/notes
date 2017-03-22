@@ -4,5 +4,5 @@ Da fare:
 - pubblicare su play store
 
 Sistemare API 19:
-- budget: status bar colore bianco
 - budget: history, se ne apro uno se ne aprono anche sotto
+- main activity senza scroll della app bar
