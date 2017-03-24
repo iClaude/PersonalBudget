@@ -201,7 +201,7 @@ public class BudgetDetailsHistory extends Fragment implements BudgetDetails.Relo
                                                       }
 
                                                       int pos = getAdapterPosition();
-                                                      expandeds[pos] = !expandeds[pos];
+                                                      expanded[pos] = !collapsed;
                                                   }
                                               }
                 );
@@ -211,7 +211,7 @@ public class BudgetDetailsHistory extends Fragment implements BudgetDetails.Relo
         // BudgetsAdapter class.
         private List<Budget> listBudget = new ArrayList<>();
         private int tagColor;
-        private boolean[] expandeds;
+        private boolean[] expanded;
 
         public BudgetAdapter() {
             tagColor = ContextCompat.getColor(getActivity(), R.color.tag_color_01);
@@ -220,7 +220,7 @@ public class BudgetDetailsHistory extends Fragment implements BudgetDetails.Relo
 
         public void setList(List<Budget> listBudget) {
             this.listBudget = listBudget;
-            expandeds = new boolean[listBudget.size()];
+            expanded = new boolean[listBudget.size()];
             notifyDataSetChanged();
         }
 
@@ -267,7 +267,7 @@ public class BudgetDetailsHistory extends Fragment implements BudgetDetails.Relo
 
                 /* This item's view could be recycled. So I check if the current item is expanded
                 or recycled and show or hide the details. */
-                if (expandeds[position]) {
+                if (expanded[position]) {
                     holder.ibShowHide.setImageResource(R.drawable.ic_navigation_collapse);
                     holder.tvShowHide.setText(getString(R.string.budgets_hide));
                     holder.vExpandedContent.setVisibility(View.VISIBLE);
