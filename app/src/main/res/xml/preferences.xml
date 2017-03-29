@@ -12,8 +12,8 @@
 		    android:key="pref_generale_valuta_principale"
 		    android:title="@string/preferenze_generale_valuta_titolo"
 		    android:summary="@string/preferenze_generale_valuta_descrizione"/>
-		
-		<SwitchPreference
+
+		<com.flingsoftware.personalbudget.preferenze.CustomSwitchPreference
 		    android:key="pref_generale_reminder"
 		    android:defaultValue="true"
 		    android:title="@string/preferenze_generale_reminder_titolo"
@@ -32,8 +32,8 @@
     <PreferenceCategory
         android:title="@string/preferenze_sicurezza"
         android:key="pref_sicurezza">
-		
-		<SwitchPreference
+
+		<com.flingsoftware.personalbudget.preferenze.CustomSwitchPreference
 		    android:key="pref_sicurezza_password_attivata"
 		    android:switchTextOn="@string/preferenze_sicurezza_password_ON"
 		    android:switchTextOff="@string/preferenze_sicurezza_password_OFF"
@@ -56,8 +56,8 @@
     <PreferenceCategory
         android:title="@string/preferenze_altro"
         android:key="pref_altro">
-		
-        <SwitchPreference
+
+		<com.flingsoftware.personalbudget.preferenze.CustomSwitchPreference
 		    android:key="pref_altro_suoni"
 			android:defaultValue="false"
 		    android:title="@string/preferenze_altro_suoni_titolo"
@@ -65,8 +65,8 @@
 		    android:switchTextOff="@string/preferenze_altro_suoni_OFF"
 		    android:summaryOn="@string/preferenze_altro_suoni_abilitaSuoni"
 		    android:summaryOff="@string/preferenze_altro_suoni_abilitaSuoni"/>
-        
-        <SwitchPreference
+
+		<com.flingsoftware.personalbudget.preferenze.CustomSwitchPreference
 		    android:key="pref_altro_lowndes_tips_abilitati"
 		    android:defaultValue="true"
 		    android:title="@string/preferenze_altro_lowndestips_titolo"
