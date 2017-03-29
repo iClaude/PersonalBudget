@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 
@@ -28,8 +28,8 @@ android {
         applicationId "com.flingsoftware.personalbudget"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 14
-        versionName "1.6"
+        versionCode 15
+        versionName "1.7"
     }
     defaultConfig {
         renderscriptTargetApi 19

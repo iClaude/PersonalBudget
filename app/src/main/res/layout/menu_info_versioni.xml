@@ -6,6 +6,7 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -112,11 +113,11 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center_vertical"
-                        android:text="5"
+                        android:background="@drawable/back_round_accent"
+                        android:gravity="center"
                         android:textColor="@android:color/white"
                         android:textSize="40sp"
-                        android:gravity="center"
-						android:background="@drawable/back_round_accent" />
+                        tools:text="7" />
 
                     <TextView
                         android:id="@+id/tvVersionName"

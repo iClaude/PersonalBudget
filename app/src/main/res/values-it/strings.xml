@@ -1,13 +1,13 @@
 <!--
-  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  ~ Copyright (c) - Software developed by iClaude.
   -->
 
 <resources>
 
     <!-- Menu info last version -->
-    <string name="miv_last_version_title">Versione 1.6</string>
-    <string name="miv_mod1_title">MARSHMALLOW</string>
-    <string name="miv_mod1_text">Supporto ad Android 6 Marshmallow: nuova gestione permessi, backup automatico delle preferenze e del database.</string>
+    <string name="miv_last_version_title">Versione 1.7</string>
+    <string name="miv_mod1_title">MATERIAL DESIGN</string>
+    <string name="miv_mod1_text">Introdotti alcuni elementi del Material Design. Nuova sezione budget. Bug corretti.</string>
 
     <!-- Generic -->
     <string name="generic_delete">Elimina</string>
@@ -291,7 +291,7 @@
         <string name="aggiungi_voce_importo">Importo&#8230;</string>
         <string name="aggiungi_voce_ripetizione">Ripetizione&#8230;</string>
         <string name="preferenze_sicurezza_password_noPasswordSet">Nessuna password impostata</string>
-        <string name="menu_info_nomeApp">PERSONAL BUDGET 1.6</string>
+    <string name="menu_info_nomeApp">PERSONAL BUDGET 1.7</string>
         <string name="menu_info_citazione">\&quot;Take care of the pence and the pounds will take care of themselves\&quot; (W.Lowndes, 1750)</string>
         <string name="menu_info_societa">Fling© software 2014&#8211;2020</string>
         <string name="menu_info_diritti">All rights reserved</string>
