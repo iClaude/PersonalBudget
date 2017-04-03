@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 
@@ -83,8 +83,12 @@ dependencies {
     compile 'com.bignerdranch.android:expandablerecyclerview:2.1.1' // ExpandableRecyclerView
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     // tint the status bar in API 19
-
     compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    // Testing.
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.hamcrest:hamcrest-library:1.4-atlassian-1'
+
 }
 
 // Copy apks in the apks folder at every build
