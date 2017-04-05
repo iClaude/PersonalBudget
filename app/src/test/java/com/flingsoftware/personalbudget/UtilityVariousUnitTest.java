@@ -4,10 +4,15 @@
 
 package com.flingsoftware.personalbudget;
 
+import android.content.Context;
+
 import com.flingsoftware.personalbudget.utility.UtilityVarious;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.List;
 
@@ -22,9 +27,14 @@ import static org.junit.Assert.assertTrue;
  * Unit test for class UtilityVarious.
  */
 
+@RunWith(MockitoJUnitRunner.class)
 public class UtilityVariousUnitTest {
 
     private static MyMockContext myMockContext;
+    private final String[] budgetTypes = {"Una tantum", "Daily", "Weekly", "Bi-Weekly", "Monthly", "Yearly"};
+
+    @Mock
+    Context myMockitoContext;
 
     @Test
     public void testCreateTagsList1() throws Exception {
@@ -98,6 +108,30 @@ public class UtilityVariousUnitTest {
         budgetType = UtilityVarious.getBudgetType(myMockContext, "annuale");
         assertTrue("Budget type not correct", budgetType.equals("Yearly"));
     }
+
+    /*@Test
+    public void testGetBudgetTypeWithMockito() throws Exception {
+        when(myMockitoContext.getResources().getStringArray(R.array.ripetizioni_budget))
+                .thenReturn(budgetTypes);
+
+        String budgetType = UtilityVarious.getBudgetType(myMockitoContext, "una_tantum");
+        assertTrue("Budget type not correct", budgetType.equals("Una tantum"));
+
+        budgetType = UtilityVarious.getBudgetType(myMockitoContext, "giornaliero");
+        assertTrue("Budget type not correct", budgetType.equals("Daily"));
+
+        budgetType = UtilityVarious.getBudgetType(myMockitoContext, "settimanale");
+        assertTrue("Budget type not correct", budgetType.equals("Weekly"));
+
+        budgetType = UtilityVarious.getBudgetType(myMockitoContext, "bisettimanale");
+        assertTrue("Budget type not correct", budgetType.equals("Bi-Weekly"));
+
+        budgetType = UtilityVarious.getBudgetType(myMockitoContext, "mensile");
+        assertTrue("Budget type not correct", budgetType.equals("Monthly"));
+
+        budgetType = UtilityVarious.getBudgetType(myMockitoContext, "annuale");
+        assertTrue("Budget type not correct", budgetType.equals("Yearly"));
+    }*/
 
     @Test
     public void testGetBudgetTypeNull() throws Exception {
