@@ -1,5 +1,5 @@
 /*
- * Copyright (c) - Software developed by iClaude.
+ * Copyright (c) This code was written by iClaude. All rights reserved.
  */
 
 package com.flingsoftware.personalbudget.oggetti;
@@ -163,6 +163,8 @@ public class Budget implements Parcelable {
             budgetType = budgetTypes[4];
         } else if (budgetType.equals("annuale")) {
             budgetType = budgetTypes[5];
+        } else {
+            budgetType = budgetTypes[0];
         }
 
         return budgetType;

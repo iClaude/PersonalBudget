@@ -6,6 +6,7 @@ package com.flingsoftware.personalbudget;
 
 import com.flingsoftware.personalbudget.oggetti.Budget;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertFalse;
@@ -18,10 +19,18 @@ import static junit.framework.Assert.assertTrue;
 
 public class BudgetUnitTest {
 
+    private static MyMockContext myMockContext;
+    private static Budget budget;
+
+
+    @BeforeClass
+    public static void setupObjects() throws Exception {
+        myMockContext = new MyMockContext();
+        budget = new Budget(0, 100.00, 2500, 1500, 57.00, 15, 6, 1, "giornaliero", "food,clothes,journeys,");
+    }
+
     @Test
     public void testCreateWithConstructor() throws Exception {
-        Budget budget = new Budget(0, 100.00, 2500, 1500, 57.00, 15, 6, 1, "giornaliero", "food,clothes,journeys,");
-
         assertNotNull("Budget object is null", budget);
         assertTrue("Budget field not correct", budget.getAddRest() == 0);
         assertTrue("Budget field not correct", budget.getAmount() == 100.00);
@@ -37,7 +46,6 @@ public class BudgetUnitTest {
 
     @Test
     public void testGetTagWithoutComma() throws Exception {
-        Budget budget = new Budget(0, 100.00, 2500, 1500, 57.00, 15, 6, 1, "giornaliero", "food,clothes,journeys,");
         String tagEd = budget.getTagWithoutComma();
         assertNotNull("Tag edited is null", tagEd);
         char lastChar = tagEd.charAt(tagEd.length() - 1);
@@ -51,4 +59,34 @@ public class BudgetUnitTest {
         assertFalse("Last char of tag is a comma", lastChar == ',');
     }
 
+    @Test
+    public void testBudgetType() throws Exception {
+        budget.setRepetition("una_tantum");
+        String budgetType = budget.getBudgetType(myMockContext);
+        assertTrue("Budget type not correct", budgetType.equals("Una tantum"));
+
+        budget.setRepetition("giornaliero");
+        budgetType = budget.getBudgetType(myMockContext);
+        assertTrue("Budget type not correct", budgetType.equals("Daily"));
+
+        budget.setRepetition("settimanale");
+        budgetType = budget.getBudgetType(myMockContext);
+        assertTrue("Budget type not correct", budgetType.equals("Weekly"));
+
+        budget.setRepetition("bisettimanale");
+        budgetType = budget.getBudgetType(myMockContext);
+        assertTrue("Budget type not correct", budgetType.equals("Bi-Weekly"));
+
+        budget.setRepetition("mensile");
+        budgetType = budget.getBudgetType(myMockContext);
+        assertTrue("Budget type not correct", budgetType.equals("Monthly"));
+
+        budget.setRepetition("annuale");
+        budgetType = budget.getBudgetType(myMockContext);
+        assertTrue("Budget type not correct", budgetType.equals("Yearly"));
+
+        budget.setRepetition("quinquennale");
+        budgetType = budget.getBudgetType(myMockContext);
+        assertTrue("Budget type not correct", budgetType.equals("Una tantum"));
+    }
 }
