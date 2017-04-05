@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget;
@@ -37,7 +37,6 @@ public class UtilityVariousUnitTest {
 
     @Mock
     Context myMockitoContext;
-
     @Mock
     Resources myMockitoResources;
 
@@ -146,4 +145,5 @@ public class UtilityVariousUnitTest {
         String budgetType = UtilityVarious.getBudgetType(myMockContext, "quinquennale");
         assertNull("Budget type is not null", budgetType);
     }
+
 }
