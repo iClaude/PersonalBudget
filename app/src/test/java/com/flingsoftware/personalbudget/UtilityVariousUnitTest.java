@@ -5,6 +5,7 @@
 package com.flingsoftware.personalbudget;
 
 import android.content.Context;
+import android.content.res.Resources;
 
 import com.flingsoftware.personalbudget.utility.UtilityVarious;
 
@@ -22,6 +23,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.when;
 
 /**
  * Unit test for class UtilityVarious.
@@ -35,6 +37,10 @@ public class UtilityVariousUnitTest {
 
     @Mock
     Context myMockitoContext;
+
+    @Mock
+    Resources myMockitoResources;
+
 
     @Test
     public void testCreateTagsList1() throws Exception {
@@ -109,9 +115,11 @@ public class UtilityVariousUnitTest {
         assertTrue("Budget type not correct", budgetType.equals("Yearly"));
     }
 
-    /*@Test
+    @Test
     public void testGetBudgetTypeWithMockito() throws Exception {
-        when(myMockitoContext.getResources().getStringArray(R.array.ripetizioni_budget))
+        when(myMockitoContext.getResources())
+                .thenReturn(myMockitoResources);
+        when(myMockitoResources.getStringArray(R.array.ripetizioni_budget))
                 .thenReturn(budgetTypes);
 
         String budgetType = UtilityVarious.getBudgetType(myMockitoContext, "una_tantum");
@@ -131,7 +139,7 @@ public class UtilityVariousUnitTest {
 
         budgetType = UtilityVarious.getBudgetType(myMockitoContext, "annuale");
         assertTrue("Budget type not correct", budgetType.equals("Yearly"));
-    }*/
+    }
 
     @Test
     public void testGetBudgetTypeNull() throws Exception {
