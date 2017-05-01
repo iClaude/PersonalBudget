@@ -198,6 +198,10 @@ public class UtilityVarious {
      * @return List<String> where each element is a separate tag
      */
     public static List<String> createTagsList(String multipleTag) {
+        if (multipleTag == null || multipleTag.length() == 0 || multipleTag.equals(",")) {
+            return null;
+        }
+
         List<String> tags = new ArrayList<>();
         if (multipleTag.indexOf(',') == -1) {
             tags.add(multipleTag);
