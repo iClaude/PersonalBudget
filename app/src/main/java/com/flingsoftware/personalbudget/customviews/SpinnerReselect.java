@@ -1,30 +1,31 @@
-package com.flingsoftware.personalbudget.customviews;
+/*
+ * Copyright (c) - Software developed by iClaude.
+ */
 
-import java.lang.reflect.Field;
+package com.flingsoftware.personalbudget.customviews;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.Spinner;
 
+import java.lang.reflect.Field;
+
 
 public class SpinnerReselect extends Spinner {
 	
 	public SpinnerReselect(Context context) {
 	    super(context);
-	    // TODO Auto-generated constructor stub
 	}
 	
 	
 	public SpinnerReselect(Context context, AttributeSet attrs) {
 	    super(context, attrs);
-	    // TODO Auto-generated constructor stub
 	}
 	
 	
 	public SpinnerReselect(Context context, AttributeSet attrs, int defStyle) {
 	    super(context, attrs, defStyle);
-	    // TODO Auto-generated constructor stub
 	}
 	
 
@@ -43,7 +44,6 @@ public class SpinnerReselect extends Spinner {
 	        reqField.setInt(this, -1);
 	    } catch (Exception e) {
 	        Log.d("Exception Private", "ex", e);
-	        // TODO: handle exception
 	    }
 	}
 	

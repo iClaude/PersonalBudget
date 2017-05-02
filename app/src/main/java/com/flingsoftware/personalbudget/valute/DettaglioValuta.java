@@ -1,15 +1,8 @@
+/*
+ * Copyright (c) - Software developed by iClaude.
+ */
+
 package com.flingsoftware.personalbudget.valute;
-
-import java.text.DateFormat;
-import java.util.Currency;
-import java.util.Locale;
-
-import com.flingsoftware.personalbudget.R;
-
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
-import static com.flingsoftware.personalbudget.valute.ElencoValute.CostantiPubbliche.*;
-import static com.flingsoftware.personalbudget.valute.RecuperaCambioIntentService.CostantiPubbliche.*;
-import com.flingsoftware.personalbudget.customviews.MioToast;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -20,6 +13,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -28,12 +22,23 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v7.app.ActionBarActivity;
 
+import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.customviews.MioToast;
+
+import java.text.DateFormat;
+import java.util.Currency;
 import java.util.Date;
+import java.util.Locale;
+
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.VALUTA_PRINCIPALE;
+import static com.flingsoftware.personalbudget.valute.ElencoValute.CostantiPubbliche.ELENCO_VALUTE_VALUTADEFAULT_CODICE;
+import static com.flingsoftware.personalbudget.valute.ElencoValute.CostantiPubbliche.ELENCO_VALUTE_VALUTA_CODICE;
+import static com.flingsoftware.personalbudget.valute.ElencoValute.CostantiPubbliche.ELENCO_VALUTE_VALUTA_NOME;
+import static com.flingsoftware.personalbudget.valute.RecuperaCambioIntentService.CostantiPubbliche.AZIONE_RECUPERA_CAMBIO;
+import static com.flingsoftware.personalbudget.valute.RecuperaCambioIntentService.CostantiPubbliche.EXTRA_CAMBIO;
 
 
 public class DettaglioValuta extends ActionBarActivity {
@@ -148,14 +153,12 @@ public class DettaglioValuta extends ActionBarActivity {
 
 		@Override
 		public void afterTextChanged(Editable arg0) {
-			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
 		public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
 				int arg3) {
-			// TODO Auto-generated method stub
 			
 		}
 

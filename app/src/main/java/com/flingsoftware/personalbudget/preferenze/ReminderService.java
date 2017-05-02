@@ -1,9 +1,8 @@
+/*
+ * Copyright (c) - Software developed by iClaude.
+ */
+
 package com.flingsoftware.personalbudget.preferenze;
-
-import com.flingsoftware.personalbudget.R;
-import com.flingsoftware.personalbudget.app.Password;
-
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiNotifiche.*;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -14,27 +13,28 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 
+import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.app.Password;
+
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiNotifiche.NOTIFICA_AVVIA_APP;
 
 
 public class ReminderService extends Service {
 
 	@Override
 	public IBinder onBind(Intent arg0) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
 
 	@Override
 	public void onCreate() {
-		// TODO Auto-generated method stub
 		super.onCreate();
 	}
 	
 
 	@Override
 	public void onDestroy() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
 	}
 	

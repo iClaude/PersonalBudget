@@ -1,11 +1,10 @@
+/*
+ * Copyright (c) - Software developed by iClaude.
+ */
+
 package com.flingsoftware.personalbudget.valute;
 
-import com.flingsoftware.personalbudget.R;
-
-import static com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche.*;
-
 import android.app.Activity;
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,12 +16,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.EditText;
 import android.widget.Filter;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.flingsoftware.personalbudget.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,6 +31,10 @@ import java.util.Currency;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+
+import static com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche.DETTAGLIO_VALUTA_CODICE;
+import static com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche.DETTAGLIO_VALUTA_SIMBOLO;
+import static com.flingsoftware.personalbudget.valute.DettaglioValuta.CostantiPubbliche.DETTAGLIO_VALUTA_TASSO;
 
 
 public class ElencoValute extends ActionBarActivity {
@@ -63,13 +68,11 @@ public class ElencoValute extends ActionBarActivity {
 		     
 		    @Override
 		    public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-		        // TODO Auto-generated method stub
 		         
 		    }
 		     
 		    @Override
 		    public void afterTextChanged(Editable arg0) {
-		        // TODO Auto-generated method stub                          
 		    }
 		});
 		

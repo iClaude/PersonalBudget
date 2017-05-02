@@ -1,43 +1,44 @@
+/*
+ * Copyright (c) - Software developed by iClaude.
+ */
+
 package com.flingsoftware.personalbudget.preferenze;
+
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.Service;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.os.AsyncTask;
+import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
 
 import com.flingsoftware.personalbudget.R;
 import com.flingsoftware.personalbudget.app.FunzioniComuni;
 import com.flingsoftware.personalbudget.app.Password;
 import com.flingsoftware.personalbudget.database.DBCSpeseBudget;
 
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiNotifiche.*;
-
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.Service;
-import android.database.Cursor;
-import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.IBinder;
-import android.support.v4.app.NotificationCompat;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiNotifiche.NOTIFICA_AVVIA_APP;
 
 
 public class BudgetStatusService extends Service {
 
 	@Override
 	public IBinder onBind(Intent arg0) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	
 	@Override
 	public void onCreate() {
-		// TODO Auto-generated method stub
 		super.onCreate();
 	}
 	
 
 	@Override
 	public void onDestroy() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
 	}
 	

@@ -97,7 +97,6 @@ public class FragmentBudget extends ListFragment implements SharedPreferences.On
 		lvBudget.setOnItemClickListener(lvBudgetListener);
 
 		// Per avere l'effetto della Toolbar a scomparsa (funziona solo con Lollipop).
-		// TODO: 19/07/2016 cercare soluzione per versioni precedenti
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 			lvBudget.setNestedScrollingEnabled(true);
 		}

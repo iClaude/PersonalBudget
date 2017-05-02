@@ -1,16 +1,8 @@
+/*
+ * Copyright (c) - Software developed by iClaude.
+ */
+
 package com.flingsoftware.personalbudget.app;
-
-import com.flingsoftware.personalbudget.customviews.MenuPeriodoTimeline;
-import com.flingsoftware.personalbudget.customviews.MioToast;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.*;
-import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.*;
-
-import com.flingsoftware.personalbudget.R;
-
-import java.text.DateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Locale;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,6 +10,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Html;
@@ -33,7 +26,24 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.support.v7.app.ActionBarActivity;
+
+import com.flingsoftware.personalbudget.R;
+import com.flingsoftware.personalbudget.customviews.MenuPeriodoTimeline;
+import com.flingsoftware.personalbudget.customviews.MioToast;
+
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.DATA_AUTOMATICA;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.DATA_AUTOMATICA_30GG_PROSSIMI;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.DATA_AUTOMATICA_30GG_ULTIMI;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.DATA_AUTOMATICA_MESE_CORRENTE;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.DATA_FINE;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.DATA_INIZIO;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiPreferenze.DATA_OFFSET;
+import static com.flingsoftware.personalbudget.app.MainPersonalBudget.CostantiVarie.ID_DATEPICKER;
 
 
 public class MenuPeriodo extends ActionBarActivity implements DatePickerFragment.DialogFinishedListener {
@@ -302,15 +312,12 @@ public class MenuPeriodo extends ActionBarActivity implements DatePickerFragment
 
 		@Override
 		public void afterTextChanged(Editable arg0) {
-			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
-			// TODO Auto-generated method stub
-			
 		}
 
 		@Override

@@ -814,7 +814,6 @@ public class MainPersonalBudget extends AppCompatActivity implements SharedPrefe
      */
     @Override
     public boolean onQueryTextSubmit(String query) {
-        // TODO Auto-generated method stub
         return false;
     }
 

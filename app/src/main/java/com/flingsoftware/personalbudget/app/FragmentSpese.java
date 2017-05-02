@@ -1,5 +1,5 @@
 /*
- * Copyright (c) This code was written by iClaude. All rights reserved.
+ * Copyright (c) - Software developed by iClaude.
  */
 
 package com.flingsoftware.personalbudget.app;
@@ -124,7 +124,6 @@ public class FragmentSpese extends Fragment implements SharedPreferences.OnShare
 		elv = (ExpandableListView) rootView.findViewById(R.id.elvSpese);
 
 		// Per avere l'effetto della Toolbar a scomparsa (funziona solo con Lollipop).
-		// TODO: 19/07/2016 cercare soluzione per versioni precedenti
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 			elv.setNestedScrollingEnabled(true);
 		}
