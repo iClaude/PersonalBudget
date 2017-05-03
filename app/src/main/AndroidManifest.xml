@@ -43,7 +43,8 @@
             android:name="com.flingsoftware.personalbudget.app.MainPersonalBudget"
             android:launchMode="singleTop"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:resizeableActivity="false">
         </activity>
         
         
@@ -127,14 +128,16 @@
         </activity>
         <activity android:name="com.flingsoftware.personalbudget.app.SpeseAggiungi"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:resizeableActivity="false">
         </activity>
         
         
         <!-- Gestione entrate -->
         <activity android:name="com.flingsoftware.personalbudget.app.EntrateAggiungi"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:resizeableActivity="false">
         </activity>
         <activity android:name="com.flingsoftware.personalbudget.app.EntrateDettaglioVoce"
             android:label="@string/app_name"
@@ -151,12 +154,14 @@
         <activity
             android:name="com.flingsoftware.personalbudget.app.budgets.BudgetDetails"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:resizeableActivity="false">
         </activity>
         <activity
             android:name="com.flingsoftware.personalbudget.app.BudgetAggiungi"
              android:label="@string/app_name"
-             android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:resizeableActivity="false">
          </activity>
          <activity android:name="com.flingsoftware.personalbudget.app.BudgetModifica"
              android:label="@string/app_name"
