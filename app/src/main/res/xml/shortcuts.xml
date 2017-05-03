@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  ~ Copyright (c) - Software developed by iClaude.
   -->
 
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
@@ -7,7 +7,7 @@
     <shortcut
         android:shortcutId="add_expense"
         android:enabled="true"
-        android:icon="@drawable/tag_0"
+        android:icon="@drawable/shortcut_expense"
         android:shortcutShortLabel="@string/shortcuts_expense_short"
         android:shortcutLongLabel="@string/shortcuts_expense_long"
         android:shortcutDisabledMessage="@string/shortcuts_expense_disabled">
@@ -22,7 +22,7 @@
     <shortcut
         android:shortcutId="add_earning"
         android:enabled="true"
-        android:icon="@drawable/tag_1"
+        android:icon="@drawable/shortcut_earning"
         android:shortcutShortLabel="@string/shortcuts_earning_short"
         android:shortcutLongLabel="@string/shortcuts_earning_long"
         android:shortcutDisabledMessage="@string/shortcuts_earning_disabled">
@@ -37,7 +37,7 @@
     <shortcut
         android:shortcutId="add_budget"
         android:enabled="true"
-        android:icon="@drawable/tag_42"
+        android:icon="@drawable/shortcut_budget"
         android:shortcutShortLabel="@string/shortcuts_budget_short"
         android:shortcutLongLabel="@string/shortcuts_budget_long"
         android:shortcutDisabledMessage="@string/shortcuts_budget_disabled">
