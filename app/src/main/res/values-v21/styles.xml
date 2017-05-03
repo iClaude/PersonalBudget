@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) - Software developed by iClaude.
+  -->
+
 <resources>
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- enable window content transitions --> 
@@ -11,5 +15,6 @@
 
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:navigationBarColor">@color/primary_dark</item>
     </style>
 </resources>
