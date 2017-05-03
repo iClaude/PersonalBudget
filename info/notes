@@ -1,3 +1,6 @@
-Da fare:
-- update librerie
+To do for Android 7:
+- update build.gradle
+- add home shortcuts
+- see other changes that could affect the app
+- test with emulator running Nougat
 
