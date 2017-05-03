@@ -5,9 +5,9 @@
 <resources>
 
     <!-- Menu info last version -->
-    <string name="miv_last_version_title">Version 1.7</string>
-    <string name="miv_mod1_title">MATERIAL DESIGN</string>
-    <string name="miv_mod1_text">Some features of Material Design implemented. New budgets section. Bugs fixed.</string>
+    <string name="miv_last_version_title">Version 1.8</string>
+    <string name="miv_mod1_title">ANDROID 7 NOUGAT</string>
+    <string name="miv_mod1_text">App shortcuts for quickly adding expenses, earnings and budgets. Android 7 support. Bugs fixed.</string>
 
     <!-- Generici -->
     <string name="generic_delete">Delete</string>
@@ -302,7 +302,7 @@
     <string name="aggiungi_voce_importo">Amount&#8230;</string>
     <string name="aggiungi_voce_ripetizione">Repetition&#8230;</string>
     <string name="preferenze_sicurezza_password_noPasswordSet">No password set</string>
-    <string name="menu_info_nomeApp">PERSONAL BUDGET 1.7</string>
+    <string name="menu_info_nomeApp">PERSONAL BUDGET 1.8</string>
     <string name="menu_info_citazione">\&quot;Take care of the pence and the pounds will take care of themselves\&quot; (W.Lowndes, 1750)</string>
     <string name="menu_info_societa">Fling© software 2014&#8211;2020</string>
     <string name="menu_info_diritti">All rights reserved</string>
