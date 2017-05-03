@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) - Software developed by iClaude.
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
   -->
 
 <resources>
@@ -48,6 +48,17 @@
 
     <!-- Temporary -->
     <string name="temp_timespan_short">01/01/17 - 31/01/17</string>
+
+    <!-- App shortcuts -->
+    <string name="shortcuts_expense_short">Add expense</string>
+    <string name="shortcuts_expense_long">Add a new expense and update open budgets</string>
+    <string name="shortcuts_expense_disabled">Add expense</string>
+    <string name="shortcuts_earning_short">Add earning</string>
+    <string name="shortcuts_earning_long">Add a new earning</string>
+    <string name="shortcuts_earning_disabled">Add earning</string>
+    <string name="shortcuts_budget_short">Add budget</string>
+    <string name="shortcuts_budget_long">Add a new budget and update expenses</string>
+    <string name="shortcuts_budget_disabled">Add budget</string>
 
     <!-- Not yet classified -->
     <string name="app_name">Personal Budget</string>

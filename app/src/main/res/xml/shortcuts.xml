@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
+  -->
+
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Add expense. -->
+    <shortcut
+        android:shortcutId="add_expense"
+        android:enabled="true"
+        android:icon="@drawable/tag_0"
+        android:shortcutShortLabel="@string/shortcuts_expense_short"
+        android:shortcutLongLabel="@string/shortcuts_expense_long"
+        android:shortcutDisabledMessage="@string/shortcuts_expense_disabled">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.flingsoftware.personalbudget"
+            android:targetClass="com.flingsoftware.personalbudget.app.SpeseAggiungi" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+
+    <!-- Add earning. -->
+    <shortcut
+        android:shortcutId="add_earning"
+        android:enabled="true"
+        android:icon="@drawable/tag_1"
+        android:shortcutShortLabel="@string/shortcuts_earning_short"
+        android:shortcutLongLabel="@string/shortcuts_earning_long"
+        android:shortcutDisabledMessage="@string/shortcuts_earning_disabled">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.flingsoftware.personalbudget"
+            android:targetClass="com.flingsoftware.personalbudget.app.EntrateAggiungi" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+
+    <!-- Add budget. -->
+    <shortcut
+        android:shortcutId="add_budget"
+        android:enabled="true"
+        android:icon="@drawable/tag_42"
+        android:shortcutShortLabel="@string/shortcuts_budget_short"
+        android:shortcutLongLabel="@string/shortcuts_budget_long"
+        android:shortcutDisabledMessage="@string/shortcuts_budget_disabled">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.flingsoftware.personalbudget"
+            android:targetClass="com.flingsoftware.personalbudget.app.BudgetAggiungi" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+
+</shortcuts>
