@@ -33,7 +33,7 @@
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
 
-    <!-- Add budget. -->
+    <!-- Add favorite. -->
     <shortcut
         android:shortcutId="add_favorite"
         android:enabled="true"
