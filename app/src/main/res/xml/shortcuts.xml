@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) - Software developed by iClaude.
+  ~ Copyright (c) This code was written by iClaude. All rights reserved.
   -->
 
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
@@ -35,16 +35,16 @@
 
     <!-- Add budget. -->
     <shortcut
-        android:shortcutId="add_budget"
+        android:shortcutId="add_favorite"
         android:enabled="true"
-        android:icon="@drawable/shortcut_budget"
-        android:shortcutShortLabel="@string/shortcuts_budget_short"
-        android:shortcutLongLabel="@string/shortcuts_budget_long"
-        android:shortcutDisabledMessage="@string/shortcuts_budget_disabled">
+        android:icon="@drawable/shortcut_favorite"
+        android:shortcutShortLabel="@string/shortcuts_favorite_short"
+        android:shortcutLongLabel="@string/shortcuts_favorite_long"
+        android:shortcutDisabledMessage="@string/shortcuts_favorite_disabled">
         <intent
             android:action="android.intent.action.VIEW"
             android:targetPackage="com.flingsoftware.personalbudget"
-            android:targetClass="com.flingsoftware.personalbudget.app.BudgetAggiungi" />
+            android:targetClass="com.flingsoftware.personalbudget.app.Preferiti" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
 

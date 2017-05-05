@@ -54,11 +54,11 @@
     <string name="shortcuts_expense_long">Add a new expense and update open budgets</string>
     <string name="shortcuts_expense_disabled">Add expense</string>
     <string name="shortcuts_earning_short">Add earning</string>
-    <string name="shortcuts_earning_long">Add a new earning</string>
+    <string name="shortcuts_earning_long">Add a new earning and update</string>
     <string name="shortcuts_earning_disabled">Add earning</string>
-    <string name="shortcuts_budget_short">Add budget</string>
-    <string name="shortcuts_budget_long">Add a new budget and update expenses</string>
-    <string name="shortcuts_budget_disabled">Add budget</string>
+    <string name="shortcuts_favorite_short">Add favorite</string>
+    <string name="shortcuts_favorite_long">Add a new expense from the favorites</string>
+    <string name="shortcuts_favorite_disabled">Add favorite</string>
 
     <!-- Not yet classified -->
     <string name="app_name">Personal Budget</string>

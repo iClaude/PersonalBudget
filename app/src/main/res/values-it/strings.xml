@@ -52,13 +52,13 @@
     <!-- App shortcuts -->
     <string name="shortcuts_expense_short">Nuova spesa</string>
     <string name="shortcuts_expense_long">Aggiungi una nuova spesa e aggiorna i budget</string>
-    <string name="shortcuts_expense_disable">Nuova spesa</string>
+    <string name="shortcuts_expense_disabled">Nuova spesa</string>
     <string name="shortcuts_earning_short">Nuova entrata</string>
     <string name="shortcuts_earning_long">Aggiungi una nuova entrata</string>
-    <string name="shortcuts_earning_disable">Nuova entrata</string>
-    <string name="shortcuts_budget_short">Nuovo budget</string>
-    <string name="shortcuts_budget_long">Aggiungi un nuovo budget e aggiorna le spese</string>
-    <string name="shortcuts_budget_disable">Nuovo budget</string>
+    <string name="shortcuts_earning_disabled">Nuova entrata</string>
+    <string name="shortcuts_favorite_short">Preferiti</string>
+    <string name="shortcuts_favorite_long">Aggiungi una nuova spesa dai preferiti</string>
+    <string name="shortcuts_favorite_disabled">Preferiti</string>
 
     <!-- Not yet classified -->
     <string name="app_name">Personal Budget</string>
